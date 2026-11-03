@@ -1,1 +1,2 @@
 # mock-draft
+print("Python")
