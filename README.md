@@ -1,2 +1,1 @@
 # mock-draft
-print("Python")
