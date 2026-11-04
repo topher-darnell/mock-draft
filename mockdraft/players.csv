@@ -15,13 +15,13 @@ rank,name,position,college,height,weight,year
 14,Trinidad Chambliss,QB,Ole Miss,6-0,205,RS Senior
 15,Tae Johnson,S,Notre Dame,6-2,200,RS Sophomore
 16,Jamari Johnson,TE,Oregon,6-5,255,RS Junior
-17,Greg Johnson,OG,Minnesota,6-6,325,Senior
+17,Greg Johnson,IOL,Minnesota,6-6,325,Senior
 18,David Stone,IDL,Oklahoma,6-3,312,Junior
 19,Chris Cole,LB,Georgia,6-3,235,Junior
 20,Ashton Hampton,CB,Clemson,6-2,205,Junior
 21,Kingston Lopa,S,California,6-5,210,RS Sophomore
 22,KJ Bolden,S,Georgia,6-0,195,Junior
-23,Carter Smith,OG,Indiana,6-5,310,Senior
+23,Carter Smith,IOL,Indiana,6-5,310,Senior
 24,Nick Marsh,WR,Indiana,6-3,210,Junior
 25,Lance Heard,OT,Kentucky,6-6,325,Senior
 26,Zereoue Williams,OT,Utah,6-8,305,Senior
@@ -31,18 +31,18 @@ rank,name,position,college,height,weight,year
 30,Kyngstonn Viliamu-Asa,LB,Notre Dame,6-3,234,Junior
 31,CJ Carr,QB,Notre Dame,6-2,215,RS Sophomore
 32,Arch Manning,QB,Texas,6-4,222,RS Junior
-33,Kade Pieper,C,Iowa,6-3,298,RS Junior
+33,Kade Pieper,IOL,Iowa,6-3,298,RS Junior
 34,Trevor Goosby,OT,Texas,6-7,325,RS Junior
 35,Darian Mensah,QB,Miami (FL),6-3,205,RS Junior
 36,Dante Moore,QB,Oregon,6-3,220,RS Junior
 37,A'Mauri Washington,IDL,Oregon,6-3,325,Senior
 38,Audavion Collins,CB,Penn State,5-11,183,Senior
-39,Anthonie Knapp,OG,Notre Dame,6-5,305,Junior
+39,Anthonie Knapp,IOL,Notre Dame,6-5,305,Junior
 40,Trevor Lauck,OT,Iowa,6-5,314,RS Junior
 41,Justin Scott,IDL,Miami (FL),6-4,303,Junior
 42,Kewan Lacy,RB,Ole Miss,5-11,205,Junior
 43,Tavion Gadson,IDL,Kentucky,6-5,303,RS Junior
-44,Cayden Green,OG,Missouri,6-5,324,Senior
+44,Cayden Green,IOL,Missouri,6-5,324,Senior
 45,Reed Harris,WR,Arizona State,6-5,220,Senior
 46,Ryan Coleman-Williams,WR,Alabama,6-0,184,Junior
 47,Zabien Brown,CB,Alabama,6-0,194,Junior
@@ -69,7 +69,7 @@ rank,name,position,college,height,weight,year
 68,Jelani McDonald,S,Texas,6-2,201,Senior
 69,Tony Rojas,LB,Penn State,6-2,236,RS Junior
 70,Devan Thompkins,IDL,Alabama,6-5,300,RS Senior
-71,Samson Okunlola,OG,Miami (FL),6-6,330,RS Junior
+71,Samson Okunlola,IOL,Miami (FL),6-6,330,RS Junior
 72,OJ Frederique Jr.,CB,Miami (FL),6-0,185,Junior
 73,Vicari Swain,CB,South Carolina,6-0,193,RS Junior
 74,Bray Hubbard,S,Alabama,6-2,215,Senior
@@ -79,7 +79,7 @@ rank,name,position,college,height,weight,year
 78,Jalen Mayo,CB,Houston,6-2,190,RS Senior
 79,Zach Lutmer,S,Iowa,6-1,203,RS Junior
 80,Boubacar Traore,EDGE,Notre Dame,6-5,253,RS Junior
-81,Iapani Laloulu,C,Oregon,6-2,325,Senior
+81,Iapani Laloulu,IOL,Oregon,6-2,325,Senior
 82,Brendan Sorsby,QB,Texas Tech,6-3,235,RS Senior
 83,Bryant Wesco Jr.,WR,Clemson,6-2,195,Junior
 84,Ryan Wingo,WR,Texas,6-2,214,Junior
@@ -93,7 +93,7 @@ rank,name,position,college,height,weight,year
 92,Bear Alexander,IDL,Oregon,6-3,316,RS Senior
 93,Omarion Miller,WR,Arizona State,6-2,215,Senior
 94,Raleek Brown,RB,Texas,5-9,193,RS Senior
-95,Evan Tengesdahl,OG,Cincinnati,6-3,325,RS Junior
+95,Evan Tengesdahl,IOL,Cincinnati,6-3,325,RS Junior
 96,Cooper Barkate,WR,Miami (FL),6-1,195,Senior
 97,Ben Roberts,LB,Texas Tech,6-3,245,RS Senior
 98,Taylor Wein,EDGE,Oklahoma,6-4,270,RS Junior
@@ -111,7 +111,7 @@ rank,name,position,college,height,weight,year
 110,Niki Prongos,OT,Stanford,6-7,315,RS Senior
 111,Anto Saka,EDGE,Texas A&M,6-4,255,RS Senior
 112,Andrew Rappleyea,TE,Penn State,6-4,242,RS Junior
-113,Brandon Baker,OG,Texas,6-4,315,Junior
+113,Brandon Baker,IOL,Texas,6-4,315,Junior
 114,Anthony Smith,EDGE,Minnesota,6-6,280,RS Senior
 115,Jayden Jackson,IDL,Oklahoma,6-2,310,Junior
 116,Ty Benefield,S,LSU,6-3,208,Senior
@@ -136,7 +136,7 @@ rank,name,position,college,height,weight,year
 135,Chris Corbo,TE,Georgia Tech,6-5,250,RS Senior
 136,Zeke Berry,CB,Michigan,5-11,188,Senior
 137,LaNorris Sellers,QB,South Carolina,6-3,238,RS Junior
-138,Luke Montgomery,OG,Ohio State,6-5,313,Senior
+138,Luke Montgomery,IOL,Ohio State,6-5,313,Senior
 139,Benjamin Brahmer,TE,Penn State,6-7,250,Senior
 140,Keon Sabb,S,Alabama,6-1,205,Senior
 141,Peter Clarke,TE,Temple,6-6,265,Senior
@@ -151,10 +151,10 @@ rank,name,position,college,height,weight,year
 150,Desmeal Leigh,OT,Youngstown State,6-7,325,RS Senior
 151,Arion Carter,LB,Tennessee,6-1,238,Senior
 152,Adam Trick,EDGE,Texas Tech,6-4,250,RS Senior
-153,Alani Noa,OG,USC,6-3,315,Senior
+153,Alani Noa,IOL,USC,6-3,315,Senior
 154,Isaiah Sategna III,WR,Oklahoma,5-10,185,Senior
 155,Owen Heinecke,LB,Oklahoma,6-1,226,RS Senior
-156,Shadre Hurst,OG,Houston,6-2,304,RS Senior
+156,Shadre Hurst,IOL,Houston,6-2,304,RS Senior
 157,Julian Sayin,QB,Ohio State,6-1,214,RS Sophomore
 158,Eric Singleton Jr.,WR,Florida,5-10,184,Senior
 159,Marcus Neal,S,Penn State,6-1,216,Junior
@@ -166,11 +166,11 @@ rank,name,position,college,height,weight,year
 165,Lawson Luckie,TE,Georgia,6-4,240,Senior
 166,Jaden Craig,QB,TCU,6-3,225,Senior
 167,Bryce Thornton,S,Florida,5-10,211,Senior
-168,Drew Bobo,C,Georgia,6-5,305,Senior
-169,Coleton Price,C,Kentucky,6-3,308,Senior
+168,Drew Bobo,IOL,Georgia,6-5,305,Senior
+169,Coleton Price,IOL,Kentucky,6-3,308,Senior
 170,Austin Romaine,LB,Texas Tech,6-2,240,Senior
 171,Luke Dehnicke,TE,Northwestern,6-6,240,RS Sophomore
-172,Aidan Banfield,OG,North Carolina,6-3,300,Junior
+172,Aidan Banfield,IOL,North Carolina,6-3,300,Junior
 173,Ian Strong,WR,California,6-4,215,Senior
 174,Chris Peal,CB,Syracuse,6-1,200,Junior
 175,Elijah Green,CB,Tulsa,6-2,195,Junior
@@ -188,10 +188,10 @@ rank,name,position,college,height,weight,year
 187,AJ Harris,CB,Indiana,6-1,190,Senior
 188,Christian Gray,CB,Notre Dame,6-0,196,Senior
 189,Byrum Brown,QB,Auburn,6-3,235,RS Senior
-190,Charles Jagusah,OG,Notre Dame,6-5,330,Senior
-191,Austin Siereveld,OG,Ohio State,6-5,327,RS Junior
+190,Charles Jagusah,IOL,Notre Dame,6-5,330,Senior
+191,Austin Siereveld,IOL,Ohio State,6-5,327,RS Junior
 192,Luke Talich,S,Notre Dame,6-4,222,Senior
-193,Cael Winter,C,Iowa,6-3,294,Senior
+193,Cael Winter,IOL,Iowa,6-3,294,Senior
 194,Eli Bowen,CB,Oklahoma,5-9,185,Junior
 195,Dom Nichols,EDGE,Michigan,6-5,245,Junior
 196,Evan Johnson,CB,BYU,6-0,185,RS Senior
@@ -204,13 +204,13 @@ rank,name,position,college,height,weight,year
 203,Chris Marshall,WR,Arkansas,6-3,213,Senior
 204,Drew Azzopardi,OT,Washington,6-7,325,Senior
 205,AJ Green,EDGE,Louisville,6-6,250,RS Junior
-206,Justin Evans,C,Nebraska,6-2,315,Senior
+206,Justin Evans,IOL,Nebraska,6-2,315,Senior
 207,Tyler Thompson,EDGE,Louisville,6-5,245,Senior
-208,Sheridan Wilson,C,Texas Tech,6-5,300,Senior
+208,Sheridan Wilson,IOL,Texas Tech,6-5,300,Senior
 209,Earl Little Jr.,CB,Ohio State,6-0,203,RS Senior
 210,Elijah Paige,OT,USC,6-7,315,RS Junior
 211,Terry Moore,S,Ohio State,6-0,200,RS Senior
-212,McKale Boley,OG,Virginia,6-5,329,Senior
+212,McKale Boley,IOL,Virginia,6-5,329,Senior
 213,Williams Nwaneri,EDGE,Nebraska,6-7,270,Junior
 214,Blake Frazier,OT,Michigan,6-6,302,RS Sophomore
 215,Andrew Marshall,CB,Nebraska,6-0,195,Senior
@@ -233,15 +233,15 @@ rank,name,position,college,height,weight,year
 232,Leon Bell,OT,Colorado,6-8,330,RS Senior
 233,Ezra Christensen,IDL,Colorado,6-2,260,Senior
 234,Jaquez White,CB,Virginia Tech,5-11,192,Senior
-235,Braelin Moore,C,LSU,6-2,301,RS Senior
+235,Braelin Moore,IOL,LSU,6-2,301,RS Senior
 236,Wayne Knight,RB,UCLA,5-7,193,Senior
-237,Malachi Breland,OG,Arkansas,6-5,334,Senior
-238,Braydon Nelson,OG,Oklahoma State,6-4,327,Junior
+237,Malachi Breland,IOL,Arkansas,6-5,334,Senior
+238,Braydon Nelson,IOL,Oklahoma State,6-4,327,Junior
 239,Jeremiah Hasley,TE,Duke,6-3,250,Senior
-240,Anthony Donkoh,OG,Penn State,6-5,334,Junior
+240,Anthony Donkoh,IOL,Penn State,6-5,334,Junior
 241,Kemari Copeland,IDL,Virginia Tech,6-2,305,Senior
 242,Francis Brewu,IDL,Notre Dame,6-1,285,Junior
-243,Joe Brunner,OG,Indiana,6-7,320,Senior
+243,Joe Brunner,IOL,Indiana,6-7,320,Senior
 244,Corey Myrick,S,Clemson,6-3,200,Junior
 245,Patrick Overmyer,TE,Houston,6-5,240,Senior
 246,Miles Capers,EDGE,Vanderbilt,6-4,249,Senior
@@ -249,10 +249,10 @@ rank,name,position,college,height,weight,year
 248,Stanton Ramil,OT,Auburn,6-7,313,RS Junior
 249,Josh Hoover,QB,Indiana,6-2,205,RS Senior
 250,Garrett Oakley,TE,Kansas State,6-5,249,Senior
-251,Carson Hinzman,C,Ohio State,6-5,301,Senior
+251,Carson Hinzman,IOL,Ohio State,6-5,301,Senior
 252,Dalton Brooks,S,Texas A&M,6-0,202,Senior
 253,Joshua Sales Jr.,OT,Austin Peay,6-5,300,Senior
-254,Tellek Lockette,OG,Maryland,6-3,316,Senior
+254,Tellek Lockette,IOL,Maryland,6-3,316,Senior
 255,Tobi Osunsanmi,EDGE,Indiana,6-2,250,Senior
 256,C.J. Baxter,RB,Kentucky,6-1,230,Senior
 257,Amare Campbell,LB,Tennessee,6-0,230,Senior
@@ -277,7 +277,7 @@ rank,name,position,college,height,weight,year
 276,Nic Anderson,WR,Kentucky,6-4,208,Senior
 277,Elijah Pritchett,OT,Nebraska,6-6,330,Senior
 278,Mike Matthews,WR,Tennessee,6-1,198,Junior
-279,Hunter Zambrano,OG,Texas Tech,6-5,300,Senior
+279,Hunter Zambrano,IOL,Texas Tech,6-5,300,Senior
 280,Carlos Hernandez,WR,Wake Forest,6-0,190,Senior
 281,DJ Lagway,QB,Baylor,6-3,237,Junior
 282,Jayden Virgin-Morgan,EDGE,Boise State,6-3,260,RS Senior
@@ -289,14 +289,14 @@ rank,name,position,college,height,weight,year
 288,DJ Barksdale,CB,UCLA,5-8,181,Senior
 289,Jeremiah Cooper,CB,Penn State,6-0,188,Senior
 290,Tyree Adams,OT,Texas A&M,6-7,305,Senior
-291,Brady Small,C,Army,6-0,318,Senior
+291,Brady Small,IOL,Army,6-0,318,Senior
 292,Kanye Udoh,RB,Liberty,6-1,220,Senior
 293,Ja'son Prevard,CB,Kansas State,6-2,200,Senior
 294,Eli Holstein,QB,Virginia,6-4,234,Senior
 295,Jojo Johnson,IDL,Texas Tech,6-2,290,Senior
 296,JK Johnson,CB,Florida Atlantic,6-0,185,Senior
 297,Smith Snowden,CB,Michigan,5-10,188,Senior
-298,Roderick Kearney,OG,Florida,6-4,303,Senior
+298,Roderick Kearney,IOL,Florida,6-4,303,Senior
 299,Paul Oyewale,EDGE,TCU,6-4,265,RS Senior
 300,Justin Flowe,LB,UNLV,6-2,230,Senior
 301,Alex McLaughlin,S,Washington,6-2,205,Senior
@@ -304,7 +304,7 @@ rank,name,position,college,height,weight,year
 303,Owen Chambliss,LB,Nebraska,6-3,240,Senior
 304,Lincoln Kienholz,QB,Louisville,6-2,215,Senior
 305,Jordan Hall,IDL,Georgia,6-4,320,Senior
-306,Anthony Boswell,OG,Houston,6-2,301,Junior
+306,Anthony Boswell,IOL,Houston,6-2,301,Junior
 307,Zion Tracy,CB,Penn State,5-11,184,Senior
 308,Wilkin Formby,OT,Texas A&M,6-7,320,Senior
 309,Micahi Danzy,WR,Florida State,6-1,194,Junior
@@ -326,7 +326,7 @@ rank,name,position,college,height,weight,year
 325,Jared Richardson,WR,Duke,6-2,220,Senior
 326,Ray Coney,LB,Texas A&M,6-2,240,Senior
 327,Dezz Ricks,CB,Texas A&M,6-1,193,Senior
-328,Eddy Pierre-Louis,OG,Oklahoma,6-3,319,Sophomore
+328,Eddy Pierre-Louis,IOL,Oklahoma,6-3,319,Sophomore
 329,Javan Robinson,CB,Wisconsin,5-11,184,Senior
 330,Fluff Bothwell,RB,Mississippi State,5-10,230,Junior
 331,Hayden Hansen,TE,Oklahoma,6-8,270,Senior
@@ -336,15 +336,15 @@ rank,name,position,college,height,weight,year
 335,Isaac Smith,S,Mississippi State,6-0,220,Senior
 336,Brody Foley,TE,Louisville,6-6,260,RS Senior
 337,Ikenna Ezeogu,IDL,Penn State,6-5,273,Senior
-338,Lyndon Cooper,C,Vanderbilt,6-2,310,Senior
+338,Lyndon Cooper,IOL,Vanderbilt,6-2,310,Senior
 339,Trell Harris,WR,Oklahoma,6-0,200,Senior
 340,Dontay Joyner,CB,Maryland,6-0,180,Senior
-341,Dave Iuli,OG,Oregon,6-3,335,Senior
+341,Dave Iuli,IOL,Oregon,6-3,335,Senior
 342,Jonathan Maldonado,EDGE,Ole Miss,6-6,250,Senior
 343,Markis Deal,IDL,TCU,6-5,320,Senior
 344,Ricardo Jones,S,Vanderbilt,6-2,200,Junior
 345,Que'Sean Brown,WR,Duke,5-8,175,Senior
-346,Eryx Daugherty,OG,Louisville,6-4,310,Senior
+346,Eryx Daugherty,IOL,Louisville,6-4,310,Senior
 347,John Curry,LB,Texas Tech,6-2,235,Senior
 348,Elinneus Davis,IDL,Washington,6-3,315,Senior
 349,Braydon Brus,LB,Northwestern,6-1,230,Senior
@@ -356,7 +356,7 @@ rank,name,position,college,height,weight,year
 355,Kip Lewis,LB,Oklahoma,6-1,226,Senior
 356,Edrees Farooq,S,Tennessee,6-0,202,Junior
 357,Dorian Thomas,TE,California,6-4,255,RS Junior
-358,Jordan Davis,OG,UCLA,6-4,328,RS Senior
+358,Jordan Davis,IOL,UCLA,6-4,328,RS Senior
 359,Langden Kitchen,EDGE,Missouri,6-6,265,Senior
-360,Zach Cochnauer,OG,Nevada,6-5,306,RS Senior
+360,Zach Cochnauer,IOL,Nevada,6-5,306,RS Senior
 361,Ethan Davis,TE,Tennessee,6-5,247,Junior

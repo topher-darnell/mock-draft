@@ -14,8 +14,9 @@ POSITION_MAP = {
     "DT": "IDL",
     "SAF": "S",
     "NB": "CB",     # nickel corners count as CB
-    "OC": "C",      # center
-    "OL": "OG",     # unspecified O-linemen treated as guards
+    "OC": "IOL",    # centers and guards = interior O-line
+    "OL": "IOL",
+    "OG": "IOL",
 }
 
 

@@ -1,33 +1,33 @@
 team,needs
-Arizona Cardinals,OT|EDGE|CB|WR
-Atlanta Falcons,EDGE|CB|S|LB
-Baltimore Ravens,WR|OT|CB|IDL
-Buffalo Bills,WR|CB|S|IDL
-Carolina Panthers,EDGE|WR|S|LB
-Chicago Bears,IDL|EDGE|OT|S
-Cincinnati Bengals,IDL|S|OG|LB
-Cleveland Browns,QB|OT|WR|OG
-Dallas Cowboys,CB|LB|RB|IDL
-Denver Broncos,TE|RB|LB|WR
-Detroit Lions,EDGE|CB|OG|S
-Green Bay Packers,CB|EDGE|OT|WR
-Houston Texans,OG|OT|RB|IDL
-Indianapolis Colts,LB|S|TE|CB
-Jacksonville Jaguars,IDL|S|OG|CB
-Kansas City Chiefs,OT|WR|IDL|EDGE
-Las Vegas Raiders,QB|WR|OT|CB
-Los Angeles Chargers,IDL|OG|TE|EDGE
-Los Angeles Rams,CB|OT|LB|QB
-Miami Dolphins,OG|S|IDL|CB
-Minnesota Vikings,CB|IDL|S|OG
-New England Patriots,EDGE|WR|OT|TE
-New Orleans Saints,QB|EDGE|WR|OT
-New York Giants,OT|CB|LB|WR
-New York Jets,QB|WR|TE|S
-Philadelphia Eagles,S|LB|EDGE|WR
-Pittsburgh Steelers,QB|WR|CB|OT
-San Francisco 49ers,OT|CB|IDL|EDGE
-Seattle Seahawks,OG|TE|LB|CB
-Tampa Bay Buccaneers,EDGE|LB|CB|S
-Tennessee Titans,WR|EDGE|OT|CB
-Washington Commanders,EDGE|CB|RB|OT
+Los Angeles Chargers,WR|EDGE|IOL|IDL|CB
+Tennessee Titans,OT|IDL|RB|EDGE|CB
+Miami Dolphins,QB|EDGE|OT|CB|S
+Indianapolis Colts,IDL|WR|QB|EDGE|IOL
+Philadelphia Eagles,OT|CB|IOL|QB|TE
+New York Jets,QB|IDL|CB|LB|IOL
+Houston Texans,OT|RB|LB|IDL|CB
+New Orleans Saints,IDL|RB|EDGE|CB|S
+Washington Commanders,CB|WR|EDGE|IDL|IOL
+Dallas Cowboys,WR|CB|IDL|S|EDGE
+Arizona Cardinals,WR|EDGE|QB|OT|CB
+Tampa Bay Buccaneers,EDGE|WR|CB|IOL|TE
+Atlanta Falcons,OT|EDGE|IOL|S|QB
+Las Vegas Raiders,WR|IDL|CB|IOL|EDGE
+Baltimore Ravens,CB|IDL|RB|OT|EDGE
+Los Angeles Rams,WR|IDL|IOL|OT|EDGE
+Seattle Seahawks,EDGE|WR|CB|IOL|IDL
+Cleveland Browns,QB|EDGE|OT|CB|IOL
+Carolina Panthers,OT|TE|CB|EDGE|IOL
+Green Bay Packers,IOL|OT|CB|EDGE|RB
+New England Patriots,IOL|LB|S|WR|TE
+New York Giants,IDL|CB|WR|IOL|OT
+Cincinnati Bengals,CB|S|RB|LB|OT
+Kansas City Chiefs,WR|OT|TE|LB|EDGE
+Jacksonville Jaguars,IDL|RB|S|IOL|LB
+Detroit Lions,TE|CB|S|EDGE|IOL
+Pittsburgh Steelers,QB|S|CB|IDL|LB
+Chicago Bears,CB|EDGE|OT|WR|IDL
+Denver Broncos,TE|S|CB|OT|LB
+Minnesota Vikings,QB|S|TE|RB|EDGE
+San Francisco 49ers,IOL|OT|EDGE|WR|IDL
+Buffalo Bills,S|IOL|CB|LB|IDL
