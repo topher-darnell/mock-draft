@@ -8,8 +8,8 @@ CHART_FILE = "trade_chart.csv"
 RESULTS_FOLDER = "mocks"
 
 # How the computer drafts
-NEED_BONUS = [12, 8, 5, 3, 2]   # bonus (in "rank spots") for top need, 2nd need, ...
-RANDOMNESS = 4                  # max random swing in rank spots; higher = wilder drafts
+NEED_BONUS = [8, 6, 4, 3, 2]   # bonus (in "rank spots") for top need, 2nd need, ...
+RANDOMNESS = 7                  # max random swing in rank spots; higher = wilder drafts
 LOOK_AHEAD = 15                 # CPU only considers this many best-available players
 
 # Pick value labels

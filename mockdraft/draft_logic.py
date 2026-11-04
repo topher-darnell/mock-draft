@@ -17,7 +17,8 @@ def cpu_pick(team, available):
         if p.position in team.needs:
             idx = team.needs.index(p.position)
             bonus = NEED_BONUS[idx] if idx < len(NEED_BONUS) else 1
-        return p.rank - bonus + random.uniform(-RANDOMNESS, RANDOMNESS)
+        swing = max(RANDOMNESS, p.rank * 0.4)    # deeper players get bigger swings
+        return p.rank - bonus + random.uniform(-swing, swing)
 
     return min(candidates, key=score)
 
