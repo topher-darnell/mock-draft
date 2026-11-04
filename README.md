@@ -53,7 +53,3 @@ Then:
 - Team needs: NFL.com
 
 Data was last updated November 2026. Rankings and the draft order change every week, so mocks reflect the season so far.
-
-## Coming next
-
-A website version with a clickable draft, player profiles and analytics built from simulating thousands of drafts.
