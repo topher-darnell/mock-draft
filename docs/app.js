@@ -12,6 +12,7 @@ const VALUE_MIN_MARGIN = 3;          // value labels: cushion for early picks
 const VALUE_MARGIN_RATE = 0.12;      // value labels: cushion for later picks
 const LABEL_POINTS = { STEAL: 3, Value: 2, Fair: 1, Reach: 0 };  // grade points per pick
 const TRADE_WINDOW = 15;             // teams within this many picks of you make offers
+const TRADE_UP_PREMIUM = 1.05;       // moving up costs 5% more than the pick is worth
 
 // Data, filled in once the files load
 let allPlayers = [];
@@ -31,6 +32,10 @@ let needs = {};       // team name -> list of needs still open
 let results = [];     // every pick made so far: { pick, player }
 let nextPick = 0;     // index into draftOrder of the pick on the clock
 let onClock = false;  // true while you're making a pick
+let paused = false;   // true while the trade panel is open
+let userPaused = false; // true after you tap Pause
+let draftTimer = null;
+let tradeTab = "down";
 
 // ---------- Screen 1: pick your team ----------
 
@@ -102,13 +107,26 @@ function startDraft() {
   results = [];
   nextPick = 0;
   onClock = false;
+  paused = false;
+  document.getElementById("action-bar").hidden = false;
   draftOrder = baseOrder.map((p) => ({ ...p }));   // fresh copy, so trades don't carry over
 
   renderFilters();
   renderBoard();
   renderFeed();
   window.scrollTo(0, 0);
-  runDraft();
+
+  if (draftOrder[0].team === myTeam) {
+    userPaused = false;
+    runDraft();          // you pick first: you're on the clock right away
+    return;
+  }
+
+  userPaused = true;     // wait for you to tap Start, so you can trade up before pick 1
+  updatePauseButton();
+  const status = document.getElementById("status");
+  status.className = "status";
+  status.textContent = "Ready when you are. Tap Start to begin, or Trade to move up first.";
 }
 
 // ---------- The draft ----------
@@ -166,7 +184,41 @@ function makePick(pick, player) {
 }
 
 // Computer teams pick one at a time until it's your turn or the draft ends
+// ---------- Pause ----------
+
+function updatePauseButton() {
+  const button = document.getElementById("pause-button");
+  if (userPaused) {
+    button.textContent = results.length === 0 ? "Start" : "Resume";
+  } else {
+    button.textContent = "Pause";
+  }
+  button.className = userPaused ? "secondary paused" : "secondary";
+  button.disabled = onClock;   // the draft already waits for you when you're on the clock
+}
+
+function togglePause() {
+  if (onClock) return;
+  userPaused = !userPaused;
+  updatePauseButton();
+  const status = document.getElementById("status");
+  if (userPaused) {
+    clearTimeout(draftTimer);
+    status.className = "status";
+    status.textContent = "Paused · tap Resume to keep drafting";
+  } else {
+    scheduleNext(200);
+  }
+}
+
+// Waits, then makes the next pick (cancels any pick already waiting)
+function scheduleNext(delay) {
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(runDraft, delay);
+}
+
 function runDraft() {
+  if (paused || userPaused) return;   // trade panel is open, or you tapped Pause
   const pick = draftOrder[nextPick];
   const status = document.getElementById("status");
 
@@ -177,8 +229,8 @@ function runDraft() {
 
   if (pick.team === myTeam) {
     onClock = true;
+    updatePauseButton();
     showOnTheClock(pick);
-    document.getElementById("action-bar").hidden = false;
     renderBoard();
     return;   // wait for you to tap a Draft button
   }
@@ -186,7 +238,7 @@ function runDraft() {
   status.textContent = `Pick ${pick.pick} · ${pick.team} picking…`;
   status.className = "status";
   makePick(pick, cpuPick(pick.team));
-  setTimeout(runDraft, PICK_DELAY);
+  scheduleNext(PICK_DELAY);
 }
 
 // ---------- Your pick ----------
@@ -228,9 +280,9 @@ function userPick(player) {
   if (!onClock) return;
   onClock = false;
   document.getElementById("hints").hidden = true;
-  document.getElementById("action-bar").hidden = true;
   makePick(draftOrder[nextPick], player);
-  setTimeout(runDraft, PICK_DELAY);
+  updatePauseButton();
+  scheduleNext(PICK_DELAY);
 }
 
 // ---------- Trades ----------
@@ -295,17 +347,47 @@ function makeTrade(myPick, offer) {
 }
 
 function openTradeSheet() {
-  if (!onClock) return;
-  const myPick = draftOrder[nextPick];
-  const offers = findTradeOffers(myPick);
-  const myValue = value(myPick);
+  paused = true;               // stop the draft while you look at trades
+  clearTimeout(draftTimer);
+  tradeTab = onClock ? "down" : "up";
+  renderTradeSheet();
+  document.getElementById("trade-sheet").hidden = false;
+}
 
-  document.getElementById("trade-title").textContent = `Trade down from #${myPick.pick}`;
-  document.getElementById("trade-worth").innerHTML =
-    `<span>Your pick is worth</span><b>${Math.round(myValue).toLocaleString()} pts</b>`;
+function closeTradeSheet() {
+  document.getElementById("trade-sheet").hidden = true;
+  paused = false;
+  if (!onClock && !userPaused) scheduleNext(PICK_DELAY);   // pick up where the draft left off
+}
 
+function renderTradeSheet() {
+  document.getElementById("tab-down").className = tradeTab === "down" ? "tab active" : "tab";
+  document.getElementById("tab-up").className = tradeTab === "up" ? "tab active" : "tab";
+  if (tradeTab === "down") {
+    renderTradeDown();
+  } else {
+    renderTradeUp();
+  }
+}
+
+function renderTradeDown() {
+  const worth = document.getElementById("trade-worth");
   const box = document.getElementById("trade-offers");
   box.innerHTML = "";
+
+  if (!onClock) {
+    document.getElementById("trade-title").textContent = "Trade down";
+    worth.innerHTML = "";
+    box.innerHTML = '<p class="meta">You can trade down when you\'re on the clock.</p>';
+    return;
+  }
+
+  const myPick = draftOrder[nextPick];
+  const myValue = value(myPick);
+  const offers = findTradeOffers(myPick);
+  document.getElementById("trade-title").textContent = `Trade down from #${myPick.pick}`;
+  worth.innerHTML = `<span>Your pick is worth</span><b>${Math.round(myValue).toLocaleString()} pts</b>`;
+
   if (offers.length === 0) {
     box.innerHTML = '<p class="meta">No teams want to trade up right now.</p>';
   }
@@ -329,29 +411,95 @@ function openTradeSheet() {
     card.querySelector(".offer-bottom").appendChild(accept);
     box.appendChild(card);
   }
-
-  document.getElementById("trade-sheet").hidden = false;
 }
 
-function closeTradeSheet() {
-  document.getElementById("trade-sheet").hidden = true;
+// Picks coming up before your next one that you could move up to
+function renderTradeUp() {
+  const worth = document.getElementById("trade-worth");
+  const box = document.getElementById("trade-offers");
+  box.innerHTML = "";
+  document.getElementById("trade-title").textContent = "Trade up";
+
+  const inDraft = (p) => p.round <= rounds;
+  let myNextIndex = draftOrder.findIndex((p, i) => i >= nextPick && p.team === myTeam && inDraft(p));
+  if (myNextIndex === -1) myNextIndex = draftOrder.length;
+
+  if (myNextIndex === nextPick) {
+    worth.innerHTML = "";
+    box.innerHTML = '<p class="meta">You\'re already on the clock. Nothing to move up to.</p>';
+    return;
+  }
+
+  const myNext = draftOrder[myNextIndex];
+  worth.innerHTML = myNext
+    ? `<span>Your next pick is #${myNext.pick}</span><b>${Math.round(value(myNext)).toLocaleString()} pts</b>`
+    : "<span>You have no more picks in this draft</span>";
+
+  const targets = draftOrder.slice(nextPick, myNextIndex).filter(inDraft).slice(-8);   // the 8 picks right before yours
+  for (const target of targets) {
+    const myPool = draftOrder.filter((p) => p.team === myTeam && p.pick > target.pick && inDraft(p));
+    const cost = value(target) * TRADE_UP_PREMIUM;
+    const { pkg, total } = buildPackage(myPool, cost);
+    const affordable = total >= cost;
+
+    const card = document.createElement("div");
+    card.className = affordable ? "offer" : "offer unaffordable";
+    card.innerHTML = `
+      <div class="offer-top">
+        <span class="offer-team">#${target.pick} · ${target.team}</span>
+        <span class="meta">${Math.round(value(target)).toLocaleString()} pts</span>
+      </div>
+      <div class="offer-bottom">
+        <span class="meta">${affordable ? "You give " + pkg.map((p) => "#" + p.pick).join(", ") : "Not enough picks"}</span>
+      </div>`;
+    if (affordable) {
+      const accept = document.createElement("button");
+      accept.className = "accept-button";
+      accept.textContent = "Move up";
+      accept.addEventListener("click", () => acceptTradeUp(target, pkg));
+      card.querySelector(".offer-bottom").appendChild(accept);
+    }
+    box.appendChild(card);
+  }
+}
+
+function showTradeMessage(text) {
+  const status = document.getElementById("status");
+  status.className = "status traded";
+  status.textContent = text;
 }
 
 function acceptTrade(myPick, offer) {
   makeTrade(myPick, offer);
-  closeTradeSheet();
+  document.getElementById("trade-sheet").hidden = true;
   onClock = false;
+  paused = false;
+  userPaused = false;
+  updatePauseButton();
   document.getElementById("hints").hidden = true;
-  document.getElementById("action-bar").hidden = true;
-
-  const status = document.getElementById("status");
-  status.className = "status traded";
-  status.textContent = `Trade! #${myPick.pick} to ${offer.team} for ${offer.picks.map((p) => "#" + p.pick).join(", ")}`;
+  showTradeMessage(`Trade! #${myPick.pick} to ${offer.team} for ${offer.picks.map((p) => "#" + p.pick).join(", ")}`);
   renderBoard();
-  setTimeout(runDraft, 1500);   // pause so you can read the trade
+  scheduleNext(1500);   // pause so you can read the trade
+}
+
+function acceptTradeUp(target, pkg) {
+  const other = target.team;
+  target.from = target.from || other;
+  target.team = myTeam;
+  for (const p of pkg) {
+    p.from = p.from || myTeam;
+    p.team = other;
+  }
+  document.getElementById("trade-sheet").hidden = true;
+  paused = false;
+  userPaused = false;
+  updatePauseButton();
+  showTradeMessage(`Trade! You move up to #${target.pick}, sending ${pkg.map((p) => "#" + p.pick).join(", ")} to ${other}`);
+  scheduleNext(1500);
 }
 
 function showDraftComplete() {
+  document.getElementById("action-bar").hidden = true;
   const status = document.getElementById("status");
   status.className = "status";
   status.textContent = "Draft complete";
@@ -556,7 +704,10 @@ async function start() {
   document.getElementById("view-picks-button").addEventListener("click", viewPicks);
   document.getElementById("new-mock-button").addEventListener("click", newMock);
   document.getElementById("trade-button").addEventListener("click", openTradeSheet);
+  document.getElementById("pause-button").addEventListener("click", togglePause);
   document.getElementById("close-trade").addEventListener("click", closeTradeSheet);
+  document.getElementById("tab-down").addEventListener("click", () => { tradeTab = "down"; renderTradeSheet(); });
+  document.getElementById("tab-up").addEventListener("click", () => { tradeTab = "up"; renderTradeSheet(); });
   renderSetup();
 }
 
