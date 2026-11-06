@@ -8,6 +8,8 @@ const RANDOMNESS = 7;                // random swing for the top players
 const DEEP_RANDOMNESS = 0.4;         // deeper players swing more: rank x this
 const LOOK_AHEAD = 15;               // computer only considers this many best-available players
 const PICK_DELAY = 350;              // milliseconds between computer picks
+const VALUE_MIN_MARGIN = 3;          // value labels: cushion for early picks
+const VALUE_MARGIN_RATE = 0.12;      // value labels: cushion for later picks
 
 // Data, filled in once the files load
 let allPlayers = [];
@@ -129,6 +131,16 @@ function cpuPick(teamName) {
   return best;
 }
 
+// Same as value_label in draft_logic.py
+function valueLabel(pickNumber, rank) {
+  const diff = pickNumber - rank;   // positive = player fell
+  const margin = Math.max(VALUE_MIN_MARGIN, Math.round(pickNumber * VALUE_MARGIN_RATE));
+  if (diff >= margin * 2) return "STEAL";
+  if (diff >= margin) return "Value";
+  if (diff > -margin) return "Fair";
+  return "Reach";
+}
+
 function makePick(pick, player) {
   available = available.filter((p) => p !== player);
   const teamNeeds = needs[pick.team];
@@ -136,7 +148,7 @@ function makePick(pick, player) {
   if (idx !== -1) {
     teamNeeds.splice(idx, 1);   // need filled
   }
-  results.push({ pick, player });
+  results.push({ pick, player, label: valueLabel(pick.pick, player.rank) });
   nextPick++;
   renderFeed();
   renderBoard();
@@ -221,21 +233,28 @@ function showDraftComplete() {
     <ol class="my-class">${list || "<li>You had no picks in these rounds.</li>"}</ol>`;
 }
 
+// Every pick so far, left to right, oldest first
 function renderFeed() {
-  const feed = document.getElementById("feed");
-  feed.innerHTML = "";
-  for (const { pick, player } of results.slice(-5)) {
-    const li = document.createElement("li");
-    li.className = pick.team === myTeam ? "feed-item mine" : "feed-item";
-    const via = pick.from ? ` (from ${pick.from})` : "";
-    li.innerHTML = `
-      <span class="feed-pick">${pick.pick}</span>
-      <div class="info">
-        <span class="name">${player.name}</span>
-        <span class="meta">${pick.team}${via} · ${player.position}, ${player.college}</span>
-      </div>`;
-    feed.appendChild(li);
+  const ticker = document.getElementById("feed");
+  ticker.innerHTML = "";
+
+  if (results.length === 0) {
+    ticker.innerHTML = '<div class="tick empty">Picks show up here</div>';
+    return;
   }
+
+  for (const { pick, player, label } of results) {
+    const card = document.createElement("div");
+    card.className = pick.team === myTeam ? "tick mine" : "tick";
+    card.innerHTML = `
+      <span class="tick-top">${pick.pick} · ${pick.team}</span>
+      <span class="tick-name">${player.name}</span>
+      <span class="tick-bottom">${player.position} · <span class="label ${label.toLowerCase()}">${label}</span></span>`;
+    ticker.appendChild(card);
+  }
+
+  // slide to the newest pick on the right
+  ticker.scrollLeft = ticker.scrollWidth;
 }
 
 // ---------- Screen 2: the big board ----------
