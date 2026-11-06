@@ -10,6 +10,7 @@ const LOOK_AHEAD = 15;               // computer only considers this many best-a
 const PICK_DELAY = 350;              // milliseconds between computer picks
 const VALUE_MIN_MARGIN = 3;          // value labels: cushion for early picks
 const VALUE_MARGIN_RATE = 0.12;      // value labels: cushion for later picks
+const LABEL_POINTS = { STEAL: 3, Value: 2, Fair: 1, Reach: 0 };  // grade points per pick
 
 // Data, filled in once the files load
 let allPlayers = [];
@@ -143,12 +144,18 @@ function valueLabel(pickNumber, rank) {
 
 function makePick(pick, player) {
   available = available.filter((p) => p !== player);
+  const label = valueLabel(pick.pick, player.rank);
+  let score = LABEL_POINTS[label];
+  let filledNeed = false;
+
   const teamNeeds = needs[pick.team];
   const idx = teamNeeds.indexOf(player.position);
   if (idx !== -1) {
     teamNeeds.splice(idx, 1);   // need filled
+    score += 1;                 // bonus point for filling a need
+    filledNeed = true;
   }
-  results.push({ pick, player, label: valueLabel(pick.pick, player.rank) });
+  results.push({ pick, player, label, score, filledNeed });
   nextPick++;
   renderFeed();
   renderBoard();
@@ -223,17 +230,112 @@ function userPick(player) {
 function showDraftComplete() {
   const status = document.getElementById("status");
   status.className = "status";
-  const mine = results.filter((r) => r.pick.team === myTeam);
-  const list = mine
-    .map((r) => `<li><b>#${r.pick.pick}</b> ${r.player.name} <span class="meta">${r.player.position}, ${r.player.college}</span></li>`)
-    .join("");
-  status.innerHTML = `
-    <div class="clock-label">DRAFT COMPLETE</div>
-    <div class="clock-team">Your draft class</div>
-    <ol class="my-class">${list || "<li>You had no picks in these rounds.</li>"}</ol>`;
+  status.textContent = "Draft complete";
+  setTimeout(showResults, 600);
 }
 
-// Every pick so far, left to right, oldest first
+// ---------- Screen 3: grades ----------
+
+function average(numbers) {
+  return numbers.reduce((sum, n) => sum + n, 0) / numbers.length;
+}
+
+// Same curve as show_grades in draft_logic.py
+function gradeTeams() {
+  const byTeam = {};
+  for (const r of results) {
+    if (!byTeam[r.pick.team]) byTeam[r.pick.team] = [];
+    byTeam[r.pick.team].push(r.score);
+  }
+
+  const teams = Object.keys(byTeam).map((name) => ({
+    name,
+    avg: average(byTeam[name]),
+    picks: byTeam[name].length,
+  }));
+  teams.sort((a, b) => b.avg - a.avg);
+
+  teams.forEach((t, i) => {
+    const spot = i / teams.length;   // 0 = best, close to 1 = worst
+    if (spot < 0.20) t.grade = "A";
+    else if (spot < 0.45) t.grade = "B";
+    else if (spot < 0.75) t.grade = "C";
+    else if (spot < 0.92) t.grade = "D";
+    else t.grade = "F";
+    t.place = i + 1;
+  });
+  return teams;
+}
+
+function showResults() {
+  const teams = gradeTeams();
+  const me = teams.find((t) => t.name === myTeam);
+  const mine = results.filter((r) => r.pick.team === myTeam);
+
+  document.getElementById("results-eyebrow").textContent =
+    `DRAFT COMPLETE · ${rounds} ${rounds === 1 ? "ROUND" : "ROUNDS"}`;
+  document.getElementById("my-team-name").textContent = myTeam;
+
+  if (me) {
+    const needsFilled = mine.filter((r) => r.filledNeed).length;
+    document.getElementById("my-grade").textContent = me.grade;
+    document.getElementById("my-grade").className = `grade-letter grade-${me.grade.toLowerCase()}`;
+    document.getElementById("my-grade-detail").innerHTML =
+      `${me.avg.toFixed(2)} points per pick<br>${me.place} of ${teams.length} · ${needsFilled} ${needsFilled === 1 ? "need" : "needs"} filled`;
+  } else {
+    document.getElementById("my-grade").textContent = "–";
+    document.getElementById("my-grade-detail").textContent = "You had no picks in these rounds.";
+  }
+
+  // Your class
+  const classList = document.getElementById("my-class");
+  classList.innerHTML = "";
+  for (const r of mine) {
+    const li = document.createElement("li");
+    li.className = "player";
+    li.innerHTML = `
+      <span class="rank">#${r.pick.pick}</span>
+      <div class="info">
+        <span class="name">${r.player.name}</span>
+        <span class="meta">${r.player.position} · ${r.player.college} · rank ${r.player.rank}</span>
+      </div>
+      <span class="label-pill ${r.label.toLowerCase()}">${r.label}</span>`;
+    classList.appendChild(li);
+  }
+
+  // All teams
+  const all = document.getElementById("all-grades");
+  all.innerHTML = "";
+  for (const t of teams) {
+    const li = document.createElement("li");
+    li.className = t.name === myTeam ? "grade-row mine" : "grade-row";
+    li.innerHTML = `
+      <span class="grade-small grade-${t.grade.toLowerCase()}">${t.grade}</span>
+      <span class="grade-row-name">${t.name}</span>
+      <span class="grade-row-avg">${t.avg.toFixed(2)}</span>`;
+    all.appendChild(li);
+  }
+
+  document.getElementById("draft-screen").hidden = true;
+  document.getElementById("results-screen").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function viewPicks() {
+  document.getElementById("results-screen").hidden = true;
+  document.getElementById("draft-screen").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function newMock() {
+  document.getElementById("results-screen").hidden = true;
+  document.getElementById("draft-screen").hidden = true;
+  document.getElementById("setup-screen").hidden = false;
+  currentFilter = "All";
+  renderSetup();
+  window.scrollTo(0, 0);
+}
+
 function renderFeed() {
   const ticker = document.getElementById("feed");
   ticker.innerHTML = "";
@@ -325,6 +427,8 @@ async function start() {
   document.getElementById("subtitle").textContent =
     `${allPlayers.length} prospects · ${draftOrder.length} picks`;
   document.getElementById("start-button").addEventListener("click", startDraft);
+  document.getElementById("view-picks-button").addEventListener("click", viewPicks);
+  document.getElementById("new-mock-button").addEventListener("click", newMock);
   renderSetup();
 }
 
