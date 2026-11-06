@@ -95,3 +95,109 @@ h1 {
 }
 
 .start:active { transform: scale(0.98); }
+
+.filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin: 0 -20px 12px;
+  padding: 0 20px 4px;
+  scrollbar-width: none;
+}
+.filters::-webkit-scrollbar { display: none; }
+
+.filter {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid #3A4656;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: 600 13px Inter, sans-serif;
+  cursor: pointer;
+}
+
+.filter.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+/* ---------- Pick your team screen ---------- */
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.section-note {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.team {
+  min-height: 64px;
+  padding: 10px 12px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+  font-family: Inter, sans-serif;
+  cursor: pointer;
+}
+
+.team.selected {
+  border-color: var(--accent);
+  background: rgba(242, 169, 59, 0.14);
+}
+
+.team-name { font-size: 14px; font-weight: 600; }
+.team-picks { font-size: 12px; font-weight: 600; color: var(--muted); }
+.team.selected .team-picks { color: var(--accent); }
+
+.rounds {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.round {
+  min-height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font: 600 16px "Space Grotesk", sans-serif;
+  cursor: pointer;
+}
+
+.round.selected {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.start:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Keeps the button visible while you scroll the team list */
+#setup-screen .start {
+  position: sticky;
+  bottom: 16px;
+}

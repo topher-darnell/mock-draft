@@ -9,14 +9,35 @@
 </head>
 <body>
   <main class="page">
-    <p class="eyebrow">2027 NFL DRAFT</p>
-    <h1>Mock Draft</h1>
-    <p class="subtitle" id="subtitle">Loading prospects…</p>
 
-    <h2 class="section-label">BIG BOARD</h2>
-    <ol class="board" id="board"></ol>
+    <!-- Screen 1: pick your team -->
+    <section id="setup-screen">
+      <p class="eyebrow">2027 NFL DRAFT</p>
+      <h1>Mock Draft</h1>
+      <p class="subtitle" id="subtitle">Loading…</p>
 
-    <button class="start">Start draft</button>
+      <div class="label-row">
+        <h2 class="section-label">CHOOSE YOUR TEAM</h2>
+        <span class="section-note">Round 1 picks</span>
+      </div>
+      <div class="team-grid" id="team-grid"></div>
+
+      <h2 class="section-label">ROUNDS</h2>
+      <div class="rounds" id="rounds"></div>
+
+      <button class="start" id="start-button" disabled>Pick a team to start</button>
+    </section>
+
+    <!-- Screen 2: the draft (just the big board for now) -->
+    <section id="draft-screen" hidden>
+      <p class="eyebrow" id="draft-eyebrow">ROUND 1</p>
+      <h1 id="draft-title">Draft room</h1>
+
+      <h2 class="section-label" id="board-label">BIG BOARD</h2>
+      <div class="filters" id="filters"></div>
+      <ol class="board" id="board"></ol>
+    </section>
+
   </main>
   <script src="app.js"></script>
 </body>
