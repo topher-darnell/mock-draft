@@ -11,11 +11,14 @@ const PICK_DELAY = 350;              // milliseconds between computer picks
 const VALUE_MIN_MARGIN = 3;          // value labels: cushion for early picks
 const VALUE_MARGIN_RATE = 0.12;      // value labels: cushion for later picks
 const LABEL_POINTS = { STEAL: 3, Value: 2, Fair: 1, Reach: 0 };  // grade points per pick
+const TRADE_WINDOW = 15;             // teams within this many picks of you make offers
 
 // Data, filled in once the files load
 let allPlayers = [];
 let allTeams = [];
-let draftOrder = [];
+let baseOrder = [];    // the real draft order, never changed
+let draftOrder = [];   // this mock's order (trades change who owns picks)
+let tradeChart = {};   // pick number -> points
 
 // What the user has chosen
 let myTeam = null;
@@ -32,7 +35,7 @@ let onClock = false;  // true while you're making a pick
 // ---------- Screen 1: pick your team ----------
 
 function roundOnePicks(teamName) {
-  const picks = draftOrder.filter((p) => p.round === 1 && p.team === teamName);
+  const picks = baseOrder.filter((p) => p.round === 1 && p.team === teamName);
   return picks.map((p) => "#" + p.pick).join(", ");
 }
 
@@ -99,6 +102,7 @@ function startDraft() {
   results = [];
   nextPick = 0;
   onClock = false;
+  draftOrder = baseOrder.map((p) => ({ ...p }));   // fresh copy, so trades don't carry over
 
   renderFilters();
   renderBoard();
@@ -155,7 +159,7 @@ function makePick(pick, player) {
     score += 1;                 // bonus point for filling a need
     filledNeed = true;
   }
-  results.push({ pick, player, label, score, filledNeed });
+  results.push({ pick, team: pick.team, player, label, score, filledNeed });
   nextPick++;
   renderFeed();
   renderBoard();
@@ -174,6 +178,7 @@ function runDraft() {
   if (pick.team === myTeam) {
     onClock = true;
     showOnTheClock(pick);
+    document.getElementById("action-bar").hidden = false;
     renderBoard();
     return;   // wait for you to tap a Draft button
   }
@@ -223,8 +228,127 @@ function userPick(player) {
   if (!onClock) return;
   onClock = false;
   document.getElementById("hints").hidden = true;
+  document.getElementById("action-bar").hidden = true;
   makePick(draftOrder[nextPick], player);
   setTimeout(runDraft, PICK_DELAY);
+}
+
+// ---------- Trades ----------
+
+function value(pick) {
+  return tradeChart[pick.pick];
+}
+
+// Same as build_package in trades.py: add the smallest pick that closes
+// the gap, so nobody overpays by much
+function buildPackage(pool, needed) {
+  pool = [...pool];
+  const pkg = [];
+  let total = 0;
+  while (total < needed && pool.length > 0) {
+    const gap = needed - total;
+    const closers = pool.filter((p) => value(p) >= gap);
+    let extra;
+    if (closers.length > 0) {
+      extra = closers.reduce((a, b) => (value(a) <= value(b) ? a : b));
+    } else {
+      extra = pool.reduce((a, b) => (value(a) >= value(b) ? a : b));
+    }
+    pkg.push(extra);
+    pool = pool.filter((p) => p !== extra);
+    total += value(extra);
+  }
+  return { pkg, total };
+}
+
+// Teams picking soon after you offer their pick plus extras to match yours
+function findTradeOffers(myPick) {
+  const myValue = value(myPick);
+  const offers = [];
+  const seen = new Set();
+
+  for (const p of draftOrder) {
+    if (p.pick <= myPick.pick) continue;
+    if (p.pick > myPick.pick + TRADE_WINDOW) break;
+    if (p.team === myTeam || seen.has(p.team)) continue;
+    seen.add(p.team);
+
+    const theirOthers = draftOrder.filter((x) => x.team === p.team && x.pick > p.pick && x.round <= rounds);
+    const extras = buildPackage(theirOthers, myValue - value(p));
+    const total = value(p) + extras.total;
+    if (total >= myValue) {
+      offers.push({ team: p.team, picks: [p, ...extras.pkg], total });
+    }
+    if (offers.length === 3) break;
+  }
+  return offers;
+}
+
+// Your pick goes to them, their picks come to you
+function makeTrade(myPick, offer) {
+  myPick.from = myPick.from || myTeam;
+  myPick.team = offer.team;
+  for (const p of offer.picks) {
+    p.from = p.from || offer.team;
+    p.team = myTeam;
+  }
+}
+
+function openTradeSheet() {
+  if (!onClock) return;
+  const myPick = draftOrder[nextPick];
+  const offers = findTradeOffers(myPick);
+  const myValue = value(myPick);
+
+  document.getElementById("trade-title").textContent = `Trade down from #${myPick.pick}`;
+  document.getElementById("trade-worth").innerHTML =
+    `<span>Your pick is worth</span><b>${Math.round(myValue).toLocaleString()} pts</b>`;
+
+  const box = document.getElementById("trade-offers");
+  box.innerHTML = "";
+  if (offers.length === 0) {
+    box.innerHTML = '<p class="meta">No teams want to trade up right now.</p>';
+  }
+  for (const offer of offers) {
+    const diff = Math.round(offer.total - myValue);
+    const card = document.createElement("div");
+    card.className = "offer";
+    card.innerHTML = `
+      <div class="offer-top">
+        <span class="offer-team">${offer.team}</span>
+        <span class="offer-diff">+${diff}</span>
+      </div>
+      <div class="offer-picks">${offer.picks.map((p) => `<span class="offer-pick">#${p.pick}</span>`).join("")}</div>
+      <div class="offer-bottom">
+        <span class="meta">${Math.round(offer.total).toLocaleString()} pts total</span>
+      </div>`;
+    const accept = document.createElement("button");
+    accept.className = "accept-button";
+    accept.textContent = "Accept";
+    accept.addEventListener("click", () => acceptTrade(myPick, offer));
+    card.querySelector(".offer-bottom").appendChild(accept);
+    box.appendChild(card);
+  }
+
+  document.getElementById("trade-sheet").hidden = false;
+}
+
+function closeTradeSheet() {
+  document.getElementById("trade-sheet").hidden = true;
+}
+
+function acceptTrade(myPick, offer) {
+  makeTrade(myPick, offer);
+  closeTradeSheet();
+  onClock = false;
+  document.getElementById("hints").hidden = true;
+  document.getElementById("action-bar").hidden = true;
+
+  const status = document.getElementById("status");
+  status.className = "status traded";
+  status.textContent = `Trade! #${myPick.pick} to ${offer.team} for ${offer.picks.map((p) => "#" + p.pick).join(", ")}`;
+  renderBoard();
+  setTimeout(runDraft, 1500);   // pause so you can read the trade
 }
 
 function showDraftComplete() {
@@ -244,8 +368,8 @@ function average(numbers) {
 function gradeTeams() {
   const byTeam = {};
   for (const r of results) {
-    if (!byTeam[r.pick.team]) byTeam[r.pick.team] = [];
-    byTeam[r.pick.team].push(r.score);
+    if (!byTeam[r.team]) byTeam[r.team] = [];
+    byTeam[r.team].push(r.score);
   }
 
   const teams = Object.keys(byTeam).map((name) => ({
@@ -270,7 +394,7 @@ function gradeTeams() {
 function showResults() {
   const teams = gradeTeams();
   const me = teams.find((t) => t.name === myTeam);
-  const mine = results.filter((r) => r.pick.team === myTeam);
+  const mine = results.filter((r) => r.team === myTeam);
 
   document.getElementById("results-eyebrow").textContent =
     `DRAFT COMPLETE · ${rounds} ${rounds === 1 ? "ROUND" : "ROUNDS"}`;
@@ -345,11 +469,11 @@ function renderFeed() {
     return;
   }
 
-  for (const { pick, player, label } of results) {
+  for (const { pick, team, player, label } of results) {
     const card = document.createElement("div");
-    card.className = pick.team === myTeam ? "tick mine" : "tick";
+    card.className = team === myTeam ? "tick mine" : "tick";
     card.innerHTML = `
-      <span class="tick-top">${pick.pick} · ${pick.team}</span>
+      <span class="tick-top">${pick.pick} · ${team}</span>
       <span class="tick-name">${player.name}</span>
       <span class="tick-bottom">${player.position} · <span class="label ${label.toLowerCase()}">${label}</span></span>`;
     ticker.appendChild(card);
@@ -422,13 +546,17 @@ async function loadJSON(path) {
 async function start() {
   allPlayers = await loadJSON("data/players.json");
   allTeams = await loadJSON("data/teams.json");
-  draftOrder = await loadJSON("data/draft_order.json");
+  baseOrder = await loadJSON("data/draft_order.json");
+  draftOrder = baseOrder;
+  tradeChart = await loadJSON("data/trade_chart.json");
 
   document.getElementById("subtitle").textContent =
     `${allPlayers.length} prospects · ${draftOrder.length} picks`;
   document.getElementById("start-button").addEventListener("click", startDraft);
   document.getElementById("view-picks-button").addEventListener("click", viewPicks);
   document.getElementById("new-mock-button").addEventListener("click", newMock);
+  document.getElementById("trade-button").addEventListener("click", openTradeSheet);
+  document.getElementById("close-trade").addEventListener("click", closeTradeSheet);
   renderSetup();
 }
 

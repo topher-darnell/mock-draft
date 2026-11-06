@@ -42,7 +42,24 @@
       <h2 class="section-label" id="board-label">BIG BOARD</h2>
       <div class="filters" id="filters"></div>
       <ol class="board" id="board"></ol>
+
+      <div class="action-bar" id="action-bar" hidden>
+        <button class="secondary" id="trade-button">Trade down</button>
+      </div>
     </section>
+
+    <!-- Trade panel: slides up over the draft screen -->
+    <div class="sheet-backdrop" id="trade-sheet" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="trade-title">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2 class="sheet-title" id="trade-title">Trade down</h2>
+          <button class="close-button" id="close-trade" aria-label="Close">✕</button>
+        </div>
+        <div class="sheet-worth" id="trade-worth"></div>
+        <div id="trade-offers"></div>
+      </div>
+    </div>
 
     <!-- Screen 3: grades -->
     <section id="results-screen" hidden>

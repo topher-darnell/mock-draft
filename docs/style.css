@@ -452,3 +452,114 @@ h1 {
   font: 600 15px Inter, sans-serif;
   cursor: pointer;
 }
+
+/* ---------- Trading ---------- */
+
+/* Anything marked hidden stays hidden, even if a rule below says display: flex */
+[hidden] { display: none !important; }
+
+.action-bar {
+  position: sticky;
+  bottom: 16px;
+  display: flex;
+  margin-top: 16px;
+}
+
+.status.traded { background: #1E3A2B; color: #6CD39A; }
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(7, 9, 12, 0.7);
+}
+
+.sheet {
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 10px 16px 28px;
+  border-radius: 26px 26px 0 0;
+  background: #161C24;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sheet-handle {
+  align-self: center;
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: #3A4656;
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sheet-title { margin: 0; font: 700 22px "Space Grotesk", sans-serif; }
+
+.close-button {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: #222A35;
+  color: var(--text);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sheet-worth {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+}
+.sheet-worth b { color: var(--text); font-family: "Space Grotesk", sans-serif; }
+
+.offer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #1E2630;
+}
+
+.offer-top, .offer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.offer-team { font-size: 16px; font-weight: 600; }
+.offer-diff { font: 600 14px "Space Grotesk", sans-serif; color: #6CD39A; }
+
+.offer-picks { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.offer-pick {
+  padding: 6px 10px;
+  border-radius: 9px;
+  background: #2A3442;
+  font: 600 14px "Space Grotesk", sans-serif;
+}
+
+.accept-button {
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #1B1206;
+  font: 700 14px Inter, sans-serif;
+  cursor: pointer;
+}
