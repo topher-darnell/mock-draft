@@ -4,6 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mock Draft 2027</title>
+
+  <!-- Makes it installable: home screen icon, opens full-screen like an app -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <meta name="theme-color" content="#10151C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mock Draft">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -30,8 +40,13 @@
 
     <!-- Screen 2: the draft -->
     <section id="draft-screen" hidden>
-      <p class="eyebrow" id="draft-eyebrow">ROUND 1</p>
-      <h1 id="draft-title">Draft room</h1>
+      <div class="draft-header">
+        <div class="draft-heading">
+          <p class="eyebrow" id="draft-eyebrow">ROUND 1</p>
+          <h1 id="draft-title">Draft room</h1>
+        </div>
+        <div class="my-gm" id="my-gm"></div>
+      </div>
 
       <div class="status" id="status">Starting…</div>
       <div class="hints" id="hints" hidden></div>
@@ -71,10 +86,16 @@
       <p class="eyebrow" id="results-eyebrow">DRAFT COMPLETE</p>
 
       <div class="grade-card">
-        <div class="grade-letter" id="my-grade">–</div>
-        <div class="grade-info">
-          <div class="grade-team" id="my-team-name"></div>
-          <div class="meta" id="my-grade-detail"></div>
+        <div class="grade-gm" id="grade-gm"></div>
+        <div class="grade-side">
+          <div class="grade-top">
+            <div class="grade-letter" id="my-grade">–</div>
+            <div class="grade-info">
+              <div class="grade-team" id="my-team-name"></div>
+              <div class="meta" id="my-grade-detail"></div>
+            </div>
+          </div>
+          <p class="gm-quote" id="grade-quote" hidden></p>
         </div>
       </div>
 
@@ -92,6 +113,7 @@
 
 
   </main>
+  <script src="gm.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

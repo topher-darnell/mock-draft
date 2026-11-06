@@ -36,6 +36,55 @@ let paused = false;   // true while the trade panel is open
 let userPaused = false; // true after you tap Pause
 let draftTimer = null;
 let tradeTab = "down";
+let clockTurns = 0;   // how many times you've been on the clock this draft
+
+// ---------- Big-head GMs (drawn by gm.js) ----------
+
+const HAS_GM = typeof GM !== "undefined";   // the site still works if gm.js is missing
+
+// A GM on a tile in their team color
+function avatar(teamName, mood, size, extraClass) {
+  if (!HAS_GM) return "";
+  return `<span class="avatar ${extraClass || ""}" style="background:${GM.tint(teamName)}">${GM.img(teamName, mood, size)}</span>`;
+}
+
+function gmName(teamName) {
+  return HAS_GM ? `${GM.short(teamName)} GM` : teamName;
+}
+
+function quip(kind) {
+  return HAS_GM ? GM.quip(kind) : "";
+}
+
+function moodForLabel(label) {
+  if (label === "Reach") return "sad";
+  if (label === "Fair") return "neutral";
+  return "happy";   // STEAL and Value
+}
+
+function moodForGrade(grade) {
+  if (grade === "A" || grade === "B") return "happy";
+  if (grade === "C") return "neutral";
+  return "sad";
+}
+
+// Your GM in the top corner of the draft screen
+function setMyGM(mood) {
+  const box = document.getElementById("my-gm");
+  if (!HAS_GM || !myTeam) {
+    box.innerHTML = "";
+    return;
+  }
+  box.style.background = GM.tint(myTeam);
+  box.innerHTML = GM.img(myTeam, mood, 64, "", gmName(myTeam));
+}
+
+// A status line with a GM next to it
+function statusWithGM(teamName, mood, html, className) {
+  const status = document.getElementById("status");
+  status.className = "status " + (className || "");
+  status.innerHTML = `<div class="status-row">${avatar(teamName, mood, 40)}<div class="status-text">${html}</div></div>`;
+}
 
 // ---------- Screen 1: pick your team ----------
 
@@ -52,8 +101,11 @@ function renderTeams() {
     const button = document.createElement("button");
     button.className = team.name === myTeam ? "team selected" : "team";
     button.innerHTML = `
-      <span class="team-name">${team.name}</span>
-      <span class="team-picks">${roundOnePicks(team.name) || "No 1st-round pick"}</span>`;
+      ${avatar(team.name, "neutral", 46)}
+      <span class="team-text">
+        <span class="team-name">${team.name}</span>
+        <span class="team-picks">${roundOnePicks(team.name) || "No 1st-round pick"}</span>
+      </span>`;
     button.addEventListener("click", () => {
       myTeam = team.name;
       renderSetup();
@@ -84,7 +136,7 @@ function renderSetup() {
   const start = document.getElementById("start-button");
   if (myTeam) {
     start.disabled = false;
-    start.textContent = `Start draft as the ${myTeam}`;
+    start.textContent = HAS_GM ? `Start draft as the ${gmName(myTeam)}` : `Start draft as the ${myTeam}`;
   } else {
     start.disabled = true;
     start.textContent = "Pick a team to start";
@@ -108,6 +160,8 @@ function startDraft() {
   nextPick = 0;
   onClock = false;
   paused = false;
+  clockTurns = 0;
+  setMyGM("neutral");
   document.getElementById("action-bar").hidden = false;
   draftOrder = baseOrder.map((p) => ({ ...p }));   // fresh copy, so trades don't carry over
 
@@ -124,9 +178,7 @@ function startDraft() {
 
   userPaused = true;     // wait for you to tap Start, so you can trade up before pick 1
   updatePauseButton();
-  const status = document.getElementById("status");
-  status.className = "status";
-  status.textContent = "Ready when you are. Tap Start to begin, or Trade to move up first.";
+  statusWithGM(myTeam, "neutral", `<b>Ready when you are.</b><span class="status-quote">Tap Start to begin, or Trade to move up first.</span>`);
 }
 
 // ---------- The draft ----------
@@ -204,8 +256,7 @@ function togglePause() {
   const status = document.getElementById("status");
   if (userPaused) {
     clearTimeout(draftTimer);
-    status.className = "status";
-    status.textContent = "Paused · tap Resume to keep drafting";
+    statusWithGM(myTeam, "neutral", `<b>Paused</b><span class="status-quote">Tap Resume to keep drafting.</span>`);
   } else {
     scheduleNext(200);
   }
@@ -235,8 +286,7 @@ function runDraft() {
     return;   // wait for you to tap a Draft button
   }
 
-  status.textContent = `Pick ${pick.pick} · ${pick.team} picking…`;
-  status.className = "status";
+  statusWithGM(pick.team, "focused", `<b>Pick ${pick.pick} · ${pick.team}</b><span class="status-quote">On the clock…</span>`);
   makePick(pick, cpuPick(pick.team));
   scheduleNext(PICK_DELAY);
 }
@@ -250,13 +300,22 @@ function showOnTheClock(pick) {
   const chips = needs[myTeam]
     .map((need, i) => `<span class="${i === 0 ? "chip top" : "chip"}">${need}</span>`)
     .join("");
+  clockTurns++;
+  const line = HAS_GM ? (clockTurns === 1 ? GM.catchphrase(myTeam) : quip("clock")) : "";
   status.innerHTML = `
-    <div class="clock-row">
-      <span class="clock-label">ON THE CLOCK · PICK ${pick.pick}</span>
-      <span class="clock-via">${via}</span>
-    </div>
-    <div class="clock-team">${myTeam}</div>
-    <div class="chips">${chips || '<span class="chip">All needs filled</span>'}</div>`;
+    <div class="clock-body">
+      <div class="clock-main">
+        <div class="clock-row">
+          <span class="clock-label">ON THE CLOCK · PICK ${pick.pick}</span>
+        </div>
+        <div class="clock-team">${myTeam}</div>
+        ${via ? `<div class="clock-via">${via}</div>` : ""}
+        <div class="chips">${chips || '<span class="chip">All needs filled</span>'}</div>
+        ${line ? `<p class="clock-quote">${line}</p>` : ""}
+      </div>
+      ${HAS_GM ? `<div class="clock-gm">${GM.img(myTeam, "focused", 92, "", gmName(myTeam))}</div>` : ""}
+    </div>`;
+  setMyGM("focused");
 
   // Best available player at each of your needs (first 3)
   const hints = document.getElementById("hints");
@@ -280,9 +339,19 @@ function userPick(player) {
   if (!onClock) return;
   onClock = false;
   document.getElementById("hints").hidden = true;
-  makePick(draftOrder[nextPick], player);
+  const pick = draftOrder[nextPick];
+  makePick(pick, player);
   updatePauseButton();
-  scheduleNext(PICK_DELAY);
+
+  // your GM reacts to the pick before the draft moves on
+  const label = results[results.length - 1].label;
+  const mood = moodForLabel(label);
+  const kind = { STEAL: "steal", Value: "value", Fair: "fair", Reach: "reach" }[label];
+  setMyGM(mood);
+  statusWithGM(myTeam, mood,
+    `<b>You took ${player.name} at #${pick.pick} · <span class="label ${label.toLowerCase()}">${label}</span></b><span class="status-quote">${quip(kind)}</span>`,
+    "reaction");
+  scheduleNext(1600);
 }
 
 // ---------- Trades ----------
@@ -349,6 +418,7 @@ function makeTrade(myPick, offer) {
 function openTradeSheet() {
   paused = true;               // stop the draft while you look at trades
   clearTimeout(draftTimer);
+  setMyGM("trade");
   tradeTab = onClock ? "down" : "up";
   renderTradeSheet();
   document.getElementById("trade-sheet").hidden = false;
@@ -356,6 +426,7 @@ function openTradeSheet() {
 
 function closeTradeSheet() {
   document.getElementById("trade-sheet").hidden = true;
+  setMyGM(onClock ? "focused" : "neutral");
   paused = false;
   if (!onClock && !userPaused) scheduleNext(PICK_DELAY);   // pick up where the draft left off
 }
@@ -397,7 +468,7 @@ function renderTradeDown() {
     card.className = "offer";
     card.innerHTML = `
       <div class="offer-top">
-        <span class="offer-team">${offer.team}</span>
+        <span class="offer-who">${avatar(offer.team, "trade", 40)}<span class="offer-team">${offer.team}</span></span>
         <span class="offer-diff">+${diff}</span>
       </div>
       <div class="offer-picks">${offer.picks.map((p) => `<span class="offer-pick">#${p.pick}</span>`).join("")}</div>
@@ -446,7 +517,7 @@ function renderTradeUp() {
     card.className = affordable ? "offer" : "offer unaffordable";
     card.innerHTML = `
       <div class="offer-top">
-        <span class="offer-team">#${target.pick} · ${target.team}</span>
+        <span class="offer-who">${avatar(target.team, "trade", 40)}<span class="offer-team">#${target.pick} · ${target.team}</span></span>
         <span class="meta">${Math.round(value(target)).toLocaleString()} pts</span>
       </div>
       <div class="offer-bottom">
@@ -464,9 +535,8 @@ function renderTradeUp() {
 }
 
 function showTradeMessage(text) {
-  const status = document.getElementById("status");
-  status.className = "status traded";
-  status.textContent = text;
+  setMyGM("happy");
+  statusWithGM(myTeam, "happy", `<b>${text}</b><span class="status-quote">${quip("tradeDone")}</span>`, "traded");
 }
 
 function acceptTrade(myPick, offer) {
@@ -500,10 +570,8 @@ function acceptTradeUp(target, pkg) {
 
 function showDraftComplete() {
   document.getElementById("action-bar").hidden = true;
-  const status = document.getElementById("status");
-  status.className = "status";
-  status.textContent = "Draft complete";
-  setTimeout(showResults, 600);
+  statusWithGM(myTeam, "neutral", `<b>Draft complete</b><span class="status-quote">Grading every team…</span>`);
+  setTimeout(showResults, 900);
 }
 
 // ---------- Screen 3: grades ----------
@@ -548,6 +616,15 @@ function showResults() {
     `DRAFT COMPLETE · ${rounds} ${rounds === 1 ? "ROUND" : "ROUNDS"}`;
   document.getElementById("my-team-name").textContent = myTeam;
 
+  const gradeGM = document.getElementById("grade-gm");
+  const quote = document.getElementById("grade-quote");
+  const myMood = me ? moodForGrade(me.grade) : "neutral";
+  gradeGM.innerHTML = HAS_GM ? GM.img(myTeam, myMood, 100, "", gmName(myTeam)) : "";
+  gradeGM.hidden = !HAS_GM;
+  const kind = myMood === "happy" ? "gradeHigh" : myMood === "neutral" ? "gradeMid" : "gradeLow";
+  quote.textContent = me && HAS_GM ? `“${quip(kind)}”` : "";
+  quote.hidden = !quote.textContent;
+
   if (me) {
     const needsFilled = mine.filter((r) => r.filledNeed).length;
     document.getElementById("my-grade").textContent = me.grade;
@@ -582,6 +659,7 @@ function showResults() {
     const li = document.createElement("li");
     li.className = t.name === myTeam ? "grade-row mine" : "grade-row";
     li.innerHTML = `
+      ${avatar(t.name, moodForGrade(t.grade), 30)}
       <span class="grade-small grade-${t.grade.toLowerCase()}">${t.grade}</span>
       <span class="grade-row-name">${t.name}</span>
       <span class="grade-row-avg">${t.avg.toFixed(2)}</span>`;
@@ -608,24 +686,34 @@ function newMock() {
   window.scrollTo(0, 0);
 }
 
+// Every pick so far, left to right, oldest first.
+// Only new picks get added, so long drafts stay fast on phones.
 function renderFeed() {
   const ticker = document.getElementById("feed");
-  ticker.innerHTML = "";
 
   if (results.length === 0) {
     ticker.innerHTML = '<div class="tick empty">Picks show up here</div>';
+    ticker.dataset.count = "0";
     return;
   }
 
-  for (const { pick, team, player, label } of results) {
+  let shown = Number(ticker.dataset.count || 0);
+  if (shown === 0) ticker.innerHTML = "";
+
+  for (let i = shown; i < results.length; i++) {
+    const { pick, team, player, label } = results[i];
     const card = document.createElement("div");
     card.className = team === myTeam ? "tick mine" : "tick";
     card.innerHTML = `
-      <span class="tick-top">${pick.pick} · ${team}</span>
-      <span class="tick-name">${player.name}</span>
-      <span class="tick-bottom">${player.position} · <span class="label ${label.toLowerCase()}">${label}</span></span>`;
+      ${avatar(team, moodForLabel(label), 32)}
+      <span class="tick-text">
+        <span class="tick-top">${pick.pick} · ${HAS_GM ? GM.short(team) : team}</span>
+        <span class="tick-name">${player.name}</span>
+        <span class="tick-bottom">${player.position} · <span class="label ${label.toLowerCase()}">${label}</span></span>
+      </span>`;
     ticker.appendChild(card);
   }
+  ticker.dataset.count = String(results.length);
 
   // slide to the newest pick on the right
   ticker.scrollLeft = ticker.scrollWidth;
