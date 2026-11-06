@@ -1,0 +1,322 @@
+[
+ {
+  "name": "Los Angeles Chargers",
+  "needs": [
+   "WR",
+   "EDGE",
+   "IOL",
+   "IDL",
+   "CB"
+  ]
+ },
+ {
+  "name": "Tennessee Titans",
+  "needs": [
+   "OT",
+   "IDL",
+   "RB",
+   "EDGE",
+   "CB"
+  ]
+ },
+ {
+  "name": "Miami Dolphins",
+  "needs": [
+   "QB",
+   "EDGE",
+   "OT",
+   "CB",
+   "S"
+  ]
+ },
+ {
+  "name": "Indianapolis Colts",
+  "needs": [
+   "IDL",
+   "WR",
+   "QB",
+   "EDGE",
+   "IOL"
+  ]
+ },
+ {
+  "name": "Philadelphia Eagles",
+  "needs": [
+   "OT",
+   "CB",
+   "IOL",
+   "QB",
+   "TE"
+  ]
+ },
+ {
+  "name": "New York Jets",
+  "needs": [
+   "QB",
+   "IDL",
+   "CB",
+   "LB",
+   "IOL"
+  ]
+ },
+ {
+  "name": "Houston Texans",
+  "needs": [
+   "OT",
+   "RB",
+   "LB",
+   "IDL",
+   "CB"
+  ]
+ },
+ {
+  "name": "New Orleans Saints",
+  "needs": [
+   "IDL",
+   "RB",
+   "EDGE",
+   "CB",
+   "S"
+  ]
+ },
+ {
+  "name": "Washington Commanders",
+  "needs": [
+   "CB",
+   "WR",
+   "EDGE",
+   "IDL",
+   "IOL"
+  ]
+ },
+ {
+  "name": "Dallas Cowboys",
+  "needs": [
+   "WR",
+   "CB",
+   "IDL",
+   "S",
+   "EDGE"
+  ]
+ },
+ {
+  "name": "Arizona Cardinals",
+  "needs": [
+   "WR",
+   "EDGE",
+   "QB",
+   "OT",
+   "CB"
+  ]
+ },
+ {
+  "name": "Tampa Bay Buccaneers",
+  "needs": [
+   "EDGE",
+   "WR",
+   "CB",
+   "IOL",
+   "TE"
+  ]
+ },
+ {
+  "name": "Atlanta Falcons",
+  "needs": [
+   "OT",
+   "EDGE",
+   "IOL",
+   "S",
+   "QB"
+  ]
+ },
+ {
+  "name": "Las Vegas Raiders",
+  "needs": [
+   "WR",
+   "IDL",
+   "CB",
+   "IOL",
+   "EDGE"
+  ]
+ },
+ {
+  "name": "Baltimore Ravens",
+  "needs": [
+   "CB",
+   "IDL",
+   "RB",
+   "OT",
+   "EDGE"
+  ]
+ },
+ {
+  "name": "Los Angeles Rams",
+  "needs": [
+   "WR",
+   "IDL",
+   "IOL",
+   "OT",
+   "EDGE"
+  ]
+ },
+ {
+  "name": "Seattle Seahawks",
+  "needs": [
+   "EDGE",
+   "WR",
+   "CB",
+   "IOL",
+   "IDL"
+  ]
+ },
+ {
+  "name": "Cleveland Browns",
+  "needs": [
+   "QB",
+   "EDGE",
+   "OT",
+   "CB",
+   "IOL"
+  ]
+ },
+ {
+  "name": "Carolina Panthers",
+  "needs": [
+   "OT",
+   "TE",
+   "CB",
+   "EDGE",
+   "IOL"
+  ]
+ },
+ {
+  "name": "Green Bay Packers",
+  "needs": [
+   "IOL",
+   "OT",
+   "CB",
+   "EDGE",
+   "RB"
+  ]
+ },
+ {
+  "name": "New England Patriots",
+  "needs": [
+   "IOL",
+   "LB",
+   "S",
+   "WR",
+   "TE"
+  ]
+ },
+ {
+  "name": "New York Giants",
+  "needs": [
+   "IDL",
+   "CB",
+   "WR",
+   "IOL",
+   "OT"
+  ]
+ },
+ {
+  "name": "Cincinnati Bengals",
+  "needs": [
+   "CB",
+   "S",
+   "RB",
+   "LB",
+   "OT"
+  ]
+ },
+ {
+  "name": "Kansas City Chiefs",
+  "needs": [
+   "WR",
+   "OT",
+   "TE",
+   "LB",
+   "EDGE"
+  ]
+ },
+ {
+  "name": "Jacksonville Jaguars",
+  "needs": [
+   "IDL",
+   "RB",
+   "S",
+   "IOL",
+   "LB"
+  ]
+ },
+ {
+  "name": "Detroit Lions",
+  "needs": [
+   "TE",
+   "CB",
+   "S",
+   "EDGE",
+   "IOL"
+  ]
+ },
+ {
+  "name": "Pittsburgh Steelers",
+  "needs": [
+   "QB",
+   "S",
+   "CB",
+   "IDL",
+   "LB"
+  ]
+ },
+ {
+  "name": "Chicago Bears",
+  "needs": [
+   "CB",
+   "EDGE",
+   "OT",
+   "WR",
+   "IDL"
+  ]
+ },
+ {
+  "name": "Denver Broncos",
+  "needs": [
+   "TE",
+   "S",
+   "CB",
+   "OT",
+   "LB"
+  ]
+ },
+ {
+  "name": "Minnesota Vikings",
+  "needs": [
+   "QB",
+   "S",
+   "TE",
+   "RB",
+   "EDGE"
+  ]
+ },
+ {
+  "name": "San Francisco 49ers",
+  "needs": [
+   "IOL",
+   "OT",
+   "EDGE",
+   "WR",
+   "IDL"
+  ]
+ },
+ {
+  "name": "Buffalo Bills",
+  "needs": [
+   "S",
+   "IOL",
+   "CB",
+   "LB",
+   "IDL"
+  ]
+ }
+]
