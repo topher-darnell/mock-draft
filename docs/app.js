@@ -24,6 +24,7 @@ let available = [];   // players not drafted yet, best first
 let needs = {};       // team name -> list of needs still open
 let results = [];     // every pick made so far: { pick, player }
 let nextPick = 0;     // index into draftOrder of the pick on the clock
+let onClock = false;  // true while you're making a pick
 
 // ---------- Screen 1: pick your team ----------
 
@@ -94,6 +95,7 @@ function startDraft() {
   }
   results = [];
   nextPick = 0;
+  onClock = false;
 
   renderFilters();
   renderBoard();
@@ -146,21 +148,77 @@ function runDraft() {
   const status = document.getElementById("status");
 
   if (!pick || pick.round > rounds) {
-    status.textContent = "Draft complete";
-    status.className = "status";
+    showDraftComplete();
     return;
   }
 
   if (pick.team === myTeam) {
-    status.textContent = `You're on the clock · Pick ${pick.pick}`;
-    status.className = "status on-clock";
-    return;   // Nov 14: let you make the pick
+    onClock = true;
+    showOnTheClock(pick);
+    renderBoard();
+    return;   // wait for you to tap a Draft button
   }
 
   status.textContent = `Pick ${pick.pick} · ${pick.team} picking…`;
   status.className = "status";
   makePick(pick, cpuPick(pick.team));
   setTimeout(runDraft, PICK_DELAY);
+}
+
+// ---------- Your pick ----------
+
+function showOnTheClock(pick) {
+  const status = document.getElementById("status");
+  status.className = "status on-clock";
+  const via = pick.from ? `from ${pick.from}` : "";
+  const chips = needs[myTeam]
+    .map((need, i) => `<span class="${i === 0 ? "chip top" : "chip"}">${need}</span>`)
+    .join("");
+  status.innerHTML = `
+    <div class="clock-row">
+      <span class="clock-label">ON THE CLOCK · PICK ${pick.pick}</span>
+      <span class="clock-via">${via}</span>
+    </div>
+    <div class="clock-team">${myTeam}</div>
+    <div class="chips">${chips || '<span class="chip">All needs filled</span>'}</div>`;
+
+  // Best available player at each of your needs (first 3)
+  const hints = document.getElementById("hints");
+  hints.innerHTML = "";
+  for (const need of needs[myTeam].slice(0, 3)) {
+    const best = available.find((p) => p.position === need);
+    if (!best) continue;
+    const card = document.createElement("div");
+    card.className = "hint";
+    card.innerHTML = `
+      <span class="hint-pos">${need}</span>
+      <span class="hint-name">${best.name}</span>
+      <span class="hint-meta">#${best.rank} ${best.college}</span>`;
+    hints.appendChild(card);
+  }
+  hints.hidden = hints.children.length === 0;
+  status.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function userPick(player) {
+  if (!onClock) return;
+  onClock = false;
+  document.getElementById("hints").hidden = true;
+  makePick(draftOrder[nextPick], player);
+  setTimeout(runDraft, PICK_DELAY);
+}
+
+function showDraftComplete() {
+  const status = document.getElementById("status");
+  status.className = "status";
+  const mine = results.filter((r) => r.pick.team === myTeam);
+  const list = mine
+    .map((r) => `<li><b>#${r.pick.pick}</b> ${r.player.name} <span class="meta">${r.player.position}, ${r.player.college}</span></li>`)
+    .join("");
+  status.innerHTML = `
+    <div class="clock-label">DRAFT COMPLETE</div>
+    <div class="clock-team">Your draft class</div>
+    <ol class="my-class">${list || "<li>You had no picks in these rounds.</li>"}</ol>`;
 }
 
 function renderFeed() {
@@ -213,12 +271,22 @@ function renderBoard() {
   for (const p of shown) {
     const li = document.createElement("li");
     li.className = "player";
+    const isNeed = onClock && needs[myTeam].includes(p.position);
     li.innerHTML = `
       <span class="rank">${p.rank}</span>
       <div class="info">
         <span class="name">${p.name}</span>
         <span class="meta">${p.position} · ${p.college}</span>
-      </div>`;
+      </div>
+      ${isNeed ? '<span class="need-tag">NEED</span>' : ""}`;
+
+    if (onClock) {
+      const button = document.createElement("button");
+      button.className = "draft-button";
+      button.textContent = "Draft";
+      button.addEventListener("click", () => userPick(p));
+      li.appendChild(button);
+    }
     board.appendChild(li);
   }
 }
