@@ -823,9 +823,11 @@ h1 {
 }
 .hero-art img {
   display: block;
-  width: min(100%, 360px);
+  width: min(100%, 340px);
   height: auto;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.5));
 }
+.hero-art { padding-bottom: 24px; }
 
 .hero-title {
   margin: 10px 0 16px;
@@ -1041,8 +1043,8 @@ h1 {
   }
   .hero-head { align-self: end; }
   .hero-rest { align-self: start; padding-bottom: 64px; }
-  .hero-art { align-self: end; margin-top: 0; }
-  .hero-art img { width: 440px; }
+  .hero-art { align-self: center; margin-top: 0; padding-bottom: 0; }
+  .hero-art img { width: 420px; }
   .hero-sub { font-size: 18px; }
   .hero-start { flex: 0 0 auto; }
   .hero {

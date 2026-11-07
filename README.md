@@ -4,7 +4,7 @@
 
 ▶ **Play it at [bigheadgm.com](https://bigheadgm.com)**, on your phone or computer. No sign-up.
 
-![Big Head GM](docs/icons/og-image.png)
+![Big Head GM](docs/icons/og-image.jpg)
 
 Pick a team, draft against 31 cartoon GMs who draft for their own needs, trade up or down, then see how your class grades out against the whole league.
 

@@ -2,7 +2,7 @@
 // Online: always gets the newest files (and saves a copy).
 // Offline: uses the saved copy, so the home-screen app still runs a full mock.
 // Bump VERSION if you ever need every phone to throw away its saved copy.
-const VERSION = "bhg-v1";
+const VERSION = "bhg-v2";
 
 const CORE = [
   "./",
@@ -16,7 +16,7 @@ const CORE = [
   "data/draft_order.json",
   "data/trade_chart.json",
   "icons/mascot-head.png",
-  "icons/mascot-hero.webp",
+  "icons/logo-sticker.webp",
   "icons/logo.svg",
   "icons/favicon-32.png",
   "icons/icon-192.png",
