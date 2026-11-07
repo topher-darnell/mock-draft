@@ -840,6 +840,11 @@ function renderFeed() {
         <span class="tick-name">${player.name}</span>
         <span class="tick-bottom">${player.position} · <span class="label ${label.toLowerCase()}">${label}</span></span>
       </span>`;
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `More about ${player.name}`);
+    card.addEventListener("click", () => openPlayerCard(player));
+    card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPlayerCard(player); } });
     ticker.appendChild(card);
   }
   ticker.dataset.count = String(results.length);
@@ -885,11 +890,12 @@ function renderBoard() {
     const isNeed = onClock && needs[myTeam].includes(p.position);
     li.innerHTML = `
       <span class="rank">${p.rank}</span>
-      <div class="info">
+      <button class="info player-open" aria-label="More about ${p.name}">
         <span class="name">${p.name}</span>
         <span class="meta">${p.position} · ${p.college}</span>
-      </div>
+      </button>
       ${isNeed ? '<span class="need-tag">NEED</span>' : ""}`;
+    li.querySelector(".player-open").addEventListener("click", () => openPlayerCard(p));
 
     if (onClock) {
       const button = document.createElement("button");
@@ -899,6 +905,106 @@ function renderBoard() {
       li.appendChild(button);
     }
     board.appendChild(li);
+  }
+}
+
+// ---------- Player cards ----------
+
+let cardWasPaused = false;   // was the draft already stopped when the card opened?
+
+function feetInches(h) {
+  const [ft, inch] = String(h || "").split("-");
+  return ft && inch !== undefined ? `${ft}'${inch}"` : (h || "—");
+}
+
+function openPlayerCard(player) {
+  // stop the draft while you read, like the trade panel
+  cardWasPaused = paused;
+  paused = true;
+  clearTimeout(draftTimer);
+  renderPlayerCard(player);
+  document.getElementById("player-sheet").hidden = false;
+  document.getElementById("close-player").focus();
+}
+
+function closePlayerCard() {
+  document.getElementById("player-sheet").hidden = true;
+  paused = cardWasPaused;
+  const draftRunning = !document.getElementById("draft-screen").hidden && !document.getElementById("action-bar").hidden;
+  if (draftRunning && !paused && !onClock && !userPaused) scheduleNext(PICK_DELAY);
+}
+
+function renderPlayerCard(player) {
+  const samePos = allPlayers.filter((q) => q.position === player.position);   // best first
+  const posRank = samePos.indexOf(player) + 1;
+  const taken = results.find((r) => r.player === player);
+  const swing = Math.max(RANDOMNESS, player.rank * DEEP_RANDOMNESS);
+  const low = Math.max(1, Math.round(player.rank - swing));
+  const high = Math.round(player.rank + swing);
+
+  document.getElementById("pc-rank").textContent = `#${player.rank}`;
+  document.getElementById("pc-name").textContent = player.name;
+  document.getElementById("pc-meta").textContent = `${player.position}${posRank} · ${player.college}`;
+
+  const facts = [
+    ["Big board", `#${player.rank}`],
+    ["At ${pos}".replace("${pos}", player.position), `${posRank} of ${samePos.length}`],
+    ["Class", player.year || "—"],
+    ["Height", feetInches(player.height)],
+    ["Weight", player.weight ? `${player.weight} lb` : "—"],
+    ["Usually goes", `#${low}–${high}`],
+  ];
+
+  // the top players at his position, with him highlighted
+  const start = Math.max(0, Math.min(posRank - 3, samePos.length - 6));
+  const top = samePos.slice(start, start + 6);
+  const best = top[0].rank;
+  const bars = top.map((q) => {
+    const width = Math.max(12, Math.round(100 * Math.sqrt(best / q.rank)));
+    const gone = results.find((r) => r.player === q);
+    const note = gone ? `#${gone.pick.pick} ${HAS_GM ? GM.short(gone.team) : gone.team}` : `#${q.rank}`;
+    return `
+      <li class="pc-bar${q === player ? " me" : ""}${gone ? " gone" : ""}">
+        <span class="pc-bar-name">${player.position}${samePos.indexOf(q) + 1} · ${q.name}</span>
+        <span class="pc-bar-track"><span style="width:${width}%"></span></span>
+        <span class="pc-bar-note">${note}</span>
+      </li>`;
+  }).join("");
+
+  // during a draft: who's picking soon that needs this position
+  let soon = "";
+  if (!taken && results.length && nextPick < draftOrder.length) {
+    const upcoming = [];
+    for (let i = nextPick; i < draftOrder.length && upcoming.length < 3; i++) {
+      const pk = draftOrder[i];
+      if (pk.round > rounds || pk.team === myTeam) continue;
+      if ((needs[pk.team] || []).includes(player.position)) upcoming.push(pk);
+    }
+    soon = upcoming.length
+      ? `<p class="pc-soon"><b>Next teams that need a ${player.position}:</b> ${upcoming.map((pk) => `#${pk.pick} ${HAS_GM ? GM.short(pk.team) : pk.team}`).join(", ")}</p>`
+      : `<p class="pc-soon">No team picking soon lists ${player.position} as a need.</p>`;
+  }
+
+  const status = taken
+    ? `<p class="pc-taken">Drafted #${taken.pick.pick} by the ${taken.team} · <span class="label ${taken.label.toLowerCase()}">${taken.label}</span></p>`
+    : "";
+
+  const canDraft = onClock && !taken && available.includes(player);
+
+  document.getElementById("pc-body").innerHTML = `
+    ${status}
+    <dl class="pc-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+    <h3 class="pc-label">TOP ${player.position}s ON THE BOARD</h3>
+    <ol class="pc-bars">${bars}</ol>
+    ${soon}
+    ${canDraft ? `<button class="start" id="pc-draft">Draft ${player.name}</button>` : ""}`;
+
+  if (canDraft) {
+    document.getElementById("pc-draft").addEventListener("click", () => {
+      document.getElementById("player-sheet").hidden = true;
+      paused = cardWasPaused;
+      userPick(player);
+    });
   }
 }
 
@@ -924,6 +1030,9 @@ async function start() {
   document.getElementById("trade-button").addEventListener("click", openTradeSheet);
   document.getElementById("pause-button").addEventListener("click", togglePause);
   document.getElementById("close-trade").addEventListener("click", closeTradeSheet);
+  document.getElementById("close-player").addEventListener("click", closePlayerCard);
+  document.getElementById("player-sheet").addEventListener("click", (e) => { if (e.target.id === "player-sheet") closePlayerCard(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !document.getElementById("player-sheet").hidden) closePlayerCard(); });
   document.getElementById("tab-down").addEventListener("click", () => { tradeTab = "down"; renderTradeSheet(); });
   document.getElementById("tab-up").addEventListener("click", () => { tradeTab = "up"; renderTradeSheet(); });
   renderSetup();

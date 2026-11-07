@@ -1138,3 +1138,69 @@ h1 {
   .hints { gap: 10px; }
   .hint { padding: 12px; }
 }
+
+/* ---------- Player cards ---------- */
+
+/* the player's name on the board is a button that opens his card */
+.player-open {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.player-open .name { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; }
+.player-open:hover .name, .player-open:focus-visible .name { text-decoration-color: var(--accent); }
+.tick[role="button"] { cursor: pointer; }
+.tick[role="button"]:hover { background: #222A35; }
+
+.pc-head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.pc-rank {
+  flex: 0 0 auto;
+  min-width: 52px;
+  height: 52px;
+  padding: 0 8px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: #1B1206;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 20px "Space Grotesk", sans-serif;
+}
+.pc-title { min-width: 0; }
+.pc-title .sheet-title { line-height: 1.15; }
+.pc-meta { margin: 2px 0 0; font-size: 13px; color: var(--muted); font-weight: 600; }
+
+.pc-body { display: flex; flex-direction: column; gap: 14px; }
+.pc-taken { margin: 0; padding: 10px 12px; border-radius: 12px; background: #222A35; font-size: 13px; font-weight: 600; }
+
+.pc-facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.pc-facts div { padding: 10px; border-radius: 12px; background: var(--card); min-width: 0; }
+.pc-facts dt { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; }
+.pc-facts dd { margin: 2px 0 0; font: 600 16px "Space Grotesk", sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.pc-label { margin: 4px 0 0; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: var(--muted); }
+.pc-bars { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.pc-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name note" "track track"; gap: 4px 10px; }
+.pc-bar-name { grid-area: name; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-bar-note { grid-area: note; font-size: 12px; color: var(--muted); font-weight: 600; }
+.pc-bar-track { grid-area: track; height: 8px; border-radius: 4px; background: #222A35; overflow: hidden; }
+.pc-bar-track span { display: block; height: 100%; border-radius: 4px; background: #5B6573; }
+.pc-bar.me .pc-bar-name { color: var(--accent); }
+.pc-bar.me .pc-bar-track span { background: var(--accent); }
+.pc-bar.gone { opacity: 0.5; }
+.pc-bar.gone .pc-bar-name { text-decoration: line-through; }
+
+.pc-soon { margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.pc-soon b { color: var(--text); }
+.player-sheet .start { margin-top: 4px; }
