@@ -1060,3 +1060,81 @@ h1 {
   .home-team-name.long { font-size: 12px; }
   .how { padding-top: 56px; }
 }
+
+/* ---------- Desktop draft room: picks | on the clock | big board ---------- */
+
+@media (min-width: 1024px) {
+  .page:has(#draft-screen:not([hidden])) {
+    max-width: 1320px;
+    padding: 24px 28px;
+  }
+
+  #draft-screen:not([hidden]) {
+    display: grid;
+    grid-template-columns: clamp(220px, 20vw, 290px) minmax(0, 1fr) clamp(320px, 30vw, 430px);
+    grid-template-rows: auto auto auto 1fr;
+    grid-template-areas:
+      "picksl  header  boardl"
+      "feed    status  board"
+      "feed    hints   board"
+      "feed    actions board";
+    column-gap: 28px;
+    height: calc(100vh - 48px);
+    min-height: 620px;
+  }
+
+  #draft-screen > .draft-header { grid-area: header; }
+  #draft-screen > .status { grid-area: status; margin-top: 0; }
+  #draft-screen > .hints { grid-area: hints; margin-top: -6px; }
+  #draft-screen > .section-label:not(#board-label) { grid-area: picksl; align-self: end; margin-bottom: 12px; }
+  #board-label { grid-area: boardl; align-self: end; margin-bottom: 12px; }
+  /* filters sit on top of the board column; the list starts just under them */
+  #filters { grid-area: board; align-self: start; margin: 0; padding: 0 0 4px; position: relative; z-index: 1; }
+  #action-bar { grid-area: actions; align-self: end; position: static; box-shadow: none; padding-bottom: 0; }
+
+  /* each side column scrolls on its own */
+  #board {
+    grid-area: board;
+    min-height: 0;
+    margin-top: 56px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  #feed {
+    grid-area: feed;
+    min-height: 0;
+    flex-direction: column;
+    margin: 0;
+    padding: 0 4px 0 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  #feed .tick { width: auto; flex: 0 0 auto; }
+  #feed .tick.empty { padding: 14px 12px; }
+
+  #board::-webkit-scrollbar, #feed::-webkit-scrollbar { width: 6px; }
+  #board::-webkit-scrollbar-thumb, #feed::-webkit-scrollbar-thumb { background: #2A3442; border-radius: 3px; }
+
+  /* the on-the-clock card gets room: big GM on a trophy stand */
+  .status.on-clock { padding: 22px 24px 0; }
+  .status.on-clock .clock-team { font-size: clamp(24px, 2.3vw, 32px); }
+  .status.on-clock .clock-quote { font-size: 15px; margin-bottom: 22px; }
+  .clock-gm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 4px 0 0;
+  }
+  .clock-gm .gm { width: clamp(120px, 11vw, 170px); height: auto; position: relative; z-index: 1; margin-bottom: -4px; }
+  .clock-gm::after {
+    content: "";
+    width: calc(clamp(120px, 11vw, 170px) + 20px);
+    height: 30px;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(180deg, #3A2A12 0%, #1B1206 100%);
+    box-shadow: inset 0 3px 0 #FFD58A;
+  }
+
+  .hints { gap: 10px; }
+  .hint { padding: 12px; }
+}

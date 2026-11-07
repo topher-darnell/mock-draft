@@ -844,8 +844,9 @@ function renderFeed() {
   }
   ticker.dataset.count = String(results.length);
 
-  // slide to the newest pick on the right
+  // slide to the newest pick: on the right on phones, at the bottom on desktop
   ticker.scrollLeft = ticker.scrollWidth;
+  ticker.scrollTop = ticker.scrollHeight;
 }
 
 // ---------- Screen 2: the big board ----------
