@@ -948,7 +948,6 @@ h1 {
   justify-content: space-between;
   gap: 12px;
 }
-.home-h2-row .home-h2 { white-space: nowrap; }
 @media (max-width: 419px) {
   .home-h2-row .section-note { display: none; }
 }
@@ -1314,3 +1313,51 @@ h1 {
 .speed { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
 .speed .round { background: #222A35; font-size: 14px; }
 .speed .round.selected { background: var(--text); color: var(--bg); }
+
+/* ---------- Easier to tap, and works with big text / zoom ---------- */
+
+/* every tap target at least 44px tall */
+.filter { min-height: 44px; }
+.player-open { min-height: 44px; display: flex; flex-direction: column; justify-content: center; }
+
+/* disabled Pause: dimmer, but still readable */
+.secondary:disabled { opacity: 1; color: #8793A1; border-color: #2A3442; }
+
+/* keyboard users can always see where they are */
+button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* people who turn off animations in their phone settings */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* very narrow screens, or text zoomed to 150-200% */
+@media (max-width: 340px) {
+  .brand-word { display: none; }
+  .team-grid { grid-template-columns: minmax(0, 1fr); }
+  .rounds { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .speed { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hints { grid-template-columns: minmax(0, 1fr); }
+  .pc-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mock-buttons, .share-actions, .results-buttons { flex-wrap: wrap; }
+  /* board rows wrap so the name never gets squeezed to nothing */
+  .player { flex-wrap: wrap; row-gap: 6px; }
+  .player .info, .player-open { flex: 1 1 120px; }
+  /* give the words room: hide the big GM pictures */
+  .clock-gm, .my-gm { display: none; }
+  /* grades: stack the card, let rows wrap */
+  .grade-card { flex-direction: column; align-items: flex-start; }
+  .grade-gm { display: none; }
+  .grade-top { flex-wrap: wrap; }
+  .grade-letter { width: 72px; height: 72px; font-size: 44px; }
+  .grade-row { flex-wrap: wrap; }
+  .grade-row-name { min-width: 0; overflow-wrap: anywhere; }
+}
+@media (max-width: 300px) {
+  .home-teams { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-buttons { flex-direction: column; }
+  .hero-start, .hero-how { width: 100%; }
+}
