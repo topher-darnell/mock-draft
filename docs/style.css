@@ -860,7 +860,7 @@ h1 {
   position: fixed;
   left: 50%;
   bottom: max(16px, env(safe-area-inset-bottom));
-  z-index: 30;
+  z-index: 19;   /* under the pop-up panels */
   transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
@@ -1204,3 +1204,42 @@ h1 {
 .pc-soon { margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
 .pc-soon b { color: var(--text); }
 .player-sheet .start { margin-top: 4px; }
+
+/* ---------- My mocks ---------- */
+
+.my-mocks { padding: 36px 0 0; }
+.text-button { border: 0; background: none; color: var(--muted); font: 600 13px Inter, sans-serif; cursor: pointer; padding: 6px 0; }
+.text-button:hover { color: var(--text); }
+.mock-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.mock-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 6px 14px 6px 6px;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--text);
+  font-family: Inter, sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.mock-card:hover, .mock-card:focus-visible { border-color: var(--accent); }
+.mock-card .avatar { width: 46px; height: 52px; }
+.mock-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.mock-team { font-size: 15px; font-weight: 700; }
+.mock-meta { font-size: 12px; color: var(--muted); font-weight: 600; }
+.mock-picks { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mock-card .grade-small { flex: 0 0 auto; font: 700 24px "Space Grotesk", sans-serif; }
+
+.mock-summary { display: flex; align-items: center; gap: 12px; }
+.mock-summary .grade-letter { width: 52px; height: 52px; border-radius: 14px; font-size: 32px; display: flex; align-items: center; justify-content: center; font-family: "Space Grotesk", sans-serif; font-weight: 700; flex: 0 0 auto; }
+.mock-summary .meta { font-size: 13px; line-height: 1.5; }
+.mock-class { margin: 0; }
+.mock-buttons { display: flex; gap: 10px; }
+.mock-buttons .secondary { flex: 0 0 auto; padding: 0 20px; }
+.mock-buttons .start { flex: 1; font-size: 15px; }
+
+@media (min-width: 600px) { .mock-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .mock-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

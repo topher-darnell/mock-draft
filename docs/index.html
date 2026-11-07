@@ -65,6 +65,17 @@
       </div>
     </section>
 
+    <!-- your saved drafts (only shows once you've finished one) -->
+    <section class="my-mocks" id="my-mocks" hidden>
+      <div class="wrap">
+        <div class="home-h2-row">
+          <h2 class="home-h2">My mocks</h2>
+          <button class="text-button" id="clear-mocks">Clear all</button>
+        </div>
+        <div class="mock-list" id="mock-list"></div>
+      </div>
+    </section>
+
     <section class="how" id="how">
       <div class="wrap">
         <h2 class="home-h2">How it works</h2>
@@ -117,6 +128,18 @@
         </div>
       </div>
     </footer>
+
+    <!-- one saved mock, opened from My mocks -->
+    <div class="sheet-backdrop" id="mock-sheet" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mock-title">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2 class="sheet-title" id="mock-title">Mock</h2>
+          <button class="close-button" id="close-mock" aria-label="Close">✕</button>
+        </div>
+        <div id="mock-body"></div>
+      </div>
+    </div>
 
     <!-- shows when you left a draft going -->
     <button class="resume" id="resume-button" hidden>Back to your draft</button>

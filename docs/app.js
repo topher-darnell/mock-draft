@@ -86,6 +86,132 @@ function statusWithGM(teamName, mood, html, className) {
   status.innerHTML = `<div class="status-row">${avatar(teamName, mood, 40)}<div class="status-text">${html}</div></div>`;
 }
 
+// ---------- My mocks: your last 10 drafts, saved on this device ----------
+
+const MOCKS_KEY = "bhg-mocks";
+const MAX_MOCKS = 10;
+let openMockId = null;
+
+function loadMocks() {
+  try {
+    const list = JSON.parse(localStorage.getItem(MOCKS_KEY) || "[]");
+    return Array.isArray(list) ? list : [];
+  } catch (e) {
+    return [];   // private browsing or storage turned off
+  }
+}
+
+function storeMocks(list) {
+  try {
+    localStorage.setItem(MOCKS_KEY, JSON.stringify(list));
+  } catch (e) {
+    // can't save here; the draft still works
+  }
+}
+
+function saveMock(me, mine, teamCount) {
+  const mock = {
+    id: Date.now(),
+    date: new Date().toISOString(),
+    team: myTeam,
+    rounds,
+    grade: me.grade,
+    place: me.place,
+    of: teamCount,
+    avg: Math.round(me.avg * 100) / 100,
+    picks: mine.map((r) => ({
+      pick: r.pick.pick, name: r.player.name, pos: r.player.position,
+      college: r.player.college, rank: r.player.rank, label: r.label,
+    })),
+  };
+  storeMocks([mock, ...loadMocks()].slice(0, MAX_MOCKS));
+}
+
+function mockDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" }) + " · " +
+    d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+}
+
+function renderMyMocks() {
+  const mocks = loadMocks();
+  const section = document.getElementById("my-mocks");
+  section.hidden = mocks.length === 0;
+  const list = document.getElementById("mock-list");
+  list.innerHTML = "";
+  for (const m of mocks) {
+    const button = document.createElement("button");
+    button.className = "mock-card";
+    button.setAttribute("aria-label", `${m.team} mock, grade ${m.grade}, ${mockDate(m.date)}`);
+    const first = m.picks.slice(0, 2).map((p) => `#${p.pick} ${p.name}`).join(" · ");
+    button.innerHTML = `
+      ${avatar(m.team, moodForGrade(m.grade), 46)}
+      <span class="mock-text">
+        <span class="mock-team">${HAS_GM ? GM.short(m.team) : m.team}</span>
+        <span class="mock-meta">${mockDate(m.date)} · ${m.rounds} ${m.rounds === 1 ? "round" : "rounds"}</span>
+        <span class="mock-picks">${first}${m.picks.length > 2 ? ` +${m.picks.length - 2}` : ""}</span>
+      </span>
+      <span class="grade-small grade-${m.grade.toLowerCase()}">${m.grade}</span>`;
+    button.addEventListener("click", () => openMock(m.id));
+    list.appendChild(button);
+  }
+}
+
+function openMock(id) {
+  const m = loadMocks().find((x) => x.id === id);
+  if (!m) return;
+  openMockId = id;
+  document.getElementById("mock-title").textContent = m.team;
+  document.getElementById("mock-body").innerHTML = `
+    <div class="mock-summary">
+      <span class="grade-letter grade-${m.grade.toLowerCase()}">${m.grade}</span>
+      <span class="meta">${m.avg.toFixed(2)} points per pick · ${m.place} of ${m.of}<br>${mockDate(m.date)} · ${m.rounds} ${m.rounds === 1 ? "round" : "rounds"}</span>
+    </div>
+    <ol class="board mock-class">
+      ${m.picks.map((p) => `
+        <li class="player">
+          <span class="rank">#${p.pick}</span>
+          <div class="info">
+            <span class="name">${p.name}</span>
+            <span class="meta">${p.pos} · ${p.college} · rank ${p.rank}</span>
+          </div>
+          <span class="label-pill ${p.label.toLowerCase()}">${p.label}</span>
+        </li>`).join("")}
+    </ol>
+    <div class="mock-buttons">
+      <button class="secondary" id="delete-mock">Delete</button>
+      <button class="start" id="redo-mock">Draft as the ${HAS_GM ? GM.short(m.team) : m.team} again</button>
+    </div>`;
+  document.getElementById("delete-mock").addEventListener("click", () => {
+    storeMocks(loadMocks().filter((x) => x.id !== id));
+    closeMock();
+    renderMyMocks();
+  });
+  document.getElementById("redo-mock").addEventListener("click", () => {
+    closeMock();
+    rounds = m.rounds;
+    openSetup(m.team);
+  });
+  document.getElementById("mock-sheet").hidden = false;
+  document.getElementById("close-mock").focus();
+}
+
+function closeMock() {
+  document.getElementById("mock-sheet").hidden = true;
+  openMockId = null;
+}
+
+function setUpMyMocks() {
+  document.getElementById("close-mock").addEventListener("click", closeMock);
+  document.getElementById("mock-sheet").addEventListener("click", (e) => { if (e.target.id === "mock-sheet") closeMock(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && openMockId !== null) closeMock(); });
+  document.getElementById("clear-mocks").addEventListener("click", () => {
+    if (!confirm("Delete all your saved mocks?")) return;
+    storeMocks([]);
+    renderMyMocks();
+  });
+}
+
 // ---------- Home page, and moving between it and the draft ----------
 
 const APP_SCREENS = ["setup-screen", "draft-screen", "results-screen"];
@@ -129,6 +255,7 @@ function showHome(fromBack) {
   document.getElementById("app").hidden = true;
   document.getElementById("home-screen").hidden = false;
   renderResume();
+  renderMyMocks();
   if (!fromBack) window.scrollTo(0, 0);
 }
 
@@ -153,6 +280,7 @@ function renderResume() {
 }
 
 function renderHome() {
+  renderMyMocks();
   document.getElementById("hero-stats").textContent =
     `${allPlayers.length} prospects · ${baseOrder.length} picks · ${allTeams.length} GMs`;
 
@@ -190,6 +318,7 @@ function renderHome() {
 }
 
 function setUpHome() {
+  setUpMyMocks();
   for (const button of document.querySelectorAll("[data-start]")) {
     button.addEventListener("click", () => openSetup());
   }
@@ -760,6 +889,7 @@ function showResults() {
     document.getElementById("my-grade").className = `grade-letter grade-${me.grade.toLowerCase()}`;
     document.getElementById("my-grade-detail").innerHTML =
       `${me.avg.toFixed(2)} points per pick<br>${me.place} of ${teams.length} · ${needsFilled} ${needsFilled === 1 ? "need" : "needs"} filled`;
+    saveMock(me, mine, teams.length);
   } else {
     document.getElementById("my-grade").textContent = "–";
     document.getElementById("my-grade-detail").textContent = "You had no picks in these rounds.";
