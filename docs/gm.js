@@ -841,7 +841,9 @@
 
     // head and face
     out += P(HEADS[L.face] || HEADS.round, { fill: L.skin, stroke: skinD, "stroke-width": 2.2 });
-    out += faceDetails(L, mood);
+    // face shading stays inside the head outline
+    out += '<clipPath id="' + uid + '-face"><path d="' + (HEADS[L.face] || HEADS.round) + '"/></clipPath>' +
+      G(faceDetails(L, mood), { "clip-path": "url(#" + uid + "-face)" });
     out += facialHair(L);
     if (L.hairStyle === "shaved" || L.hairStyle === "bald") out += E(80, 46, 16, 8, { fill: "#FFFFFF", opacity: 0.25, transform: "rotate(-20 80 46)" });
     out += h.front;

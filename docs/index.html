@@ -3,27 +3,137 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mock Draft 2027</title>
+  <title>Big Head GM · 2027 NFL Mock Draft Simulator</title>
+  <meta name="description" content="Run a free 2027 NFL mock draft against 31 big-headed GMs. Real big board, real draft order, trades, and a grade for every team.">
+
+  <!-- Link previews when you share the site in a text or on social -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Big Head GM">
+  <meta property="og:title" content="Big Head GM · 2027 NFL Mock Draft Simulator">
+  <meta property="og:description" content="Big heads. Big picks. Make your draft.">
+  <meta property="og:url" content="https://topher-darnell.github.io/mock-draft/">
+  <meta property="og:image" content="https://topher-darnell.github.io/mock-draft/icons/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Big Head GM logo next to the cartoon GM mascot celebrating">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Makes it installable: home screen icon, opens full-screen like an app -->
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
   <meta name="theme-color" content="#10151C">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Mock Draft">
+  <meta name="apple-mobile-web-app-title" content="Big Head GM">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="page">
+
+  <!-- Home page -->
+  <div id="home-screen" class="home">
+    <header class="site-header">
+      <div class="wrap header-row">
+        <a class="brand" href="./" id="brand-top" aria-label="Big Head GM, back to top">
+          <span class="brand-tile"><img src="icons/mascot-head.svg" alt="" width="42" height="48"></span>
+          <span class="brand-word">BIG HEAD <span>GM</span></span>
+        </a>
+        <button class="header-cta" data-start>Start <span class="cta-long">mock </span>draft</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-head">
+          <p class="eyebrow">2027 NFL MOCK DRAFT SIMULATOR</p>
+          <h1 class="hero-title">Big heads.<br>Big picks.<br><span>Make your<br>draft.</span></h1>
+        </div>
+        <div class="hero-rest">
+          <p class="hero-sub">Run a 2027 mock draft against 31 big-headed GMs. Draft from a real big board, trade up or down, then see how your class grades out.</p>
+          <div class="hero-buttons">
+            <button class="hero-start" data-start>Start mock draft</button>
+            <button class="hero-how" id="how-button">How it works</button>
+          </div>
+          <p class="hero-stats" id="hero-stats">Real big board · every pick · 32 GMs</p>
+        </div>
+        <div class="hero-art">
+          <img src="icons/mascot-hero.svg" alt="The Big Head GM mascot celebrating with a draft card" width="276" height="280">
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <div class="wrap">
+        <h2 class="home-h2">How it works</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <div class="step-text">
+              <h3>Pick your team</h3>
+              <p>Take over any of the 32 teams and choose how many rounds, 1 to 7.</p>
+            </div>
+            <span class="step-gm" data-gm="Green Bay Packers" data-mood="neutral"></span>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <div class="step-text">
+              <h3>Run the draft</h3>
+              <p>The other 31 GMs draft for their needs. Pick from the big board, or work the phones to trade up or down.</p>
+            </div>
+            <span class="step-gm" data-gm="Atlanta Falcons" data-mood="trade"></span>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <div class="step-text">
+              <h3>Get your grade</h3>
+              <p>Every team gets graded on a curve. Find out who got the steals and who reached.</p>
+            </div>
+            <span class="step-gm" data-gm="New Orleans Saints" data-mood="happy"></span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="choose">
+      <div class="wrap">
+        <div class="home-h2-row">
+          <h2 class="home-h2">Choose your team</h2>
+          <span class="section-note">Tap a GM to start</span>
+        </div>
+        <div class="home-teams" id="home-teams"></div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <img class="footer-logo" src="icons/logo.svg" alt="Big Head GM" width="96" height="97">
+        <div class="footer-text">
+          <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator.</p>
+          <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com</p>
+          <p>Not affiliated with the NFL or any NFL team. Every GM is an original cartoon.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- shows when you left a draft going -->
+    <button class="resume" id="resume-button" hidden>Back to your draft</button>
+  </div>
+
+  <main class="page" id="app" hidden>
 
     <!-- Screen 1: pick your team -->
     <section id="setup-screen">
-      <p class="eyebrow">2027 NFL DRAFT</p>
-      <h1>Mock Draft</h1>
+      <div class="app-bar">
+        <button class="app-home" id="app-home" aria-label="Back to the Big Head GM home page">
+          <span class="brand-tile small"><img src="icons/mascot-head.svg" alt="" width="33" height="38"></span>
+          <span class="brand-word small">BIG HEAD <span>GM</span></span>
+        </button>
+      </div>
+      <p class="eyebrow">2027 NFL MOCK DRAFT</p>
+      <h1>Set up your draft</h1>
       <p class="subtitle" id="subtitle">Loading…</p>
 
       <div class="label-row">
@@ -110,7 +220,6 @@
         <button class="start" id="new-mock-button">New mock</button>
       </div>
     </section>
-
 
   </main>
   <script src="gm.js"></script>

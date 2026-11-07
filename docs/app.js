@@ -1,4 +1,4 @@
-// Mock Draft website
+// Big Head GM website
 
 const POSITIONS = ["All", "QB", "RB", "WR", "TE", "OT", "IOL", "EDGE", "IDL", "LB", "CB", "S"];
 
@@ -84,6 +84,135 @@ function statusWithGM(teamName, mood, html, className) {
   const status = document.getElementById("status");
   status.className = "status " + (className || "");
   status.innerHTML = `<div class="status-row">${avatar(teamName, mood, 40)}<div class="status-text">${html}</div></div>`;
+}
+
+// ---------- Home page, and moving between it and the draft ----------
+
+const APP_SCREENS = ["setup-screen", "draft-screen", "results-screen"];
+
+function currentAppScreen() {
+  return APP_SCREENS.find((id) => !document.getElementById(id).hidden) || "setup-screen";
+}
+
+// Home -> the app. Adds one history step, so the phone's Back button comes back home.
+function enterApp(screenId) {
+  if (!(history.state && history.state.app)) history.pushState({ app: true }, "");
+  document.getElementById("home-screen").hidden = true;
+  document.getElementById("app").hidden = false;
+  if (screenId) {
+    for (const id of APP_SCREENS) document.getElementById(id).hidden = id !== screenId;
+  }
+  window.scrollTo(0, 0);
+}
+
+// Start fresh on the setup screen (optionally with a team already picked)
+function openSetup(teamName) {
+  if (teamName) myTeam = teamName;
+  enterApp("setup-screen");
+  renderSetup();
+}
+
+// Leaving mid-draft pauses it, so no picks happen while you're away
+function pauseForHome() {
+  const draftRunning = !document.getElementById("draft-screen").hidden &&
+    !document.getElementById("action-bar").hidden;
+  if (!draftRunning || onClock || userPaused) return;
+  clearTimeout(draftTimer);
+  userPaused = true;
+  updatePauseButton();
+  statusWithGM(myTeam, "neutral", `<b>Paused</b><span class="status-quote">Tap Resume to keep drafting.</span>`);
+}
+
+// fromBack: the browser puts you back where you were on the page, so don't jump to the top
+function showHome(fromBack) {
+  if (!document.getElementById("app").hidden) pauseForHome();
+  document.getElementById("app").hidden = true;
+  document.getElementById("home-screen").hidden = false;
+  renderResume();
+  if (!fromBack) window.scrollTo(0, 0);
+}
+
+// From the setup screen's logo: same as the Back button
+function goHome() {
+  if (history.state && history.state.app) {
+    history.back();   // the popstate listener shows the home page
+  } else {
+    showHome();
+  }
+}
+
+// "Back to your draft" on the home page, if you left one going
+function renderResume() {
+  const button = document.getElementById("resume-button");
+  const screen = currentAppScreen();
+  const started = myTeam && screen !== "setup-screen";
+  button.hidden = !started;
+  if (started) {
+    button.textContent = screen === "results-screen" ? "Back to your grades" : `Back to your ${HAS_GM ? GM.short(myTeam) : myTeam} draft`;
+  }
+}
+
+function renderHome() {
+  document.getElementById("hero-stats").textContent =
+    `${allPlayers.length} prospects · ${baseOrder.length} picks · ${allTeams.length} GMs`;
+
+  // a GM in each "How it works" step
+  for (const box of document.querySelectorAll(".step-gm")) {
+    if (!HAS_GM) {
+      box.innerHTML = "";
+      continue;
+    }
+    box.style.background = GM.tint(box.dataset.gm);
+    box.innerHTML = GM.img(box.dataset.gm, box.dataset.mood, 84);
+  }
+
+  // every team: tap one to set up a draft as that team
+  const grid = document.getElementById("home-teams");
+  grid.innerHTML = "";
+  const sorted = [...allTeams].sort((a, b) => a.name.localeCompare(b.name));
+  for (const team of sorted) {
+    const button = document.createElement("button");
+    button.className = "home-team";
+    const short = HAS_GM ? GM.short(team.name) : team.name;
+    button.setAttribute("aria-label", `Draft as the ${team.name}`);
+    button.innerHTML = `
+      ${avatar(team.name, "neutral", 60)}
+      <span class="home-team-name${short.length > 9 ? " long" : ""}">${short}</span>
+      <span class="home-team-picks">${roundOnePicks(team.name) || "No 1st"}</span>`;
+    button.addEventListener("click", () => openSetup(team.name));
+    if (HAS_GM) {
+      // the GM cheers when you point at him
+      button.addEventListener("pointerenter", () => { button.querySelector("img").src = GM.url(team.name, "happy"); });
+      button.addEventListener("pointerleave", () => { button.querySelector("img").src = GM.url(team.name, "neutral"); });
+    }
+    grid.appendChild(button);
+  }
+}
+
+function setUpHome() {
+  for (const button of document.querySelectorAll("[data-start]")) {
+    button.addEventListener("click", () => openSetup());
+  }
+  document.getElementById("how-button").addEventListener("click", () => {
+    document.getElementById("how").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  document.getElementById("brand-top").addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  document.getElementById("resume-button").addEventListener("click", () => enterApp(null));
+  document.getElementById("app-home").addEventListener("click", goHome);
+
+  // Back and Forward buttons
+  window.addEventListener("popstate", (e) => {
+    if (e.state && e.state.app) {
+      enterApp(null);   // Forward: back where you were
+    } else {
+      showHome(true);
+    }
+  });
+  // a reload always starts on the home page
+  if (history.state && history.state.app) history.replaceState(null, "");
 }
 
 // ---------- Screen 1: pick your team ----------
@@ -797,6 +926,9 @@ async function start() {
   document.getElementById("tab-down").addEventListener("click", () => { tradeTab = "down"; renderTradeSheet(); });
   document.getElementById("tab-up").addEventListener("click", () => { tradeTab = "up"; renderTradeSheet(); });
   renderSetup();
+  renderHome();
 }
+
+setUpHome();
 
 start();
