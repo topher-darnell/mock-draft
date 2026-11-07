@@ -86,6 +86,226 @@ function statusWithGM(teamName, mood, html, className) {
   status.innerHTML = `<div class="status-row">${avatar(teamName, mood, 40)}<div class="status-text">${html}</div></div>`;
 }
 
+// ---------- Share my draft: a picture of your class to text or post ----------
+
+let lastResult = null;   // { me, mine, of } from the last finished draft
+let shareBlob = null;
+
+const GRADE_COLORS = { A: "#6CD39A", B: "#5FB3F9", C: "#B4BFCC", D: "#F2A93B", F: "#F2876B" };
+const LABEL_COLORS = {
+  STEAL: ["rgba(108,211,154,0.18)", "#6CD39A"], Value: ["rgba(95,179,249,0.18)", "#5FB3F9"],
+  Fair: ["#222A35", "#B4BFCC"], Reach: ["rgba(242,135,107,0.18)", "#F2876B"],
+};
+
+function loadImage(src) {
+  return new Promise((resolve) => {
+    const im = new Image();
+    im.onload = () => resolve(im);
+    im.onerror = () => resolve(null);   // draw the card without it
+    im.src = src;
+  });
+}
+
+function roundRect(ctx, x, y, w, h, r, fill) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, r);
+  ctx.fillStyle = fill;
+  ctx.fill();
+}
+
+// shorten text with "…" so it fits a width
+function fitText(ctx, text, maxWidth) {
+  if (ctx.measureText(text).width <= maxWidth) return text;
+  let t = text;
+  while (t.length > 1 && ctx.measureText(t + "…").width > maxWidth) t = t.slice(0, -1);
+  return t + "…";
+}
+
+async function drawShareCard() {
+  const { me, mine, of } = lastResult;
+  const W = 1080, H = 1350, ORANGE = "#F2A93B";
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d");
+
+  try {
+    await Promise.all([
+      document.fonts.load('italic 900 60px Inter'), document.fonts.load('700 40px "Space Grotesk"'),
+      document.fonts.load('600 30px Inter'), document.fonts.load('700 30px Inter'),
+    ]);
+  } catch (e) { /* fall back to system fonts */ }
+  const [head, gm] = await Promise.all([
+    loadImage("icons/mascot-head.png"),
+    HAS_GM ? loadImage(GM.url(myTeam, moodForGrade(me.grade))) : Promise.resolve(null),
+  ]);
+
+  // background with a stadium-light glow
+  ctx.fillStyle = "#10151C";
+  ctx.fillRect(0, 0, W, H);
+  const glow = ctx.createRadialGradient(W - 160, 120, 0, W - 160, 120, 700);
+  glow.addColorStop(0, "rgba(242,169,59,0.22)");
+  glow.addColorStop(1, "rgba(242,169,59,0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // header: logo tile + BIG HEAD GM
+  const X = 72;
+  if (head) {
+    ctx.save();
+    ctx.beginPath(); ctx.roundRect(X, 64, 88, 88, 20); ctx.clip();
+    ctx.drawImage(head, X, 64, 88, 88);
+    ctx.restore();
+  }
+  ctx.textBaseline = "alphabetic";
+  ctx.font = 'italic 900 56px Inter, sans-serif';
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillText("BIG HEAD", X + 112, 126);
+  ctx.fillStyle = ORANGE;
+  ctx.fillText(" GM", X + 112 + ctx.measureText("BIG HEAD").width, 126);
+  ctx.font = '700 22px Inter, sans-serif';
+  ctx.fillStyle = "#9AA6B4";
+  ctx.fillText(`2027 MOCK DRAFT · ${rounds} ${rounds === 1 ? "ROUND" : "ROUNDS"}`, X + 114, 156);
+
+  // grade card: GM, grade letter, team, standing
+  const cy = 200, ch = 300;
+  roundRect(ctx, X - 8, cy, W - 2 * (X - 8), ch, 36, "#1A212B");
+  if (gm) {
+    roundRect(ctx, X + 16, cy + 24, 216, ch - 24, 26, HAS_GM ? GM.tint(myTeam) : "#222A35");
+    ctx.save();
+    ctx.beginPath(); ctx.roundRect(X + 16, cy + 24, 216, ch - 24, 26); ctx.clip();
+    ctx.drawImage(gm, X + 16 + 4, cy + ch - 250, 208, 250);
+    ctx.restore();
+  }
+  const gx = gm ? X + 264 : X + 24;
+  roundRect(ctx, gx, cy + 40, 140, 140, 32, GRADE_COLORS[me.grade] || ORANGE);
+  ctx.font = '700 100px "Space Grotesk", sans-serif';
+  ctx.fillStyle = "#10151C";
+  ctx.textAlign = "center";
+  ctx.fillText(me.grade, gx + 70, cy + 145);
+  ctx.textAlign = "left";
+  const tx = gx + 168, tw = W - X - tx - 8;
+  let size = 44;   // shrink long team names before cutting them off
+  do { ctx.font = `700 ${size}px "Space Grotesk", sans-serif`; size -= 2; } while (size >= 32 && ctx.measureText(myTeam).width > tw);
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillText(fitText(ctx, myTeam, tw), tx, cy + 92);
+  ctx.font = '600 28px Inter, sans-serif';
+  ctx.fillStyle = "#9AA6B4";
+  ctx.fillText(`${me.place} of ${of} teams`, tx, cy + 136);
+  ctx.fillText(`${me.avg.toFixed(2)} points per pick`, tx, cy + 174);
+  if (HAS_GM) {
+    ctx.font = 'italic 600 28px Inter, sans-serif';
+    ctx.fillStyle = ORANGE;
+    const kind = moodForGrade(me.grade) === "happy" ? "gradeHigh" : moodForGrade(me.grade) === "neutral" ? "gradeMid" : "gradeLow";
+    ctx.fillText(fitText(ctx, `“${quip(kind)}”`, W - X - gx - 8), gx, cy + 248);
+  }
+
+  // your class
+  let y = cy + ch + 70;
+  ctx.font = '700 24px Inter, sans-serif';
+  ctx.fillStyle = "#9AA6B4";
+  ctx.fillText("MY CLASS", X, y);
+  y += 22;
+  const maxRows = 9;
+  const rowH = 74;
+  for (const r of mine.slice(0, maxRows)) {
+    ctx.fillStyle = "#1F2732";
+    ctx.fillRect(X, y, W - 2 * X, 2);
+    const base = y + 48;
+    ctx.font = '700 30px "Space Grotesk", sans-serif';
+    ctx.fillStyle = "#9AA6B4";
+    ctx.fillText(`#${r.pick.pick}`, X, base);
+    const [bg, fg] = LABEL_COLORS[r.label] || LABEL_COLORS.Fair;
+    ctx.font = '700 24px Inter, sans-serif';
+    const lw = ctx.measureText(r.label).width + 28;
+    roundRect(ctx, W - X - lw, y + 18, lw, 40, 10, bg);
+    ctx.fillStyle = fg;
+    ctx.fillText(r.label, W - X - lw + 14, y + 47);
+    const nx = X + 104, nw = W - X - lw - 24 - nx;
+    ctx.font = '700 30px Inter, sans-serif';
+    ctx.fillStyle = "#FFFFFF";
+    const name = fitText(ctx, r.player.name, nw * 0.62);
+    ctx.fillText(name, nx, base);
+    const after = nx + ctx.measureText(name).width + 14;
+    ctx.font = '600 24px Inter, sans-serif';
+    ctx.fillStyle = "#9AA6B4";
+    ctx.fillText(fitText(ctx, `${r.player.position} · ${r.player.college}`, nx + nw - after), after, base);
+    y += rowH;
+  }
+  if (mine.length > maxRows) {
+    ctx.font = '600 24px Inter, sans-serif';
+    ctx.fillStyle = "#9AA6B4";
+    ctx.fillText(`+ ${mine.length - maxRows} more picks`, X, y + 40);
+  }
+
+  // footer
+  roundRect(ctx, 0, H - 110, W, 110, 0, ORANGE);
+  ctx.font = 'italic 900 40px Inter, sans-serif';
+  ctx.fillStyle = "#1B1206";
+  ctx.textAlign = "center";
+  ctx.fillText("MAKE YOUR DRAFT AT BIGHEADGM.COM", W / 2, H - 42);
+  ctx.textAlign = "left";
+
+  return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+}
+
+function shareFileName() {
+  return `big-head-gm-${(HAS_GM ? GM.short(myTeam) : myTeam).toLowerCase().replace(/[^a-z0-9]+/g, "-")}-mock.png`;
+}
+
+async function openShareSheet() {
+  if (!lastResult) return;
+  const sheet = document.getElementById("share-sheet");
+  const preview = document.getElementById("share-preview");
+  document.getElementById("share-status").textContent = "Making your picture…";
+  preview.removeAttribute("src");
+  sheet.hidden = false;
+  document.getElementById("close-share").focus();
+  shareBlob = await drawShareCard();
+  if (!shareBlob) {
+    document.getElementById("share-status").textContent = "Couldn't make the picture on this device.";
+    return;
+  }
+  if (preview.dataset.url) URL.revokeObjectURL(preview.dataset.url);
+  preview.dataset.url = URL.createObjectURL(shareBlob);
+  preview.src = preview.dataset.url;
+  const file = new File([shareBlob], shareFileName(), { type: "image/png" });
+  const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  document.getElementById("share-native").hidden = !canShare;
+  document.getElementById("share-status").textContent = canShare ? "" : "Save it, then post it anywhere.";
+}
+
+async function shareNative() {
+  if (!shareBlob) return;
+  const file = new File([shareBlob], shareFileName(), { type: "image/png" });
+  try {
+    await navigator.share({ files: [file], text: "My Big Head GM mock draft. Make yours at https://bigheadgm.com" });
+  } catch (e) { /* cancelled */ }
+}
+
+function saveShareImage() {
+  if (!shareBlob) return;
+  const a = document.createElement("a");
+  a.href = document.getElementById("share-preview").dataset.url;
+  a.download = shareFileName();
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function closeShareSheet() {
+  document.getElementById("share-sheet").hidden = true;
+}
+
+function setUpShare() {
+  document.getElementById("share-button").addEventListener("click", openShareSheet);
+  document.getElementById("close-share").addEventListener("click", closeShareSheet);
+  document.getElementById("share-native").addEventListener("click", shareNative);
+  document.getElementById("share-save").addEventListener("click", saveShareImage);
+  document.getElementById("share-sheet").addEventListener("click", (e) => { if (e.target.id === "share-sheet") closeShareSheet(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !document.getElementById("share-sheet").hidden) closeShareSheet(); });
+}
+
 // ---------- My mocks: your last 10 drafts, saved on this device ----------
 
 const MOCKS_KEY = "bhg-mocks";
@@ -319,6 +539,7 @@ function renderHome() {
 
 function setUpHome() {
   setUpMyMocks();
+  setUpShare();
   for (const button of document.querySelectorAll("[data-start]")) {
     button.addEventListener("click", () => openSetup());
   }
@@ -890,7 +1111,9 @@ function showResults() {
     document.getElementById("my-grade-detail").innerHTML =
       `${me.avg.toFixed(2)} points per pick<br>${me.place} of ${teams.length} · ${needsFilled} ${needsFilled === 1 ? "need" : "needs"} filled`;
     saveMock(me, mine, teams.length);
+    lastResult = { me, mine, of: teams.length };
   } else {
+    lastResult = null;
     document.getElementById("my-grade").textContent = "–";
     document.getElementById("my-grade-detail").textContent = "You had no picks in these rounds.";
   }
@@ -925,6 +1148,7 @@ function showResults() {
     all.appendChild(li);
   }
 
+  document.getElementById("share-button").hidden = !lastResult;
   document.getElementById("draft-screen").hidden = true;
   document.getElementById("results-screen").hidden = false;
   window.scrollTo(0, 0);

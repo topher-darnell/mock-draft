@@ -232,6 +232,23 @@
       </div>
     </div>
 
+    <!-- Share my draft: a picture of your class -->
+    <div class="sheet-backdrop" id="share-sheet" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="share-title">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2 class="sheet-title" id="share-title">Share my draft</h2>
+          <button class="close-button" id="close-share" aria-label="Close">✕</button>
+        </div>
+        <img class="share-preview" id="share-preview" alt="Picture of your draft class and grade">
+        <p class="share-status" id="share-status"></p>
+        <div class="share-actions">
+          <button class="secondary" id="share-save">Save image</button>
+          <button class="start" id="share-native" hidden>Share</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Screen 3: grades -->
     <section id="results-screen" hidden>
       <p class="eyebrow" id="results-eyebrow">DRAFT COMPLETE</p>
@@ -249,6 +266,8 @@
           <p class="gm-quote" id="grade-quote" hidden></p>
         </div>
       </div>
+
+      <button class="share-button" id="share-button" hidden>Share my draft</button>
 
       <h2 class="section-label">YOUR CLASS</h2>
       <ol class="board" id="my-class"></ol>
