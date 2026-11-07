@@ -7,7 +7,24 @@ const NEED_BONUS = [8, 6, 4, 3, 2];  // bonus (in rank spots) for top need, 2nd 
 const RANDOMNESS = 7;                // random swing for the top players
 const DEEP_RANDOMNESS = 0.4;         // deeper players swing more: rank x this
 const LOOK_AHEAD = 15;               // computer only considers this many best-available players
-const PICK_DELAY = 350;              // milliseconds between computer picks
+const PICK_DELAY = 350;              // milliseconds between computer picks at Normal speed
+
+// Draft style settings (saved on this device)
+const CHAOS_LEVELS = [
+  { name: "Chalk", mult: 0.25, hint: "Teams stick close to the big board. Few surprises." },
+  { name: "Steady", mult: 0.6, hint: "A little movement, mostly by the board." },
+  { name: "Normal", mult: 1, hint: "Like a real draft: some reaches, some players fall." },
+  { name: "Wild", mult: 1.7, hint: "Reaches and fallers all over the place." },
+  { name: "Chaos", mult: 2.6, hint: "Anything goes. Good luck." },
+];
+const SPEEDS = [
+  { name: "Slow", ms: 800 },
+  { name: "Normal", ms: PICK_DELAY },
+  { name: "Fast", ms: 120 },
+  { name: "Instant", ms: 15 },
+];
+const SETTINGS_KEY = "bhg-settings";
+const settings = { chaos: 2, speed: 1 };   // indexes into the lists above
 const VALUE_MIN_MARGIN = 3;          // value labels: cushion for early picks
 const VALUE_MARGIN_RATE = 0.12;      // value labels: cushion for later picks
 const LABEL_POINTS = { STEAL: 3, Value: 2, Fair: 1, Reach: 0 };  // grade points per pick
@@ -335,6 +352,7 @@ function saveMock(me, mine, teamCount) {
     date: new Date().toISOString(),
     team: myTeam,
     rounds,
+    style: CHAOS_LEVELS[settings.chaos].name,
     grade: me.grade,
     place: me.place,
     of: teamCount,
@@ -385,7 +403,7 @@ function openMock(id) {
   document.getElementById("mock-body").innerHTML = `
     <div class="mock-summary">
       <span class="grade-letter grade-${m.grade.toLowerCase()}">${m.grade}</span>
-      <span class="meta">${m.avg.toFixed(2)} points per pick · ${m.place} of ${m.of}<br>${mockDate(m.date)} · ${m.rounds} ${m.rounds === 1 ? "round" : "rounds"}</span>
+      <span class="meta">${m.avg.toFixed(2)} points per pick · ${m.place} of ${m.of}<br>${mockDate(m.date)} · ${m.rounds} ${m.rounds === 1 ? "round" : "rounds"}${m.style && m.style !== "Normal" ? " · " + m.style : ""}</span>
     </div>
     <ol class="board mock-class">
       ${m.picks.map((p) => `
@@ -609,9 +627,66 @@ function renderRounds() {
   }
 }
 
+// ---------- Draft style: how predictable the computer is, and how fast it picks ----------
+
+function chaosMult() { return CHAOS_LEVELS[settings.chaos].mult; }
+function pickDelay() { return SPEEDS[settings.speed].ms; }
+
+function loadSettings() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+    if (Number.isInteger(saved.chaos) && CHAOS_LEVELS[saved.chaos]) settings.chaos = saved.chaos;
+    if (Number.isInteger(saved.speed) && SPEEDS[saved.speed]) settings.speed = saved.speed;
+  } catch (e) { /* use the defaults */ }
+}
+
+function saveSettings() {
+  try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch (e) { /* not saved */ }
+}
+
+function renderSettings() {
+  const slider = document.getElementById("chaos");
+  slider.value = settings.chaos + 1;
+  const level = CHAOS_LEVELS[settings.chaos];
+  document.getElementById("chaos-value").textContent = level.name;
+  document.getElementById("chaos-hint").textContent = level.hint;
+  slider.setAttribute("aria-valuetext", level.name);
+  slider.style.setProperty("--fill", `${(settings.chaos / (CHAOS_LEVELS.length - 1)) * 100}%`);
+
+  const box = document.getElementById("speed");
+  box.innerHTML = "";
+  SPEEDS.forEach((sp, i) => {
+    const button = document.createElement("button");
+    button.textContent = sp.name;
+    button.className = i === settings.speed ? "round selected" : "round";
+    button.setAttribute("aria-pressed", i === settings.speed ? "true" : "false");
+    button.addEventListener("click", () => {
+      settings.speed = i;
+      saveSettings();
+      renderSettings();
+    });
+    box.appendChild(button);
+  });
+}
+
+function setUpSettings() {
+  loadSettings();
+  document.getElementById("chaos").addEventListener("input", (e) => {
+    settings.chaos = Number(e.target.value) - 1;
+    saveSettings();
+    renderSettings();
+  });
+}
+
+// the style shown on the draft screen and saved with your mock (blank when Normal)
+function styleTag() {
+  return settings.chaos === 2 ? "" : CHAOS_LEVELS[settings.chaos].name.toUpperCase();
+}
+
 function renderSetup() {
   renderTeams();
   renderRounds();
+  renderSettings();
   const start = document.getElementById("start-button");
   if (myTeam) {
     start.disabled = false;
@@ -626,7 +701,7 @@ function startDraft() {
   document.getElementById("setup-screen").hidden = true;
   document.getElementById("draft-screen").hidden = false;
   document.getElementById("draft-eyebrow").textContent =
-    `${rounds} ${rounds === 1 ? "ROUND" : "ROUNDS"} · YOUR PICKS: ${roundOnePicks(myTeam) || "none in round 1"}`;
+    `${rounds} ${rounds === 1 ? "ROUND" : "ROUNDS"}${styleTag() ? " · " + styleTag() : ""} · YOUR PICKS: ${roundOnePicks(myTeam) || "none in round 1"}`;
   document.getElementById("draft-title").textContent = myTeam;
 
   // fresh copies, so a new mock always starts clean
@@ -664,7 +739,8 @@ function startDraft() {
 
 // Same idea as cpu_pick in draft_logic.py: lowest score wins
 function cpuPick(teamName) {
-  const candidates = available.slice(0, LOOK_AHEAD);
+  const mult = chaosMult();
+  const candidates = available.slice(0, Math.round(LOOK_AHEAD * Math.max(1, mult)));
   const teamNeeds = needs[teamName];
   let best = null;
   let bestScore = Infinity;
@@ -675,7 +751,7 @@ function cpuPick(teamName) {
     if (idx !== -1) {
       bonus = idx < NEED_BONUS.length ? NEED_BONUS[idx] : 1;
     }
-    const swing = Math.max(RANDOMNESS, p.rank * DEEP_RANDOMNESS);
+    const swing = Math.max(RANDOMNESS, p.rank * DEEP_RANDOMNESS) * mult;
     const score = p.rank - bonus + (Math.random() * 2 - 1) * swing;
     if (score < bestScore) {
       bestScore = score;
@@ -767,7 +843,7 @@ function runDraft() {
 
   statusWithGM(pick.team, "focused", `<b>Pick ${pick.pick} · ${pick.team}</b><span class="status-quote">On the clock…</span>`);
   makePick(pick, cpuPick(pick.team));
-  scheduleNext(PICK_DELAY);
+  scheduleNext(pickDelay());
 }
 
 // ---------- Your pick ----------
@@ -907,7 +983,7 @@ function closeTradeSheet() {
   document.getElementById("trade-sheet").hidden = true;
   setMyGM(onClock ? "focused" : "neutral");
   paused = false;
-  if (!onClock && !userPaused) scheduleNext(PICK_DELAY);   // pick up where the draft left off
+  if (!onClock && !userPaused) scheduleNext(pickDelay());   // pick up where the draft left off
 }
 
 function renderTradeSheet() {
@@ -1285,14 +1361,14 @@ function closePlayerCard() {
   document.getElementById("player-sheet").hidden = true;
   paused = cardWasPaused;
   const draftRunning = !document.getElementById("draft-screen").hidden && !document.getElementById("action-bar").hidden;
-  if (draftRunning && !paused && !onClock && !userPaused) scheduleNext(PICK_DELAY);
+  if (draftRunning && !paused && !onClock && !userPaused) scheduleNext(pickDelay());
 }
 
 function renderPlayerCard(player) {
   const samePos = allPlayers.filter((q) => q.position === player.position);   // best first
   const posRank = samePos.indexOf(player) + 1;
   const taken = results.find((r) => r.player === player);
-  const swing = Math.max(RANDOMNESS, player.rank * DEEP_RANDOMNESS);
+  const swing = Math.max(RANDOMNESS, player.rank * DEEP_RANDOMNESS) * chaosMult();
   const low = Math.max(1, Math.round(player.rank - swing));
   const high = Math.round(player.rank + swing);
 
@@ -1379,6 +1455,7 @@ async function start() {
   document.getElementById("subtitle").textContent =
     `${allPlayers.length} prospects · ${draftOrder.length} picks`;
   document.getElementById("start-button").addEventListener("click", startDraft);
+  setUpSettings();
   document.getElementById("view-picks-button").addEventListener("click", viewPicks);
   document.getElementById("new-mock-button").addEventListener("click", newMock);
   document.getElementById("trade-button").addEventListener("click", openTradeSheet);

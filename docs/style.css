@@ -1272,3 +1272,45 @@ h1 {
 .share-status:empty { display: none; }
 .share-actions { display: flex; gap: 10px; }
 .share-actions .start { flex: 1; }
+
+/* ---------- Draft style settings ---------- */
+
+.setting { margin-bottom: 18px; padding: 14px 16px; border-radius: 16px; background: var(--card); }
+.setting-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.setting-name { font-size: 15px; font-weight: 600; }
+.setting-value { font: 700 15px "Space Grotesk", sans-serif; color: var(--accent); }
+.setting-ends { display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.setting-hint { margin: 8px 0 0; font-size: 13px; line-height: 1.45; color: var(--muted); }
+
+.slider {
+  --fill: 50%;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, var(--accent) var(--fill), #2A3442 var(--fill));
+}
+.slider::-moz-range-track { height: 8px; border-radius: 4px; background: #2A3442; }
+.slider::-moz-range-progress { height: 8px; border-radius: 4px; background: var(--accent); }
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -10px;
+  border: 4px solid var(--bg);
+  border-radius: 50%;
+  background: var(--accent);
+}
+.slider::-moz-range-thumb { width: 22px; height: 22px; border: 4px solid var(--bg); border-radius: 50%; background: var(--accent); }
+.slider:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+
+.speed { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.speed .round { background: #222A35; font-size: 14px; }
+.speed .round.selected { background: var(--text); color: var(--bg); }

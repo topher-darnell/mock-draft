@@ -168,6 +168,21 @@
       <h2 class="section-label">ROUNDS</h2>
       <div class="rounds" id="rounds"></div>
 
+      <h2 class="section-label">DRAFT STYLE</h2>
+      <div class="setting">
+        <div class="setting-top">
+          <label class="setting-name" for="chaos">Computer teams</label>
+          <span class="setting-value" id="chaos-value">Normal</span>
+        </div>
+        <input class="slider" type="range" id="chaos" min="1" max="5" step="1" value="3" aria-describedby="chaos-hint">
+        <div class="setting-ends"><span>Chalk</span><span>Chaos</span></div>
+        <p class="setting-hint" id="chaos-hint"></p>
+      </div>
+      <div class="setting">
+        <div class="setting-top"><span class="setting-name" id="speed-label">Pick speed</span></div>
+        <div class="speed" id="speed" role="group" aria-labelledby="speed-label"></div>
+      </div>
+
       <button class="start" id="start-button" disabled>Pick a team to start</button>
     </section>
 
