@@ -18,6 +18,7 @@ Pick a team, draft against 31 cartoon GMs who draft for their own needs, trade u
 - **Player cards:** tap any player to see his rank, size, age on draft day, 2025 college stats, where he usually goes, the top players at his position and which teams need one next
 - **Trades:** trade down when you're on the clock, or trade up before your pick, priced with a draft value chart
 - **Grades:** every team gets a letter grade on a curve at the end
+- **1,000 drafts:** a page with the consensus mock (the most common pick at every slot), when each position comes off the board, and every team's most likely picks. Every player's average draft position shows on the big board and his card
 - **Share my draft:** one tap makes a picture of your class and grade to text or post
 - **My mocks:** your last 10 drafts are saved on your device
 - **Works everywhere:** phone layout, a three-column draft room on computers, installable on your home screen, and works offline
@@ -30,12 +31,13 @@ The website is plain HTML, CSS and JavaScript in the `docs` folder, hosted free 
 |---|---|
 | `docs/index.html` | The page: home, setup, draft room and grades screens |
 | `docs/app.js` | The draft: computer picks, trades, grades, player cards, saved mocks, sharing |
+| `docs/insights.html`, `docs/insights.js` | The "What 1,000 drafts say" page |
 | `docs/gm.js` | Shows the right GM photo for each team and mood (and draws a cartoon backup if a photo can't load) |
 | `docs/gm/` | The GM photos: one sheet per mood with all 32 teams, and one strip per team with all 5 moods |
 | `docs/style.css` | How everything looks, on phones and computers |
 | `docs/sw.js` | Saves the site on your device so it works offline |
 | `docs/manifest.json` | Lets you add it to your home screen like an app |
-| `docs/data/*.json` | Prospects (with college stats and ages), teams, draft order and trade chart (made by `export_json.py`) |
+| `docs/data/*.json` | Prospects (with college stats, ages and average draft position), teams, draft order, trade chart and the 1,000-draft results (made by `export_json.py`) |
 | `docs/icons/` | Logo, mascot, home screen icons and the link preview image |
 | `docs/CNAME` | Connects the site to bigheadgm.com (don't delete it) |
 
@@ -74,6 +76,7 @@ python3 mock_draft.py
 | `trades.py` | Pick values and trades |
 | `players.csv` | Prospects: rank, name, position, college, height, weight, class |
 | `prospect_stats.csv` | 2025 college stats for the top 100: passing, rushing, receiving, tackles, sacks, interceptions (with the source of each line) |
+| `sim_picks.csv`, `sim_positions.csv` | Also from the 1,000 drafts: the three most common players at every pick, and how many of each position go per round |
 | `adp.csv` | From 1,000 simulated drafts: each player's average pick, earliest and latest pick, how often he's drafted and the team that takes him most |
 | `prospect_ages.csv` | Birth date and age on draft day (April 29, 2027) for the top 100, with a link to the source of each date |
 | `teams.csv` | Each team's needs, most important first |
@@ -83,8 +86,9 @@ python3 mock_draft.py
 ### Updating the data
 
 1. Update the CSV files in `mockdraft` (or run `convert_board.py` on a new big board export).
-2. Run `python3 export_json.py` to rebuild the files in `docs/data`.
-3. Upload the new `docs/data` files to GitHub. The site updates in a minute or two.
+2. Run `python3 auto_mocks.py 1000 --save` to re-run the 1,000 drafts.
+3. Run `python3 export_json.py` to rebuild the files in `docs/data`.
+4. Upload the new `docs/data` files to GitHub. The site updates in a minute or two.
 
 ## Data sources
 

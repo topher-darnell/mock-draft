@@ -14,6 +14,14 @@
    "rec_yds": 1243,
    "rec_td": 12
   },
+  "adp": {
+   "pct": 100,
+   "avg": 3,
+   "min": 1,
+   "max": 11,
+   "team": "Los Angeles Chargers",
+   "teamPct": 52
+  },
   "born": "2005-11-29",
   "age": 21.4
  },
@@ -33,6 +41,14 @@
    "sacks": 0,
    "def_int": 5,
    "pass_breakups": 7
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 3.8,
+   "min": 1,
+   "max": 10,
+   "team": "New York Jets",
+   "teamPct": 32.3
   }
  },
  {
@@ -51,6 +67,14 @@
    "sacks": 12,
    "def_int": 0,
    "pass_breakups": 2
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 4,
+   "min": 1,
+   "max": 12,
+   "team": "Miami Dolphins",
+   "teamPct": 30.2
   },
   "born": "2006-01-08",
   "age": 21.3
@@ -72,6 +96,14 @@
    "def_int": 0,
    "pass_breakups": 2
   },
+  "adp": {
+   "pct": 100,
+   "avg": 4.9,
+   "min": 1,
+   "max": 13,
+   "team": "Miami Dolphins",
+   "teamPct": 27.5
+  },
   "born": "2005-09-14",
   "age": 21.6
  },
@@ -89,6 +121,14 @@
    "rec": 26,
    "rec_yds": 515,
    "rec_td": 2
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 7.1,
+   "min": 1,
+   "max": 12,
+   "team": "Washington Commanders",
+   "teamPct": 27.2
   }
  },
  {
@@ -99,6 +139,14 @@
   "height": "6-5",
   "weight": "307",
   "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 4.4,
+   "min": 2,
+   "max": 13,
+   "team": "Tennessee Titans",
+   "teamPct": 39.5
+  },
   "born": "2005-06-19",
   "age": 21.9
  },
@@ -118,6 +166,14 @@
    "rec_td": 5,
    "note": "2025 at Auburn"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 9,
+   "min": 1,
+   "max": 14,
+   "team": "Arizona Cardinals",
+   "teamPct": 32.1
+  },
   "born": "2006-08-14",
   "age": 20.7
  },
@@ -134,6 +190,14 @@
    "tackles": 68,
    "tfl": 11.5,
    "sacks": 5
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 7,
+   "min": 1,
+   "max": 15,
+   "team": "New York Jets",
+   "teamPct": 44.5
   },
   "born": "2006-08-07",
   "age": 20.7
@@ -154,6 +218,14 @@
    "sacks": 0.5,
    "def_int": 0,
    "pass_breakups": 0
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 8,
+   "min": 2,
+   "max": 15,
+   "team": "New York Jets",
+   "teamPct": 39.4
   }
  },
  {
@@ -172,6 +244,14 @@
    "sacks": 0,
    "def_int": 4,
    "pass_breakups": 7
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 9.2,
+   "min": 2,
+   "max": 15,
+   "team": "New York Jets",
+   "teamPct": 23.3
   }
  },
  {
@@ -192,6 +272,14 @@
    "pass_int": 9,
    "note": "2025 at North Texas"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 9.6,
+   "min": 3,
+   "max": 19,
+   "team": "New York Jets",
+   "teamPct": 47.5
+  },
   "born": "2006-01",
   "age": 21.3
  },
@@ -211,6 +299,14 @@
    "rush_td": 10,
    "rec": 33,
    "rec_yds": 210
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 12.7,
+   "min": 2,
+   "max": 23,
+   "team": "Baltimore Ravens",
+   "teamPct": 19.6
   }
  },
  {
@@ -227,6 +323,14 @@
    "pass_yds": 680,
    "pass_td": 4,
    "pass_int": 5
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 12.5,
+   "min": 3,
+   "max": 25,
+   "team": "Cleveland Browns",
+   "teamPct": 24.5
   },
   "born": "2005-11-08",
   "age": 21.5
@@ -248,6 +352,14 @@
    "pass_td": 22,
    "pass_int": 3
   },
+  "adp": {
+   "pct": 100,
+   "avg": 13.8,
+   "min": 3,
+   "max": 24,
+   "team": "Cleveland Browns",
+   "teamPct": 36.9
+  },
   "born": "2002-08-24",
   "age": 24.7
  },
@@ -267,6 +379,14 @@
    "sacks": 0,
    "def_int": 4,
    "pass_breakups": 3
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 17.1,
+   "min": 8,
+   "max": 25,
+   "team": "Cleveland Browns",
+   "teamPct": 19.9
   }
  },
  {
@@ -283,6 +403,14 @@
    "rec": 23,
    "rec_yds": 320,
    "rec_td": 1
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 18.2,
+   "min": 11,
+   "max": 26,
+   "team": "Carolina Panthers",
+   "teamPct": 33.3
   }
  },
  {
@@ -292,7 +420,15 @@
   "college": "Minnesota",
   "height": "6-6",
   "weight": "325",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 17.1,
+   "min": 10,
+   "max": 30,
+   "team": "Cleveland Browns",
+   "teamPct": 23.6
+  }
  },
  {
   "rank": 18,
@@ -310,6 +446,14 @@
    "sacks": 1.5,
    "def_int": 0,
    "pass_breakups": 1
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 17.5,
+   "min": 6,
+   "max": 28,
+   "team": "Las Vegas Raiders",
+   "teamPct": 24.8
   },
   "born": "2005-11-20",
   "age": 21.4
@@ -331,6 +475,14 @@
    "def_int": 0,
    "pass_breakups": 2
   },
+  "adp": {
+   "pct": 100,
+   "avg": 22.3,
+   "min": 7,
+   "max": 33,
+   "team": "New England Patriots",
+   "teamPct": 27.8
+  },
   "born": "2005-10-03",
   "age": 21.6
  },
@@ -351,6 +503,14 @@
    "def_int": 1,
    "pass_breakups": 9
   },
+  "adp": {
+   "pct": 100,
+   "avg": 18,
+   "min": 9,
+   "max": 29,
+   "team": "Baltimore Ravens",
+   "teamPct": 24
+  },
   "born": "2006-01-09",
   "age": 21.3
  },
@@ -370,6 +530,14 @@
    "sacks": 0,
    "def_int": 0,
    "pass_breakups": 1
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 23.2,
+   "min": 13,
+   "max": 32,
+   "team": "Cincinnati Bengals",
+   "teamPct": 21.4
   }
  },
  {
@@ -389,6 +557,14 @@
    "def_int": 2,
    "pass_breakups": 5
   },
+  "adp": {
+   "pct": 100,
+   "avg": 24,
+   "min": 13,
+   "max": 37,
+   "team": "Cincinnati Bengals",
+   "teamPct": 25.3
+  },
   "born": "2006-02-18",
   "age": 21.2
  },
@@ -400,6 +576,14 @@
   "height": "6-5",
   "weight": "310",
   "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 24.2,
+   "min": 12,
+   "max": 36,
+   "team": "New England Patriots",
+   "teamPct": 21.4
+  },
   "born": "2004-04-15",
   "age": 23
  },
@@ -418,6 +602,14 @@
    "rec_yds": 662,
    "rec_td": 6
   },
+  "adp": {
+   "pct": 100,
+   "avg": 22.3,
+   "min": 11,
+   "max": 38,
+   "team": "Dallas Cowboys",
+   "teamPct": 20.2
+  },
   "born": "2006-10-01",
   "age": 20.6
  },
@@ -429,6 +621,14 @@
   "height": "6-6",
   "weight": "325",
   "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 24.2,
+   "min": 13,
+   "max": 42,
+   "team": "Carolina Panthers",
+   "teamPct": 16.9
+  },
   "born": "2004-10-13",
   "age": 22.5
  },
@@ -439,7 +639,15 @@
   "college": "Utah",
   "height": "6-8",
   "weight": "305",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 25.5,
+   "min": 13,
+   "max": 42,
+   "team": "Tennessee Titans",
+   "teamPct": 16.8
+  }
  },
  {
   "rank": 27,
@@ -457,6 +665,14 @@
    "sacks": 0,
    "def_int": 2,
    "pass_breakups": 11
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 25.7,
+   "min": 14,
+   "max": 40,
+   "team": "Detroit Lions",
+   "teamPct": 17.7
   },
   "born": "2004-03-11",
   "age": 23.1
@@ -478,6 +694,14 @@
    "def_int": 0,
    "pass_breakups": 1
   },
+  "adp": {
+   "pct": 100,
+   "avg": 28,
+   "min": 16,
+   "max": 42,
+   "team": "Tennessee Titans",
+   "teamPct": 14.7
+  },
   "born": "2004-10-13",
   "age": 22.5
  },
@@ -495,6 +719,14 @@
    "tackles": 31,
    "tfl": 9,
    "sacks": 4.5
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 28.3,
+   "min": 15,
+   "max": 45,
+   "team": "Tennessee Titans",
+   "teamPct": 19.8
   },
   "born": "2004-04-22",
   "age": 23
@@ -516,6 +748,14 @@
    "def_int": 1,
    "pass_breakups": 2
   },
+  "adp": {
+   "pct": 100,
+   "avg": 32.4,
+   "min": 20,
+   "max": 49,
+   "team": "Buffalo Bills",
+   "teamPct": 17.4
+  },
   "born": "2006-03-16",
   "age": 21.1
  },
@@ -535,6 +775,14 @@
    "pass_yds": 2741,
    "pass_td": 24,
    "pass_int": 6
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 31.8,
+   "min": 18,
+   "max": 48,
+   "team": "Minnesota Vikings",
+   "teamPct": 20.7
   },
   "born": "2005-05-26",
   "age": 21.9
@@ -556,6 +804,14 @@
    "pass_td": 26,
    "pass_int": 7
   },
+  "adp": {
+   "pct": 100,
+   "avg": 32.4,
+   "min": 18,
+   "max": 51,
+   "team": "Minnesota Vikings",
+   "teamPct": 22.3
+  },
   "born": "2004-04-27",
   "age": 23
  },
@@ -567,6 +823,14 @@
   "height": "6-3",
   "weight": "298",
   "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 33.5,
+   "min": 21,
+   "max": 47,
+   "team": "San Francisco 49ers",
+   "teamPct": 19.7
+  },
   "born": "2005-02-18",
   "age": 22.2
  },
@@ -578,6 +842,14 @@
   "height": "6-7",
   "weight": "325",
   "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 34.6,
+   "min": 23,
+   "max": 51,
+   "team": "Tennessee Titans",
+   "teamPct": 15.2
+  },
   "born": "2005-05-14",
   "age": 22
  },
@@ -599,6 +871,14 @@
    "pass_int": 6,
    "note": "2025 at Duke"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 35.8,
+   "min": 24,
+   "max": 55,
+   "team": "Miami Dolphins",
+   "teamPct": 15.6
+  },
   "born": "2005-01-25",
   "age": 22.3
  },
@@ -619,6 +899,14 @@
    "pass_td": 30,
    "pass_int": 10
   },
+  "adp": {
+   "pct": 100,
+   "avg": 36.4,
+   "min": 26,
+   "max": 55,
+   "team": "Miami Dolphins",
+   "teamPct": 14.4
+  },
   "born": "2005-05-24",
   "age": 21.9
  },
@@ -638,6 +926,14 @@
    "sacks": 1.5,
    "def_int": 0,
    "pass_breakups": 7
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 36.9,
+   "min": 25,
+   "max": 58,
+   "team": "Tennessee Titans",
+   "teamPct": 20.2
   }
  },
  {
@@ -656,6 +952,14 @@
    "sacks": 0,
    "def_int": 0,
    "pass_breakups": 3
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 38,
+   "min": 26,
+   "max": 55,
+   "team": "Arizona Cardinals",
+   "teamPct": 13.4
   }
  },
  {
@@ -665,7 +969,15 @@
   "college": "Notre Dame",
   "height": "6-5",
   "weight": "305",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 38.8,
+   "min": 25,
+   "max": 57,
+   "team": "New York Jets",
+   "teamPct": 9.7
+  }
  },
  {
   "rank": 40,
@@ -675,6 +987,14 @@
   "height": "6-5",
   "weight": "314",
   "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 40.3,
+   "min": 28,
+   "max": 57,
+   "team": "Arizona Cardinals",
+   "teamPct": 20.5
+  },
   "born": "2004-09-27",
   "age": 22.6
  },
@@ -694,6 +1014,14 @@
    "sacks": 1,
    "def_int": 0,
    "pass_breakups": 1
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 41.1,
+   "min": 27,
+   "max": 60,
+   "team": "Indianapolis Colts",
+   "teamPct": 14.8
   },
   "born": "2006-01-31",
   "age": 21.2
@@ -715,6 +1043,14 @@
    "rec": 25,
    "rec_yds": 154
   },
+  "adp": {
+   "pct": 100,
+   "avg": 44.1,
+   "min": 28,
+   "max": 66,
+   "team": "New Orleans Saints",
+   "teamPct": 16.3
+  },
   "born": "2006-07-06",
   "age": 20.8
  },
@@ -734,6 +1070,14 @@
    "sacks": 2.5,
    "def_int": 0,
    "pass_breakups": 0
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 43.4,
+   "min": 30,
+   "max": 63,
+   "team": "Indianapolis Colts",
+   "teamPct": 12.9
   }
  },
  {
@@ -744,6 +1088,14 @@
   "height": "6-5",
   "weight": "324",
   "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 44.5,
+   "min": 31,
+   "max": 64,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.4
+  },
   "born": "2004-11-15",
   "age": 22.5
  },
@@ -761,6 +1113,14 @@
    "rec": 39,
    "rec_yds": 673,
    "rec_td": 5
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 45.2,
+   "min": 31,
+   "max": 64,
+   "team": "Arizona Cardinals",
+   "teamPct": 17.3
   }
  },
  {
@@ -782,6 +1142,14 @@
    "rec_td": 4,
    "note": "played 2025 as Ryan Williams"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 45.9,
+   "min": 33,
+   "max": 65,
+   "team": "Arizona Cardinals",
+   "teamPct": 16.7
+  },
   "born": "2007-02-09",
   "age": 20.2
  },
@@ -802,6 +1170,14 @@
    "def_int": 2,
    "pass_breakups": 6
   },
+  "adp": {
+   "pct": 100,
+   "avg": 46.1,
+   "min": 34,
+   "max": 60,
+   "team": "Washington Commanders",
+   "teamPct": 9.5
+  },
   "born": "2006-03-01",
   "age": 21.2
  },
@@ -821,6 +1197,14 @@
    "sacks": 0,
    "def_int": 0,
    "pass_breakups": 3
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 51.3,
+   "min": 35,
+   "max": 65,
+   "team": "New England Patriots",
+   "teamPct": 11.6
   },
   "born": "2006-06-24",
   "age": 20.8
@@ -843,6 +1227,14 @@
    "pass_breakups": 5,
    "note": "2025 at Colorado"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 48.3,
+   "min": 35,
+   "max": 67,
+   "team": "Baltimore Ravens",
+   "teamPct": 9.9
+  },
   "born": "2004-02-09",
   "age": 23.2
  },
@@ -861,6 +1253,14 @@
    "rec_yds": 1264,
    "rec_td": 10,
    "note": "2025 at North Texas"
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 49,
+   "min": 37,
+   "max": 71,
+   "team": "Los Angeles Rams",
+   "teamPct": 11.5
   }
  },
  {
@@ -877,6 +1277,14 @@
    "rush_att": 236,
    "rush_yds": 1305,
    "rush_td": 12
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 53.6,
+   "min": 37,
+   "max": 71,
+   "team": "Cincinnati Bengals",
+   "teamPct": 13.2
   }
  },
  {
@@ -895,6 +1303,14 @@
    "sacks": 0,
    "def_int": 5,
    "pass_breakups": 8
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 51.3,
+   "min": 39,
+   "max": 79,
+   "team": "Green Bay Packers",
+   "teamPct": 8.9
   },
   "born": "2005-03-28",
   "age": 22.1
@@ -916,6 +1332,14 @@
    "def_int": 0,
    "pass_breakups": 0
   },
+  "adp": {
+   "pct": 100,
+   "avg": 50.8,
+   "min": 39,
+   "max": 75,
+   "team": "Arizona Cardinals",
+   "teamPct": 9.9
+  },
   "born": "2004-12-01",
   "age": 22.4
  },
@@ -936,6 +1360,14 @@
    "def_int": 1,
    "pass_breakups": 5
   },
+  "adp": {
+   "pct": 100,
+   "avg": 56.4,
+   "min": 40,
+   "max": 77,
+   "team": "New England Patriots",
+   "teamPct": 15.8
+  },
   "born": "2005-09-29",
   "age": 21.6
  },
@@ -955,6 +1387,14 @@
    "sacks": 8.5,
    "def_int": 0,
    "pass_breakups": 3
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 53.7,
+   "min": 41,
+   "max": 79,
+   "team": "Cleveland Browns",
+   "teamPct": 8.6
   }
  },
  {
@@ -971,6 +1411,14 @@
    "rec": 29,
    "rec_yds": 353,
    "rec_td": 5
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 57.2,
+   "min": 42,
+   "max": 78,
+   "team": "Detroit Lions",
+   "teamPct": 15.3
   }
  },
  {
@@ -985,6 +1433,14 @@
    "season": 2025,
    "games": 14,
    "sacks": 6.5
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 56.2,
+   "min": 43,
+   "max": 78,
+   "team": "Cleveland Browns",
+   "teamPct": 8.6
   }
  },
  {
@@ -1004,6 +1460,14 @@
    "def_int": 0,
    "pass_breakups": 3
   },
+  "adp": {
+   "pct": 100,
+   "avg": 57.9,
+   "min": 44,
+   "max": 75,
+   "team": "Chicago Bears",
+   "teamPct": 8.3
+  },
   "born": "2005-07-02",
   "age": 21.8
  },
@@ -1022,6 +1486,14 @@
    "rush_yds": 1649,
    "rush_td": 16
   },
+  "adp": {
+   "pct": 100,
+   "avg": 60.8,
+   "min": 45,
+   "max": 81,
+   "team": "Jacksonville Jaguars",
+   "teamPct": 13.8
+  },
   "born": "2005-12-19",
   "age": 21.4
  },
@@ -1039,6 +1511,14 @@
    "rec": 34,
    "rec_yds": 577,
    "rec_td": 2
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 60,
+   "min": 46,
+   "max": 85,
+   "team": "Kansas City Chiefs",
+   "teamPct": 9.9
   },
   "born": "2005-07-27",
   "age": 21.8
@@ -1061,6 +1541,14 @@
    "pass_breakups": 1,
    "note": "2025 at Ole Miss"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 61.2,
+   "min": 47,
+   "max": 83,
+   "team": "Chicago Bears",
+   "teamPct": 9
+  },
   "born": "2005-02-13",
   "age": 22.2
  },
@@ -1072,6 +1560,14 @@
   "height": "6-6",
   "weight": "317",
   "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 62.4,
+   "min": 48,
+   "max": 84,
+   "team": "San Francisco 49ers",
+   "teamPct": 8.6
+  },
   "born": "2004-10-10",
   "age": 22.6
  },
@@ -1089,6 +1585,14 @@
    "rec": 67,
    "rec_yds": 966,
    "rec_td": 12
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 64.1,
+   "min": 49,
+   "max": 83,
+   "team": "Indianapolis Colts",
+   "teamPct": 9.4
   },
   "born": "2005-11-18",
   "age": 21.4
@@ -1109,6 +1613,14 @@
    "sacks": 4.5,
    "pass_breakups": 4
   },
+  "adp": {
+   "pct": 100,
+   "avg": 64.5,
+   "min": 50,
+   "max": 91,
+   "team": "Jacksonville Jaguars",
+   "teamPct": 10
+  },
   "born": "2003-11-07",
   "age": 23.5
  },
@@ -1126,6 +1638,14 @@
    "rec": 60,
    "rec_yds": 1084,
    "rec_td": 7
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 66.4,
+   "min": 51,
+   "max": 89,
+   "team": "San Francisco 49ers",
+   "teamPct": 10.3
   },
   "born": "2005-12-06",
   "age": 21.4
@@ -1147,6 +1667,14 @@
    "def_int": 0,
    "pass_breakups": 0
   },
+  "adp": {
+   "pct": 100,
+   "avg": 66,
+   "min": 52,
+   "max": 89,
+   "team": "Indianapolis Colts",
+   "teamPct": 9.6
+  },
   "born": "2006-03-10",
   "age": 21.1
  },
@@ -1167,6 +1695,14 @@
    "def_int": 1,
    "pass_breakups": 2
   },
+  "adp": {
+   "pct": 100,
+   "avg": 66.5,
+   "min": 53,
+   "max": 89,
+   "team": "Minnesota Vikings",
+   "teamPct": 16.8
+  },
   "born": "2005-09-26",
   "age": 21.6
  },
@@ -1186,6 +1722,14 @@
    "sacks": 0,
    "def_int": 3,
    "pass_breakups": 3
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 66.9,
+   "min": 54,
+   "max": 92,
+   "team": "Minnesota Vikings",
+   "teamPct": 18.8
   }
  },
  {
@@ -1204,6 +1748,14 @@
    "sacks": 2,
    "def_int": 0,
    "pass_breakups": 1
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 70.5,
+   "min": 55,
+   "max": 93,
+   "team": "New York Jets",
+   "teamPct": 12.4
   }
  },
  {
@@ -1222,6 +1774,14 @@
    "sacks": 3,
    "def_int": 0,
    "pass_breakups": 2
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 70.6,
+   "min": 56,
+   "max": 93,
+   "team": "Indianapolis Colts",
+   "teamPct": 10.7
   }
  },
  {
@@ -1232,6 +1792,14 @@
   "height": "6-6",
   "weight": "330",
   "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 71.6,
+   "min": 57,
+   "max": 96,
+   "team": "Indianapolis Colts",
+   "teamPct": 7.8
+  },
   "born": "2004-10-12",
   "age": 22.5
  },
@@ -1251,6 +1819,14 @@
    "sacks": 0,
    "def_int": 0,
    "pass_breakups": 7
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 71.6,
+   "min": 58,
+   "max": 93,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 8.3
   }
  },
  {
@@ -1269,6 +1845,14 @@
    "sacks": 1,
    "def_int": 2,
    "pass_breakups": 5
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 72.7,
+   "min": 59,
+   "max": 95,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 8.8
   }
  },
  {
@@ -1284,6 +1868,14 @@
    "tackles": 74,
    "def_int": 4,
    "pass_breakups": 8
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 73.4,
+   "min": 60,
+   "max": 100,
+   "team": "Minnesota Vikings",
+   "teamPct": 13.4
   },
   "born": "2005-02-14",
   "age": 22.2
@@ -1302,6 +1894,14 @@
    "rec": 24,
    "rec_yds": 229,
    "rec_td": 0
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 75.9,
+   "min": 61,
+   "max": 106,
+   "team": "Kansas City Chiefs",
+   "teamPct": 12.4
   }
  },
  {
@@ -1318,6 +1918,14 @@
    "rec": 52,
    "rec_yds": 837,
    "rec_td": 4
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 76.8,
+   "min": 62,
+   "max": 102,
+   "team": "Indianapolis Colts",
+   "teamPct": 13
   },
   "born": "2006-04-14",
   "age": 21
@@ -1337,6 +1945,14 @@
    "def_int": 1,
    "pass_breakups": 4,
    "note": "2025 at Auburn"
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 76.7,
+   "min": 63,
+   "max": 98,
+   "team": "Arizona Cardinals",
+   "teamPct": 7.3
   }
  },
  {
@@ -1355,6 +1971,14 @@
    "def_int": 4,
    "pass_breakups": 10,
    "note": "2025 at Stephen F. Austin (FCS)"
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 77,
+   "min": 64,
+   "max": 101,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 6.9
   }
  },
  {
@@ -1373,6 +1997,14 @@
    "sacks": 1,
    "def_int": 3,
    "pass_breakups": 7
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 80.1,
+   "min": 65,
+   "max": 105,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 9.8
   },
   "born": "2004-11-05",
   "age": 22.5
@@ -1394,6 +2026,14 @@
    "def_int": 0,
    "pass_breakups": 0
   },
+  "adp": {
+   "pct": 100,
+   "avg": 78.2,
+   "min": 66,
+   "max": 111,
+   "team": "Indianapolis Colts",
+   "teamPct": 9
+  },
   "born": "2004-10-24",
   "age": 22.5
  },
@@ -1405,6 +2045,14 @@
   "height": "6-2",
   "weight": "325",
   "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 81,
+   "min": 67,
+   "max": 108,
+   "team": "Indianapolis Colts",
+   "teamPct": 8.1
+  },
   "born": "2004-06-25",
   "age": 22.8
  },
@@ -1429,6 +2077,14 @@
    "rush_td": 9,
    "note": "2025 at Cincinnati"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 82.9,
+   "min": 68,
+   "max": 108,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 11.5
+  },
   "born": "2004-01-20",
   "age": 23.3
  },
@@ -1446,6 +2102,14 @@
    "rec": 31,
    "rec_yds": 537,
    "rec_td": 6
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 83.5,
+   "min": 69,
+   "max": 109,
+   "team": "Kansas City Chiefs",
+   "teamPct": 10.1
   },
   "born": "2005-09-22",
   "age": 21.6
@@ -1465,6 +2129,14 @@
    "rec_yds": 834,
    "rec_td": 7
   },
+  "adp": {
+   "pct": 100,
+   "avg": 84.4,
+   "min": 70,
+   "max": 109,
+   "team": "Kansas City Chiefs",
+   "teamPct": 11.2
+  },
   "born": "2006-02-15",
   "age": 21.2
  },
@@ -1482,6 +2154,14 @@
    "rec": 59,
    "rec_yds": 917,
    "rec_td": 4
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 85.3,
+   "min": 71,
+   "max": 109,
+   "team": "Kansas City Chiefs",
+   "teamPct": 10.2
   },
   "born": "2006-01-09",
   "age": 21.3
@@ -1503,6 +2183,14 @@
    "def_int": 0,
    "pass_breakups": 0
   },
+  "adp": {
+   "pct": 100,
+   "avg": 86,
+   "min": 72,
+   "max": 116,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 10.1
+  },
   "born": "2004-03-19",
   "age": 23.1
  },
@@ -1522,6 +2210,14 @@
    "sacks": 2,
    "def_int": 0,
    "pass_breakups": 3
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 88.5,
+   "min": 73,
+   "max": 116,
+   "team": "Kansas City Chiefs",
+   "teamPct": 10.9
   },
   "born": "2004-09-17",
   "age": 22.6
@@ -1543,6 +2239,14 @@
    "def_int": 1,
    "pass_breakups": 5
   },
+  "adp": {
+   "pct": 100,
+   "avg": 86.9,
+   "min": 74,
+   "max": 111,
+   "team": "Cincinnati Bengals",
+   "teamPct": 8
+  },
   "born": "2003-09-22",
   "age": 23.6
  },
@@ -1563,6 +2267,14 @@
    "rec": 13,
    "rec_yds": 74
   },
+  "adp": {
+   "pct": 100,
+   "avg": 90.4,
+   "min": 75,
+   "max": 111,
+   "team": "Cincinnati Bengals",
+   "teamPct": 10.8
+  },
   "born": "2005-09-26",
   "age": 21.6
  },
@@ -1582,6 +2294,14 @@
    "sacks": 4.5,
    "pass_breakups": 5
   },
+  "adp": {
+   "pct": 100,
+   "avg": 90.4,
+   "min": 76,
+   "max": 123,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 8.3
+  },
   "born": "2004-04-01",
   "age": 23.1
  },
@@ -1592,7 +2312,15 @@
   "college": "South Carolina",
   "height": "6-4",
   "weight": "305",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 89.9,
+   "min": 77,
+   "max": 114,
+   "team": "Green Bay Packers",
+   "teamPct": 10
+  }
  },
  {
   "rank": 92,
@@ -1610,6 +2338,14 @@
    "sacks": 1,
    "def_int": 0,
    "pass_breakups": 1
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 92.3,
+   "min": 78,
+   "max": 119,
+   "team": "Cincinnati Bengals",
+   "teamPct": 7
   },
   "born": "2002-11-28",
   "age": 24.4
@@ -1630,6 +2366,14 @@
    "rec_td": 8,
    "note": "2025 at Colorado"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 93.8,
+   "min": 79,
+   "max": 124,
+   "team": "Seattle Seahawks",
+   "teamPct": 7.4
+  },
   "born": "2004-12-20",
   "age": 22.4
  },
@@ -1649,6 +2393,14 @@
    "rush_td": 4,
    "note": "2025 at Arizona State"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 94.4,
+   "min": 80,
+   "max": 119,
+   "team": "Cincinnati Bengals",
+   "teamPct": 12.3
+  },
   "born": "2003-08-02",
   "age": 23.7
  },
@@ -1660,6 +2412,14 @@
   "height": "6-3",
   "weight": "325",
   "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 93.8,
+   "min": 81,
+   "max": 119,
+   "team": "Green Bay Packers",
+   "teamPct": 14.7
+  },
   "born": "2005-02-09",
   "age": 22.2
  },
@@ -1679,6 +2439,14 @@
    "rec_td": 7,
    "note": "2025 at Duke"
   },
+  "adp": {
+   "pct": 100,
+   "avg": 97.1,
+   "min": 82,
+   "max": 122,
+   "team": "Seattle Seahawks",
+   "teamPct": 11.1
+  },
   "born": "2003-01-12",
   "age": 24.3
  },
@@ -1694,6 +2462,14 @@
    "season": 2025,
    "games": 14,
    "tackles": 90
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 97.5,
+   "min": 83,
+   "max": 125,
+   "team": "Cincinnati Bengals",
+   "teamPct": 10.2
   },
   "born": "2004-02-28",
   "age": 23.2
@@ -1714,6 +2490,14 @@
    "sacks": 7,
    "def_int": 1,
    "pass_breakups": 1
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 98.7,
+   "min": 84,
+   "max": 123,
+   "team": "Los Angeles Chargers",
+   "teamPct": 11
   }
  },
  {
@@ -1730,6 +2514,14 @@
    "rec": 54,
    "rec_yds": 784,
    "rec_td": 7
+  },
+  "adp": {
+   "pct": 100,
+   "avg": 100.2,
+   "min": 85,
+   "max": 126,
+   "team": "Seattle Seahawks",
+   "teamPct": 12.2
   },
   "born": "2005-06-24",
   "age": 21.8
@@ -1751,6 +2543,14 @@
    "def_int": 1,
    "pass_breakups": 8
   },
+  "adp": {
+   "pct": 100,
+   "avg": 98.5,
+   "min": 86,
+   "max": 126,
+   "team": "Cincinnati Bengals",
+   "teamPct": 10.7
+  },
   "born": "2003-03-11",
   "age": 24.1
  },
@@ -1761,7 +2561,15 @@
   "college": "Miami (FL)",
   "height": "6-4",
   "weight": "250",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 100.5,
+   "min": 87,
+   "max": 125,
+   "team": "Seattle Seahawks",
+   "teamPct": 10.9
+  }
  },
  {
   "rank": 102,
@@ -1770,7 +2578,15 @@
   "college": "Clemson",
   "height": "6-6",
   "weight": "260",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 101.5,
+   "min": 88,
+   "max": 128,
+   "team": "Seattle Seahawks",
+   "teamPct": 12.1
+  }
  },
  {
   "rank": 103,
@@ -1779,7 +2595,15 @@
   "college": "Louisville",
   "height": "5-9",
   "weight": "190",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 103,
+   "min": 89,
+   "max": 130,
+   "team": "Los Angeles Chargers",
+   "teamPct": 8.3
+  }
  },
  {
   "rank": 104,
@@ -1788,7 +2612,15 @@
   "college": "Georgia Tech",
   "height": "5-11",
   "weight": "210",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 105.1,
+   "min": 90,
+   "max": 135,
+   "team": "Tennessee Titans",
+   "teamPct": 8.7
+  }
  },
  {
   "rank": 105,
@@ -1797,7 +2629,15 @@
   "college": "Rutgers",
   "height": "5-11",
   "weight": "205",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 105.7,
+   "min": 91,
+   "max": 139,
+   "team": "Philadelphia Eagles",
+   "teamPct": 8.2
+  }
  },
  {
   "rank": 106,
@@ -1806,7 +2646,15 @@
   "college": "LSU",
   "height": "6-5",
   "weight": "246",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 105,
+   "min": 92,
+   "max": 131,
+   "team": "Seattle Seahawks",
+   "teamPct": 13.3
+  }
  },
  {
   "rank": 107,
@@ -1815,7 +2663,15 @@
   "college": "Ohio State",
   "height": "6-4",
   "weight": "245",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 108.2,
+   "min": 93,
+   "max": 137,
+   "team": "New York Jets",
+   "teamPct": 7.8
+  }
  },
  {
   "rank": 108,
@@ -1824,7 +2680,15 @@
   "college": "Michigan",
   "height": "6-5",
   "weight": "252",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 108,
+   "min": 94,
+   "max": 134,
+   "team": "Seattle Seahawks",
+   "teamPct": 8.6
+  }
  },
  {
   "rank": 109,
@@ -1833,7 +2697,15 @@
   "college": "Indiana",
   "height": "6-2",
   "weight": "205",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 110.1,
+   "min": 95,
+   "max": 140,
+   "team": "Philadelphia Eagles",
+   "teamPct": 7.8
+  }
  },
  {
   "rank": 110,
@@ -1842,7 +2714,15 @@
   "college": "Stanford",
   "height": "6-7",
   "weight": "315",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 109,
+   "min": 96,
+   "max": 134,
+   "team": "Philadelphia Eagles",
+   "teamPct": 10.2
+  }
  },
  {
   "rank": 111,
@@ -1851,7 +2731,15 @@
   "college": "Texas A&M",
   "height": "6-4",
   "weight": "255",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 110.7,
+   "min": 97,
+   "max": 140,
+   "team": "Los Angeles Chargers",
+   "teamPct": 8.9
+  }
  },
  {
   "rank": 112,
@@ -1860,7 +2748,15 @@
   "college": "Penn State",
   "height": "6-4",
   "weight": "242",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 113.9,
+   "min": 98,
+   "max": 144,
+   "team": "Green Bay Packers",
+   "teamPct": 9.9
+  }
  },
  {
   "rank": 113,
@@ -1869,7 +2765,15 @@
   "college": "Texas",
   "height": "6-4",
   "weight": "315",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 112.4,
+   "min": 99,
+   "max": 143,
+   "team": "Los Angeles Chargers",
+   "teamPct": 8.6
+  }
  },
  {
   "rank": 114,
@@ -1878,7 +2782,15 @@
   "college": "Minnesota",
   "height": "6-6",
   "weight": "280",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 113,
+   "min": 100,
+   "max": 140,
+   "team": "Cleveland Browns",
+   "teamPct": 10.2
+  }
  },
  {
   "rank": 115,
@@ -1887,7 +2799,15 @@
   "college": "Oklahoma",
   "height": "6-2",
   "weight": "310",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 115.3,
+   "min": 101,
+   "max": 143,
+   "team": "Cleveland Browns",
+   "teamPct": 9.5
+  }
  },
  {
   "rank": 116,
@@ -1896,7 +2816,15 @@
   "college": "LSU",
   "height": "6-3",
   "weight": "208",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 117.6,
+   "min": 102,
+   "max": 143,
+   "team": "Cleveland Browns",
+   "teamPct": 11.7
+  }
  },
  {
   "rank": 117,
@@ -1905,7 +2833,15 @@
   "college": "Oregon",
   "height": "6-3",
   "weight": "263",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 115.8,
+   "min": 103,
+   "max": 143,
+   "team": "Cleveland Browns",
+   "teamPct": 11.6
+  }
  },
  {
   "rank": 118,
@@ -1914,7 +2850,15 @@
   "college": "LSU",
   "height": "6-3",
   "weight": "223",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 118.9,
+   "min": 104,
+   "max": 152,
+   "team": "Cleveland Browns",
+   "teamPct": 10.4
+  }
  },
  {
   "rank": 119,
@@ -1923,7 +2867,15 @@
   "college": "USC",
   "height": "6-4",
   "weight": "230",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 119,
+   "min": 105,
+   "max": 146,
+   "team": "Cleveland Browns",
+   "teamPct": 13.6
+  }
  },
  {
   "rank": 120,
@@ -1932,7 +2884,15 @@
   "college": "SMU",
   "height": "6-5",
   "weight": "306",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 118.8,
+   "min": 106,
+   "max": 152,
+   "team": "Cleveland Browns",
+   "teamPct": 14.4
+  }
  },
  {
   "rank": 121,
@@ -1941,7 +2901,15 @@
   "college": "Texas",
   "height": "5-11",
   "weight": "193",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 121.4,
+   "min": 107,
+   "max": 154,
+   "team": "Cleveland Browns",
+   "teamPct": 12.2
+  }
  },
  {
   "rank": 122,
@@ -1950,7 +2918,15 @@
   "college": "Missouri",
   "height": "6-0",
   "weight": "216",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 121.9,
+   "min": 108,
+   "max": 159,
+   "team": "Cleveland Browns",
+   "teamPct": 12.3
+  }
  },
  {
   "rank": 123,
@@ -1959,7 +2935,15 @@
   "college": "Iowa",
   "height": "6-4",
   "weight": "241",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "adp": {
+   "pct": 100,
+   "avg": 124.1,
+   "min": 109,
+   "max": 154,
+   "team": "Cleveland Browns",
+   "teamPct": 10.5
+  }
  },
  {
   "rank": 124,
@@ -1968,7 +2952,15 @@
   "college": "Texas",
   "height": "6-1",
   "weight": "222",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 125.4,
+   "min": 110,
+   "max": 157,
+   "team": "Cleveland Browns",
+   "teamPct": 12.6
+  }
  },
  {
   "rank": 125,
@@ -1977,7 +2969,15 @@
   "college": "Oklahoma",
   "height": "6-0",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 125.8,
+   "min": 111,
+   "max": 156,
+   "team": "Cleveland Browns",
+   "teamPct": 10.5
+  }
  },
  {
   "rank": 126,
@@ -1986,7 +2986,15 @@
   "college": "Miami (FL)",
   "height": "6-2",
   "weight": "225",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 127.2,
+   "min": 112,
+   "max": 159,
+   "team": "Cleveland Browns",
+   "teamPct": 11
+  }
  },
  {
   "rank": 127,
@@ -1995,7 +3003,15 @@
   "college": "South Carolina",
   "height": "6-5",
   "weight": "239",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 127,
+   "min": 113,
+   "max": 170,
+   "team": "Cleveland Browns",
+   "teamPct": 8.9
+  }
  },
  {
   "rank": 128,
@@ -2004,7 +3020,15 @@
   "college": "Minnesota",
   "height": "6-5",
   "weight": "230",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "adp": {
+   "pct": 100,
+   "avg": 128.8,
+   "min": 114,
+   "max": 155,
+   "team": "Cleveland Browns",
+   "teamPct": 14.2
+  }
  },
  {
   "rank": 129,
@@ -2013,7 +3037,15 @@
   "college": "Auburn",
   "height": "6-0",
   "weight": "210",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 129.6,
+   "min": 115,
+   "max": 163,
+   "team": "Cleveland Browns",
+   "teamPct": 10.9
+  }
  },
  {
   "rank": 130,
@@ -2022,7 +3054,15 @@
   "college": "UCLA",
   "height": "6-5",
   "weight": "215",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 130.7,
+   "min": 116,
+   "max": 163,
+   "team": "Cleveland Browns",
+   "teamPct": 14.7
+  }
  },
  {
   "rank": 131,
@@ -2031,7 +3071,15 @@
   "college": "Illinois",
   "height": "5-11",
   "weight": "195",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 130.1,
+   "min": 117,
+   "max": 161,
+   "team": "Cleveland Browns",
+   "teamPct": 10.1
+  }
  },
  {
   "rank": 132,
@@ -2040,7 +3088,15 @@
   "college": "Texas A&M",
   "height": "6-3",
   "weight": "293",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 131.8,
+   "min": 118,
+   "max": 164,
+   "team": "Buffalo Bills",
+   "teamPct": 8
+  }
  },
  {
   "rank": 133,
@@ -2049,7 +3105,15 @@
   "college": "Ole Miss",
   "height": "6-2",
   "weight": "220",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 133.7,
+   "min": 119,
+   "max": 168,
+   "team": "Buffalo Bills",
+   "teamPct": 9.2
+  }
  },
  {
   "rank": 134,
@@ -2058,7 +3122,15 @@
   "college": "Michigan",
   "height": "6-2",
   "weight": "190",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 133.9,
+   "min": 120,
+   "max": 165,
+   "team": "Denver Broncos",
+   "teamPct": 9.4
+  }
  },
  {
   "rank": 135,
@@ -2067,7 +3139,15 @@
   "college": "Georgia Tech",
   "height": "6-5",
   "weight": "250",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 134.5,
+   "min": 121,
+   "max": 169,
+   "team": "Denver Broncos",
+   "teamPct": 12.6
+  }
  },
  {
   "rank": 136,
@@ -2076,7 +3156,15 @@
   "college": "Michigan",
   "height": "5-11",
   "weight": "188",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 135.3,
+   "min": 122,
+   "max": 167,
+   "team": "Buffalo Bills",
+   "teamPct": 9.1
+  }
  },
  {
   "rank": 137,
@@ -2085,7 +3173,15 @@
   "college": "South Carolina",
   "height": "6-3",
   "weight": "238",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 138.4,
+   "min": 123,
+   "max": 172,
+   "team": "Indianapolis Colts",
+   "teamPct": 10
+  }
  },
  {
   "rank": 138,
@@ -2094,7 +3190,15 @@
   "college": "Ohio State",
   "height": "6-5",
   "weight": "313",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 138,
+   "min": 124,
+   "max": 168,
+   "team": "Buffalo Bills",
+   "teamPct": 10.2
+  }
  },
  {
   "rank": 139,
@@ -2103,7 +3207,15 @@
   "college": "Penn State",
   "height": "6-7",
   "weight": "250",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 139.1,
+   "min": 125,
+   "max": 175,
+   "team": "Denver Broncos",
+   "teamPct": 10.7
+  }
  },
  {
   "rank": 140,
@@ -2112,7 +3224,15 @@
   "college": "Alabama",
   "height": "6-1",
   "weight": "205",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 139.3,
+   "min": 126,
+   "max": 171,
+   "team": "Buffalo Bills",
+   "teamPct": 11.1
+  }
  },
  {
   "rank": 141,
@@ -2121,7 +3241,15 @@
   "college": "Temple",
   "height": "6-6",
   "weight": "265",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 141.3,
+   "min": 127,
+   "max": 172,
+   "team": "Denver Broncos",
+   "teamPct": 10.2
+  }
  },
  {
   "rank": 142,
@@ -2130,7 +3258,15 @@
   "college": "Texas Tech",
   "height": "6-2",
   "weight": "245",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 142.5,
+   "min": 128,
+   "max": 177,
+   "team": "Denver Broncos",
+   "teamPct": 9.8
+  }
  },
  {
   "rank": 143,
@@ -2139,7 +3275,15 @@
   "college": "Georgia",
   "height": "6-1",
   "weight": "235",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 144.2,
+   "min": 129,
+   "max": 185,
+   "team": "Buffalo Bills",
+   "teamPct": 8
+  }
  },
  {
   "rank": 144,
@@ -2148,7 +3292,15 @@
   "college": "Florida State",
   "height": "6-8",
   "weight": "346",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 143.9,
+   "min": 130,
+   "max": 177,
+   "team": "Philadelphia Eagles",
+   "teamPct": 9
+  }
  },
  {
   "rank": 145,
@@ -2157,7 +3309,15 @@
   "college": "Florida State",
   "height": "6-6",
   "weight": "230",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 145.5,
+   "min": 131,
+   "max": 182,
+   "team": "Indianapolis Colts",
+   "teamPct": 9.9
+  }
  },
  {
   "rank": 146,
@@ -2166,7 +3326,15 @@
   "college": "Ohio State",
   "height": "5-11",
   "weight": "195",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 144.7,
+   "min": 132,
+   "max": 173,
+   "team": "Buffalo Bills",
+   "teamPct": 8.8
+  }
  },
  {
   "rank": 147,
@@ -2175,7 +3343,15 @@
   "college": "UCLA",
   "height": "6-0",
   "weight": "194",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 146.9,
+   "min": 133,
+   "max": 180,
+   "team": "Buffalo Bills",
+   "teamPct": 10.7
+  }
  },
  {
   "rank": 148,
@@ -2184,7 +3360,15 @@
   "college": "Memphis",
   "height": "6-3",
   "weight": "256",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 148.3,
+   "min": 134,
+   "max": 183,
+   "team": "Cleveland Browns",
+   "teamPct": 7.5
+  }
  },
  {
   "rank": 149,
@@ -2193,7 +3377,15 @@
   "college": "Notre Dame",
   "height": "6-0",
   "weight": "205",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 149.8,
+   "min": 135,
+   "max": 183,
+   "team": "Philadelphia Eagles",
+   "teamPct": 7.9
+  }
  },
  {
   "rank": 150,
@@ -2202,7 +3394,15 @@
   "college": "Youngstown State",
   "height": "6-7",
   "weight": "325",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 150,
+   "min": 136,
+   "max": 179,
+   "team": "Philadelphia Eagles",
+   "teamPct": 8.8
+  }
  },
  {
   "rank": 151,
@@ -2211,7 +3411,15 @@
   "college": "Tennessee",
   "height": "6-1",
   "weight": "238",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 151.3,
+   "min": 137,
+   "max": 188,
+   "team": "Philadelphia Eagles",
+   "teamPct": 9.5
+  }
  },
  {
   "rank": 152,
@@ -2220,7 +3428,15 @@
   "college": "Texas Tech",
   "height": "6-4",
   "weight": "250",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 151.7,
+   "min": 138,
+   "max": 190,
+   "team": "Philadelphia Eagles",
+   "teamPct": 8
+  }
  },
  {
   "rank": 153,
@@ -2229,7 +3445,15 @@
   "college": "USC",
   "height": "6-3",
   "weight": "315",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 152.5,
+   "min": 139,
+   "max": 191,
+   "team": "Philadelphia Eagles",
+   "teamPct": 12.5
+  }
  },
  {
   "rank": 154,
@@ -2238,7 +3462,15 @@
   "college": "Oklahoma",
   "height": "5-10",
   "weight": "185",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 154.2,
+   "min": 140,
+   "max": 189,
+   "team": "Minnesota Vikings",
+   "teamPct": 8.6
+  }
  },
  {
   "rank": 155,
@@ -2247,7 +3479,15 @@
   "college": "Oklahoma",
   "height": "6-1",
   "weight": "226",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 156.2,
+   "min": 141,
+   "max": 187,
+   "team": "Minnesota Vikings",
+   "teamPct": 9
+  }
  },
  {
   "rank": 156,
@@ -2256,7 +3496,15 @@
   "college": "Houston",
   "height": "6-2",
   "weight": "304",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 155.5,
+   "min": 142,
+   "max": 187,
+   "team": "Philadelphia Eagles",
+   "teamPct": 14.4
+  }
  },
  {
   "rank": 157,
@@ -2265,7 +3513,15 @@
   "college": "Ohio State",
   "height": "6-1",
   "weight": "214",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "adp": {
+   "pct": 100,
+   "avg": 156.7,
+   "min": 143,
+   "max": 189,
+   "team": "Philadelphia Eagles",
+   "teamPct": 13
+  }
  },
  {
   "rank": 158,
@@ -2274,7 +3530,15 @@
   "college": "Florida",
   "height": "5-10",
   "weight": "184",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 158.8,
+   "min": 144,
+   "max": 191,
+   "team": "Minnesota Vikings",
+   "teamPct": 7.4
+  }
  },
  {
   "rank": 159,
@@ -2283,7 +3547,15 @@
   "college": "Penn State",
   "height": "6-1",
   "weight": "216",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 159.9,
+   "min": 145,
+   "max": 192,
+   "team": "Minnesota Vikings",
+   "teamPct": 14.7
+  }
  },
  {
   "rank": 160,
@@ -2292,7 +3564,15 @@
   "college": "Tennessee",
   "height": "5-10",
   "weight": "215",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 160.5,
+   "min": 146,
+   "max": 196,
+   "team": "Minnesota Vikings",
+   "teamPct": 13.3
+  }
  },
  {
   "rank": 161,
@@ -2301,7 +3581,15 @@
   "college": "Indiana",
   "height": "6-4",
   "weight": "290",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 161,
+   "min": 147,
+   "max": 192,
+   "team": "Seattle Seahawks",
+   "teamPct": 8.6
+  }
  },
  {
   "rank": 162,
@@ -2310,7 +3598,15 @@
   "college": "North Carolina",
   "height": "6-5",
   "weight": "260",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 161.5,
+   "min": 148,
+   "max": 196,
+   "team": "Minnesota Vikings",
+   "teamPct": 10.4
+  }
  },
  {
   "rank": 163,
@@ -2319,7 +3615,15 @@
   "college": "Louisville",
   "height": "6-1",
   "weight": "190",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 162.8,
+   "min": 149,
+   "max": 208,
+   "team": "Green Bay Packers",
+   "teamPct": 9.2
+  }
  },
  {
   "rank": 164,
@@ -2328,7 +3632,15 @@
   "college": "Texas",
   "height": "6-3",
   "weight": "333",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 164.7,
+   "min": 150,
+   "max": 199,
+   "team": "Minnesota Vikings",
+   "teamPct": 11.3
+  }
  },
  {
   "rank": 165,
@@ -2337,7 +3649,15 @@
   "college": "Georgia",
   "height": "6-4",
   "weight": "240",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 165,
+   "min": 151,
+   "max": 198,
+   "team": "Minnesota Vikings",
+   "teamPct": 18.2
+  }
  },
  {
   "rank": 166,
@@ -2346,7 +3666,15 @@
   "college": "TCU",
   "height": "6-3",
   "weight": "225",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 167,
+   "min": 152,
+   "max": 201,
+   "team": "Minnesota Vikings",
+   "teamPct": 14.7
+  }
  },
  {
   "rank": 167,
@@ -2355,7 +3683,15 @@
   "college": "Florida",
   "height": "5-10",
   "weight": "211",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 167.2,
+   "min": 153,
+   "max": 201,
+   "team": "Minnesota Vikings",
+   "teamPct": 14.4
+  }
  },
  {
   "rank": 168,
@@ -2364,7 +3700,15 @@
   "college": "Georgia",
   "height": "6-5",
   "weight": "305",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 167.2,
+   "min": 154,
+   "max": 208,
+   "team": "Green Bay Packers",
+   "teamPct": 13.8
+  }
  },
  {
   "rank": 169,
@@ -2373,7 +3717,15 @@
   "college": "Kentucky",
   "height": "6-3",
   "weight": "308",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 167.9,
+   "min": 155,
+   "max": 207,
+   "team": "Green Bay Packers",
+   "teamPct": 12.8
+  }
  },
  {
   "rank": 170,
@@ -2382,7 +3734,15 @@
   "college": "Texas Tech",
   "height": "6-2",
   "weight": "240",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 170.8,
+   "min": 156,
+   "max": 210,
+   "team": "Minnesota Vikings",
+   "teamPct": 11.2
+  }
  },
  {
   "rank": 171,
@@ -2391,7 +3751,15 @@
   "college": "Northwestern",
   "height": "6-6",
   "weight": "240",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "adp": {
+   "pct": 100,
+   "avg": 170.9,
+   "min": 157,
+   "max": 206,
+   "team": "Minnesota Vikings",
+   "teamPct": 16.1
+  }
  },
  {
   "rank": 172,
@@ -2400,7 +3768,15 @@
   "college": "North Carolina",
   "height": "6-3",
   "weight": "300",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 171.7,
+   "min": 158,
+   "max": 205,
+   "team": "Green Bay Packers",
+   "teamPct": 12.8
+  }
  },
  {
   "rank": 173,
@@ -2409,7 +3785,15 @@
   "college": "California",
   "height": "6-4",
   "weight": "215",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 173.4,
+   "min": 159,
+   "max": 208,
+   "team": "Green Bay Packers",
+   "teamPct": 11
+  }
  },
  {
   "rank": 174,
@@ -2418,7 +3802,15 @@
   "college": "Syracuse",
   "height": "6-1",
   "weight": "200",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 173.1,
+   "min": 160,
+   "max": 218,
+   "team": "Green Bay Packers",
+   "teamPct": 10.5
+  }
  },
  {
   "rank": 175,
@@ -2427,7 +3819,15 @@
   "college": "Tulsa",
   "height": "6-2",
   "weight": "195",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 175.1,
+   "min": 161,
+   "max": 218,
+   "team": "Green Bay Packers",
+   "teamPct": 9.4
+  }
  },
  {
   "rank": 176,
@@ -2436,7 +3836,15 @@
   "college": "Florida State",
   "height": "6-0",
   "weight": "203",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 176.1,
+   "min": 162,
+   "max": 212,
+   "team": "Jacksonville Jaguars",
+   "teamPct": 10
+  }
  },
  {
   "rank": 177,
@@ -2445,7 +3853,15 @@
   "college": "Houston",
   "height": "6-3",
   "weight": "210",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 177.8,
+   "min": 163,
+   "max": 212,
+   "team": "Miami Dolphins",
+   "teamPct": 8.8
+  }
  },
  {
   "rank": 178,
@@ -2454,7 +3870,15 @@
   "college": "Auburn",
   "height": "6-0",
   "weight": "210",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 178.3,
+   "min": 164,
+   "max": 215,
+   "team": "Baltimore Ravens",
+   "teamPct": 10
+  }
  },
  {
   "rank": 179,
@@ -2463,7 +3887,15 @@
   "college": "BYU",
   "height": "6-4",
   "weight": "300",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 178.9,
+   "min": 165,
+   "max": 224,
+   "team": "Seattle Seahawks",
+   "teamPct": 10
+  }
  },
  {
   "rank": 180,
@@ -2472,7 +3904,15 @@
   "college": "Oklahoma",
   "height": "6-4",
   "weight": "230",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 180.8,
+   "min": 166,
+   "max": 224,
+   "team": "New England Patriots",
+   "teamPct": 10.3
+  }
  },
  {
   "rank": 181,
@@ -2481,7 +3921,15 @@
   "college": "NC State",
   "height": "6-6",
   "weight": "218",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 182.2,
+   "min": 167,
+   "max": 220,
+   "team": "New England Patriots",
+   "teamPct": 9.3
+  }
  },
  {
   "rank": 182,
@@ -2490,7 +3938,15 @@
   "college": "Colorado",
   "height": "6-4",
   "weight": "260",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 181.3,
+   "min": 168,
+   "max": 214,
+   "team": "Baltimore Ravens",
+   "teamPct": 10.8
+  }
  },
  {
   "rank": 183,
@@ -2499,7 +3955,15 @@
   "college": "Georgia",
   "height": "6-4",
   "weight": "320",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 182.1,
+   "min": 169,
+   "max": 218,
+   "team": "Baltimore Ravens",
+   "teamPct": 11.7
+  }
  },
  {
   "rank": 184,
@@ -2508,7 +3972,15 @@
   "college": "LSU",
   "height": "6-2",
   "weight": "216",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 184.7,
+   "min": 170,
+   "max": 228,
+   "team": "New England Patriots",
+   "teamPct": 8.9
+  }
  },
  {
   "rank": 185,
@@ -2517,7 +3989,15 @@
   "college": "Missouri",
   "height": "6-6",
   "weight": "255",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 186.1,
+   "min": 171,
+   "max": 224,
+   "team": "New England Patriots",
+   "teamPct": 10.5
+  }
  },
  {
   "rank": 186,
@@ -2526,7 +4006,15 @@
   "college": "Notre Dame",
   "height": "6-1",
   "weight": "212",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 186.1,
+   "min": 172,
+   "max": 222,
+   "team": "New England Patriots",
+   "teamPct": 10.4
+  }
  },
  {
   "rank": 187,
@@ -2535,7 +4023,15 @@
   "college": "Indiana",
   "height": "6-1",
   "weight": "190",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 186.6,
+   "min": 173,
+   "max": 222,
+   "team": "Seattle Seahawks",
+   "teamPct": 9.5
+  }
  },
  {
   "rank": 188,
@@ -2544,7 +4040,15 @@
   "college": "Notre Dame",
   "height": "6-0",
   "weight": "196",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 187.5,
+   "min": 174,
+   "max": 231,
+   "team": "Seattle Seahawks",
+   "teamPct": 11
+  }
  },
  {
   "rank": 189,
@@ -2553,7 +4057,15 @@
   "college": "Auburn",
   "height": "6-3",
   "weight": "235",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 190.2,
+   "min": 175,
+   "max": 224,
+   "team": "New England Patriots",
+   "teamPct": 12
+  }
  },
  {
   "rank": 190,
@@ -2562,7 +4074,15 @@
   "college": "Notre Dame",
   "height": "6-5",
   "weight": "330",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 189.8,
+   "min": 176,
+   "max": 227,
+   "team": "New England Patriots",
+   "teamPct": 12.2
+  }
  },
  {
   "rank": 191,
@@ -2571,7 +4091,15 @@
   "college": "Ohio State",
   "height": "6-5",
   "weight": "327",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 191.2,
+   "min": 177,
+   "max": 237,
+   "team": "New England Patriots",
+   "teamPct": 12.6
+  }
  },
  {
   "rank": 192,
@@ -2580,7 +4108,15 @@
   "college": "Notre Dame",
   "height": "6-4",
   "weight": "222",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 192.4,
+   "min": 178,
+   "max": 229,
+   "team": "New England Patriots",
+   "teamPct": 12.5
+  }
  },
  {
   "rank": 193,
@@ -2589,7 +4125,15 @@
   "college": "Iowa",
   "height": "6-3",
   "weight": "294",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 193.2,
+   "min": 179,
+   "max": 235,
+   "team": "New England Patriots",
+   "teamPct": 15.1
+  }
  },
  {
   "rank": 194,
@@ -2598,7 +4142,15 @@
   "college": "Oklahoma",
   "height": "5-9",
   "weight": "185",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 194,
+   "min": 180,
+   "max": 238,
+   "team": "New England Patriots",
+   "teamPct": 10.1
+  }
  },
  {
   "rank": 195,
@@ -2607,7 +4159,15 @@
   "college": "Michigan",
   "height": "6-5",
   "weight": "245",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 195,
+   "min": 181,
+   "max": 231,
+   "team": "New England Patriots",
+   "teamPct": 11.2
+  }
  },
  {
   "rank": 196,
@@ -2616,7 +4176,15 @@
   "college": "BYU",
   "height": "6-0",
   "weight": "185",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 196.1,
+   "min": 182,
+   "max": 235,
+   "team": "New England Patriots",
+   "teamPct": 10.2
+  }
  },
  {
   "rank": 197,
@@ -2625,7 +4193,15 @@
   "college": "Louisville",
   "height": "5-10",
   "weight": "175",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 196.8,
+   "min": 183,
+   "max": 236,
+   "team": "New England Patriots",
+   "teamPct": 15.1
+  }
  },
  {
   "rank": 198,
@@ -2634,7 +4210,15 @@
   "college": "Kansas State",
   "height": "6-3",
   "weight": "265",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 198.2,
+   "min": 184,
+   "max": 242,
+   "team": "New England Patriots",
+   "teamPct": 11.6
+  }
  },
  {
   "rank": 199,
@@ -2643,7 +4227,15 @@
   "college": "Ohio State",
   "height": "6-0",
   "weight": "195",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 199.9,
+   "min": 185,
+   "max": 242,
+   "team": "New England Patriots",
+   "teamPct": 12.7
+  }
  },
  {
   "rank": 200,
@@ -2652,7 +4244,15 @@
   "college": "BYU",
   "height": "6-1",
   "weight": "230",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 200.2,
+   "min": 186,
+   "max": 243,
+   "team": "New England Patriots",
+   "teamPct": 13.9
+  }
  },
  {
   "rank": 201,
@@ -2661,7 +4261,15 @@
   "college": "Louisville",
   "height": "5-10",
   "weight": "215",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 201.7,
+   "min": 187,
+   "max": 240,
+   "team": "Houston Texans",
+   "teamPct": 10.9
+  }
  },
  {
   "rank": 202,
@@ -2670,7 +4278,15 @@
   "college": "Fresno State",
   "height": "6-4",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 202.1,
+   "min": 188,
+   "max": 237,
+   "team": "New England Patriots",
+   "teamPct": 8.5
+  }
  },
  {
   "rank": 203,
@@ -2679,7 +4295,15 @@
   "college": "Arkansas",
   "height": "6-3",
   "weight": "213",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 203.1,
+   "min": 189,
+   "max": 237,
+   "team": "New England Patriots",
+   "teamPct": 7.6
+  }
  },
  {
   "rank": 204,
@@ -2688,7 +4312,15 @@
   "college": "Washington",
   "height": "6-7",
   "weight": "325",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 203.3,
+   "min": 190,
+   "max": 238,
+   "team": "Green Bay Packers",
+   "teamPct": 8.2
+  }
  },
  {
   "rank": 205,
@@ -2697,7 +4329,15 @@
   "college": "Louisville",
   "height": "6-6",
   "weight": "250",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 206,
+   "min": 191,
+   "max": 237,
+   "team": "New England Patriots",
+   "teamPct": 8.2
+  }
  },
  {
   "rank": 206,
@@ -2706,7 +4346,15 @@
   "college": "Nebraska",
   "height": "6-2",
   "weight": "315",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 205.7,
+   "min": 192,
+   "max": 244,
+   "team": "New York Giants",
+   "teamPct": 8.7
+  }
  },
  {
   "rank": 207,
@@ -2715,7 +4363,15 @@
   "college": "Louisville",
   "height": "6-5",
   "weight": "245",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 99.9,
+   "avg": 207.3,
+   "min": 193,
+   "max": 241,
+   "team": "Detroit Lions",
+   "teamPct": 8.3
+  }
  },
  {
   "rank": 208,
@@ -2724,7 +4380,15 @@
   "college": "Texas Tech",
   "height": "6-5",
   "weight": "300",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 208,
+   "min": 194,
+   "max": 246,
+   "team": "New York Giants",
+   "teamPct": 9.3
+  }
  },
  {
   "rank": 209,
@@ -2733,7 +4397,15 @@
   "college": "Ohio State",
   "height": "6-0",
   "weight": "203",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 208.4,
+   "min": 195,
+   "max": 243,
+   "team": "New York Giants",
+   "teamPct": 9.4
+  }
  },
  {
   "rank": 210,
@@ -2742,7 +4414,15 @@
   "college": "USC",
   "height": "6-7",
   "weight": "315",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 210,
+   "min": 196,
+   "max": 253,
+   "team": "Green Bay Packers",
+   "teamPct": 9
+  }
  },
  {
   "rank": 211,
@@ -2751,7 +4431,15 @@
   "college": "Ohio State",
   "height": "6-0",
   "weight": "200",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 211.5,
+   "min": 197,
+   "max": 249,
+   "team": "New England Patriots",
+   "teamPct": 10
+  }
  },
  {
   "rank": 212,
@@ -2760,7 +4448,15 @@
   "college": "Virginia",
   "height": "6-5",
   "weight": "329",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 211.3,
+   "min": 198,
+   "max": 247,
+   "team": "New York Giants",
+   "teamPct": 10.6
+  }
  },
  {
   "rank": 213,
@@ -2769,7 +4465,15 @@
   "college": "Nebraska",
   "height": "6-7",
   "weight": "270",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 100,
+   "avg": 213.5,
+   "min": 199,
+   "max": 254,
+   "team": "Detroit Lions",
+   "teamPct": 9.1
+  }
  },
  {
   "rank": 214,
@@ -2778,7 +4482,15 @@
   "college": "Michigan",
   "height": "6-6",
   "weight": "302",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "adp": {
+   "pct": 100,
+   "avg": 213,
+   "min": 200,
+   "max": 255,
+   "team": "New York Giants",
+   "teamPct": 9.5
+  }
  },
  {
   "rank": 215,
@@ -2787,7 +4499,15 @@
   "college": "Nebraska",
   "height": "6-0",
   "weight": "195",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 99.9,
+   "avg": 214.3,
+   "min": 201,
+   "max": 250,
+   "team": "Detroit Lions",
+   "teamPct": 12.3
+  }
  },
  {
   "rank": 216,
@@ -2796,7 +4516,15 @@
   "college": "Cincinnati",
   "height": "6-6",
   "weight": "320",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 99.9,
+   "avg": 216.2,
+   "min": 202,
+   "max": 254,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.5
+  }
  },
  {
   "rank": 217,
@@ -2805,7 +4533,15 @@
   "college": "Clemson",
   "height": "5-11",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 216.5,
+   "min": 203,
+   "max": 256,
+   "team": "Detroit Lions",
+   "teamPct": 11.3
+  }
  },
  {
   "rank": 218,
@@ -2814,7 +4550,15 @@
   "college": "USC",
   "height": "5-10",
   "weight": "210",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 99.9,
+   "avg": 218.8,
+   "min": 204,
+   "max": 254,
+   "team": "Detroit Lions",
+   "teamPct": 10.8
+  }
  },
  {
   "rank": 219,
@@ -2823,7 +4567,15 @@
   "college": "Clemson",
   "height": "6-0",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 100,
+   "avg": 218.8,
+   "min": 205,
+   "max": 255,
+   "team": "Atlanta Falcons",
+   "teamPct": 10
+  }
  },
  {
   "rank": 220,
@@ -2832,7 +4584,15 @@
   "college": "Ohio State",
   "height": "6-3",
   "weight": "306",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 99.9,
+   "avg": 220.1,
+   "min": 206,
+   "max": 255,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 8.2
+  }
  },
  {
   "rank": 221,
@@ -2841,7 +4601,15 @@
   "college": "USC",
   "height": "5-10",
   "weight": "200",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 99.9,
+   "avg": 221.2,
+   "min": 207,
+   "max": 257,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.1
+  }
  },
  {
   "rank": 222,
@@ -2850,7 +4618,15 @@
   "college": "Colorado",
   "height": "6-2",
   "weight": "265",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 99.9,
+   "avg": 222.3,
+   "min": 208,
+   "max": 254,
+   "team": "Jacksonville Jaguars",
+   "teamPct": 8.4
+  }
  },
  {
   "rank": 223,
@@ -2859,7 +4635,15 @@
   "college": "Notre Dame",
   "height": "6-2",
   "weight": "234",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 99.4,
+   "avg": 223.5,
+   "min": 209,
+   "max": 254,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.6
+  }
  },
  {
   "rank": 224,
@@ -2868,7 +4652,15 @@
   "college": "Northwestern",
   "height": "6-0",
   "weight": "210",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 99.5,
+   "avg": 224.1,
+   "min": 210,
+   "max": 256,
+   "team": "Atlanta Falcons",
+   "teamPct": 11.3
+  }
  },
  {
   "rank": 225,
@@ -2877,7 +4669,15 @@
   "college": "California",
   "height": "6-5",
   "weight": "335",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 99.6,
+   "avg": 224.8,
+   "min": 211,
+   "max": 256,
+   "team": "Atlanta Falcons",
+   "teamPct": 11.6
+  }
  },
  {
   "rank": 226,
@@ -2886,7 +4686,15 @@
   "college": "Vanderbilt",
   "height": "6-7",
   "weight": "315",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 99.6,
+   "avg": 225.9,
+   "min": 212,
+   "max": 257,
+   "team": "Indianapolis Colts",
+   "teamPct": 10.4
+  }
  },
  {
   "rank": 227,
@@ -2895,7 +4703,15 @@
   "college": "Washington",
   "height": "6-4",
   "weight": "250",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 98.9,
+   "avg": 226.9,
+   "min": 213,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 9.9
+  }
  },
  {
   "rank": 228,
@@ -2904,7 +4720,15 @@
   "college": "Northwestern",
   "height": "5-11",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 99.7,
+   "avg": 228.1,
+   "min": 214,
+   "max": 257,
+   "team": "Atlanta Falcons",
+   "teamPct": 11.9
+  }
  },
  {
   "rank": 229,
@@ -2913,7 +4737,15 @@
   "college": "UTSA",
   "height": "5-10",
   "weight": "185",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "adp": {
+   "pct": 99.4,
+   "avg": 229.1,
+   "min": 215,
+   "max": 257,
+   "team": "Indianapolis Colts",
+   "teamPct": 9.3
+  }
  },
  {
   "rank": 230,
@@ -2922,7 +4754,15 @@
   "college": "Minnesota",
   "height": "6-0",
   "weight": "215",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 98.3,
+   "avg": 230.4,
+   "min": 216,
+   "max": 257,
+   "team": "Atlanta Falcons",
+   "teamPct": 12.3
+  }
  },
  {
   "rank": 231,
@@ -2931,7 +4771,15 @@
   "college": "Indiana",
   "height": "6-0",
   "weight": "305",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 98.7,
+   "avg": 231.1,
+   "min": 217,
+   "max": 257,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.8
+  }
  },
  {
   "rank": 232,
@@ -2940,7 +4788,15 @@
   "college": "Colorado",
   "height": "6-8",
   "weight": "330",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 98.9,
+   "avg": 231.3,
+   "min": 218,
+   "max": 257,
+   "team": "Atlanta Falcons",
+   "teamPct": 14.4
+  }
  },
  {
   "rank": 233,
@@ -2949,7 +4805,15 @@
   "college": "Colorado",
   "height": "6-2",
   "weight": "260",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 97.4,
+   "avg": 232.8,
+   "min": 219,
+   "max": 257,
+   "team": "Indianapolis Colts",
+   "teamPct": 9
+  }
  },
  {
   "rank": 234,
@@ -2958,7 +4822,15 @@
   "college": "Virginia Tech",
   "height": "5-11",
   "weight": "192",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 97.5,
+   "avg": 232.7,
+   "min": 220,
+   "max": 257,
+   "team": "Indianapolis Colts",
+   "teamPct": 8
+  }
  },
  {
   "rank": 235,
@@ -2967,7 +4839,15 @@
   "college": "LSU",
   "height": "6-2",
   "weight": "301",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 96.7,
+   "avg": 233.9,
+   "min": 221,
+   "max": 257,
+   "team": "Atlanta Falcons",
+   "teamPct": 8.7
+  }
  },
  {
   "rank": 236,
@@ -2976,7 +4856,15 @@
   "college": "UCLA",
   "height": "5-7",
   "weight": "193",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 96.4,
+   "avg": 235.4,
+   "min": 222,
+   "max": 257,
+   "team": "Carolina Panthers",
+   "teamPct": 7.2
+  }
  },
  {
   "rank": 237,
@@ -2985,7 +4873,15 @@
   "college": "Arkansas",
   "height": "6-5",
   "weight": "334",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 96.3,
+   "avg": 236,
+   "min": 223,
+   "max": 257,
+   "team": "Cleveland Browns",
+   "teamPct": 8.1
+  }
  },
  {
   "rank": 238,
@@ -2994,7 +4890,15 @@
   "college": "Oklahoma State",
   "height": "6-4",
   "weight": "327",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 95.9,
+   "avg": 236.5,
+   "min": 224,
+   "max": 257,
+   "team": "Carolina Panthers",
+   "teamPct": 9.1
+  }
  },
  {
   "rank": 239,
@@ -3003,7 +4907,15 @@
   "college": "Duke",
   "height": "6-3",
   "weight": "250",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 92.5,
+   "avg": 237.5,
+   "min": 225,
+   "max": 257,
+   "team": "Denver Broncos",
+   "teamPct": 8.2
+  }
  },
  {
   "rank": 240,
@@ -3012,7 +4924,15 @@
   "college": "Penn State",
   "height": "6-5",
   "weight": "334",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 93.9,
+   "avg": 238.2,
+   "min": 226,
+   "max": 257,
+   "team": "Cleveland Browns",
+   "teamPct": 8.8
+  }
  },
  {
   "rank": 241,
@@ -3021,7 +4941,15 @@
   "college": "Virginia Tech",
   "height": "6-2",
   "weight": "305",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 92,
+   "avg": 239,
+   "min": 227,
+   "max": 257,
+   "team": "Cleveland Browns",
+   "teamPct": 7.7
+  }
  },
  {
   "rank": 242,
@@ -3030,7 +4958,15 @@
   "college": "Notre Dame",
   "height": "6-1",
   "weight": "285",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 92.3,
+   "avg": 239.8,
+   "min": 228,
+   "max": 257,
+   "team": "Cleveland Browns",
+   "teamPct": 8.1
+  }
  },
  {
   "rank": 243,
@@ -3039,7 +4975,15 @@
   "college": "Indiana",
   "height": "6-7",
   "weight": "320",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 91.7,
+   "avg": 240.4,
+   "min": 229,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 6.2
+  }
  },
  {
   "rank": 244,
@@ -3048,7 +4992,15 @@
   "college": "Clemson",
   "height": "6-3",
   "weight": "200",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 89.2,
+   "avg": 242.2,
+   "min": 230,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 7.1
+  }
  },
  {
   "rank": 245,
@@ -3057,7 +5009,15 @@
   "college": "Houston",
   "height": "6-5",
   "weight": "240",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 87.3,
+   "avg": 242.6,
+   "min": 231,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 8.5
+  }
  },
  {
   "rank": 246,
@@ -3066,7 +5026,15 @@
   "college": "Vanderbilt",
   "height": "6-4",
   "weight": "249",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 85.4,
+   "avg": 243.1,
+   "min": 232,
+   "max": 257,
+   "team": "Arizona Cardinals",
+   "teamPct": 7.8
+  }
  },
  {
   "rank": 247,
@@ -3075,7 +5043,15 @@
   "college": "Alabama",
   "height": "6-3",
   "weight": "240",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 83.3,
+   "avg": 244.2,
+   "min": 233,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 6.8
+  }
  },
  {
   "rank": 248,
@@ -3084,7 +5060,15 @@
   "college": "Auburn",
   "height": "6-7",
   "weight": "313",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 84.7,
+   "avg": 243.7,
+   "min": 234,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 8.7
+  }
  },
  {
   "rank": 249,
@@ -3093,7 +5077,15 @@
   "college": "Indiana",
   "height": "6-2",
   "weight": "205",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 77.6,
+   "avg": 245.2,
+   "min": 235,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 9.4
+  }
  },
  {
   "rank": 250,
@@ -3102,7 +5094,15 @@
   "college": "Kansas State",
   "height": "6-5",
   "weight": "249",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 75.5,
+   "avg": 246.1,
+   "min": 236,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 10.7
+  }
  },
  {
   "rank": 251,
@@ -3111,7 +5111,15 @@
   "college": "Ohio State",
   "height": "6-5",
   "weight": "301",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 76.8,
+   "avg": 246.6,
+   "min": 237,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 9
+  }
  },
  {
   "rank": 252,
@@ -3120,7 +5128,15 @@
   "college": "Texas A&M",
   "height": "6-0",
   "weight": "202",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 76.3,
+   "avg": 247.3,
+   "min": 238,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 11.9
+  }
  },
  {
   "rank": 253,
@@ -3129,7 +5145,15 @@
   "college": "Austin Peay",
   "height": "6-5",
   "weight": "300",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 71,
+   "avg": 247.4,
+   "min": 239,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 10.3
+  }
  },
  {
   "rank": 254,
@@ -3138,7 +5162,15 @@
   "college": "Maryland",
   "height": "6-3",
   "weight": "316",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 66.4,
+   "avg": 248.2,
+   "min": 240,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 12.7
+  }
  },
  {
   "rank": 255,
@@ -3147,7 +5179,15 @@
   "college": "Indiana",
   "height": "6-2",
   "weight": "250",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 63.6,
+   "avg": 248.7,
+   "min": 241,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 11.3
+  }
  },
  {
   "rank": 256,
@@ -3156,7 +5196,15 @@
   "college": "Kentucky",
   "height": "6-1",
   "weight": "230",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 60,
+   "avg": 249.1,
+   "min": 242,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 11.3
+  }
  },
  {
   "rank": 257,
@@ -3165,7 +5213,15 @@
   "college": "Tennessee",
   "height": "6-0",
   "weight": "230",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 58.6,
+   "avg": 249.4,
+   "min": 243,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 13.1
+  }
  },
  {
   "rank": 258,
@@ -3174,7 +5230,15 @@
   "college": "Missouri",
   "height": "6-1",
   "weight": "192",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 53.7,
+   "avg": 250.2,
+   "min": 244,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 12.5
+  }
  },
  {
   "rank": 259,
@@ -3183,7 +5247,15 @@
   "college": "Colorado",
   "height": "6-0",
   "weight": "190",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 49.2,
+   "avg": 251.3,
+   "min": 245,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 13.8
+  }
  },
  {
   "rank": 260,
@@ -3192,7 +5264,15 @@
   "college": "North Dakota State",
   "height": "6-3",
   "weight": "228",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 46,
+   "avg": 251.7,
+   "min": 246,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 19.3
+  }
  },
  {
   "rank": 261,
@@ -3201,7 +5281,15 @@
   "college": "Texas A&M",
   "height": "6-4",
   "weight": "215",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 43,
+   "avg": 251.9,
+   "min": 247,
+   "max": 257,
+   "team": "Detroit Lions",
+   "teamPct": 16.5
+  }
  },
  {
   "rank": 262,
@@ -3210,7 +5298,15 @@
   "college": "Yale",
   "height": "6-0",
   "weight": "208",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 40,
+   "avg": 252.6,
+   "min": 248,
+   "max": 257,
+   "team": "Minnesota Vikings",
+   "teamPct": 11.2
+  }
  },
  {
   "rank": 263,
@@ -3219,7 +5315,15 @@
   "college": "Arizona State",
   "height": "6-0",
   "weight": "190",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 33.7,
+   "avg": 252.7,
+   "min": 249,
+   "max": 257,
+   "team": "Arizona Cardinals",
+   "teamPct": 16.6
+  }
  },
  {
   "rank": 264,
@@ -3228,7 +5332,15 @@
   "college": "California",
   "height": "6-3",
   "weight": "210",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 28.8,
+   "avg": 253.4,
+   "min": 250,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 14.9
+  }
  },
  {
   "rank": 265,
@@ -3237,7 +5349,15 @@
   "college": "Oregon",
   "height": "6-0",
   "weight": "178",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 28.9,
+   "avg": 254.2,
+   "min": 251,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 17.3
+  }
  },
  {
   "rank": 266,
@@ -3246,7 +5366,15 @@
   "college": "Northwestern",
   "height": "6-4",
   "weight": "225",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 24.9,
+   "avg": 254.4,
+   "min": 252,
+   "max": 257,
+   "team": "Kansas City Chiefs",
+   "teamPct": 19.7
+  }
  },
  {
   "rank": 267,
@@ -3255,7 +5383,15 @@
   "college": "Rutgers",
   "height": "6-6",
   "weight": "320",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 20.8,
+   "avg": 254.9,
+   "min": 253,
+   "max": 257,
+   "team": "Miami Dolphins",
+   "teamPct": 26.4
+  }
  },
  {
   "rank": 268,
@@ -3264,7 +5400,15 @@
   "college": "West Virginia",
   "height": "5-9",
   "weight": "203",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 14.9,
+   "avg": 255.7,
+   "min": 254,
+   "max": 257,
+   "team": "New England Patriots",
+   "teamPct": 30.2
+  }
  },
  {
   "rank": 269,
@@ -3273,7 +5417,15 @@
   "college": "Pittsburgh",
   "height": "6-7",
   "weight": "325",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 13,
+   "avg": 256.1,
+   "min": 255,
+   "max": 257,
+   "team": "Kansas City Chiefs",
+   "teamPct": 36.2
+  }
  },
  {
   "rank": 270,
@@ -3282,7 +5434,15 @@
   "college": "Northwestern",
   "height": "6-6",
   "weight": "275",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 8.2,
+   "avg": 256.5,
+   "min": 256,
+   "max": 257,
+   "team": "Kansas City Chiefs",
+   "teamPct": 52.4
+  }
  },
  {
   "rank": 271,
@@ -3291,7 +5451,15 @@
   "college": "Wake Forest",
   "height": "6-1",
   "weight": "215",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 5.3,
+   "avg": 257,
+   "min": 257,
+   "max": 257,
+   "team": "New England Patriots",
+   "teamPct": 100
+  }
  },
  {
   "rank": 272,
@@ -3300,7 +5468,10 @@
   "college": "Ole Miss",
   "height": "6-2",
   "weight": "240",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 273,
@@ -3309,7 +5480,10 @@
   "college": "Oklahoma",
   "height": "6-1",
   "weight": "224",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 274,
@@ -3318,7 +5492,10 @@
   "college": "Florida",
   "height": "6-1",
   "weight": "228",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 275,
@@ -3327,7 +5504,10 @@
   "college": "South Carolina",
   "height": "6-2",
   "weight": "206",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 276,
@@ -3336,7 +5516,10 @@
   "college": "Kentucky",
   "height": "6-4",
   "weight": "208",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 277,
@@ -3345,7 +5528,10 @@
   "college": "Nebraska",
   "height": "6-6",
   "weight": "330",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 278,
@@ -3354,7 +5540,10 @@
   "college": "Tennessee",
   "height": "6-1",
   "weight": "198",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 279,
@@ -3363,7 +5552,10 @@
   "college": "Texas Tech",
   "height": "6-5",
   "weight": "300",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 280,
@@ -3372,7 +5564,10 @@
   "college": "Wake Forest",
   "height": "6-0",
   "weight": "190",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 281,
@@ -3381,7 +5576,10 @@
   "college": "Baylor",
   "height": "6-3",
   "weight": "237",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 282,
@@ -3390,7 +5588,10 @@
   "college": "Boise State",
   "height": "6-3",
   "weight": "260",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 283,
@@ -3399,7 +5600,10 @@
   "college": "Houston",
   "height": "6-0",
   "weight": "210",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 284,
@@ -3408,7 +5612,10 @@
   "college": "Michigan State",
   "height": "6-7",
   "weight": "340",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 285,
@@ -3417,7 +5624,10 @@
   "college": "Northwestern",
   "height": "6-2",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 286,
@@ -3426,7 +5636,10 @@
   "college": "Duke",
   "height": "5-10",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 287,
@@ -3435,7 +5648,10 @@
   "college": "Wake Forest",
   "height": "5-8",
   "weight": "170",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 288,
@@ -3444,7 +5660,10 @@
   "college": "UCLA",
   "height": "5-8",
   "weight": "181",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 289,
@@ -3453,7 +5672,10 @@
   "college": "Penn State",
   "height": "6-0",
   "weight": "188",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 290,
@@ -3462,7 +5684,10 @@
   "college": "Texas A&M",
   "height": "6-7",
   "weight": "305",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 291,
@@ -3471,7 +5696,10 @@
   "college": "Army",
   "height": "6-0",
   "weight": "318",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 292,
@@ -3480,7 +5708,10 @@
   "college": "Liberty",
   "height": "6-1",
   "weight": "220",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 293,
@@ -3489,7 +5720,10 @@
   "college": "Kansas State",
   "height": "6-2",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 294,
@@ -3498,7 +5732,10 @@
   "college": "Virginia",
   "height": "6-4",
   "weight": "234",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 295,
@@ -3507,7 +5744,10 @@
   "college": "Texas Tech",
   "height": "6-2",
   "weight": "290",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 296,
@@ -3516,7 +5756,10 @@
   "college": "Florida Atlantic",
   "height": "6-0",
   "weight": "185",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 297,
@@ -3525,7 +5768,10 @@
   "college": "Michigan",
   "height": "5-10",
   "weight": "188",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 298,
@@ -3534,7 +5780,10 @@
   "college": "Florida",
   "height": "6-4",
   "weight": "303",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 299,
@@ -3543,7 +5792,10 @@
   "college": "TCU",
   "height": "6-4",
   "weight": "265",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 300,
@@ -3552,7 +5804,10 @@
   "college": "UNLV",
   "height": "6-2",
   "weight": "230",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 301,
@@ -3561,7 +5816,10 @@
   "college": "Washington",
   "height": "6-2",
   "weight": "205",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 302,
@@ -3570,7 +5828,10 @@
   "college": "USC",
   "height": "6-1",
   "weight": "205",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 303,
@@ -3579,7 +5840,10 @@
   "college": "Nebraska",
   "height": "6-3",
   "weight": "240",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 304,
@@ -3588,7 +5852,10 @@
   "college": "Louisville",
   "height": "6-2",
   "weight": "215",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 305,
@@ -3597,7 +5864,10 @@
   "college": "Georgia",
   "height": "6-4",
   "weight": "320",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 306,
@@ -3606,7 +5876,10 @@
   "college": "Houston",
   "height": "6-2",
   "weight": "301",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 307,
@@ -3615,7 +5888,10 @@
   "college": "Penn State",
   "height": "5-11",
   "weight": "184",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 308,
@@ -3624,7 +5900,10 @@
   "college": "Texas A&M",
   "height": "6-7",
   "weight": "320",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 309,
@@ -3633,7 +5912,10 @@
   "college": "Florida State",
   "height": "6-1",
   "weight": "194",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 310,
@@ -3642,7 +5924,10 @@
   "college": "NC State",
   "height": "6-5",
   "weight": "314",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 311,
@@ -3651,7 +5936,10 @@
   "college": "BYU",
   "height": "6-4",
   "weight": "215",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 312,
@@ -3660,7 +5948,10 @@
   "college": "Michigan",
   "height": "6-7",
   "weight": "310",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 313,
@@ -3669,7 +5960,10 @@
   "college": "Texas Tech",
   "height": "6-1",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 314,
@@ -3678,7 +5972,10 @@
   "college": "TCU",
   "height": "6-6",
   "weight": "320",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 315,
@@ -3687,7 +5984,10 @@
   "college": "Tennessee",
   "height": "6-0",
   "weight": "190",
-  "year": "Sophomore"
+  "year": "Sophomore",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 316,
@@ -3696,7 +5996,10 @@
   "college": "Florida State",
   "height": "6-1",
   "weight": "178",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 317,
@@ -3705,7 +6008,10 @@
   "college": "UCF",
   "height": "6-6",
   "weight": "355",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 318,
@@ -3714,7 +6020,10 @@
   "college": "Minnesota",
   "height": "5-10",
   "weight": "190",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 319,
@@ -3723,7 +6032,10 @@
   "college": "LSU",
   "height": "5-11",
   "weight": "175",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 320,
@@ -3732,7 +6044,10 @@
   "college": "California",
   "height": "6-3",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 321,
@@ -3741,7 +6056,10 @@
   "college": "Louisville",
   "height": "6-2",
   "weight": "225",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 322,
@@ -3750,7 +6068,10 @@
   "college": "SMU",
   "height": "6-6",
   "weight": "250",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 323,
@@ -3759,7 +6080,10 @@
   "college": "Texas",
   "height": "6-5",
   "weight": "309",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 324,
@@ -3768,7 +6092,10 @@
   "college": "Kentucky",
   "height": "6-0",
   "weight": "196",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 325,
@@ -3777,7 +6104,10 @@
   "college": "Duke",
   "height": "6-2",
   "weight": "220",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 326,
@@ -3786,7 +6116,10 @@
   "college": "Texas A&M",
   "height": "6-2",
   "weight": "240",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 327,
@@ -3795,7 +6128,10 @@
   "college": "Texas A&M",
   "height": "6-1",
   "weight": "193",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 328,
@@ -3804,7 +6140,10 @@
   "college": "Oklahoma",
   "height": "6-3",
   "weight": "319",
-  "year": "Sophomore"
+  "year": "Sophomore",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 329,
@@ -3813,7 +6152,10 @@
   "college": "Wisconsin",
   "height": "5-11",
   "weight": "184",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 330,
@@ -3822,7 +6164,10 @@
   "college": "Mississippi State",
   "height": "5-10",
   "weight": "230",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 331,
@@ -3831,7 +6176,10 @@
   "college": "Oklahoma",
   "height": "6-8",
   "weight": "270",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 332,
@@ -3840,7 +6188,10 @@
   "college": "LSU",
   "height": "6-3",
   "weight": "296",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 333,
@@ -3849,7 +6200,10 @@
   "college": "Indiana",
   "height": "5-11",
   "weight": "228",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 334,
@@ -3858,7 +6212,10 @@
   "college": "Washington",
   "height": "5-11",
   "weight": "190",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 335,
@@ -3867,7 +6224,10 @@
   "college": "Mississippi State",
   "height": "6-0",
   "weight": "220",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 336,
@@ -3876,7 +6236,10 @@
   "college": "Louisville",
   "height": "6-6",
   "weight": "260",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 337,
@@ -3885,7 +6248,10 @@
   "college": "Penn State",
   "height": "6-5",
   "weight": "273",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 338,
@@ -3894,7 +6260,10 @@
   "college": "Vanderbilt",
   "height": "6-2",
   "weight": "310",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 339,
@@ -3903,7 +6272,10 @@
   "college": "Oklahoma",
   "height": "6-0",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 340,
@@ -3912,7 +6284,10 @@
   "college": "Maryland",
   "height": "6-0",
   "weight": "180",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 341,
@@ -3921,7 +6296,10 @@
   "college": "Oregon",
   "height": "6-3",
   "weight": "335",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 342,
@@ -3930,7 +6308,10 @@
   "college": "Ole Miss",
   "height": "6-6",
   "weight": "250",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 343,
@@ -3939,7 +6320,10 @@
   "college": "TCU",
   "height": "6-5",
   "weight": "320",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 344,
@@ -3948,7 +6332,10 @@
   "college": "Vanderbilt",
   "height": "6-2",
   "weight": "200",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 345,
@@ -3957,7 +6344,10 @@
   "college": "Duke",
   "height": "5-8",
   "weight": "175",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 346,
@@ -3966,7 +6356,10 @@
   "college": "Louisville",
   "height": "6-4",
   "weight": "310",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 347,
@@ -3975,7 +6368,10 @@
   "college": "Texas Tech",
   "height": "6-2",
   "weight": "235",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 348,
@@ -3984,7 +6380,10 @@
   "college": "Washington",
   "height": "6-3",
   "weight": "315",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 349,
@@ -3993,7 +6392,10 @@
   "college": "Northwestern",
   "height": "6-1",
   "weight": "230",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 350,
@@ -4002,7 +6404,10 @@
   "college": "Arkansas",
   "height": "6-0",
   "weight": "195",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 351,
@@ -4011,7 +6416,10 @@
   "college": "LSU",
   "height": "6-3",
   "weight": "209",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 352,
@@ -4020,7 +6428,10 @@
   "college": "BYU",
   "height": "6-5",
   "weight": "240",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 353,
@@ -4029,7 +6440,10 @@
   "college": "Tennessee",
   "height": "6-1",
   "weight": "205",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 354,
@@ -4038,7 +6452,10 @@
   "college": "Houston",
   "height": "6-6",
   "weight": "312",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 355,
@@ -4047,7 +6464,10 @@
   "college": "Oklahoma",
   "height": "6-1",
   "weight": "226",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 356,
@@ -4056,7 +6476,10 @@
   "college": "Tennessee",
   "height": "6-0",
   "weight": "202",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 357,
@@ -4065,7 +6488,10 @@
   "college": "California",
   "height": "6-4",
   "weight": "255",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 358,
@@ -4074,7 +6500,10 @@
   "college": "UCLA",
   "height": "6-4",
   "weight": "328",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 359,
@@ -4083,7 +6512,10 @@
   "college": "Missouri",
   "height": "6-6",
   "weight": "265",
-  "year": "Senior"
+  "year": "Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 360,
@@ -4092,7 +6524,10 @@
   "college": "Nevada",
   "height": "6-5",
   "weight": "306",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "adp": {
+   "pct": 0
+  }
  },
  {
   "rank": 361,
@@ -4101,6 +6536,9 @@
   "college": "Tennessee",
   "height": "6-5",
   "weight": "247",
-  "year": "Junior"
+  "year": "Junior",
+  "adp": {
+   "pct": 0
+  }
  }
 ]

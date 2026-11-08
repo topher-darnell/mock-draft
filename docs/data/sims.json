@@ -1,0 +1,5848 @@
+{
+ "sims": 1000,
+ "slots": [
+  {
+   "pick": 1,
+   "round": 1,
+   "team": "Los Angeles Chargers",
+   "top": [
+    [
+     "Jeremiah Smith",
+     "WR",
+     52
+    ],
+    [
+     "Colin Simmons",
+     "EDGE",
+     15.3
+    ],
+    [
+     "Charlie Becker",
+     "WR",
+     14.7
+    ]
+   ]
+  },
+  {
+   "pick": 2,
+   "round": 1,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "Jordan Seaton",
+     "OT",
+     39.5
+    ],
+    [
+     "Leonard Moore",
+     "CB",
+     18
+    ],
+    [
+     "Colin Simmons",
+     "EDGE",
+     16.1
+    ]
+   ]
+  },
+  {
+   "pick": 3,
+   "round": 1,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Colin Simmons",
+     "EDGE",
+     30.2
+    ],
+    [
+     "Dylan Stewart",
+     "EDGE",
+     27.5
+    ],
+    [
+     "Leonard Moore",
+     "CB",
+     21.6
+    ]
+   ]
+  },
+  {
+   "pick": 4,
+   "round": 1,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Leonard Moore",
+     "CB",
+     26.5
+    ],
+    [
+     "Will Echoles",
+     "IDL",
+     17.3
+    ],
+    [
+     "Xavier Gilliam",
+     "IDL",
+     13.7
+    ]
+   ]
+  },
+  {
+   "pick": 5,
+   "round": 1,
+   "team": "Philadelphia Eagles",
+   "top": [
+    [
+     "Jordan Seaton",
+     "OT",
+     31.4
+    ],
+    [
+     "Leonard Moore",
+     "CB",
+     22.7
+    ],
+    [
+     "Ellis Robinson IV",
+     "CB",
+     12.2
+    ]
+   ]
+  },
+  {
+   "pick": 6,
+   "round": 1,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Will Echoles",
+     "IDL",
+     18.8
+    ],
+    [
+     "Drew Mestemaker",
+     "QB",
+     16.2
+    ],
+    [
+     "Xavier Gilliam",
+     "IDL",
+     13.9
+    ]
+   ]
+  },
+  {
+   "pick": 7,
+   "round": 1,
+   "team": "Houston Texans",
+   "top": [
+    [
+     "Jordan Seaton",
+     "OT",
+     14.8
+    ],
+    [
+     "Charlie Becker",
+     "WR",
+     14
+    ],
+    [
+     "Jadan Baugh",
+     "RB",
+     11.9
+    ]
+   ]
+  },
+  {
+   "pick": 8,
+   "round": 1,
+   "team": "New Orleans Saints",
+   "top": [
+    [
+     "Xavier Gilliam",
+     "IDL",
+     25.2
+    ],
+    [
+     "Will Echoles",
+     "IDL",
+     22.9
+    ],
+    [
+     "Dylan Stewart",
+     "EDGE",
+     11.3
+    ]
+   ]
+  },
+  {
+   "pick": 9,
+   "round": 1,
+   "team": "Washington Commanders",
+   "top": [
+    [
+     "Cam Coleman",
+     "WR",
+     30.1
+    ],
+    [
+     "Charlie Becker",
+     "WR",
+     27.2
+    ],
+    [
+     "Ellis Robinson IV",
+     "CB",
+     21.3
+    ]
+   ]
+  },
+  {
+   "pick": 10,
+   "round": 1,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Drew Mestemaker",
+     "QB",
+     20.9
+    ],
+    [
+     "Ellis Robinson IV",
+     "CB",
+     15.4
+    ],
+    [
+     "Austin Simmons",
+     "QB",
+     13.4
+    ]
+   ]
+  },
+  {
+   "pick": 11,
+   "round": 1,
+   "team": "Arizona Cardinals",
+   "top": [
+    [
+     "Cam Coleman",
+     "WR",
+     32.1
+    ],
+    [
+     "Drew Mestemaker",
+     "QB",
+     12.1
+    ],
+    [
+     "Charlie Becker",
+     "WR",
+     10.8
+    ]
+   ]
+  },
+  {
+   "pick": 12,
+   "round": 1,
+   "team": "Tampa Bay Buccaneers",
+   "top": [
+    [
+     "Ellis Robinson IV",
+     "CB",
+     17
+    ],
+    [
+     "Jadan Baugh",
+     "RB",
+     17
+    ],
+    [
+     "Drew Mestemaker",
+     "QB",
+     9.3
+    ]
+   ]
+  },
+  {
+   "pick": 13,
+   "round": 1,
+   "team": "Atlanta Falcons",
+   "top": [
+    [
+     "Tae Johnson",
+     "S",
+     16.8
+    ],
+    [
+     "Trinidad Chambliss",
+     "QB",
+     14.5
+    ],
+    [
+     "Austin Simmons",
+     "QB",
+     13.6
+    ]
+   ]
+  },
+  {
+   "pick": 14,
+   "round": 1,
+   "team": "Las Vegas Raiders",
+   "top": [
+    [
+     "David Stone",
+     "IDL",
+     24.8
+    ],
+    [
+     "Jadan Baugh",
+     "RB",
+     13.2
+    ],
+    [
+     "Greg Johnson",
+     "IOL",
+     11.5
+    ]
+   ]
+  },
+  {
+   "pick": 15,
+   "round": 1,
+   "team": "Baltimore Ravens",
+   "top": [
+    [
+     "Ashton Hampton",
+     "CB",
+     24
+    ],
+    [
+     "Jadan Baugh",
+     "RB",
+     19.6
+    ],
+    [
+     "David Stone",
+     "IDL",
+     19.3
+    ]
+   ]
+  },
+  {
+   "pick": 16,
+   "round": 1,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Trinidad Chambliss",
+     "QB",
+     32.4
+    ],
+    [
+     "Austin Simmons",
+     "QB",
+     23
+    ],
+    [
+     "Tae Johnson",
+     "S",
+     8.4
+    ]
+   ]
+  },
+  {
+   "pick": 17,
+   "round": 1,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Greg Johnson",
+     "IOL",
+     16.5
+    ],
+    [
+     "Tae Johnson",
+     "S",
+     13.1
+    ],
+    [
+     "Ashton Hampton",
+     "CB",
+     11.6
+    ]
+   ]
+  },
+  {
+   "pick": 18,
+   "round": 1,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Greg Johnson",
+     "IOL",
+     15.5
+    ],
+    [
+     "Jamari Johnson",
+     "TE",
+     13.1
+    ],
+    [
+     "Tae Johnson",
+     "S",
+     11.5
+    ]
+   ]
+  },
+  {
+   "pick": 19,
+   "round": 1,
+   "team": "Carolina Panthers",
+   "top": [
+    [
+     "Jamari Johnson",
+     "TE",
+     33.3
+    ],
+    [
+     "Lance Heard",
+     "OT",
+     16.9
+    ],
+    [
+     "Zereoue Williams",
+     "OT",
+     12.5
+    ]
+   ]
+  },
+  {
+   "pick": 20,
+   "round": 1,
+   "team": "Dallas Cowboys",
+   "top": [
+    [
+     "Nick Marsh",
+     "WR",
+     20.2
+    ],
+    [
+     "Tae Johnson",
+     "S",
+     13.9
+    ],
+    [
+     "Ashton Hampton",
+     "CB",
+     11.7
+    ]
+   ]
+  },
+  {
+   "pick": 21,
+   "round": 1,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Chris Cole",
+     "LB",
+     27.8
+    ],
+    [
+     "Carter Smith",
+     "IOL",
+     21.4
+    ],
+    [
+     "Greg Johnson",
+     "IOL",
+     11.9
+    ]
+   ]
+  },
+  {
+   "pick": 22,
+   "round": 1,
+   "team": "New York Giants",
+   "top": [
+    [
+     "David Stone",
+     "IDL",
+     16.5
+    ],
+    [
+     "Ahmad Moten Sr.",
+     "IDL",
+     16
+    ],
+    [
+     "Kelley Jones",
+     "CB",
+     11
+    ]
+   ]
+  },
+  {
+   "pick": 23,
+   "round": 1,
+   "team": "Cincinnati Bengals",
+   "top": [
+    [
+     "KJ Bolden",
+     "S",
+     25.3
+    ],
+    [
+     "Kingston Lopa",
+     "S",
+     21.4
+    ],
+    [
+     "Kelley Jones",
+     "CB",
+     13.7
+    ]
+   ]
+  },
+  {
+   "pick": 24,
+   "round": 1,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Nick Marsh",
+     "WR",
+     19.1
+    ],
+    [
+     "Zereoue Williams",
+     "OT",
+     15.5
+    ],
+    [
+     "Lance Heard",
+     "OT",
+     14.9
+    ]
+   ]
+  },
+  {
+   "pick": 25,
+   "round": 1,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "Ahmad Moten Sr.",
+     "IDL",
+     19.7
+    ],
+    [
+     "KJ Bolden",
+     "S",
+     17.4
+    ],
+    [
+     "Kingston Lopa",
+     "S",
+     14
+    ]
+   ]
+  },
+  {
+   "pick": 26,
+   "round": 1,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Kelley Jones",
+     "CB",
+     17.7
+    ],
+    [
+     "KJ Bolden",
+     "S",
+     13.8
+    ],
+    [
+     "Kingston Lopa",
+     "S",
+     12.3
+    ]
+   ]
+  },
+  {
+   "pick": 27,
+   "round": 1,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "CJ Carr",
+     "QB",
+     19.5
+    ],
+    [
+     "Arch Manning",
+     "QB",
+     16.9
+    ],
+    [
+     "Darian Mensah",
+     "QB",
+     9
+    ]
+   ]
+  },
+  {
+   "pick": 28,
+   "round": 1,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "Ahmad Moten Sr.",
+     "IDL",
+     13.9
+    ],
+    [
+     "Zereoue Williams",
+     "OT",
+     13.8
+    ],
+    [
+     "Lance Heard",
+     "OT",
+     12.8
+    ]
+   ]
+  },
+  {
+   "pick": 29,
+   "round": 1,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Kyngstonn Viliamu-Asa",
+     "LB",
+     11.4
+    ],
+    [
+     "Zereoue Williams",
+     "OT",
+     10.8
+    ],
+    [
+     "Lance Heard",
+     "OT",
+     8.7
+    ]
+   ]
+  },
+  {
+   "pick": 30,
+   "round": 1,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Arch Manning",
+     "QB",
+     22.3
+    ],
+    [
+     "CJ Carr",
+     "QB",
+     20.7
+    ],
+    [
+     "Darian Mensah",
+     "QB",
+     13.7
+    ]
+   ]
+  },
+  {
+   "pick": 31,
+   "round": 1,
+   "team": "San Francisco 49ers",
+   "top": [
+    [
+     "Kade Pieper",
+     "IOL",
+     19.7
+    ],
+    [
+     "Trevor Goosby",
+     "OT",
+     10.7
+    ],
+    [
+     "Yhonzae Pierre",
+     "EDGE",
+     10
+    ]
+   ]
+  },
+  {
+   "pick": 32,
+   "round": 1,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Kyngstonn Viliamu-Asa",
+     "LB",
+     17.4
+    ],
+    [
+     "Kade Pieper",
+     "IOL",
+     17.1
+    ],
+    [
+     "Anthonie Knapp",
+     "IOL",
+     9.5
+    ]
+   ]
+  },
+  {
+   "pick": 33,
+   "round": 2,
+   "team": "Los Angeles Chargers",
+   "top": [
+    [
+     "Kade Pieper",
+     "IOL",
+     14
+    ],
+    [
+     "Yhonzae Pierre",
+     "EDGE",
+     11.9
+    ],
+    [
+     "Anthonie Knapp",
+     "IOL",
+     9.5
+    ]
+   ]
+  },
+  {
+   "pick": 34,
+   "round": 2,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "A'Mauri Washington",
+     "IDL",
+     13
+    ],
+    [
+     "Kewan Lacy",
+     "RB",
+     8.9
+    ],
+    [
+     "Justin Scott",
+     "IDL",
+     7.9
+    ]
+   ]
+  },
+  {
+   "pick": 35,
+   "round": 2,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Darian Mensah",
+     "QB",
+     15.6
+    ],
+    [
+     "Dante Moore",
+     "QB",
+     14.4
+    ],
+    [
+     "Arch Manning",
+     "QB",
+     14.4
+    ]
+   ]
+  },
+  {
+   "pick": 36,
+   "round": 2,
+   "team": "Philadelphia Eagles",
+   "top": [
+    [
+     "Trevor Goosby",
+     "OT",
+     12.1
+    ],
+    [
+     "Trevor Lauck",
+     "OT",
+     10.5
+    ],
+    [
+     "Audavion Collins",
+     "CB",
+     9.8
+    ]
+   ]
+  },
+  {
+   "pick": 37,
+   "round": 2,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Kyngstonn Viliamu-Asa",
+     "LB",
+     13.9
+    ],
+    [
+     "Anthonie Knapp",
+     "IOL",
+     9.7
+    ],
+    [
+     "Audavion Collins",
+     "CB",
+     9.5
+    ]
+   ]
+  },
+  {
+   "pick": 38,
+   "round": 2,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Justin Scott",
+     "IDL",
+     14.8
+    ],
+    [
+     "A'Mauri Washington",
+     "IDL",
+     14.2
+    ],
+    [
+     "Tavion Gadson",
+     "IDL",
+     12.9
+    ]
+   ]
+  },
+  {
+   "pick": 39,
+   "round": 2,
+   "team": "New Orleans Saints",
+   "top": [
+    [
+     "Kewan Lacy",
+     "RB",
+     16.3
+    ],
+    [
+     "A'Mauri Washington",
+     "IDL",
+     9.2
+    ],
+    [
+     "Justin Scott",
+     "IDL",
+     8.9
+    ]
+   ]
+  },
+  {
+   "pick": 40,
+   "round": 2,
+   "team": "Arizona Cardinals",
+   "top": [
+    [
+     "Trevor Lauck",
+     "OT",
+     10.3
+    ],
+    [
+     "Reed Harris",
+     "WR",
+     10
+    ],
+    [
+     "Ryan Coleman-Williams",
+     "WR",
+     7.6
+    ]
+   ]
+  },
+  {
+   "pick": 41,
+   "round": 2,
+   "team": "Washington Commanders",
+   "top": [
+    [
+     "Audavion Collins",
+     "CB",
+     10.5
+    ],
+    [
+     "Zabien Brown",
+     "CB",
+     9.5
+    ],
+    [
+     "Anthonie Knapp",
+     "IOL",
+     7.4
+    ]
+   ]
+  },
+  {
+   "pick": 42,
+   "round": 2,
+   "team": "Arizona Cardinals",
+   "top": [
+    [
+     "Trevor Lauck",
+     "OT",
+     10.2
+    ],
+    [
+     "Ryan Coleman-Williams",
+     "WR",
+     9.1
+    ],
+    [
+     "Reed Harris",
+     "WR",
+     7.3
+    ]
+   ]
+  },
+  {
+   "pick": 43,
+   "round": 2,
+   "team": "Tampa Bay Buccaneers",
+   "top": [
+    [
+     "Reed Harris",
+     "WR",
+     9.3
+    ],
+    [
+     "Ryan Coleman-Williams",
+     "WR",
+     9.3
+    ],
+    [
+     "Cayden Green",
+     "IOL",
+     8.2
+    ]
+   ]
+  },
+  {
+   "pick": 44,
+   "round": 2,
+   "team": "Atlanta Falcons",
+   "top": [
+    [
+     "Trevor Lauck",
+     "OT",
+     11.8
+    ],
+    [
+     "Cayden Green",
+     "IOL",
+     9.4
+    ],
+    [
+     "Tavion Gadson",
+     "IDL",
+     7.3
+    ]
+   ]
+  },
+  {
+   "pick": 45,
+   "round": 2,
+   "team": "Dallas Cowboys",
+   "top": [
+    [
+     "Ryan Coleman-Williams",
+     "WR",
+     10.7
+    ],
+    [
+     "Reed Harris",
+     "WR",
+     10.5
+    ],
+    [
+     "Wyatt Young",
+     "WR",
+     9.4
+    ]
+   ]
+  },
+  {
+   "pick": 46,
+   "round": 2,
+   "team": "Baltimore Ravens",
+   "top": [
+    [
+     "DJ McKinney",
+     "CB",
+     9.9
+    ],
+    [
+     "Kewan Lacy",
+     "RB",
+     9.7
+    ],
+    [
+     "Brice Pollock",
+     "CB",
+     8.6
+    ]
+   ]
+  },
+  {
+   "pick": 47,
+   "round": 2,
+   "team": "Los Angeles Rams",
+   "top": [
+    [
+     "Ryan Coleman-Williams",
+     "WR",
+     12.1
+    ],
+    [
+     "Wyatt Young",
+     "WR",
+     11.5
+    ],
+    [
+     "Reed Harris",
+     "WR",
+     10.6
+    ]
+   ]
+  },
+  {
+   "pick": 48,
+   "round": 2,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Wyatt Young",
+     "WR",
+     8.6
+    ],
+    [
+     "Quincy Rhodes Jr.",
+     "EDGE",
+     7.9
+    ],
+    [
+     "Ryan Coleman-Williams",
+     "WR",
+     7.4
+    ]
+   ]
+  },
+  {
+   "pick": 49,
+   "round": 2,
+   "team": "Las Vegas Raiders",
+   "top": [
+    [
+     "Wyatt Young",
+     "WR",
+     9.1
+    ],
+    [
+     "DJ McKinney",
+     "CB",
+     8.9
+    ],
+    [
+     "Reed Harris",
+     "WR",
+     7.2
+    ]
+   ]
+  },
+  {
+   "pick": 50,
+   "round": 2,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Quincy Rhodes Jr.",
+     "EDGE",
+     9.6
+    ],
+    [
+     "Clev Lubin",
+     "EDGE",
+     8.6
+    ],
+    [
+     "Kenyatta Jackson Jr.",
+     "EDGE",
+     8.6
+    ]
+   ]
+  },
+  {
+   "pick": 51,
+   "round": 2,
+   "team": "Carolina Panthers",
+   "top": [
+    [
+     "Trey'Dez Green",
+     "TE",
+     10.8
+    ],
+    [
+     "DJ McKinney",
+     "CB",
+     7.5
+    ],
+    [
+     "Brice Pollock",
+     "CB",
+     7.3
+    ]
+   ]
+  },
+  {
+   "pick": 52,
+   "round": 2,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Sammy Brown",
+     "LB",
+     15.8
+    ],
+    [
+     "Jaylen McClain",
+     "S",
+     11.6
+    ],
+    [
+     "Wyatt Young",
+     "WR",
+     7.1
+    ]
+   ]
+  },
+  {
+   "pick": 53,
+   "round": 2,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Brice Pollock",
+     "CB",
+     8.9
+    ],
+    [
+     "LJ Martin",
+     "RB",
+     7.2
+    ],
+    [
+     "DJ McKinney",
+     "CB",
+     7.2
+    ]
+   ]
+  },
+  {
+   "pick": 54,
+   "round": 2,
+   "team": "New York Giants",
+   "top": [
+    [
+     "Brice Pollock",
+     "CB",
+     8.2
+    ],
+    [
+     "Jaylen McClain",
+     "S",
+     6.6
+    ],
+    [
+     "Wyatt Young",
+     "WR",
+     6.3
+    ]
+   ]
+  },
+  {
+   "pick": 55,
+   "round": 2,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Trey'Dez Green",
+     "TE",
+     9.7
+    ],
+    [
+     "Deuce Alexander",
+     "WR",
+     9.6
+    ],
+    [
+     "Sammy Brown",
+     "LB",
+     7.4
+    ]
+   ]
+  },
+  {
+   "pick": 56,
+   "round": 2,
+   "team": "Cincinnati Bengals",
+   "top": [
+    [
+     "LJ Martin",
+     "RB",
+     13.2
+    ],
+    [
+     "Ahmad Hardy",
+     "RB",
+     9.5
+    ],
+    [
+     "Sammy Brown",
+     "LB",
+     8.8
+    ]
+   ]
+  },
+  {
+   "pick": 57,
+   "round": 2,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Trey'Dez Green",
+     "TE",
+     15.3
+    ],
+    [
+     "Matayo Uiagalelei",
+     "EDGE",
+     8.2
+    ],
+    [
+     "Princewill Umanmielen",
+     "EDGE",
+     6.9
+    ]
+   ]
+  },
+  {
+   "pick": 58,
+   "round": 2,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "Ahmad Hardy",
+     "RB",
+     13.8
+    ],
+    [
+     "AJ Holmes Jr.",
+     "IDL",
+     10
+    ],
+    [
+     "Jide Abasiri",
+     "IDL",
+     9.3
+    ]
+   ]
+  },
+  {
+   "pick": 59,
+   "round": 2,
+   "team": "Chicago Bears",
+   "top": [
+    [
+     "Princewill Umanmielen",
+     "EDGE",
+     9
+    ],
+    [
+     "Matayo Uiagalelei",
+     "EDGE",
+     8.3
+    ],
+    [
+     "Kenyatta Jackson Jr.",
+     "EDGE",
+     7.5
+    ]
+   ]
+  },
+  {
+   "pick": 60,
+   "round": 2,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "Koi Perich",
+     "S",
+     8.8
+    ],
+    [
+     "Jelani McDonald",
+     "S",
+     8.4
+    ],
+    [
+     "Sammy Brown",
+     "LB",
+     6.1
+    ]
+   ]
+  },
+  {
+   "pick": 61,
+   "round": 2,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Trey'Dez Green",
+     "TE",
+     9.8
+    ],
+    [
+     "Koi Perich",
+     "S",
+     8.2
+    ],
+    [
+     "Luke Reynolds",
+     "TE",
+     6.7
+    ]
+   ]
+  },
+  {
+   "pick": 62,
+   "round": 2,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Jelani McDonald",
+     "S",
+     10.5
+    ],
+    [
+     "Koi Perich",
+     "S",
+     10.2
+    ],
+    [
+     "Ahmad Hardy",
+     "RB",
+     7.9
+    ]
+   ]
+  },
+  {
+   "pick": 63,
+   "round": 2,
+   "team": "San Francisco 49ers",
+   "top": [
+    [
+     "KJ Duff",
+     "WR",
+     10.3
+    ],
+    [
+     "Melvin Siani",
+     "OT",
+     8.6
+    ],
+    [
+     "Amare Thomas",
+     "WR",
+     7.9
+    ]
+   ]
+  },
+  {
+   "pick": 64,
+   "round": 2,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Koi Perich",
+     "S",
+     9.2
+    ],
+    [
+     "Jelani McDonald",
+     "S",
+     9.1
+    ],
+    [
+     "Bray Hubbard",
+     "S",
+     6.8
+    ]
+   ]
+  },
+  {
+   "pick": 65,
+   "round": 3,
+   "team": "Los Angeles Chargers",
+   "top": [
+    [
+     "AJ Holmes Jr.",
+     "IDL",
+     8.6
+    ],
+    [
+     "Princewill Umanmielen",
+     "EDGE",
+     7.5
+    ],
+    [
+     "Jide Abasiri",
+     "IDL",
+     7
+    ]
+   ]
+  },
+  {
+   "pick": 66,
+   "round": 3,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "Jide Abasiri",
+     "IDL",
+     7.1
+    ],
+    [
+     "Ahmad Hardy",
+     "RB",
+     6.6
+    ],
+    [
+     "Melvin Siani",
+     "OT",
+     6.3
+    ]
+   ]
+  },
+  {
+   "pick": 67,
+   "round": 3,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Koi Perich",
+     "S",
+     7
+    ],
+    [
+     "Melvin Siani",
+     "OT",
+     6.3
+    ],
+    [
+     "Jelani McDonald",
+     "S",
+     6
+    ]
+   ]
+  },
+  {
+   "pick": 68,
+   "round": 3,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Tony Rojas",
+     "LB",
+     12.4
+    ],
+    [
+     "Samson Okunlola",
+     "IOL",
+     7.7
+    ],
+    [
+     "OJ Frederique Jr.",
+     "CB",
+     5.9
+    ]
+   ]
+  },
+  {
+   "pick": 69,
+   "round": 3,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Jide Abasiri",
+     "IDL",
+     8.1
+    ],
+    [
+     "Devan Thompkins",
+     "IDL",
+     7.9
+    ],
+    [
+     "Amare Thomas",
+     "WR",
+     7.9
+    ]
+   ]
+  },
+  {
+   "pick": 70,
+   "round": 3,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Jelani McDonald",
+     "S",
+     8.3
+    ],
+    [
+     "Luke Reynolds",
+     "TE",
+     7.8
+    ],
+    [
+     "Bray Hubbard",
+     "S",
+     7.7
+    ]
+   ]
+  },
+  {
+   "pick": 71,
+   "round": 3,
+   "team": "Houston Texans",
+   "top": [
+    [
+     "Tony Rojas",
+     "LB",
+     9.4
+    ],
+    [
+     "Devan Thompkins",
+     "IDL",
+     7.4
+    ],
+    [
+     "OJ Frederique Jr.",
+     "CB",
+     7.2
+    ]
+   ]
+  },
+  {
+   "pick": 72,
+   "round": 3,
+   "team": "New Orleans Saints",
+   "top": [
+    [
+     "Vicari Swain",
+     "CB",
+     6.7
+    ],
+    [
+     "Kayin Lee",
+     "CB",
+     6.6
+    ],
+    [
+     "Devan Thompkins",
+     "IDL",
+     6.5
+    ]
+   ]
+  },
+  {
+   "pick": 73,
+   "round": 3,
+   "team": "Washington Commanders",
+   "top": [
+    [
+     "Boubacar Traore",
+     "EDGE",
+     8
+    ],
+    [
+     "Devan Thompkins",
+     "IDL",
+     6.7
+    ],
+    [
+     "Vicari Swain",
+     "CB",
+     6.4
+    ]
+   ]
+  },
+  {
+   "pick": 74,
+   "round": 3,
+   "team": "Tampa Bay Buccaneers",
+   "top": [
+    [
+     "T.J. Moore",
+     "WR",
+     7.7
+    ],
+    [
+     "Boubacar Traore",
+     "EDGE",
+     7.7
+    ],
+    [
+     "Samson Okunlola",
+     "IOL",
+     6.2
+    ]
+   ]
+  },
+  {
+   "pick": 75,
+   "round": 3,
+   "team": "Atlanta Falcons",
+   "top": [
+    [
+     "Boubacar Traore",
+     "EDGE",
+     7.7
+    ],
+    [
+     "Samson Okunlola",
+     "IOL",
+     6.6
+    ],
+    [
+     "Iapani Laloulu",
+     "IOL",
+     6.5
+    ]
+   ]
+  },
+  {
+   "pick": 76,
+   "round": 3,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "Zach Lutmer",
+     "S",
+     8
+    ],
+    [
+     "Brendan Sorsby",
+     "QB",
+     7.2
+    ],
+    [
+     "Kayin Lee",
+     "CB",
+     6.3
+    ]
+   ]
+  },
+  {
+   "pick": 77,
+   "round": 3,
+   "team": "Arizona Cardinals",
+   "top": [
+    [
+     "Kayin Lee",
+     "CB",
+     7.3
+    ],
+    [
+     "Boubacar Traore",
+     "EDGE",
+     6.9
+    ],
+    [
+     "Vicari Swain",
+     "CB",
+     6.4
+    ]
+   ]
+  },
+  {
+   "pick": 78,
+   "round": 3,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Luke Reynolds",
+     "TE",
+     9.7
+    ],
+    [
+     "T.J. Moore",
+     "WR",
+     7.4
+    ],
+    [
+     "Ryan Wingo",
+     "WR",
+     5.8
+    ]
+   ]
+  },
+  {
+   "pick": 79,
+   "round": 3,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Brendan Sorsby",
+     "QB",
+     7.5
+    ],
+    [
+     "Iapani Laloulu",
+     "IOL",
+     7
+    ],
+    [
+     "Mario Craver",
+     "WR",
+     6.1
+    ]
+   ]
+  },
+  {
+   "pick": 80,
+   "round": 3,
+   "team": "Las Vegas Raiders",
+   "top": [
+    [
+     "Mario Craver",
+     "WR",
+     7.5
+    ],
+    [
+     "Ryan Wingo",
+     "WR",
+     6.3
+    ],
+    [
+     "T.J. Moore",
+     "WR",
+     5.9
+    ]
+   ]
+  },
+  {
+   "pick": 81,
+   "round": 3,
+   "team": "Baltimore Ravens",
+   "top": [
+    [
+     "Mateen Ibirogba",
+     "IDL",
+     8
+    ],
+    [
+     "Nate Frazier",
+     "RB",
+     6.1
+    ],
+    [
+     "Jamari Sharpe",
+     "CB",
+     5.7
+    ]
+   ]
+  },
+  {
+   "pick": 82,
+   "round": 3,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Iapani Laloulu",
+     "IOL",
+     7.6
+    ],
+    [
+     "Jamari Sharpe",
+     "CB",
+     6.7
+    ],
+    [
+     "Brendan Sorsby",
+     "QB",
+     6.4
+    ]
+   ]
+  },
+  {
+   "pick": 83,
+   "round": 3,
+   "team": "Carolina Panthers",
+   "top": [
+    [
+     "Jamari Sharpe",
+     "CB",
+     6.2
+    ],
+    [
+     "Kayin Lee",
+     "CB",
+     5.8
+    ],
+    [
+     "Jacarrius Peak",
+     "OT",
+     5.8
+    ]
+   ]
+  },
+  {
+   "pick": 84,
+   "round": 3,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Evan Tengesdahl",
+     "IOL",
+     7.5
+    ],
+    [
+     "Jacarrius Peak",
+     "OT",
+     6.5
+    ],
+    [
+     "Iapani Laloulu",
+     "IOL",
+     6.2
+    ]
+   ]
+  },
+  {
+   "pick": 85,
+   "round": 3,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Sammy Omosigho",
+     "LB",
+     8.6
+    ],
+    [
+     "Bryant Wesco Jr.",
+     "WR",
+     6.7
+    ],
+    [
+     "Zach Lutmer",
+     "S",
+     6.3
+    ]
+   ]
+  },
+  {
+   "pick": 86,
+   "round": 3,
+   "team": "New York Giants",
+   "top": [
+    [
+     "Mateen Ibirogba",
+     "IDL",
+     6.7
+    ],
+    [
+     "Emmanuel Oyebadejo",
+     "IDL",
+     6.3
+    ],
+    [
+     "Ryan Wingo",
+     "WR",
+     5.9
+    ]
+   ]
+  },
+  {
+   "pick": 87,
+   "round": 3,
+   "team": "Cincinnati Bengals",
+   "top": [
+    [
+     "Nate Frazier",
+     "RB",
+     7.4
+    ],
+    [
+     "Raleek Brown",
+     "RB",
+     7
+    ],
+    [
+     "Jamari Sharpe",
+     "CB",
+     6.5
+    ]
+   ]
+  },
+  {
+   "pick": 88,
+   "round": 3,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Sammy Omosigho",
+     "LB",
+     7.7
+    ],
+    [
+     "Jacarrius Peak",
+     "OT",
+     6.7
+    ],
+    [
+     "Ryan Wingo",
+     "WR",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 89,
+   "round": 3,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "Nate Frazier",
+     "RB",
+     8.3
+    ],
+    [
+     "Raleek Brown",
+     "RB",
+     7
+    ],
+    [
+     "Bear Alexander",
+     "IDL",
+     6.6
+    ]
+   ]
+  },
+  {
+   "pick": 90,
+   "round": 3,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Jayden Bellamy",
+     "CB",
+     6.1
+    ],
+    [
+     "Jamari Sharpe",
+     "CB",
+     5.4
+    ],
+    [
+     "Mario Craver",
+     "WR",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 91,
+   "round": 3,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "Emmanuel Oyebadejo",
+     "IDL",
+     6.2
+    ],
+    [
+     "Sammy Omosigho",
+     "LB",
+     6.1
+    ],
+    [
+     "Mateen Ibirogba",
+     "IDL",
+     5.9
+    ]
+   ]
+  },
+  {
+   "pick": 92,
+   "round": 3,
+   "team": "Chicago Bears",
+   "top": [
+    [
+     "Omarion Miller",
+     "WR",
+     5.9
+    ],
+    [
+     "Jayden Bellamy",
+     "CB",
+     5.7
+    ],
+    [
+     "Emmanuel Oyebadejo",
+     "IDL",
+     5.5
+    ]
+   ]
+  },
+  {
+   "pick": 93,
+   "round": 3,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Ben Roberts",
+     "LB",
+     5.8
+    ],
+    [
+     "Jayden Bellamy",
+     "CB",
+     5.5
+    ],
+    [
+     "Sammy Omosigho",
+     "LB",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 94,
+   "round": 3,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Raleek Brown",
+     "RB",
+     7.7
+    ],
+    [
+     "Isaac Brown",
+     "RB",
+     7.2
+    ],
+    [
+     "Nate Frazier",
+     "RB",
+     5.6
+    ]
+   ]
+  },
+  {
+   "pick": 95,
+   "round": 3,
+   "team": "San Francisco 49ers",
+   "top": [
+    [
+     "Evan Tengesdahl",
+     "IOL",
+     7.2
+    ],
+    [
+     "Junior Sherrill",
+     "WR",
+     6.4
+    ],
+    [
+     "Will Heldt",
+     "EDGE",
+     6
+    ]
+   ]
+  },
+  {
+   "pick": 96,
+   "round": 3,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Jayden Bellamy",
+     "CB",
+     7.4
+    ],
+    [
+     "Ben Roberts",
+     "LB",
+     6.1
+    ],
+    [
+     "Amare Ferrell",
+     "S",
+     5.5
+    ]
+   ]
+  },
+  {
+   "pick": 97,
+   "round": 3,
+   "team": "Philadelphia Eagles",
+   "top": [
+    [
+     "Cooper Barkate",
+     "WR",
+     5.8
+    ],
+    [
+     "Jayden Bellamy",
+     "CB",
+     5.7
+    ],
+    [
+     "Will Heldt",
+     "EDGE",
+     5.2
+    ]
+   ]
+  },
+  {
+   "pick": 98,
+   "round": 3,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Evan Tengesdahl",
+     "IOL",
+     7.1
+    ],
+    [
+     "Will Heldt",
+     "EDGE",
+     6.1
+    ],
+    [
+     "Raleek Brown",
+     "RB",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 99,
+   "round": 3,
+   "team": "Cincinnati Bengals",
+   "top": [
+    [
+     "Jayden Bellamy",
+     "CB",
+     6.5
+    ],
+    [
+     "Ben Roberts",
+     "LB",
+     6.1
+    ],
+    [
+     "Justice Haynes",
+     "RB",
+     6
+    ]
+   ]
+  },
+  {
+   "pick": 100,
+   "round": 3,
+   "team": "Los Angeles Chargers",
+   "top": [
+    [
+     "Damon Wilson II",
+     "EDGE",
+     7.8
+    ],
+    [
+     "Will Heldt",
+     "EDGE",
+     6.4
+    ],
+    [
+     "Taylor Wein",
+     "EDGE",
+     6.3
+    ]
+   ]
+  },
+  {
+   "pick": 101,
+   "round": 3,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Jordan Ross",
+     "EDGE",
+     7.2
+    ],
+    [
+     "Damon Wilson II",
+     "EDGE",
+     6.3
+    ],
+    [
+     "Junior Sherrill",
+     "WR",
+     6.1
+    ]
+   ]
+  },
+  {
+   "pick": 102,
+   "round": 3,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Will Heldt",
+     "EDGE",
+     6.2
+    ],
+    [
+     "Junior Sherrill",
+     "WR",
+     6.1
+    ],
+    [
+     "Jordan Ross",
+     "EDGE",
+     6.1
+    ]
+   ]
+  },
+  {
+   "pick": 103,
+   "round": 4,
+   "team": "Los Angeles Chargers",
+   "top": [
+    [
+     "Brandon Baker",
+     "IOL",
+     5
+    ],
+    [
+     "Taylor Wein",
+     "EDGE",
+     4.7
+    ],
+    [
+     "Antwan Raymond",
+     "RB",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 104,
+   "round": 4,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "Justice Haynes",
+     "RB",
+     8.6
+    ],
+    [
+     "Isaac Brown",
+     "RB",
+     7
+    ],
+    [
+     "Antwan Raymond",
+     "RB",
+     5.9
+    ]
+   ]
+  },
+  {
+   "pick": 105,
+   "round": 4,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Amare Ferrell",
+     "S",
+     7
+    ],
+    [
+     "Niki Prongos",
+     "OT",
+     6.4
+    ],
+    [
+     "John Henry Daley",
+     "EDGE",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 106,
+   "round": 4,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Jordan Ross",
+     "EDGE",
+     6.1
+    ],
+    [
+     "Anto Saka",
+     "EDGE",
+     6.1
+    ],
+    [
+     "Anthony Smith",
+     "EDGE",
+     5.3
+    ]
+   ]
+  },
+  {
+   "pick": 107,
+   "round": 4,
+   "team": "Philadelphia Eagles",
+   "top": [
+    [
+     "Brandon Baker",
+     "IOL",
+     6.3
+    ],
+    [
+     "Andrew Rappleyea",
+     "TE",
+     6.3
+    ],
+    [
+     "Niki Prongos",
+     "OT",
+     6.2
+    ]
+   ]
+  },
+  {
+   "pick": 108,
+   "round": 4,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Whit Weeks",
+     "LB",
+     7.8
+    ],
+    [
+     "Christian Alliegro",
+     "LB",
+     7.8
+    ],
+    [
+     "John Henry Daley",
+     "EDGE",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 109,
+   "round": 4,
+   "team": "New Orleans Saints",
+   "top": [
+    [
+     "Antwan Raymond",
+     "RB",
+     6.3
+    ],
+    [
+     "Anto Saka",
+     "EDGE",
+     5.8
+    ],
+    [
+     "Amare Ferrell",
+     "S",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 110,
+   "round": 4,
+   "team": "Houston Texans",
+   "top": [
+    [
+     "Niki Prongos",
+     "OT",
+     7.8
+    ],
+    [
+     "PJ Williams",
+     "OT",
+     5.9
+    ],
+    [
+     "Antwan Raymond",
+     "RB",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 111,
+   "round": 4,
+   "team": "Washington Commanders",
+   "top": [
+    [
+     "Teitum Tuioti",
+     "EDGE",
+     7.1
+    ],
+    [
+     "Anthony Smith",
+     "EDGE",
+     6.8
+    ],
+    [
+     "Anto Saka",
+     "EDGE",
+     6.1
+    ]
+   ]
+  },
+  {
+   "pick": 112,
+   "round": 4,
+   "team": "Atlanta Falcons",
+   "top": [
+    [
+     "Amare Ferrell",
+     "S",
+     7
+    ],
+    [
+     "Niki Prongos",
+     "OT",
+     6.8
+    ],
+    [
+     "PJ Williams",
+     "OT",
+     5.6
+    ]
+   ]
+  },
+  {
+   "pick": 113,
+   "round": 4,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "PJ Williams",
+     "OT",
+     7.1
+    ],
+    [
+     "Brandon Baker",
+     "IOL",
+     6.2
+    ],
+    [
+     "Teitum Tuioti",
+     "EDGE",
+     5.3
+    ]
+   ]
+  },
+  {
+   "pick": 114,
+   "round": 4,
+   "team": "Arizona Cardinals",
+   "top": [
+    [
+     "Anthony Smith",
+     "EDGE",
+     6.9
+    ],
+    [
+     "Teitum Tuioti",
+     "EDGE",
+     6.7
+    ],
+    [
+     "Jayden Maiava",
+     "QB",
+     5.8
+    ]
+   ]
+  },
+  {
+   "pick": 115,
+   "round": 4,
+   "team": "Tampa Bay Buccaneers",
+   "top": [
+    [
+     "Andrew Rappleyea",
+     "TE",
+     7
+    ],
+    [
+     "Teitum Tuioti",
+     "EDGE",
+     5.6
+    ],
+    [
+     "Nyck Harbor",
+     "WR",
+     5.2
+    ]
+   ]
+  },
+  {
+   "pick": 116,
+   "round": 4,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "PJ Williams",
+     "OT",
+     6.3
+    ],
+    [
+     "Jayden Maiava",
+     "QB",
+     5.3
+    ],
+    [
+     "Anthony Smith",
+     "EDGE",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 117,
+   "round": 4,
+   "team": "Las Vegas Raiders",
+   "top": [
+    [
+     "Jayden Jackson",
+     "IDL",
+     5.2
+    ],
+    [
+     "Brandon Baker",
+     "IOL",
+     5
+    ],
+    [
+     "Xavier Scott",
+     "CB",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 118,
+   "round": 4,
+   "team": "Baltimore Ravens",
+   "top": [
+    [
+     "Jamal Roberts",
+     "RB",
+     6
+    ],
+    [
+     "PJ Williams",
+     "OT",
+     5.3
+    ],
+    [
+     "Mark Fletcher Jr.",
+     "RB",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 119,
+   "round": 4,
+   "team": "Los Angeles Rams",
+   "top": [
+    [
+     "Nyck Harbor",
+     "WR",
+     6.5
+    ],
+    [
+     "DJ Hicks",
+     "IDL",
+     6.3
+    ],
+    [
+     "Hollywood Smothers",
+     "RB",
+     5.7
+    ]
+   ]
+  },
+  {
+   "pick": 120,
+   "round": 4,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Jamal Roberts",
+     "RB",
+     5.2
+    ],
+    [
+     "Xavier Scott",
+     "CB",
+     5
+    ],
+    [
+     "Hollywood Smothers",
+     "RB",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 121,
+   "round": 4,
+   "team": "Carolina Panthers",
+   "top": [
+    [
+     "DJ Vonnahme",
+     "TE",
+     7
+    ],
+    [
+     "PJ Williams",
+     "OT",
+     5.4
+    ],
+    [
+     "Jayden Jackson",
+     "IDL",
+     4.9
+    ]
+   ]
+  },
+  {
+   "pick": 122,
+   "round": 4,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "DJ Vonnahme",
+     "TE",
+     7.4
+    ],
+    [
+     "Peyton Bowen",
+     "S",
+     6.4
+    ],
+    [
+     "Whit Weeks",
+     "LB",
+     5.6
+    ]
+   ]
+  },
+  {
+   "pick": 123,
+   "round": 4,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Hollywood Smothers",
+     "RB",
+     5.7
+    ],
+    [
+     "Mark Fletcher Jr.",
+     "RB",
+     4.9
+    ],
+    [
+     "Nico Iamaleava",
+     "QB",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 124,
+   "round": 4,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Nico Iamaleava",
+     "QB",
+     5.8
+    ],
+    [
+     "Drake Lindsey",
+     "QB",
+     5.5
+    ],
+    [
+     "Rasheem Biles",
+     "LB",
+     4.9
+    ]
+   ]
+  },
+  {
+   "pick": 125,
+   "round": 4,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Xavier Atkins",
+     "LB",
+     6.6
+    ],
+    [
+     "DJ Vonnahme",
+     "TE",
+     5.5
+    ],
+    [
+     "Chris Corbo",
+     "TE",
+     5.3
+    ]
+   ]
+  },
+  {
+   "pick": 126,
+   "round": 4,
+   "team": "Cincinnati Bengals",
+   "top": [
+    [
+     "Zeke Berry",
+     "CB",
+     5.5
+    ],
+    [
+     "Drake Lindsey",
+     "QB",
+     5.3
+    ],
+    [
+     "Jyaire Hill",
+     "CB",
+     5.2
+    ]
+   ]
+  },
+  {
+   "pick": 127,
+   "round": 4,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Chris Corbo",
+     "TE",
+     7.7
+    ],
+    [
+     "Benjamin Brahmer",
+     "TE",
+     5.3
+    ],
+    [
+     "Xavier Scott",
+     "CB",
+     5.1
+    ]
+   ]
+  },
+  {
+   "pick": 128,
+   "round": 4,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "DJ Hicks",
+     "IDL",
+     6.8
+    ],
+    [
+     "Xavier Atkins",
+     "LB",
+     5.5
+    ],
+    [
+     "Mark Fletcher Jr.",
+     "RB",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 129,
+   "round": 4,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "Jyaire Hill",
+     "CB",
+     5.8
+    ],
+    [
+     "Xavier Scott",
+     "CB",
+     5.8
+    ],
+    [
+     "Nico Iamaleava",
+     "QB",
+     5.1
+    ]
+   ]
+  },
+  {
+   "pick": 130,
+   "round": 4,
+   "team": "Dallas Cowboys",
+   "top": [
+    [
+     "Jyaire Hill",
+     "CB",
+     6
+    ],
+    [
+     "Nyck Harbor",
+     "WR",
+     6
+    ],
+    [
+     "Xavier Scott",
+     "CB",
+     5.7
+    ]
+   ]
+  },
+  {
+   "pick": 131,
+   "round": 4,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Chris Corbo",
+     "TE",
+     7
+    ],
+    [
+     "Peter Clarke",
+     "TE",
+     5.6
+    ],
+    [
+     "Keon Sabb",
+     "S",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 132,
+   "round": 4,
+   "team": "Carolina Panthers",
+   "top": [
+    [
+     "Xavier Chaplin",
+     "OT",
+     5.7
+    ],
+    [
+     "Luke Montgomery",
+     "IOL",
+     5.3
+    ],
+    [
+     "Xavier Atkins",
+     "LB",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 133,
+   "round": 4,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Luke Montgomery",
+     "IOL",
+     6.7
+    ],
+    [
+     "LaNorris Sellers",
+     "QB",
+     6
+    ],
+    [
+     "Drake Lindsey",
+     "QB",
+     5.6
+    ]
+   ]
+  },
+  {
+   "pick": 134,
+   "round": 4,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Luke Montgomery",
+     "IOL",
+     6
+    ],
+    [
+     "Keon Sabb",
+     "S",
+     5.6
+    ],
+    [
+     "Tao Johnson",
+     "S",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 135,
+   "round": 4,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Luke Montgomery",
+     "IOL",
+     7
+    ],
+    [
+     "Zeke Berry",
+     "CB",
+     5.6
+    ],
+    [
+     "Jyaire Hill",
+     "CB",
+     5.1
+    ]
+   ]
+  },
+  {
+   "pick": 136,
+   "round": 4,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Chris Corbo",
+     "TE",
+     5.6
+    ],
+    [
+     "Benjamin Brahmer",
+     "TE",
+     5.4
+    ],
+    [
+     "Tao Johnson",
+     "S",
+     5.2
+    ]
+   ]
+  },
+  {
+   "pick": 137,
+   "round": 4,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Keon Sabb",
+     "S",
+     5.4
+    ],
+    [
+     "Tao Johnson",
+     "S",
+     5
+    ],
+    [
+     "Jermaine Mathews Jr.",
+     "CB",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 138,
+   "round": 4,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Peter Clarke",
+     "TE",
+     6.2
+    ],
+    [
+     "Xavier Chaplin",
+     "OT",
+     5.8
+    ],
+    [
+     "Terrance Carter Jr.",
+     "TE",
+     5.5
+    ]
+   ]
+  },
+  {
+   "pick": 139,
+   "round": 4,
+   "team": "New York Giants",
+   "top": [
+    [
+     "Jermaine Mathews Jr.",
+     "CB",
+     5.3
+    ],
+    [
+     "Xavier Chaplin",
+     "OT",
+     4.9
+    ],
+    [
+     "Desmeal Leigh",
+     "OT",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 140,
+   "round": 5,
+   "team": "Los Angeles Chargers",
+   "top": [
+    [
+     "Jermaine Mathews Jr.",
+     "CB",
+     5.9
+    ],
+    [
+     "Keon Sabb",
+     "S",
+     4.6
+    ],
+    [
+     "Terrance Carter Jr.",
+     "TE",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 141,
+   "round": 5,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "Adam Trick",
+     "EDGE",
+     4.8
+    ],
+    [
+     "J'Mond Tapp",
+     "EDGE",
+     4.6
+    ],
+    [
+     "Desmeal Leigh",
+     "OT",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 142,
+   "round": 5,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Desmeal Leigh",
+     "OT",
+     5.8
+    ],
+    [
+     "Adon Shuler",
+     "S",
+     5.2
+    ],
+    [
+     "Xavier Chaplin",
+     "OT",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 143,
+   "round": 5,
+   "team": "Philadelphia Eagles",
+   "top": [
+    [
+     "Shadre Hurst",
+     "IOL",
+     5.7
+    ],
+    [
+     "Xavier Chaplin",
+     "OT",
+     5.2
+    ],
+    [
+     "Peter Clarke",
+     "TE",
+     5.1
+    ]
+   ]
+  },
+  {
+   "pick": 144,
+   "round": 5,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Raylen Wilson",
+     "LB",
+     6.7
+    ],
+    [
+     "Arion Carter",
+     "LB",
+     6.2
+    ],
+    [
+     "Jermaine Mathews Jr.",
+     "CB",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 145,
+   "round": 5,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "J'Mond Tapp",
+     "EDGE",
+     5.3
+    ],
+    [
+     "Duce Robinson",
+     "WR",
+     5.2
+    ],
+    [
+     "Alani Noa",
+     "IOL",
+     5.1
+    ]
+   ]
+  },
+  {
+   "pick": 146,
+   "round": 5,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Alani Noa",
+     "IOL",
+     5.1
+    ],
+    [
+     "J'Mond Tapp",
+     "EDGE",
+     4.9
+    ],
+    [
+     "Desmeal Leigh",
+     "OT",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 147,
+   "round": 5,
+   "team": "New Orleans Saints",
+   "top": [
+    [
+     "Tao Johnson",
+     "S",
+     6.4
+    ],
+    [
+     "J'Mond Tapp",
+     "EDGE",
+     5.8
+    ],
+    [
+     "DeSean Bishop",
+     "RB",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 148,
+   "round": 5,
+   "team": "Washington Commanders",
+   "top": [
+    [
+     "Adam Trick",
+     "EDGE",
+     5.5
+    ],
+    [
+     "J'Mond Tapp",
+     "EDGE",
+     4.8
+    ],
+    [
+     "Alani Noa",
+     "IOL",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 149,
+   "round": 5,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "Arion Carter",
+     "LB",
+     5.6
+    ],
+    [
+     "Julian Sayin",
+     "QB",
+     5.3
+    ],
+    [
+     "Adon Shuler",
+     "S",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 150,
+   "round": 5,
+   "team": "Arizona Cardinals",
+   "top": [
+    [
+     "Isaiah Sategna III",
+     "WR",
+     5.3
+    ],
+    [
+     "Adam Trick",
+     "EDGE",
+     4.9
+    ],
+    [
+     "J'Mond Tapp",
+     "EDGE",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 151,
+   "round": 5,
+   "team": "Tampa Bay Buccaneers",
+   "top": [
+    [
+     "Adam Trick",
+     "EDGE",
+     6.2
+    ],
+    [
+     "Isaiah Sategna III",
+     "WR",
+     5.4
+    ],
+    [
+     "Alani Noa",
+     "IOL",
+     5.4
+    ]
+   ]
+  },
+  {
+   "pick": 152,
+   "round": 5,
+   "team": "Chicago Bears",
+   "top": [
+    [
+     "Eric Singleton Jr.",
+     "WR",
+     6.2
+    ],
+    [
+     "Desmeal Leigh",
+     "OT",
+     5.2
+    ],
+    [
+     "J'Mond Tapp",
+     "EDGE",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 153,
+   "round": 5,
+   "team": "Las Vegas Raiders",
+   "top": [
+    [
+     "Mario Landino",
+     "IDL",
+     5.6
+    ],
+    [
+     "Shadre Hurst",
+     "IOL",
+     5.3
+    ],
+    [
+     "Isaiah Sategna III",
+     "WR",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 154,
+   "round": 5,
+   "team": "Philadelphia Eagles",
+   "top": [
+    [
+     "Shadre Hurst",
+     "IOL",
+     5.6
+    ],
+    [
+     "Julian Sayin",
+     "QB",
+     5.1
+    ],
+    [
+     "Tayon Holloway",
+     "CB",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 155,
+   "round": 5,
+   "team": "Los Angeles Rams",
+   "top": [
+    [
+     "Isaiah Sategna III",
+     "WR",
+     5
+    ],
+    [
+     "Mario Landino",
+     "IDL",
+     4.9
+    ],
+    [
+     "Drew Bobo",
+     "IOL",
+     4.9
+    ]
+   ]
+  },
+  {
+   "pick": 156,
+   "round": 5,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Mario Landino",
+     "IDL",
+     5.8
+    ],
+    [
+     "Maraad Watson",
+     "IDL",
+     5.3
+    ],
+    [
+     "Shadre Hurst",
+     "IOL",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 157,
+   "round": 5,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Tayon Holloway",
+     "CB",
+     5.3
+    ],
+    [
+     "Coleton Price",
+     "IOL",
+     4.7
+    ],
+    [
+     "Melkart Abou-Jaoude",
+     "EDGE",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 158,
+   "round": 5,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Lawson Luckie",
+     "TE",
+     6.5
+    ],
+    [
+     "Marcus Neal",
+     "S",
+     5.7
+    ],
+    [
+     "Bryce Thornton",
+     "S",
+     5.1
+    ]
+   ]
+  },
+  {
+   "pick": 159,
+   "round": 5,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Drew Bobo",
+     "IOL",
+     6.7
+    ],
+    [
+     "Coleton Price",
+     "IOL",
+     5.1
+    ],
+    [
+     "Tayon Holloway",
+     "CB",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 160,
+   "round": 5,
+   "team": "Philadelphia Eagles",
+   "top": [
+    [
+     "Luke Dehnicke",
+     "TE",
+     5.9
+    ],
+    [
+     "Jaden Craig",
+     "QB",
+     5.2
+    ],
+    [
+     "Drew Bobo",
+     "IOL",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 161,
+   "round": 5,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Lawson Luckie",
+     "TE",
+     7.6
+    ],
+    [
+     "Jaden Craig",
+     "QB",
+     6.3
+    ],
+    [
+     "Marcus Neal",
+     "S",
+     6.1
+    ]
+   ]
+  },
+  {
+   "pick": 162,
+   "round": 5,
+   "team": "Cincinnati Bengals",
+   "top": [
+    [
+     "Bryce Thornton",
+     "S",
+     5.9
+    ],
+    [
+     "Austin Romaine",
+     "LB",
+     4.9
+    ],
+    [
+     "Maraad Watson",
+     "IDL",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 163,
+   "round": 5,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Melkart Abou-Jaoude",
+     "EDGE",
+     5
+    ],
+    [
+     "Luke Dehnicke",
+     "TE",
+     5
+    ],
+    [
+     "Coleton Price",
+     "IOL",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 164,
+   "round": 5,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "Aidan Banfield",
+     "IOL",
+     5.4
+    ],
+    [
+     "Bryce Thornton",
+     "S",
+     5.1
+    ],
+    [
+     "Mario Landino",
+     "IDL",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 165,
+   "round": 5,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Lawson Luckie",
+     "TE",
+     5.8
+    ],
+    [
+     "Luke Dehnicke",
+     "TE",
+     5
+    ],
+    [
+     "Coleton Price",
+     "IOL",
+     4.9
+    ]
+   ]
+  },
+  {
+   "pick": 166,
+   "round": 5,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Tayon Holloway",
+     "CB",
+     4.9
+    ],
+    [
+     "Elijah Green",
+     "CB",
+     4.5
+    ],
+    [
+     "Coleton Price",
+     "IOL",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 167,
+   "round": 5,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Aidan Banfield",
+     "IOL",
+     6.2
+    ],
+    [
+     "Luke Dehnicke",
+     "TE",
+     4.9
+    ],
+    [
+     "Drew Bobo",
+     "IOL",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 168,
+   "round": 5,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Austin Romaine",
+     "LB",
+     5.2
+    ],
+    [
+     "Luke Dehnicke",
+     "TE",
+     5.1
+    ],
+    [
+     "Bryce Thornton",
+     "S",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 169,
+   "round": 5,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Bryson Washington",
+     "RB",
+     5.3
+    ],
+    [
+     "Conner Weigman",
+     "QB",
+     5.1
+    ],
+    [
+     "Luke Dehnicke",
+     "TE",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 170,
+   "round": 5,
+   "team": "San Francisco 49ers",
+   "top": [
+    [
+     "Ian Strong",
+     "WR",
+     5.2
+    ],
+    [
+     "Toby Anene",
+     "EDGE",
+     5.1
+    ],
+    [
+     "Earnest Greene III",
+     "OT",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 171,
+   "round": 5,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Elijah Green",
+     "CB",
+     5.6
+    ],
+    [
+     "Chris Peal",
+     "CB",
+     5.3
+    ],
+    [
+     "Aidan Banfield",
+     "IOL",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 172,
+   "round": 5,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Earnest Greene III",
+     "OT",
+     5.4
+    ],
+    [
+     "Chris Peal",
+     "CB",
+     5.2
+    ],
+    [
+     "Elijah Green",
+     "CB",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 173,
+   "round": 5,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Chris Peal",
+     "CB",
+     5.3
+    ],
+    [
+     "Earnest Greene III",
+     "OT",
+     4.7
+    ],
+    [
+     "Quintrevion Wisner",
+     "RB",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 174,
+   "round": 5,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Sam Leavitt",
+     "QB",
+     5.8
+    ],
+    [
+     "Conner Weigman",
+     "QB",
+     5.7
+    ],
+    [
+     "CJ Bailey",
+     "QB",
+     5.3
+    ]
+   ]
+  },
+  {
+   "pick": 175,
+   "round": 5,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "Bryson Washington",
+     "RB",
+     5.9
+    ],
+    [
+     "Quintrevion Wisner",
+     "RB",
+     5.2
+    ],
+    [
+     "Cole Sullivan",
+     "LB",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 176,
+   "round": 5,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Christian Gray",
+     "CB",
+     5.7
+    ],
+    [
+     "Keanu Tanuvasa",
+     "IDL",
+     5.3
+    ],
+    [
+     "Jaden Greathouse",
+     "WR",
+     4.9
+    ]
+   ]
+  },
+  {
+   "pick": 177,
+   "round": 5,
+   "team": "Baltimore Ravens",
+   "top": [
+    [
+     "Toby Anene",
+     "EDGE",
+     6
+    ],
+    [
+     "Bryson Washington",
+     "RB",
+     5.5
+    ],
+    [
+     "Earnest Greene III",
+     "OT",
+     5.2
+    ]
+   ]
+  },
+  {
+   "pick": 178,
+   "round": 5,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Christian Gray",
+     "CB",
+     5.1
+    ],
+    [
+     "Keanu Tanuvasa",
+     "IDL",
+     4.7
+    ],
+    [
+     "Ian Strong",
+     "WR",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 179,
+   "round": 5,
+   "team": "Baltimore Ravens",
+   "top": [
+    [
+     "Earnest Greene III",
+     "OT",
+     6.5
+    ],
+    [
+     "Toby Anene",
+     "EDGE",
+     4.8
+    ],
+    [
+     "Bryson Washington",
+     "RB",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 180,
+   "round": 6,
+   "team": "New Orleans Saints",
+   "top": [
+    [
+     "Christian Gray",
+     "CB",
+     5.6
+    ],
+    [
+     "Luke Talich",
+     "S",
+     5.3
+    ],
+    [
+     "AJ Harris",
+     "CB",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 181,
+   "round": 6,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "Earnest Greene III",
+     "OT",
+     4.7
+    ],
+    [
+     "Keanu Tanuvasa",
+     "IDL",
+     4.4
+    ],
+    [
+     "Byrum Brown",
+     "QB",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 182,
+   "round": 6,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Earnest Greene III",
+     "OT",
+     5.8
+    ],
+    [
+     "Conner Weigman",
+     "QB",
+     5.1
+    ],
+    [
+     "Keanu Tanuvasa",
+     "IDL",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 183,
+   "round": 6,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Brett Norfleet",
+     "TE",
+     5.6
+    ],
+    [
+     "Luke Talich",
+     "S",
+     4.5
+    ],
+    [
+     "Jaden Greathouse",
+     "WR",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 184,
+   "round": 6,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Luke Talich",
+     "S",
+     5.7
+    ],
+    [
+     "AJ Harris",
+     "CB",
+     4.4
+    ],
+    [
+     "Charles Jagusah",
+     "IOL",
+     4.1
+    ]
+   ]
+  },
+  {
+   "pick": 185,
+   "round": 6,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Charles Jagusah",
+     "IOL",
+     6
+    ],
+    [
+     "Cael Winter",
+     "IOL",
+     5.6
+    ],
+    [
+     "Austin Siereveld",
+     "IOL",
+     4.9
+    ]
+   ]
+  },
+  {
+   "pick": 186,
+   "round": 6,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Charles Jagusah",
+     "IOL",
+     5.4
+    ],
+    [
+     "Austin Siereveld",
+     "IOL",
+     5.2
+    ],
+    [
+     "Cael Winter",
+     "IOL",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 187,
+   "round": 6,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Cael Winter",
+     "IOL",
+     5.5
+    ],
+    [
+     "Luke Talich",
+     "S",
+     5.3
+    ],
+    [
+     "Wendell Gregory",
+     "EDGE",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 188,
+   "round": 6,
+   "team": "Washington Commanders",
+   "top": [
+    [
+     "Christian Gray",
+     "CB",
+     5.4
+    ],
+    [
+     "Charles Jagusah",
+     "IOL",
+     5.1
+    ],
+    [
+     "Austin Siereveld",
+     "IOL",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 189,
+   "round": 6,
+   "team": "Houston Texans",
+   "top": [
+    [
+     "Keyjuan Brown",
+     "RB",
+     5
+    ],
+    [
+     "Cade Uluave",
+     "LB",
+     4.8
+    ],
+    [
+     "Evan Johnson",
+     "CB",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 190,
+   "round": 6,
+   "team": "Tampa Bay Buccaneers",
+   "top": [
+    [
+     "Dom Nichols",
+     "EDGE",
+     6
+    ],
+    [
+     "Cael Winter",
+     "IOL",
+     4.8
+    ],
+    [
+     "Austin Siereveld",
+     "IOL",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 191,
+   "round": 6,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Wendell Gregory",
+     "EDGE",
+     5
+    ],
+    [
+     "Brett Norfleet",
+     "TE",
+     4.6
+    ],
+    [
+     "Eli Bowen",
+     "CB",
+     4.2
+    ]
+   ]
+  },
+  {
+   "pick": 192,
+   "round": 6,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "Cade Uluave",
+     "LB",
+     5.6
+    ],
+    [
+     "Drew Azzopardi",
+     "OT",
+     4.9
+    ],
+    [
+     "Dom Nichols",
+     "EDGE",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 193,
+   "round": 6,
+   "team": "San Francisco 49ers",
+   "top": [
+    [
+     "Wendell Gregory",
+     "EDGE",
+     5.5
+    ],
+    [
+     "Devin McCuin",
+     "WR",
+     5.2
+    ],
+    [
+     "Chris Marshall",
+     "WR",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 194,
+   "round": 6,
+   "team": "Los Angeles Rams",
+   "top": [
+    [
+     "Drew Azzopardi",
+     "OT",
+     5.9
+    ],
+    [
+     "Tre Richardson",
+     "WR",
+     4.7
+    ],
+    [
+     "Josiah Freeman",
+     "WR",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 195,
+   "round": 6,
+   "team": "Los Angeles Chargers",
+   "top": [
+    [
+     "Eli Bowen",
+     "CB",
+     5.7
+    ],
+    [
+     "Earl Little Jr.",
+     "CB",
+     5
+    ],
+    [
+     "Tre Richardson",
+     "WR",
+     4.1
+    ]
+   ]
+  },
+  {
+   "pick": 196,
+   "round": 6,
+   "team": "Las Vegas Raiders",
+   "top": [
+    [
+     "Sheridan Wilson",
+     "IOL",
+     5.1
+    ],
+    [
+     "Tyler Thompson",
+     "EDGE",
+     4.9
+    ],
+    [
+     "Eli Bowen",
+     "CB",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 197,
+   "round": 6,
+   "team": "Houston Texans",
+   "top": [
+    [
+     "Cade Uluave",
+     "LB",
+     6.8
+    ],
+    [
+     "Keyjuan Brown",
+     "RB",
+     5.9
+    ],
+    [
+     "Drew Azzopardi",
+     "OT",
+     5.5
+    ]
+   ]
+  },
+  {
+   "pick": 198,
+   "round": 6,
+   "team": "Carolina Panthers",
+   "top": [
+    [
+     "Earl Little Jr.",
+     "CB",
+     5
+    ],
+    [
+     "Justin Evans",
+     "IOL",
+     5
+    ],
+    [
+     "Tyler Thompson",
+     "EDGE",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 199,
+   "round": 6,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Tre Richardson",
+     "WR",
+     5.5
+    ],
+    [
+     "Cade Uluave",
+     "LB",
+     5.1
+    ],
+    [
+     "Josiah Freeman",
+     "WR",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 200,
+   "round": 6,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Drew Azzopardi",
+     "OT",
+     5.6
+    ],
+    [
+     "Blake Frazier",
+     "OT",
+     5.5
+    ],
+    [
+     "Elijah Paige",
+     "OT",
+     5.2
+    ]
+   ]
+  },
+  {
+   "pick": 201,
+   "round": 6,
+   "team": "New York Giants",
+   "top": [
+    [
+     "Sheridan Wilson",
+     "IOL",
+     5.1
+    ],
+    [
+     "Justin Evans",
+     "IOL",
+     5
+    ],
+    [
+     "McKale Boley",
+     "IOL",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 202,
+   "round": 6,
+   "team": "New York Jets",
+   "top": [
+    [
+     "Sheridan Wilson",
+     "IOL",
+     5.2
+    ],
+    [
+     "Tyler Thompson",
+     "EDGE",
+     4.7
+    ],
+    [
+     "Cade Uluave",
+     "LB",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 203,
+   "round": 6,
+   "team": "Cincinnati Bengals",
+   "top": [
+    [
+     "Drew Azzopardi",
+     "OT",
+     5.9
+    ],
+    [
+     "Elijah Paige",
+     "OT",
+     4.9
+    ],
+    [
+     "Blake Frazier",
+     "OT",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 204,
+   "round": 6,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Andrew Marshall",
+     "CB",
+     5.8
+    ],
+    [
+     "Tyler Thompson",
+     "EDGE",
+     4.8
+    ],
+    [
+     "Elliot Washington II",
+     "CB",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 205,
+   "round": 6,
+   "team": "New York Giants",
+   "top": [
+    [
+     "McKale Boley",
+     "IOL",
+     5.6
+    ],
+    [
+     "Earl Little Jr.",
+     "CB",
+     5.3
+    ],
+    [
+     "Blake Frazier",
+     "OT",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 206,
+   "round": 6,
+   "team": "Chicago Bears",
+   "top": [
+    [
+     "Andrew Marshall",
+     "CB",
+     5.5
+    ],
+    [
+     "Elliot Washington II",
+     "CB",
+     5.3
+    ],
+    [
+     "Elijah Paige",
+     "OT",
+     4.9
+    ]
+   ]
+  },
+  {
+   "pick": 207,
+   "round": 6,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "Andrew Marshall",
+     "CB",
+     5.3
+    ],
+    [
+     "Earl Little Jr.",
+     "CB",
+     5.2
+    ],
+    [
+     "Khalil Barnes",
+     "S",
+     5.1
+    ]
+   ]
+  },
+  {
+   "pick": 208,
+   "round": 6,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Elliot Washington II",
+     "CB",
+     5.3
+    ],
+    [
+     "Joe Cotton",
+     "OT",
+     5
+    ],
+    [
+     "Terry Moore",
+     "S",
+     5
+    ]
+   ]
+  },
+  {
+   "pick": 209,
+   "round": 6,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Terry Moore",
+     "S",
+     4.9
+    ],
+    [
+     "Williams Nwaneri",
+     "EDGE",
+     4.5
+    ],
+    [
+     "McKale Boley",
+     "IOL",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 210,
+   "round": 6,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Blake Frazier",
+     "OT",
+     6
+    ],
+    [
+     "Joe Cotton",
+     "OT",
+     5.2
+    ],
+    [
+     "Elijah Paige",
+     "OT",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 211,
+   "round": 6,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Jontez Williams",
+     "CB",
+     5
+    ],
+    [
+     "Andrew Marshall",
+     "CB",
+     4.7
+    ],
+    [
+     "Drayk Bowen",
+     "LB",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 212,
+   "round": 6,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Waymond Jordan",
+     "RB",
+     5.3
+    ],
+    [
+     "Robert Fitzgerald",
+     "S",
+     4.6
+    ],
+    [
+     "Blake Frazier",
+     "OT",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 213,
+   "round": 6,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "James Smith",
+     "IDL",
+     5.8
+    ],
+    [
+     "Waymond Jordan",
+     "RB",
+     4.6
+    ],
+    [
+     "Elliot Washington II",
+     "CB",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 214,
+   "round": 6,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "Issa Ouattara",
+     "IDL",
+     5
+    ],
+    [
+     "James Smith",
+     "IDL",
+     4.9
+    ],
+    [
+     "Waymond Jordan",
+     "RB",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 215,
+   "round": 6,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Frederick Williams",
+     "OT",
+     5.3
+    ],
+    [
+     "Drayk Bowen",
+     "LB",
+     4.5
+    ],
+    [
+     "Joe Cotton",
+     "OT",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 216,
+   "round": 6,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Khalil Barnes",
+     "S",
+     4.7
+    ],
+    [
+     "Decker DeGraaf",
+     "TE",
+     4.6
+    ],
+    [
+     "Waymond Jordan",
+     "RB",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 217,
+   "round": 6,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "Will Henderson III",
+     "RB",
+     4.9
+    ],
+    [
+     "Decker DeGraaf",
+     "TE",
+     4.7
+    ],
+    [
+     "Darius Taylor",
+     "RB",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 218,
+   "round": 6,
+   "team": "Atlanta Falcons",
+   "top": [
+    [
+     "Robert Fitzgerald",
+     "S",
+     4.5
+    ],
+    [
+     "Leon Bell",
+     "OT",
+     4.4
+    ],
+    [
+     "Frederick Williams",
+     "OT",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 219,
+   "round": 6,
+   "team": "Baltimore Ravens",
+   "top": [
+    [
+     "Leon Bell",
+     "OT",
+     5.1
+    ],
+    [
+     "Issa Ouattara",
+     "IDL",
+     4.6
+    ],
+    [
+     "Elliot Washington II",
+     "CB",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 220,
+   "round": 6,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Issa Ouattara",
+     "IDL",
+     5.6
+    ],
+    [
+     "Santana Hopper",
+     "IDL",
+     4.5
+    ],
+    [
+     "Ezra Christensen",
+     "IDL",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 221,
+   "round": 6,
+   "team": "Atlanta Falcons",
+   "top": [
+    [
+     "Leon Bell",
+     "OT",
+     5.1
+    ],
+    [
+     "Frederick Williams",
+     "OT",
+     4.4
+    ],
+    [
+     "Joe Cotton",
+     "OT",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 222,
+   "round": 7,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Ore Adeyi",
+     "CB",
+     5.3
+    ],
+    [
+     "Jaquez White",
+     "CB",
+     5.1
+    ],
+    [
+     "Decker DeGraaf",
+     "TE",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 223,
+   "round": 7,
+   "team": "Tennessee Titans",
+   "top": [
+    [
+     "Jaquez White",
+     "CB",
+     5.3
+    ],
+    [
+     "Will Henderson III",
+     "RB",
+     5.2
+    ],
+    [
+     "Wayne Knight",
+     "RB",
+     4.9
+    ]
+   ]
+  },
+  {
+   "pick": 224,
+   "round": 7,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "Ezra Christensen",
+     "IDL",
+     5.5
+    ],
+    [
+     "Leon Bell",
+     "OT",
+     4.6
+    ],
+    [
+     "Decker DeGraaf",
+     "TE",
+     4.2
+    ]
+   ]
+  },
+  {
+   "pick": 225,
+   "round": 7,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Will Henderson III",
+     "RB",
+     5.1
+    ],
+    [
+     "Issa Ouattara",
+     "IDL",
+     4.5
+    ],
+    [
+     "Braelin Moore",
+     "IOL",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 226,
+   "round": 7,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Jeremiah Hasley",
+     "TE",
+     5.5
+    ],
+    [
+     "Jaquez White",
+     "CB",
+     4.8
+    ],
+    [
+     "Malachi Breland",
+     "IOL",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 227,
+   "round": 7,
+   "team": "Carolina Panthers",
+   "top": [
+    [
+     "Frederick Williams",
+     "OT",
+     4.9
+    ],
+    [
+     "Braydon Nelson",
+     "IOL",
+     4.8
+    ],
+    [
+     "Leon Bell",
+     "OT",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 228,
+   "round": 7,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Braydon Nelson",
+     "IOL",
+     4.9
+    ],
+    [
+     "Ore Adeyi",
+     "CB",
+     4.8
+    ],
+    [
+     "Darius Taylor",
+     "RB",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 229,
+   "round": 7,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Jeremiah Hasley",
+     "TE",
+     5.3
+    ],
+    [
+     "Braelin Moore",
+     "IOL",
+     4.8
+    ],
+    [
+     "Jaquez White",
+     "CB",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 230,
+   "round": 7,
+   "team": "Washington Commanders",
+   "top": [
+    [
+     "Kemari Copeland",
+     "IDL",
+     5.6
+    ],
+    [
+     "Anthony Donkoh",
+     "IOL",
+     4.8
+    ],
+    [
+     "Ezra Christensen",
+     "IDL",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 231,
+   "round": 7,
+   "team": "Tampa Bay Buccaneers",
+   "top": [
+    [
+     "Joe Brunner",
+     "IOL",
+     5.5
+    ],
+    [
+     "Braydon Nelson",
+     "IOL",
+     4.8
+    ],
+    [
+     "Jeremiah Hasley",
+     "TE",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 232,
+   "round": 7,
+   "team": "Atlanta Falcons",
+   "top": [
+    [
+     "Corey Myrick",
+     "S",
+     5.3
+    ],
+    [
+     "Leon Bell",
+     "OT",
+     4.7
+    ],
+    [
+     "Malachi Breland",
+     "IOL",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 233,
+   "round": 7,
+   "team": "Philadelphia Eagles",
+   "top": [
+    [
+     "Joe Brunner",
+     "IOL",
+     4.7
+    ],
+    [
+     "Braydon Nelson",
+     "IOL",
+     4.6
+    ],
+    [
+     "Wayne Knight",
+     "RB",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 234,
+   "round": 7,
+   "team": "Arizona Cardinals",
+   "top": [
+    [
+     "Stanton Ramil",
+     "OT",
+     4.7
+    ],
+    [
+     "Jaquez White",
+     "CB",
+     4.4
+    ],
+    [
+     "Kemari Copeland",
+     "IDL",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 235,
+   "round": 7,
+   "team": "Los Angeles Chargers",
+   "top": [
+    [
+     "Kemari Copeland",
+     "IDL",
+     5.2
+    ],
+    [
+     "Francis Brewu",
+     "IDL",
+     4.3
+    ],
+    [
+     "Joe Brunner",
+     "IOL",
+     4.2
+    ]
+   ]
+  },
+  {
+   "pick": 236,
+   "round": 7,
+   "team": "Seattle Seahawks",
+   "top": [
+    [
+     "Francis Brewu",
+     "IDL",
+     6
+    ],
+    [
+     "Joe Brunner",
+     "IOL",
+     5.2
+    ],
+    [
+     "Jeremiah Hasley",
+     "TE",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 237,
+   "round": 7,
+   "team": "Buffalo Bills",
+   "top": [
+    [
+     "Kemari Copeland",
+     "IDL",
+     4.7
+    ],
+    [
+     "Anthony Donkoh",
+     "IOL",
+     4.5
+    ],
+    [
+     "Corey Myrick",
+     "S",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 238,
+   "round": 7,
+   "team": "Baltimore Ravens",
+   "top": [
+    [
+     "Miles Capers",
+     "EDGE",
+     5.4
+    ],
+    [
+     "Stanton Ramil",
+     "OT",
+     4.9
+    ],
+    [
+     "Francis Brewu",
+     "IDL",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 239,
+   "round": 7,
+   "team": "Cleveland Browns",
+   "top": [
+    [
+     "Stanton Ramil",
+     "OT",
+     4.7
+    ],
+    [
+     "Joshua Sales Jr.",
+     "OT",
+     4.5
+    ],
+    [
+     "Anthony Donkoh",
+     "IOL",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 240,
+   "round": 7,
+   "team": "Carolina Panthers",
+   "top": [
+    [
+     "Stanton Ramil",
+     "OT",
+     5.3
+    ],
+    [
+     "Carson Hinzman",
+     "IOL",
+     4.5
+    ],
+    [
+     "Patrick Overmyer",
+     "TE",
+     4.1
+    ]
+   ]
+  },
+  {
+   "pick": 241,
+   "round": 7,
+   "team": "Green Bay Packers",
+   "top": [
+    [
+     "Tellek Lockette",
+     "IOL",
+     4.7
+    ],
+    [
+     "Patrick Overmyer",
+     "TE",
+     4.5
+    ],
+    [
+     "Garrett Oakley",
+     "TE",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 242,
+   "round": 7,
+   "team": "Houston Texans",
+   "top": [
+    [
+     "C.J. Baxter",
+     "RB",
+     6.3
+    ],
+    [
+     "Stanton Ramil",
+     "OT",
+     5.8
+    ],
+    [
+     "Dalton Brooks",
+     "S",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 243,
+   "round": 7,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Stanton Ramil",
+     "OT",
+     5.3
+    ],
+    [
+     "Dalton Brooks",
+     "S",
+     5.2
+    ],
+    [
+     "Tobi Osunsanmi",
+     "EDGE",
+     5.1
+    ]
+   ]
+  },
+  {
+   "pick": 244,
+   "round": 7,
+   "team": "Cincinnati Bengals",
+   "top": [
+    [
+     "Caleb Woodson",
+     "LB",
+     5.7
+    ],
+    [
+     "Amare Campbell",
+     "LB",
+     5.1
+    ],
+    [
+     "Jahlil Florence",
+     "CB",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 245,
+   "round": 7,
+   "team": "San Francisco 49ers",
+   "top": [
+    [
+     "Joshua Sales Jr.",
+     "OT",
+     5.1
+    ],
+    [
+     "Tellek Lockette",
+     "IOL",
+     5.1
+    ],
+    [
+     "Carson Hinzman",
+     "IOL",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 246,
+   "round": 7,
+   "team": "Jacksonville Jaguars",
+   "top": [
+    [
+     "Carson Hinzman",
+     "IOL",
+     5.8
+    ],
+    [
+     "Amare Campbell",
+     "LB",
+     5.3
+    ],
+    [
+     "Caleb Woodson",
+     "LB",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 247,
+   "round": 7,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Garrett Oakley",
+     "TE",
+     4.8
+    ],
+    [
+     "Dalton Brooks",
+     "S",
+     4.6
+    ],
+    [
+     "Patrick Overmyer",
+     "TE",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 248,
+   "round": 7,
+   "team": "Pittsburgh Steelers",
+   "top": [
+    [
+     "Nathan Hayes",
+     "QB",
+     5.1
+    ],
+    [
+     "Jahlil Florence",
+     "CB",
+     5.1
+    ],
+    [
+     "Amare Campbell",
+     "LB",
+     4.8
+    ]
+   ]
+  },
+  {
+   "pick": 249,
+   "round": 7,
+   "team": "Chicago Bears",
+   "top": [
+    [
+     "Isaiah Horton",
+     "WR",
+     5.3
+    ],
+    [
+     "Joshua Sales Jr.",
+     "OT",
+     4.9
+    ],
+    [
+     "Ashton Stamps",
+     "CB",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 250,
+   "round": 7,
+   "team": "Denver Broncos",
+   "top": [
+    [
+     "Ashton Stamps",
+     "CB",
+     4.7
+    ],
+    [
+     "Jahlil Florence",
+     "CB",
+     4.4
+    ],
+    [
+     "Dalton Brooks",
+     "S",
+     4.3
+    ]
+   ]
+  },
+  {
+   "pick": 251,
+   "round": 7,
+   "team": "Minnesota Vikings",
+   "top": [
+    [
+     "Garrett Oakley",
+     "TE",
+     5.7
+    ],
+    [
+     "C.J. Baxter",
+     "RB",
+     5
+    ],
+    [
+     "Abu Kamara",
+     "S",
+     4.5
+    ]
+   ]
+  },
+  {
+   "pick": 252,
+   "round": 7,
+   "team": "Arizona Cardinals",
+   "top": [
+    [
+     "Ashton Stamps",
+     "CB",
+     5.6
+    ],
+    [
+     "Tobi Osunsanmi",
+     "EDGE",
+     4.5
+    ],
+    [
+     "DeAndre Moore Jr.",
+     "WR",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 253,
+   "round": 7,
+   "team": "Indianapolis Colts",
+   "top": [
+    [
+     "Tobi Osunsanmi",
+     "EDGE",
+     5.1
+    ],
+    [
+     "Aidan Chiles",
+     "QB",
+     4.8
+    ],
+    [
+     "Isaiah Horton",
+     "WR",
+     4.6
+    ]
+   ]
+  },
+  {
+   "pick": 254,
+   "round": 7,
+   "team": "Detroit Lions",
+   "top": [
+    [
+     "Nathan Hayes",
+     "QB",
+     5.5
+    ],
+    [
+     "Moshood Giwa",
+     "OT",
+     4.5
+    ],
+    [
+     "Tellek Lockette",
+     "IOL",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 255,
+   "round": 7,
+   "team": "Miami Dolphins",
+   "top": [
+    [
+     "Moshood Giwa",
+     "OT",
+     5.5
+    ],
+    [
+     "Evan Stewart",
+     "WR",
+     5
+    ],
+    [
+     "Abu Kamara",
+     "S",
+     4.4
+    ]
+   ]
+  },
+  {
+   "pick": 256,
+   "round": 7,
+   "team": "Kansas City Chiefs",
+   "top": [
+    [
+     "Evan Stewart",
+     "WR",
+     4.9
+    ],
+    [
+     "Aidan Chiles",
+     "QB",
+     4.9
+    ],
+    [
+     "Ryan Baer",
+     "OT",
+     4.7
+    ]
+   ]
+  },
+  {
+   "pick": 257,
+   "round": 7,
+   "team": "New England Patriots",
+   "top": [
+    [
+     "Davaughn Patterson",
+     "S",
+     5.3
+    ],
+    [
+     "Cam Cook",
+     "RB",
+     4.5
+    ],
+    [
+     "Ryan Baer",
+     "OT",
+     4.5
+    ]
+   ]
+  }
+ ],
+ "positions": [
+  {
+   "pos": "CB",
+   "rounds": [
+    4.03,
+    4.3,
+    5.36,
+    2.96,
+    4.3,
+    7.28,
+    3.91
+   ],
+   "off": [
+    3.7,
+    9.3,
+    17.6
+   ]
+  },
+  {
+   "pos": "WR",
+   "rounds": [
+    3.97,
+    4.65,
+    7.59,
+    1.97,
+    3.83,
+    4.86,
+    1.33
+   ],
+   "off": [
+    2,
+    7.1,
+    10
+   ]
+  },
+  {
+   "pos": "EDGE",
+   "rounds": [
+    2.74,
+    4.48,
+    4.65,
+    5.32,
+    3.25,
+    5.16,
+    1.89
+   ],
+   "off": [
+    2.6,
+    6.2,
+    28
+   ]
+  },
+  {
+   "pos": "IOL",
+   "rounds": [
+    2.73,
+    2.44,
+    2.81,
+    1.66,
+    5.2,
+    5.88,
+    6.45
+   ],
+   "off": [
+    16.8,
+    24.3,
+    32.4
+   ]
+  },
+  {
+   "pos": "IDL",
+   "rounds": [
+    4,
+    4.1,
+    4.74,
+    1.96,
+    2.67,
+    2.33,
+    5
+   ],
+   "off": [
+    5.5,
+    9.4,
+    17.5
+   ]
+  },
+  {
+   "pos": "S",
+   "rounds": [
+    3,
+    2.15,
+    3.07,
+    3.67,
+    4.01,
+    3.06,
+    3.14
+   ],
+   "off": [
+    16.8,
+    22.1,
+    25.4
+   ]
+  },
+  {
+   "pos": "RB",
+   "rounds": [
+    1.02,
+    2.66,
+    3.33,
+    4.82,
+    2.4,
+    2.85,
+    3.61
+   ],
+   "off": [
+    12.7,
+    43.2,
+    53.5
+   ]
+  },
+  {
+   "pos": "OT",
+   "rounds": [
+    3.31,
+    2.29,
+    1.55,
+    2.32,
+    1.99,
+    4.51,
+    3.91
+   ],
+   "off": [
+    4.4,
+    21.2,
+    27.8
+   ]
+  },
+  {
+   "pos": "QB",
+   "rounds": [
+    4.65,
+    2.35,
+    0.99,
+    3.25,
+    4.18,
+    2.58,
+    1.49
+   ],
+   "off": [
+    7.6,
+    12.6,
+    15.8
+   ]
+  },
+  {
+   "pos": "LB",
+   "rounds": [
+    1.55,
+    1.57,
+    2.83,
+    5.02,
+    4.33,
+    2.15,
+    1.97
+   ],
+   "off": [
+    22.2,
+    32.5,
+    56.2
+   ]
+  },
+  {
+   "pos": "TE",
+   "rounds": [
+    1,
+    1,
+    1.08,
+    4.04,
+    3.86,
+    1.34,
+    3.3
+   ],
+   "off": [
+    18.2,
+    57.1,
+    76
+   ]
+  }
+ ]
+}

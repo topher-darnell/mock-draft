@@ -1330,7 +1330,7 @@ function renderBoard() {
       <span class="rank">${p.rank}</span>
       <button class="info player-open" aria-label="More about ${p.name}">
         <span class="name">${p.name}</span>
-        <span class="meta">${p.position} · ${p.college}</span>
+        <span class="meta">${p.position} · ${p.college}${p.adp && p.adp.avg ? ` · ADP ${p.adp.avg.toFixed(1)}` : ""}</span>
       </button>
       ${isNeed ? '<span class="need-tag">NEED</span>' : ""}`;
     li.querySelector(".player-open").addEventListener("click", () => openPlayerCard(p));
@@ -1408,6 +1408,16 @@ function statText(v) {
   return Number.isInteger(v) ? v.toLocaleString("en-US") : String(v);
 }
 
+// where he went across the 1,000 simulated drafts (auto_mocks.py)
+function adpLine(player) {
+  const a = player.adp;
+  if (!a) return "";
+  if (!a.avg) return `<p class="pc-soon">He went undrafted in all 1,000 simulated drafts.</p>`;
+  const often = a.pct < 100 ? ` He was drafted in ${a.pct}% of them.` : "";
+  return `<p class="pc-soon"><b>In 1,000 simulated drafts</b> he went between picks ${a.min} and ${a.max}, ` +
+    `most often to the ${a.team} (${a.teamPct}%).${often}</p>`;
+}
+
 function statsSection(player) {
   const s = player.stats;
   const season = s && s.season ? s.season : 2025;
@@ -1445,7 +1455,9 @@ function renderPlayerCard(player) {
   const facts = [
     ["Big board", `#${player.rank}`],
     ["At ${pos}".replace("${pos}", player.position), `${posRank} of ${samePos.length}`],
-    ["Usually goes", `#${low}–${high}`],
+    player.adp
+      ? ["Avg pick", player.adp.avg ? player.adp.avg.toFixed(1) : "Undrafted"]
+      : ["Usually goes", `#${low}–${high}`],
     ["Height", feetInches(player.height)],
     ["Weight", player.weight ? `${player.weight} lb` : "—"],
     ["Draft-day age", player.age ? player.age.toFixed(1) : "—"],
@@ -1490,6 +1502,7 @@ function renderPlayerCard(player) {
   document.getElementById("pc-body").innerHTML = `
     ${status}
     <dl class="pc-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+    ${adpLine(player)}
     ${statsSection(player)}
     <h3 class="pc-label">TOP ${player.position}s ON THE BOARD</h3>
     <ol class="pc-bars">${bars}</ol>
