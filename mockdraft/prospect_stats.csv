@@ -1,0 +1,101 @@
+rank,name,position,college,season,games,pass_cmp,pass_att,pass_yds,pass_td,pass_int,rush_att,rush_yds,rush_td,rec,rec_yds,rec_td,tackles,tfl,sacks,def_int,pass_breakups,source,note
+1,Jeremiah Smith,WR,Ohio State,2025,13,,,,,,,,,87,1243,12,,,,,,cfbstats,
+2,Leonard Moore,CB,Notre Dame,2025,10,,,,,,,,,,,,31,0,0,5,7,cfbstats+sttm,
+3,Colin Simmons,EDGE,Texas,2025,13,,,,,,,,,,,,43,16,12,0,2,cfbstats+sttm,
+4,Dylan Stewart,EDGE,South Carolina,2025,12,,,,,,,,,,,,31,12,4,0,2,sttm,
+5,Charlie Becker,WR,Indiana,2025,9,,,,,,,,,26,515,2,,,,,,sttm,
+6,Jordan Seaton,OT,LSU,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+7,Cam Coleman,WR,Texas,2025,12,,,,,,,,,56,708,5,,,,,,cfbstats,2025 at Auburn
+8,Will Echoles,IDL,Ole Miss,2025,,,,,,,,,,,,,68,11.5,5,,,sttm,
+9,Xavier Gilliam,IDL,Tennessee,2025,13,,,,,,,,,,,,16,3,0.5,0,0,sttm,
+10,Ellis Robinson IV,CB,Georgia,2025,14,,,,,,,,,,,,20,0,0,4,7,cfbstats+sttm,
+11,Drew Mestemaker,QB,Oklahoma State,2025,14,319,463,4379,34,9,,,,,,,,,,,,cfbstats,2025 at North Texas
+12,Jadan Baugh,RB,Florida,2025,12,,,,,,220,1170,10,33,210,,,,,,,sttm,
+13,Austin Simmons,QB,Missouri,2025,5,,,680,4,5,,,,,,,,,,,,sttm,
+14,Trinidad Chambliss,QB,Ole Miss,2025,15,294,445,3937,22,3,,,,,,,,,,,,cfbstats,
+15,Tae Johnson,S,Notre Dame,2025,10,,,,,,,,,,,,48,0,0,4,3,cfbstats+sttm,
+16,Jamari Johnson,TE,Oregon,2025,11,,,,,,,,,23,320,1,,,,,,sttm,
+17,Greg Johnson,IOL,Minnesota,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+18,David Stone,IDL,Oklahoma,2025,13,,,,,,,,,,,,43,8,1.5,0,1,sttm,
+19,Chris Cole,LB,Georgia,2025,14,,,,,,,,,,,,61,7,4.5,0,2,sttm,
+20,Ashton Hampton,CB,Clemson,2025,13,,,,,,,,,,,,45,3,1,1,9,cfbstats+sttm,
+21,Kingston Lopa,S,California,2025,15,,,,,,,,,,,,12,1,0,0,1,sttm,
+22,KJ Bolden,S,Georgia,2025,14,,,,,,,,,,,,77,2,0,2,5,sttm,
+23,Carter Smith,IOL,Indiana,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+24,Nick Marsh,WR,Indiana,2025,12,,,,,,,,,59,662,6,,,,,,sttm,
+25,Lance Heard,OT,Kentucky,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+26,Zereoue Williams,OT,Utah,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+27,Kelley Jones,CB,Mississippi State,2025,13,,,,,,,,,,,,34,0,0,2,11,cfbstats+sttm,
+28,Yhonzae Pierre,EDGE,Alabama,2025,15,,,,,,,,,,,,52,14,8,0,1,cfbstats+sttm,
+29,Ahmad Moten Sr.,IDL,Miami (FL),2025,14,,,,,,,,,,,,31,9,4.5,,,sttm,
+30,Kyngstonn Viliamu-Asa,LB,Notre Dame,2025,12,,,,,,,,,,,,48,8,3,1,2,sttm,
+31,CJ Carr,QB,Notre Dame,2025,12,195,293,2741,24,6,,,,,,,,,,,,cfbstats,
+32,Arch Manning,QB,Texas,2025,13,248,404,3163,26,7,,,,,,,,,,,,cfbstats,
+33,Kade Pieper,IOL,Iowa,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+34,Trevor Goosby,OT,Texas,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+35,Darian Mensah,QB,Miami (FL),2025,14,334,500,3973,34,6,,,,,,,,,,,,cfbstats,2025 at Duke
+36,Dante Moore,QB,Oregon,2025,15,296,412,3565,30,10,,,,,,,,,,,,cfbstats,
+37,A'Mauri Washington,IDL,Oregon,2025,15,,,,,,,,,,,,33,4,1.5,0,7,sttm,
+38,Audavion Collins,CB,Penn State,2025,13,,,,,,,,,,,,47,2,0,0,3,sttm,
+39,Anthonie Knapp,IOL,Notre Dame,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+40,Trevor Lauck,OT,Iowa,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+41,Justin Scott,IDL,Miami (FL),2025,16,,,,,,,,,,,,26,6,1,0,1,sttm,
+42,Kewan Lacy,RB,Ole Miss,2025,12,,,,,,258,1279,24,25,154,,,,,,,sttm,
+43,Tavion Gadson,IDL,Kentucky,2025,12,,,,,,,,,,,,28,4,2.5,0,0,sttm,
+44,Cayden Green,IOL,Missouri,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+45,Reed Harris,WR,Arizona State,2025,11,,,,,,,,,39,673,5,,,,,,sttm,
+46,Ryan Coleman-Williams,WR,Alabama,2025,12,,,,,,2,21,0,49,689,4,,,,,,ourlads,played 2025 as Ryan Williams
+47,Zabien Brown,CB,Alabama,2025,15,,,,,,,,,,,,39,2,0,2,6,cfbstats+sttm,
+48,Jaylen McClain,S,Ohio State,2025,14,,,,,,,,,,,,53,0,0,0,3,sttm,
+49,DJ McKinney,CB,Notre Dame,2025,9,,,,,,,,,,,,35,1,0,1,5,ourlads,2025 at Colorado
+50,Wyatt Young,WR,Oklahoma State,2025,14,,,,,,,,,70,1264,10,,,,,,cfbstats,2025 at North Texas
+51,LJ Martin,RB,BYU,2025,13,,,,,,236,1305,12,,,,,,,,,cfbstats,
+52,Brice Pollock,CB,Texas Tech,2025,14,,,,,,,,,,,,47,4,0,5,8,cfbstats+sttm,
+53,Quincy Rhodes Jr.,EDGE,Arkansas,2025,12,,,,,,,,,,,,43,16,8,0,0,cfbstats+sttm,
+54,Sammy Brown,LB,Clemson,2025,13,,,,,,,,,,,,106,14,5.5,1,5,cfbstats+sttm,
+55,Clev Lubin,EDGE,Louisville,2025,13,,,,,,,,,,,,59,13,8.5,0,3,cfbstats+sttm,
+56,Trey'Dez Green,TE,LSU,2025,7,,,,,,,,,29,353,5,,,,,,sttm,
+57,Kenyatta Jackson Jr.,EDGE,Ohio State,2025,14,,,,,,,,,,,,,,6.5,,,cfbstats,
+58,Matayo Uiagalelei,EDGE,Oregon,2025,15,,,,,,,,,,,,34,10,6,0,3,sttm,
+59,Ahmad Hardy,RB,Missouri,2025,13,,,,,,256,1649,16,,,,,,,,,cfbstats,
+60,Deuce Alexander,WR,Ole Miss,2025,12,,,,,,,,,34,577,2,,,,,,sttm,
+61,Princewill Umanmielen,EDGE,LSU,2025,15,,,,,,,,,,,,45,13,9,1,1,cfbstats+sttm,2025 at Ole Miss
+62,Melvin Siani,OT,Texas,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+63,Amare Thomas,WR,Houston,2025,13,,,,,,,,,67,966,12,,,,,,cfbstats,
+64,AJ Holmes Jr.,IDL,Texas Tech,2025,14,,,,,,,,,,,,38,9,4.5,,4,sttm,
+65,KJ Duff,WR,Rutgers,2025,12,,,,,,,,,60,1084,7,,,,,,cfbstats,
+66,Jide Abasiri,IDL,USC,2025,13,,,,,,,,,,,,26,4,3.5,0,0,sttm,
+67,Koi Perich,S,Oregon,2025,13,,,,,,,,,,,,82,3,1,1,2,sttm,
+68,Jelani McDonald,S,Texas,2025,13,,,,,,,,,,,,80,4,0,3,3,sttm,
+69,Tony Rojas,LB,Penn State,2025,13,,,,,,,,,,,,25,4,2,0,1,sttm,
+70,Devan Thompkins,IDL,Alabama,2025,13,,,,,,,,,,,,30,6,3,0,2,sttm,
+71,Samson Okunlola,IOL,Miami (FL),2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+72,OJ Frederique Jr.,CB,Miami (FL),2025,16,,,,,,,,,,,,19,0,0,0,7,sttm,
+73,Vicari Swain,CB,South Carolina,2025,12,,,,,,,,,,,,28,1,1,2,5,sttm,
+74,Bray Hubbard,S,Alabama,2025,,,,,,,,,,,,,74,,,4,8,sttm,
+75,Luke Reynolds,TE,Virginia Tech,2025,9,,,,,,,,,24,229,0,,,,,,sttm,
+76,T.J. Moore,WR,Clemson,2025,13,,,,,,,,,52,837,4,,,,,,cfbstats,
+77,Kayin Lee,CB,Tennessee,2025,12,,,,,,,,,,,,31,,,1,4,cfbstats,2025 at Auburn
+78,Jalen Mayo,CB,Houston,2025,,,,,,,,,,,,,48,3.5,0,4,10,ourlads,2025 at Stephen F. Austin (FCS)
+79,Zach Lutmer,S,Iowa,2025,13,,,,,,,,,,,,71,6,1,3,7,cfbstats+sttm,
+80,Boubacar Traore,EDGE,Notre Dame,2025,11,,,,,,,,,,,,37,10,6.5,0,0,cfbstats+sttm,
+81,Iapani Laloulu,IOL,Oregon,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+82,Brendan Sorsby,QB,Texas Tech,2025,12,207,336,2800,27,5,100,580,9,,,,,,,,,cfbstats,2025 at Cincinnati
+83,Bryant Wesco Jr.,WR,Clemson,2025,6,,,,,,,,,31,537,6,,,,,,sttm,
+84,Ryan Wingo,WR,Texas,2025,13,,,,,,,,,54,834,7,,,,,,cfbstats,
+85,Mario Craver,WR,Texas A&M,2025,12,,,,,,,,,59,917,4,,,,,,cfbstats,
+86,Mateen Ibirogba,IDL,Texas Tech,2025,13,,,,,,,,,,,,21,4,2,0,0,sttm,
+87,Sammy Omosigho,LB,UCLA,2025,13,,,,,,,,,,,,50,4,2,0,3,sttm,
+88,Jamari Sharpe,CB,Indiana,2025,16,,,,,,,,,,,,49,5,0,1,5,sttm,
+89,Nate Frazier,RB,Georgia,2025,13,,,,,,158,861,7,13,74,,,,,,,sttm,
+90,Emmanuel Oyebadejo,IDL,Florida,2025,14,,,,,,,,,,,,41,6.5,4.5,,5,sttm,
+91,Jacarrius Peak,OT,South Carolina,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+92,Bear Alexander,IDL,Oregon,2025,15,,,,,,,,,,,,50,6,1,0,1,sttm,
+93,Omarion Miller,WR,Arizona State,2025,11,,,,,,,,,45,808,8,,,,,,cfbstats,2025 at Colorado
+94,Raleek Brown,RB,Texas,2025,12,,,,,,186,1141,4,,,,,,,,,cfbstats,2025 at Arizona State
+95,Evan Tengesdahl,IOL,Cincinnati,2025,,,,,,,,,,,,,,,,,,,offensive line: no counting stats
+96,Cooper Barkate,WR,Miami (FL),2025,14,,,,,,,,,72,1106,7,,,,,,cfbstats,2025 at Duke
+97,Ben Roberts,LB,Texas Tech,2025,14,,,,,,,,,,,,90,,,,,cfbstats,
+98,Taylor Wein,EDGE,Oklahoma,2025,13,,,,,,,,,,,,39,15,7,1,1,cfbstats+sttm,
+99,Junior Sherrill,WR,Vanderbilt,2025,13,,,,,,,,,54,784,7,,,,,,cfbstats,
+100,Jayden Bellamy,CB,UCF,2025,12,,,,,,,,,,,,27,0,0,1,8,cfbstats+sttm,

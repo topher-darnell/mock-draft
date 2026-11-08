@@ -72,7 +72,8 @@ python3 mock_draft.py
 | `data.py` | Loads the CSV files and saves results |
 | `draft_logic.py` | Computer picks, value labels and grades |
 | `trades.py` | Pick values and trades |
-| `players.csv` | Prospects: rank, name, position, college |
+| `players.csv` | Prospects: rank, name, position, college, height, weight, class |
+| `prospect_stats.csv` | 2025 college stats for the top 100: passing, rushing, receiving, tackles, sacks, interceptions (with the source of each line) |
 | `teams.csv` | Each team's needs, most important first |
 | `draft_order.csv` | Every pick: round, pick number, team, original team |
 | `trade_chart.csv` | Point value of every pick, modeled on the Jimmy Johnson chart |
@@ -88,6 +89,7 @@ python3 mock_draft.py
 - Big board: Pro Football Network consensus board
 - Draft order: Tankathon
 - Team needs: NFL.com
+- College stats: cfbstats.com (official, full season), Stick to the Model and Ourlads
 
 Data was last updated November 2026. Rankings and the draft order change every week, so mocks reflect the season so far.
 
