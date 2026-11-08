@@ -302,6 +302,7 @@ async function shareNative() {
   const file = new File([shareBlob], shareFileName(), { type: "image/png" });
   try {
     await navigator.share({ files: [file], text: "My Big Head GM mock draft. Make yours at https://bigheadgm.com" });
+    countEvent("shared-draft", "Shared a draft picture");
   } catch (e) { /* cancelled */ }
 }
 
@@ -310,6 +311,7 @@ function saveShareImage() {
   const a = document.createElement("a");
   a.href = document.getElementById("share-preview").dataset.url;
   a.download = shareFileName();
+  countEvent("saved-draft-picture", "Saved a draft picture");
   document.body.appendChild(a);
   a.click();
   a.remove();
@@ -704,7 +706,16 @@ function renderSetup() {
   }
 }
 
+// Count a moment on the visit counter (GoatCounter), like "finished a draft".
+// Does nothing if the counter is blocked or hasn't loaded.
+function countEvent(path, title) {
+  try {
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path, title, event: true });
+  } catch (e) { /* never let the counter break the site */ }
+}
+
 function startDraft() {
+  countEvent("started-draft", "Started a mock draft");
   document.getElementById("setup-screen").hidden = true;
   document.getElementById("draft-screen").hidden = false;
   document.getElementById("draft-eyebrow").textContent =
@@ -1195,6 +1206,7 @@ function showResults() {
     document.getElementById("my-grade-detail").innerHTML =
       `${me.avg.toFixed(2)} points per pick<br>${me.place} of ${teams.length} · ${needsFilled} ${needsFilled === 1 ? "need" : "needs"} filled`;
     saveMock(me, mine, teams.length);
+    countEvent("finished-draft", "Finished a mock draft");
     lastResult = { me, mine, of: teams.length };
   } else {
     lastResult = null;

@@ -41,6 +41,8 @@ The website is plain HTML, CSS and JavaScript in the `docs` folder, hosted free 
 | `docs/icons/` | Logo, mascot, home screen icons and the link preview image |
 | `docs/CNAME` | Connects the site to bigheadgm.com (don't delete it) |
 
+Visits are counted with [GoatCounter](https://topherdarnell.goatcounter.com): no cookies and no personal data. Besides page views, it counts four events: started-draft, finished-draft, shared-draft and saved-draft-picture.
+
 To run the website on your computer:
 
 ```
