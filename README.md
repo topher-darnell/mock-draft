@@ -15,7 +15,7 @@ Pick a team, draft against 31 cartoon GMs who draft for their own needs, trade u
 - **Smart computer teams:** they balance best player available against team needs, with some randomness so no two mocks are the same
 - **Draft style:** a slider from Chalk to Chaos for how predictable the computer teams are, plus Slow to Instant pick speed
 - **Pick labels:** every pick is tagged STEAL, Value, Fair or Reach by comparing where the player went to his big board rank
-- **Player cards:** tap any player to see his rank, size, where he usually goes, the top players at his position and which teams need one next
+- **Player cards:** tap any player to see his rank, size, age on draft day, 2025 college stats, where he usually goes, the top players at his position and which teams need one next
 - **Trades:** trade down when you're on the clock, or trade up before your pick, priced with a draft value chart
 - **Grades:** every team gets a letter grade on a curve at the end
 - **Share my draft:** one tap makes a picture of your class and grade to text or post

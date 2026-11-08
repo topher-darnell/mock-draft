@@ -1372,6 +1372,63 @@ function closePlayerCard() {
   if (draftRunning && !paused && !onClock && !userPaused) scheduleNext(pickDelay());
 }
 
+// ---------- Player stats on the card ----------
+
+// which stats to show for each position, best first: [label, how to get it]
+const OFFENSE_LINE = ["OT", "IOL", "OL", "OG", "C"];
+const STAT_SETS = {
+  QB: [["Pass yds", (s) => s.pass_yds], ["Pass TD", (s) => s.pass_td], ["INT", (s) => s.pass_int],
+       ["Comp %", (s) => (s.pass_cmp && s.pass_att ? (100 * s.pass_cmp / s.pass_att).toFixed(1) : null)],
+       ["Rush yds", (s) => s.rush_yds], ["Rush TD", (s) => s.rush_td]],
+  RB: [["Rush yds", (s) => s.rush_yds], ["Rush TD", (s) => s.rush_td],
+       ["Yds/carry", (s) => (s.rush_yds && s.rush_att ? (s.rush_yds / s.rush_att).toFixed(1) : null)],
+       ["Catches", (s) => s.rec], ["Rec yds", (s) => s.rec_yds]],
+  CATCH: [["Catches", (s) => s.rec], ["Rec yds", (s) => s.rec_yds], ["Rec TD", (s) => s.rec_td],
+          ["Yds/catch", (s) => (s.rec_yds && s.rec ? (s.rec_yds / s.rec).toFixed(1) : null)],
+          ["Rush yds", (s) => s.rush_yds]],
+  RUSH: [["Sacks", (s) => s.sacks], ["TFL", (s) => s.tfl], ["Tackles", (s) => s.tackles],
+         ["INT", (s) => s.def_int], ["PBU", (s) => s.pass_breakups]],
+  LB: [["Tackles", (s) => s.tackles], ["TFL", (s) => s.tfl], ["Sacks", (s) => s.sacks],
+       ["INT", (s) => s.def_int], ["PBU", (s) => s.pass_breakups]],
+  DB: [["INT", (s) => s.def_int], ["PBU", (s) => s.pass_breakups], ["Tackles", (s) => s.tackles],
+       ["TFL", (s) => s.tfl], ["Sacks", (s) => s.sacks]],
+};
+
+function statSet(position) {
+  if (position === "QB") return STAT_SETS.QB;
+  if (position === "RB") return STAT_SETS.RB;
+  if (position === "WR" || position === "TE") return STAT_SETS.CATCH;
+  if (position === "EDGE" || position === "IDL" || position === "DL") return STAT_SETS.RUSH;
+  if (position === "LB") return STAT_SETS.LB;
+  return STAT_SETS.DB;   // CB, S
+}
+
+function statText(v) {
+  if (typeof v === "string") return v;
+  return Number.isInteger(v) ? v.toLocaleString("en-US") : String(v);
+}
+
+function statsSection(player) {
+  const s = player.stats;
+  const season = s && s.season ? s.season : 2025;
+  if (!s) {
+    const why = OFFENSE_LINE.includes(player.position)
+      ? "Offensive linemen don't get box-score stats."
+      : "No stats for him yet.";
+    return `<h3 class="pc-label">${season} STATS</h3><p class="pc-soon">${why}</p>`;
+  }
+  const tiles = statSet(player.position)
+    .map(([label, get]) => [label, get(s)])
+    .filter(([, v]) => v !== null && v !== undefined)
+    .slice(0, 5);
+  const bits = [];
+  if (s.games) bits.push(`${s.games} games`);
+  if (s.note) bits.push(s.note.replace(/^\d{4} at /, "at "));
+  return `
+    <h3 class="pc-label">${season} STATS${bits.length ? `<span class="pc-label-note"> · ${bits.join(" · ")}</span>` : ""}</h3>
+    <dl class="pc-stats">${tiles.map(([k, v]) => `<div><dt>${k}</dt><dd>${statText(v)}</dd></div>`).join("")}</dl>`;
+}
+
 function renderPlayerCard(player) {
   const samePos = allPlayers.filter((q) => q.position === player.position);   // best first
   const posRank = samePos.indexOf(player) + 1;
@@ -1382,15 +1439,16 @@ function renderPlayerCard(player) {
 
   document.getElementById("pc-rank").textContent = `#${player.rank}`;
   document.getElementById("pc-name").textContent = player.name;
-  document.getElementById("pc-meta").textContent = `${player.position}${posRank} · ${player.college}`;
+  document.getElementById("pc-meta").textContent =
+    `${player.position}${posRank} · ${player.college}${player.year ? " · " + player.year : ""}`;
 
   const facts = [
     ["Big board", `#${player.rank}`],
     ["At ${pos}".replace("${pos}", player.position), `${posRank} of ${samePos.length}`],
-    ["Class", player.year || "—"],
+    ["Usually goes", `#${low}–${high}`],
     ["Height", feetInches(player.height)],
     ["Weight", player.weight ? `${player.weight} lb` : "—"],
-    ["Usually goes", `#${low}–${high}`],
+    ["Draft-day age", player.age ? player.age.toFixed(1) : "—"],
   ];
 
   // the top players at his position, with him highlighted
@@ -1432,6 +1490,7 @@ function renderPlayerCard(player) {
   document.getElementById("pc-body").innerHTML = `
     ${status}
     <dl class="pc-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+    ${statsSection(player)}
     <h3 class="pc-label">TOP ${player.position}s ON THE BOARD</h3>
     <ol class="pc-bars">${bars}</ol>
     ${soon}
