@@ -35,7 +35,7 @@ The website is plain HTML, CSS and JavaScript in the `docs` folder, hosted free 
 | `docs/style.css` | How everything looks, on phones and computers |
 | `docs/sw.js` | Saves the site on your device so it works offline |
 | `docs/manifest.json` | Lets you add it to your home screen like an app |
-| `docs/data/*.json` | Prospects, teams, draft order and trade chart (made by `export_json.py`) |
+| `docs/data/*.json` | Prospects (with college stats and ages), teams, draft order and trade chart (made by `export_json.py`) |
 | `docs/icons/` | Logo, mascot, home screen icons and the link preview image |
 | `docs/CNAME` | Connects the site to bigheadgm.com (don't delete it) |
 
@@ -65,7 +65,7 @@ python3 mock_draft.py
 |---|---|
 | `mock_draft.py` | Runs the draft (run this one) |
 | `auto_mocks.py` | Runs lots of computer-only drafts and prints a summary |
-| `export_json.py` | Turns the CSV files into the JSON the website uses |
+| `export_json.py` | Turns the CSV files into the JSON the website uses, adding each prospect's stats and age |
 | `convert_board.py` | Rebuilds `players.csv` from a new PFN big board export |
 | `config.py` | Settings you can tweak, like how random the computer is |
 | `models.py` | Player, Team and Pick |

@@ -6,7 +6,16 @@
   "college": "Ohio State",
   "height": "6-4",
   "weight": "222",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "rec": 87,
+   "rec_yds": 1243,
+   "rec_td": 12
+  },
+  "born": "2005-11-29",
+  "age": 21.4
  },
  {
   "rank": 2,
@@ -15,7 +24,16 @@
   "college": "Notre Dame",
   "height": "6-2",
   "weight": "197",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 10,
+   "tackles": 31,
+   "tfl": 0,
+   "sacks": 0,
+   "def_int": 5,
+   "pass_breakups": 7
+  }
  },
  {
   "rank": 3,
@@ -24,7 +42,18 @@
   "college": "Texas",
   "height": "6-3",
   "weight": "246",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 43,
+   "tfl": 16,
+   "sacks": 12,
+   "def_int": 0,
+   "pass_breakups": 2
+  },
+  "born": "2006-01-08",
+  "age": 21.3
  },
  {
   "rank": 4,
@@ -33,7 +62,18 @@
   "college": "South Carolina",
   "height": "6-5",
   "weight": "250",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "tackles": 31,
+   "tfl": 12,
+   "sacks": 4,
+   "def_int": 0,
+   "pass_breakups": 2
+  },
+  "born": "2005-09-14",
+  "age": 21.6
  },
  {
   "rank": 5,
@@ -42,7 +82,14 @@
   "college": "Indiana",
   "height": "6-4",
   "weight": "208",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 9,
+   "rec": 26,
+   "rec_yds": 515,
+   "rec_td": 2
+  }
  },
  {
   "rank": 6,
@@ -51,7 +98,9 @@
   "college": "LSU",
   "height": "6-5",
   "weight": "307",
-  "year": "Junior"
+  "year": "Junior",
+  "born": "2005-06-19",
+  "age": 21.9
  },
  {
   "rank": 7,
@@ -60,7 +109,17 @@
   "college": "Texas",
   "height": "6-3",
   "weight": "204",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rec": 56,
+   "rec_yds": 708,
+   "rec_td": 5,
+   "note": "2025 at Auburn"
+  },
+  "born": "2006-08-14",
+  "age": 20.7
  },
  {
   "rank": 8,
@@ -69,7 +128,15 @@
   "college": "Ole Miss",
   "height": "6-3",
   "weight": "315",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "tackles": 68,
+   "tfl": 11.5,
+   "sacks": 5
+  },
+  "born": "2006-08-07",
+  "age": 20.7
  },
  {
   "rank": 9,
@@ -78,7 +145,16 @@
   "college": "Tennessee",
   "height": "6-2",
   "weight": "305",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 16,
+   "tfl": 3,
+   "sacks": 0.5,
+   "def_int": 0,
+   "pass_breakups": 0
+  }
  },
  {
   "rank": 10,
@@ -87,7 +163,16 @@
   "college": "Georgia",
   "height": "6-0",
   "weight": "180",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 20,
+   "tfl": 0,
+   "sacks": 0,
+   "def_int": 4,
+   "pass_breakups": 7
+  }
  },
  {
   "rank": 11,
@@ -96,7 +181,19 @@
   "college": "Oklahoma State",
   "height": "6-3",
   "weight": "215",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "pass_cmp": 319,
+   "pass_att": 463,
+   "pass_yds": 4379,
+   "pass_td": 34,
+   "pass_int": 9,
+   "note": "2025 at North Texas"
+  },
+  "born": "2006-01",
+  "age": 21.3
  },
  {
   "rank": 12,
@@ -105,7 +202,16 @@
   "college": "Florida",
   "height": "6-1",
   "weight": "225",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rush_att": 220,
+   "rush_yds": 1170,
+   "rush_td": 10,
+   "rec": 33,
+   "rec_yds": 210
+  }
  },
  {
   "rank": 13,
@@ -114,7 +220,16 @@
   "college": "Missouri",
   "height": "6-4",
   "weight": "220",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 5,
+   "pass_yds": 680,
+   "pass_td": 4,
+   "pass_int": 5
+  },
+  "born": "2005-11-08",
+  "age": 21.5
  },
  {
   "rank": 14,
@@ -123,7 +238,18 @@
   "college": "Ole Miss",
   "height": "6-0",
   "weight": "205",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "pass_cmp": 294,
+   "pass_att": 445,
+   "pass_yds": 3937,
+   "pass_td": 22,
+   "pass_int": 3
+  },
+  "born": "2002-08-24",
+  "age": 24.7
  },
  {
   "rank": 15,
@@ -132,7 +258,16 @@
   "college": "Notre Dame",
   "height": "6-2",
   "weight": "200",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "stats": {
+   "season": 2025,
+   "games": 10,
+   "tackles": 48,
+   "tfl": 0,
+   "sacks": 0,
+   "def_int": 4,
+   "pass_breakups": 3
+  }
  },
  {
   "rank": 16,
@@ -141,7 +276,14 @@
   "college": "Oregon",
   "height": "6-5",
   "weight": "255",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 11,
+   "rec": 23,
+   "rec_yds": 320,
+   "rec_td": 1
+  }
  },
  {
   "rank": 17,
@@ -159,7 +301,18 @@
   "college": "Oklahoma",
   "height": "6-3",
   "weight": "312",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 43,
+   "tfl": 8,
+   "sacks": 1.5,
+   "def_int": 0,
+   "pass_breakups": 1
+  },
+  "born": "2005-11-20",
+  "age": 21.4
  },
  {
   "rank": 19,
@@ -168,7 +321,18 @@
   "college": "Georgia",
   "height": "6-3",
   "weight": "235",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 61,
+   "tfl": 7,
+   "sacks": 4.5,
+   "def_int": 0,
+   "pass_breakups": 2
+  },
+  "born": "2005-10-03",
+  "age": 21.6
  },
  {
   "rank": 20,
@@ -177,7 +341,18 @@
   "college": "Clemson",
   "height": "6-2",
   "weight": "205",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 45,
+   "tfl": 3,
+   "sacks": 1,
+   "def_int": 1,
+   "pass_breakups": 9
+  },
+  "born": "2006-01-09",
+  "age": 21.3
  },
  {
   "rank": 21,
@@ -186,7 +361,16 @@
   "college": "California",
   "height": "6-5",
   "weight": "210",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "tackles": 12,
+   "tfl": 1,
+   "sacks": 0,
+   "def_int": 0,
+   "pass_breakups": 1
+  }
  },
  {
   "rank": 22,
@@ -195,7 +379,18 @@
   "college": "Georgia",
   "height": "6-0",
   "weight": "195",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 77,
+   "tfl": 2,
+   "sacks": 0,
+   "def_int": 2,
+   "pass_breakups": 5
+  },
+  "born": "2006-02-18",
+  "age": 21.2
  },
  {
   "rank": 23,
@@ -204,7 +399,9 @@
   "college": "Indiana",
   "height": "6-5",
   "weight": "310",
-  "year": "Senior"
+  "year": "Senior",
+  "born": "2004-04-15",
+  "age": 23
  },
  {
   "rank": 24,
@@ -213,7 +410,16 @@
   "college": "Indiana",
   "height": "6-3",
   "weight": "210",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rec": 59,
+   "rec_yds": 662,
+   "rec_td": 6
+  },
+  "born": "2006-10-01",
+  "age": 20.6
  },
  {
   "rank": 25,
@@ -222,7 +428,9 @@
   "college": "Kentucky",
   "height": "6-6",
   "weight": "325",
-  "year": "Senior"
+  "year": "Senior",
+  "born": "2004-10-13",
+  "age": 22.5
  },
  {
   "rank": 26,
@@ -240,7 +448,18 @@
   "college": "Mississippi State",
   "height": "6-4",
   "weight": "205",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 34,
+   "tfl": 0,
+   "sacks": 0,
+   "def_int": 2,
+   "pass_breakups": 11
+  },
+  "born": "2004-03-11",
+  "age": 23.1
  },
  {
   "rank": 28,
@@ -249,7 +468,18 @@
   "college": "Alabama",
   "height": "6-3",
   "weight": "251",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "tackles": 52,
+   "tfl": 14,
+   "sacks": 8,
+   "def_int": 0,
+   "pass_breakups": 1
+  },
+  "born": "2004-10-13",
+  "age": 22.5
  },
  {
   "rank": 29,
@@ -258,7 +488,16 @@
   "college": "Miami (FL)",
   "height": "6-3",
   "weight": "300",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 31,
+   "tfl": 9,
+   "sacks": 4.5
+  },
+  "born": "2004-04-22",
+  "age": 23
  },
  {
   "rank": 30,
@@ -267,7 +506,18 @@
   "college": "Notre Dame",
   "height": "6-3",
   "weight": "234",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "tackles": 48,
+   "tfl": 8,
+   "sacks": 3,
+   "def_int": 1,
+   "pass_breakups": 2
+  },
+  "born": "2006-03-16",
+  "age": 21.1
  },
  {
   "rank": 31,
@@ -276,7 +526,18 @@
   "college": "Notre Dame",
   "height": "6-2",
   "weight": "215",
-  "year": "RS Sophomore"
+  "year": "RS Sophomore",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "pass_cmp": 195,
+   "pass_att": 293,
+   "pass_yds": 2741,
+   "pass_td": 24,
+   "pass_int": 6
+  },
+  "born": "2005-05-26",
+  "age": 21.9
  },
  {
   "rank": 32,
@@ -285,7 +546,18 @@
   "college": "Texas",
   "height": "6-4",
   "weight": "222",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "pass_cmp": 248,
+   "pass_att": 404,
+   "pass_yds": 3163,
+   "pass_td": 26,
+   "pass_int": 7
+  },
+  "born": "2004-04-27",
+  "age": 23
  },
  {
   "rank": 33,
@@ -294,7 +566,9 @@
   "college": "Iowa",
   "height": "6-3",
   "weight": "298",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "born": "2005-02-18",
+  "age": 22.2
  },
  {
   "rank": 34,
@@ -303,7 +577,9 @@
   "college": "Texas",
   "height": "6-7",
   "weight": "325",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "born": "2005-05-14",
+  "age": 22
  },
  {
   "rank": 35,
@@ -312,7 +588,19 @@
   "college": "Miami (FL)",
   "height": "6-3",
   "weight": "205",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "pass_cmp": 334,
+   "pass_att": 500,
+   "pass_yds": 3973,
+   "pass_td": 34,
+   "pass_int": 6,
+   "note": "2025 at Duke"
+  },
+  "born": "2005-01-25",
+  "age": 22.3
  },
  {
   "rank": 36,
@@ -321,7 +609,18 @@
   "college": "Oregon",
   "height": "6-3",
   "weight": "220",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "pass_cmp": 296,
+   "pass_att": 412,
+   "pass_yds": 3565,
+   "pass_td": 30,
+   "pass_int": 10
+  },
+  "born": "2005-05-24",
+  "age": 21.9
  },
  {
   "rank": 37,
@@ -330,7 +629,16 @@
   "college": "Oregon",
   "height": "6-3",
   "weight": "325",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "tackles": 33,
+   "tfl": 4,
+   "sacks": 1.5,
+   "def_int": 0,
+   "pass_breakups": 7
+  }
  },
  {
   "rank": 38,
@@ -339,7 +647,16 @@
   "college": "Penn State",
   "height": "5-11",
   "weight": "183",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 47,
+   "tfl": 2,
+   "sacks": 0,
+   "def_int": 0,
+   "pass_breakups": 3
+  }
  },
  {
   "rank": 39,
@@ -357,7 +674,9 @@
   "college": "Iowa",
   "height": "6-5",
   "weight": "314",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "born": "2004-09-27",
+  "age": 22.6
  },
  {
   "rank": 41,
@@ -366,7 +685,18 @@
   "college": "Miami (FL)",
   "height": "6-4",
   "weight": "303",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 16,
+   "tackles": 26,
+   "tfl": 6,
+   "sacks": 1,
+   "def_int": 0,
+   "pass_breakups": 1
+  },
+  "born": "2006-01-31",
+  "age": 21.2
  },
  {
   "rank": 42,
@@ -375,7 +705,18 @@
   "college": "Ole Miss",
   "height": "5-11",
   "weight": "205",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rush_att": 258,
+   "rush_yds": 1279,
+   "rush_td": 24,
+   "rec": 25,
+   "rec_yds": 154
+  },
+  "born": "2006-07-06",
+  "age": 20.8
  },
  {
   "rank": 43,
@@ -384,7 +725,16 @@
   "college": "Kentucky",
   "height": "6-5",
   "weight": "303",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "tackles": 28,
+   "tfl": 4,
+   "sacks": 2.5,
+   "def_int": 0,
+   "pass_breakups": 0
+  }
  },
  {
   "rank": 44,
@@ -393,7 +743,9 @@
   "college": "Missouri",
   "height": "6-5",
   "weight": "324",
-  "year": "Senior"
+  "year": "Senior",
+  "born": "2004-11-15",
+  "age": 22.5
  },
  {
   "rank": 45,
@@ -402,7 +754,14 @@
   "college": "Arizona State",
   "height": "6-5",
   "weight": "220",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 11,
+   "rec": 39,
+   "rec_yds": 673,
+   "rec_td": 5
+  }
  },
  {
   "rank": 46,
@@ -411,7 +770,20 @@
   "college": "Alabama",
   "height": "6-0",
   "weight": "184",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rush_att": 2,
+   "rush_yds": 21,
+   "rush_td": 0,
+   "rec": 49,
+   "rec_yds": 689,
+   "rec_td": 4,
+   "note": "played 2025 as Ryan Williams"
+  },
+  "born": "2007-02-09",
+  "age": 20.2
  },
  {
   "rank": 47,
@@ -420,7 +792,18 @@
   "college": "Alabama",
   "height": "6-0",
   "weight": "194",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "tackles": 39,
+   "tfl": 2,
+   "sacks": 0,
+   "def_int": 2,
+   "pass_breakups": 6
+  },
+  "born": "2006-03-01",
+  "age": 21.2
  },
  {
   "rank": 48,
@@ -429,7 +812,18 @@
   "college": "Ohio State",
   "height": "6-0",
   "weight": "203",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 53,
+   "tfl": 0,
+   "sacks": 0,
+   "def_int": 0,
+   "pass_breakups": 3
+  },
+  "born": "2006-06-24",
+  "age": 20.8
  },
  {
   "rank": 49,
@@ -438,7 +832,19 @@
   "college": "Notre Dame",
   "height": "6-1",
   "weight": "190",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 9,
+   "tackles": 35,
+   "tfl": 1,
+   "sacks": 0,
+   "def_int": 1,
+   "pass_breakups": 5,
+   "note": "2025 at Colorado"
+  },
+  "born": "2004-02-09",
+  "age": 23.2
  },
  {
   "rank": 50,
@@ -447,7 +853,15 @@
   "college": "Oklahoma State",
   "height": "6-0",
   "weight": "199",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "rec": 70,
+   "rec_yds": 1264,
+   "rec_td": 10,
+   "note": "2025 at North Texas"
+  }
  },
  {
   "rank": 51,
@@ -456,7 +870,14 @@
   "college": "BYU",
   "height": "6-2",
   "weight": "225",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "rush_att": 236,
+   "rush_yds": 1305,
+   "rush_td": 12
+  }
  },
  {
   "rank": 52,
@@ -465,7 +886,18 @@
   "college": "Texas Tech",
   "height": "6-0",
   "weight": "195",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 47,
+   "tfl": 4,
+   "sacks": 0,
+   "def_int": 5,
+   "pass_breakups": 8
+  },
+  "born": "2005-03-28",
+  "age": 22.1
  },
  {
   "rank": 53,
@@ -474,7 +906,18 @@
   "college": "Arkansas",
   "height": "6-6",
   "weight": "273",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "tackles": 43,
+   "tfl": 16,
+   "sacks": 8,
+   "def_int": 0,
+   "pass_breakups": 0
+  },
+  "born": "2004-12-01",
+  "age": 22.4
  },
  {
   "rank": 54,
@@ -483,7 +926,18 @@
   "college": "Clemson",
   "height": "6-2",
   "weight": "235",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 106,
+   "tfl": 14,
+   "sacks": 5.5,
+   "def_int": 1,
+   "pass_breakups": 5
+  },
+  "born": "2005-09-29",
+  "age": 21.6
  },
  {
   "rank": 55,
@@ -492,7 +946,16 @@
   "college": "Louisville",
   "height": "6-3",
   "weight": "260",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 59,
+   "tfl": 13,
+   "sacks": 8.5,
+   "def_int": 0,
+   "pass_breakups": 3
+  }
  },
  {
   "rank": 56,
@@ -501,7 +964,14 @@
   "college": "LSU",
   "height": "6-7",
   "weight": "237",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 7,
+   "rec": 29,
+   "rec_yds": 353,
+   "rec_td": 5
+  }
  },
  {
   "rank": 57,
@@ -510,7 +980,12 @@
   "college": "Ohio State",
   "height": "6-6",
   "weight": "263",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "sacks": 6.5
+  }
  },
  {
   "rank": 58,
@@ -519,7 +994,18 @@
   "college": "Oregon",
   "height": "6-5",
   "weight": "265",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "tackles": 34,
+   "tfl": 10,
+   "sacks": 6,
+   "def_int": 0,
+   "pass_breakups": 3
+  },
+  "born": "2005-07-02",
+  "age": 21.8
  },
  {
   "rank": 59,
@@ -528,7 +1014,16 @@
   "college": "Missouri",
   "height": "5-10",
   "weight": "210",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "rush_att": 256,
+   "rush_yds": 1649,
+   "rush_td": 16
+  },
+  "born": "2005-12-19",
+  "age": 21.4
  },
  {
   "rank": 60,
@@ -537,7 +1032,16 @@
   "college": "Ole Miss",
   "height": "6-0",
   "weight": "180",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rec": 34,
+   "rec_yds": 577,
+   "rec_td": 2
+  },
+  "born": "2005-07-27",
+  "age": 21.8
  },
  {
   "rank": 61,
@@ -546,7 +1050,19 @@
   "college": "LSU",
   "height": "6-4",
   "weight": "244",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "tackles": 45,
+   "tfl": 13,
+   "sacks": 9,
+   "def_int": 1,
+   "pass_breakups": 1,
+   "note": "2025 at Ole Miss"
+  },
+  "born": "2005-02-13",
+  "age": 22.2
  },
  {
   "rank": 62,
@@ -555,7 +1071,9 @@
   "college": "Texas",
   "height": "6-6",
   "weight": "317",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "born": "2004-10-10",
+  "age": 22.6
  },
  {
   "rank": 63,
@@ -564,7 +1082,16 @@
   "college": "Houston",
   "height": "6-0",
   "weight": "205",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "rec": 67,
+   "rec_yds": 966,
+   "rec_td": 12
+  },
+  "born": "2005-11-18",
+  "age": 21.4
  },
  {
   "rank": 64,
@@ -573,7 +1100,17 @@
   "college": "Texas Tech",
   "height": "6-3",
   "weight": "300",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 38,
+   "tfl": 9,
+   "sacks": 4.5,
+   "pass_breakups": 4
+  },
+  "born": "2003-11-07",
+  "age": 23.5
  },
  {
   "rank": 65,
@@ -582,7 +1119,16 @@
   "college": "Rutgers",
   "height": "6-6",
   "weight": "225",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rec": 60,
+   "rec_yds": 1084,
+   "rec_td": 7
+  },
+  "born": "2005-12-06",
+  "age": 21.4
  },
  {
   "rank": 66,
@@ -591,7 +1137,18 @@
   "college": "USC",
   "height": "6-5",
   "weight": "280",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 26,
+   "tfl": 4,
+   "sacks": 3.5,
+   "def_int": 0,
+   "pass_breakups": 0
+  },
+  "born": "2006-03-10",
+  "age": 21.1
  },
  {
   "rank": 67,
@@ -600,7 +1157,18 @@
   "college": "Oregon",
   "height": "6-1",
   "weight": "202",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 82,
+   "tfl": 3,
+   "sacks": 1,
+   "def_int": 1,
+   "pass_breakups": 2
+  },
+  "born": "2005-09-26",
+  "age": 21.6
  },
  {
   "rank": 68,
@@ -609,7 +1177,16 @@
   "college": "Texas",
   "height": "6-2",
   "weight": "201",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 80,
+   "tfl": 4,
+   "sacks": 0,
+   "def_int": 3,
+   "pass_breakups": 3
+  }
  },
  {
   "rank": 69,
@@ -618,7 +1195,16 @@
   "college": "Penn State",
   "height": "6-2",
   "weight": "236",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 25,
+   "tfl": 4,
+   "sacks": 2,
+   "def_int": 0,
+   "pass_breakups": 1
+  }
  },
  {
   "rank": 70,
@@ -627,7 +1213,16 @@
   "college": "Alabama",
   "height": "6-5",
   "weight": "300",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 30,
+   "tfl": 6,
+   "sacks": 3,
+   "def_int": 0,
+   "pass_breakups": 2
+  }
  },
  {
   "rank": 71,
@@ -636,7 +1231,9 @@
   "college": "Miami (FL)",
   "height": "6-6",
   "weight": "330",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "born": "2004-10-12",
+  "age": 22.5
  },
  {
   "rank": 72,
@@ -645,7 +1242,16 @@
   "college": "Miami (FL)",
   "height": "6-0",
   "weight": "185",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 16,
+   "tackles": 19,
+   "tfl": 0,
+   "sacks": 0,
+   "def_int": 0,
+   "pass_breakups": 7
+  }
  },
  {
   "rank": 73,
@@ -654,7 +1260,16 @@
   "college": "South Carolina",
   "height": "6-0",
   "weight": "193",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "tackles": 28,
+   "tfl": 1,
+   "sacks": 1,
+   "def_int": 2,
+   "pass_breakups": 5
+  }
  },
  {
   "rank": 74,
@@ -663,7 +1278,15 @@
   "college": "Alabama",
   "height": "6-2",
   "weight": "215",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "tackles": 74,
+   "def_int": 4,
+   "pass_breakups": 8
+  },
+  "born": "2005-02-14",
+  "age": 22.2
  },
  {
   "rank": 75,
@@ -672,7 +1295,14 @@
   "college": "Virginia Tech",
   "height": "6-4",
   "weight": "250",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 9,
+   "rec": 24,
+   "rec_yds": 229,
+   "rec_td": 0
+  }
  },
  {
   "rank": 76,
@@ -681,7 +1311,16 @@
   "college": "Clemson",
   "height": "6-3",
   "weight": "200",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "rec": 52,
+   "rec_yds": 837,
+   "rec_td": 4
+  },
+  "born": "2006-04-14",
+  "age": 21
  },
  {
   "rank": 77,
@@ -690,7 +1329,15 @@
   "college": "Tennessee",
   "height": "5-11",
   "weight": "190",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "tackles": 31,
+   "def_int": 1,
+   "pass_breakups": 4,
+   "note": "2025 at Auburn"
+  }
  },
  {
   "rank": 78,
@@ -699,7 +1346,16 @@
   "college": "Houston",
   "height": "6-2",
   "weight": "190",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "tackles": 48,
+   "tfl": 3.5,
+   "sacks": 0,
+   "def_int": 4,
+   "pass_breakups": 10,
+   "note": "2025 at Stephen F. Austin (FCS)"
+  }
  },
  {
   "rank": 79,
@@ -708,7 +1364,18 @@
   "college": "Iowa",
   "height": "6-1",
   "weight": "203",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 71,
+   "tfl": 6,
+   "sacks": 1,
+   "def_int": 3,
+   "pass_breakups": 7
+  },
+  "born": "2004-11-05",
+  "age": 22.5
  },
  {
   "rank": 80,
@@ -717,7 +1384,18 @@
   "college": "Notre Dame",
   "height": "6-5",
   "weight": "253",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 11,
+   "tackles": 37,
+   "tfl": 10,
+   "sacks": 6.5,
+   "def_int": 0,
+   "pass_breakups": 0
+  },
+  "born": "2004-10-24",
+  "age": 22.5
  },
  {
   "rank": 81,
@@ -726,7 +1404,9 @@
   "college": "Oregon",
   "height": "6-2",
   "weight": "325",
-  "year": "Senior"
+  "year": "Senior",
+  "born": "2004-06-25",
+  "age": 22.8
  },
  {
   "rank": 82,
@@ -735,7 +1415,22 @@
   "college": "Texas Tech",
   "height": "6-3",
   "weight": "235",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "pass_cmp": 207,
+   "pass_att": 336,
+   "pass_yds": 2800,
+   "pass_td": 27,
+   "pass_int": 5,
+   "rush_att": 100,
+   "rush_yds": 580,
+   "rush_td": 9,
+   "note": "2025 at Cincinnati"
+  },
+  "born": "2004-01-20",
+  "age": 23.3
  },
  {
   "rank": 83,
@@ -744,7 +1439,16 @@
   "college": "Clemson",
   "height": "6-2",
   "weight": "195",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 6,
+   "rec": 31,
+   "rec_yds": 537,
+   "rec_td": 6
+  },
+  "born": "2005-09-22",
+  "age": 21.6
  },
  {
   "rank": 84,
@@ -753,7 +1457,16 @@
   "college": "Texas",
   "height": "6-2",
   "weight": "214",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "rec": 54,
+   "rec_yds": 834,
+   "rec_td": 7
+  },
+  "born": "2006-02-15",
+  "age": 21.2
  },
  {
   "rank": 85,
@@ -762,7 +1475,16 @@
   "college": "Texas A&M",
   "height": "5-9",
   "weight": "180",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rec": 59,
+   "rec_yds": 917,
+   "rec_td": 4
+  },
+  "born": "2006-01-09",
+  "age": 21.3
  },
  {
   "rank": 86,
@@ -771,7 +1493,18 @@
   "college": "Texas Tech",
   "height": "6-4",
   "weight": "300",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 21,
+   "tfl": 4,
+   "sacks": 2,
+   "def_int": 0,
+   "pass_breakups": 0
+  },
+  "born": "2004-03-19",
+  "age": 23.1
  },
  {
   "rank": 87,
@@ -780,7 +1513,18 @@
   "college": "UCLA",
   "height": "6-2",
   "weight": "239",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 50,
+   "tfl": 4,
+   "sacks": 2,
+   "def_int": 0,
+   "pass_breakups": 3
+  },
+  "born": "2004-09-17",
+  "age": 22.6
  },
  {
   "rank": 88,
@@ -789,7 +1533,18 @@
   "college": "Indiana",
   "height": "6-1",
   "weight": "190",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 16,
+   "tackles": 49,
+   "tfl": 5,
+   "sacks": 0,
+   "def_int": 1,
+   "pass_breakups": 5
+  },
+  "born": "2003-09-22",
+  "age": 23.6
  },
  {
   "rank": 89,
@@ -798,7 +1553,18 @@
   "college": "Georgia",
   "height": "5-10",
   "weight": "205",
-  "year": "Junior"
+  "year": "Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "rush_att": 158,
+   "rush_yds": 861,
+   "rush_td": 7,
+   "rec": 13,
+   "rec_yds": 74
+  },
+  "born": "2005-09-26",
+  "age": 21.6
  },
  {
   "rank": 90,
@@ -807,7 +1573,17 @@
   "college": "Florida",
   "height": "6-6",
   "weight": "299",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 41,
+   "tfl": 6.5,
+   "sacks": 4.5,
+   "pass_breakups": 5
+  },
+  "born": "2004-04-01",
+  "age": 23.1
  },
  {
   "rank": 91,
@@ -825,7 +1601,18 @@
   "college": "Oregon",
   "height": "6-3",
   "weight": "316",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 15,
+   "tackles": 50,
+   "tfl": 6,
+   "sacks": 1,
+   "def_int": 0,
+   "pass_breakups": 1
+  },
+  "born": "2002-11-28",
+  "age": 24.4
  },
  {
   "rank": 93,
@@ -834,7 +1621,17 @@
   "college": "Arizona State",
   "height": "6-2",
   "weight": "215",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 11,
+   "rec": 45,
+   "rec_yds": 808,
+   "rec_td": 8,
+   "note": "2025 at Colorado"
+  },
+  "born": "2004-12-20",
+  "age": 22.4
  },
  {
   "rank": 94,
@@ -843,7 +1640,17 @@
   "college": "Texas",
   "height": "5-9",
   "weight": "193",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "rush_att": 186,
+   "rush_yds": 1141,
+   "rush_td": 4,
+   "note": "2025 at Arizona State"
+  },
+  "born": "2003-08-02",
+  "age": 23.7
  },
  {
   "rank": 95,
@@ -852,7 +1659,9 @@
   "college": "Cincinnati",
   "height": "6-3",
   "weight": "325",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "born": "2005-02-09",
+  "age": 22.2
  },
  {
   "rank": 96,
@@ -861,7 +1670,17 @@
   "college": "Miami (FL)",
   "height": "6-1",
   "weight": "195",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "rec": 72,
+   "rec_yds": 1106,
+   "rec_td": 7,
+   "note": "2025 at Duke"
+  },
+  "born": "2003-01-12",
+  "age": 24.3
  },
  {
   "rank": 97,
@@ -870,7 +1689,14 @@
   "college": "Texas Tech",
   "height": "6-3",
   "weight": "245",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 14,
+   "tackles": 90
+  },
+  "born": "2004-02-28",
+  "age": 23.2
  },
  {
   "rank": 98,
@@ -879,7 +1705,16 @@
   "college": "Oklahoma",
   "height": "6-4",
   "weight": "270",
-  "year": "RS Junior"
+  "year": "RS Junior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "tackles": 39,
+   "tfl": 15,
+   "sacks": 7,
+   "def_int": 1,
+   "pass_breakups": 1
+  }
  },
  {
   "rank": 99,
@@ -888,7 +1723,16 @@
   "college": "Vanderbilt",
   "height": "5-11",
   "weight": "200",
-  "year": "Senior"
+  "year": "Senior",
+  "stats": {
+   "season": 2025,
+   "games": 13,
+   "rec": 54,
+   "rec_yds": 784,
+   "rec_td": 7
+  },
+  "born": "2005-06-24",
+  "age": 21.8
  },
  {
   "rank": 100,
@@ -897,7 +1741,18 @@
   "college": "UCF",
   "height": "6-1",
   "weight": "190",
-  "year": "RS Senior"
+  "year": "RS Senior",
+  "stats": {
+   "season": 2025,
+   "games": 12,
+   "tackles": 27,
+   "tfl": 0,
+   "sacks": 0,
+   "def_int": 1,
+   "pass_breakups": 8
+  },
+  "born": "2003-03-11",
+  "age": 24.1
  },
  {
   "rank": 101,

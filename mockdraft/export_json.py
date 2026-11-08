@@ -3,6 +3,9 @@ Saves the simulator's data as JSON files for the website.
 
 Run from the mockdraft folder:  python3 export_json.py
 Re-run it any time you change a CSV file, then upload docs/data to GitHub.
+
+players.json also gets each prospect's college stats (prospect_stats.csv) and
+birth date and draft-day age (prospect_ages.csv), when those files have him.
 """
 
 import csv
@@ -11,6 +14,17 @@ import os
 
 from config import TEAMS_FILE, PLAYERS_FILE, ORDER_FILE, CHART_FILE
 
+# extra details for the player cards (optional: the export still works without them)
+STATS_FILE = "prospect_stats.csv"
+AGES_FILE = "prospect_ages.csv"
+
+# stat columns in prospect_stats.csv, in the order the website shows them
+STAT_COLUMNS = ["games",
+                "pass_cmp", "pass_att", "pass_yds", "pass_td", "pass_int",
+                "rush_att", "rush_yds", "rush_td",
+                "rec", "rec_yds", "rec_td",
+                "tackles", "tfl", "sacks", "def_int", "pass_breakups"]
+
 # the website lives in the docs folder next to this mockdraft folder
 OUTPUT_FOLDER = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "data"))
 
@@ -18,6 +32,53 @@ OUTPUT_FOLDER = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__
 def read_csv(path):
     with open(path, newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
+
+
+def number(text):
+    """'1,243' -> 1243, '8.5' -> 8.5, '' -> None"""
+    text = (text or "").replace(",", "").strip()
+    if not text:
+        return None
+    value = float(text)
+    return int(value) if value.is_integer() else value
+
+
+def read_extra(path):
+    """rows of an optional CSV, by player name ({} if the file isn't there)"""
+    if not os.path.exists(path):
+        print(f"  (no {path}, skipping it)")
+        return {}
+    return {row["name"].strip(): row for row in read_csv(path)}
+
+
+def add_details(players):
+    """put college stats and draft-day age on each player who has them"""
+    stats = read_extra(STATS_FILE)
+    ages = read_extra(AGES_FILE)
+    with_stats = with_age = 0
+    for p in players:
+        row = stats.get(p["name"])
+        if row:
+            numbers = {col: number(row.get(col)) for col in STAT_COLUMNS}
+            numbers = {col: v for col, v in numbers.items() if v is not None}
+            if numbers:
+                p["stats"] = {"season": int(row.get("season") or 2025), **numbers}
+                if row.get("note", "").strip():
+                    p["stats"]["note"] = row["note"].strip()
+                with_stats += 1
+        row = ages.get(p["name"])
+        if row and row.get("birth_date", "").strip():
+            p["born"] = row["birth_date"].strip()
+            p["age"] = number(row["age_on_draft_day"])
+            with_age += 1
+
+    # after a new big board, list top-100 players these files don't cover yet
+    top = [p["name"] for p in players if p["rank"] <= 100]
+    print(f"  stats for {with_stats} players, ages for {with_age}")
+    for label, table in (("stats", stats), ("ages", ages)):
+        missing = [name for name in top if table and name not in table]
+        if missing:
+            print(f"  top-100 players not in the {label} file yet: {', '.join(missing)}")
 
 
 def save(name, data):
@@ -44,6 +105,7 @@ def main():
         for row in read_csv(PLAYERS_FILE)
     ]
     players.sort(key=lambda p: p["rank"])
+    add_details(players)
     save("players.json", players)
 
     teams = [
