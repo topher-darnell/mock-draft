@@ -2,11 +2,17 @@
 Runs many computer-only mock drafts and prints a summary, so you can spot
 picks that don't look realistic and tune config.py.
 
-Run:  python3 auto_mocks.py          (10 drafts, 7 rounds)
-      python3 auto_mocks.py 100      (100 drafts)
+Run:  python3 auto_mocks.py              (10 drafts, 7 rounds)
+      python3 auto_mocks.py 100          (100 drafts)
+      python3 auto_mocks.py 1000 --save  (1,000 drafts, and save adp.csv)
+
+adp.csv has each player's average draft position (ADP): his average pick,
+earliest and latest pick, how often he got drafted at all, and the team that
+took him most often.
 """
 
 import contextlib
+import csv
 import io
 import sys
 from collections import Counter, defaultdict
@@ -26,11 +32,37 @@ def one_draft(rounds):
         return run_draft(teams, players, order, rounds, set(), chart)
 
 
+ADP_FILE = "adp.csv"
+
+
+def save_adp(sims, rounds, picks_by_player, teams_by_player, players):
+    """one row per player on the board, best rank first"""
+    rows = []
+    for p in sorted(players, key=lambda p: p.rank):
+        spots = picks_by_player.get(p.name, [])
+        row = {"rank": p.rank, "name": p.name, "position": p.position, "college": p.college,
+               "drafted_pct": round(100 * len(spots) / sims, 1),
+               "avg_pick": "", "earliest": "", "latest": "", "top_team": "", "top_team_pct": ""}
+        if spots:
+            team, count = teams_by_player[p.name].most_common(1)[0]
+            row.update(avg_pick=round(sum(spots) / len(spots), 1), earliest=min(spots), latest=max(spots),
+                       top_team=team, top_team_pct=round(100 * count / len(spots), 1))
+        rows.append(row)
+    with open(ADP_FILE, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        w.writeheader()
+        w.writerows(rows)
+    print(f"\nSaved {ADP_FILE}: {len(rows)} players from {sims} drafts ({rounds} rounds each)")
+
+
 def main():
-    sims = int(sys.argv[1]) if len(sys.argv) > 1 else 10
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    sims = int(args[0]) if args else 10
+    save = "--save" in sys.argv
     rounds = 7
 
     picks_by_player = defaultdict(list)    # player name -> every pick number he went at
+    teams_by_player = defaultdict(Counter) # player name -> how often each team took him
     rank_of = {}
     r1_positions = Counter()
     qbs_in_r1 = []
@@ -40,6 +72,7 @@ def main():
         qbs = 0
         for pick, player in results:
             picks_by_player[player.name].append(pick.number)
+            teams_by_player[player.name][pick.team] += 1
             rank_of[player.name] = player.rank
             if pick.round == 1:
                 r1_positions[player.position] += 1
@@ -70,6 +103,9 @@ def main():
             falls.append((avg - rank, name, rank, avg))
     for fall, name, rank, avg in sorted(falls, reverse=True)[:5]:
         print(f"  #{rank:<4} {name:<24} goes {avg:.0f} on average ({fall:+.0f})")
+
+    if save:
+        save_adp(sims, rounds, picks_by_player, teams_by_player, load_players(PLAYERS_FILE))
 
 
 if __name__ == "__main__":

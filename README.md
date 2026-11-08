@@ -64,7 +64,7 @@ python3 mock_draft.py
 | File | What it does |
 |---|---|
 | `mock_draft.py` | Runs the draft (run this one) |
-| `auto_mocks.py` | Runs lots of computer-only drafts and prints a summary |
+| `auto_mocks.py` | Runs lots of computer-only drafts and prints a summary; `python3 auto_mocks.py 1000 --save` also saves `adp.csv` |
 | `export_json.py` | Turns the CSV files into the JSON the website uses, adding each prospect's stats and age |
 | `convert_board.py` | Rebuilds `players.csv` from a new PFN big board export |
 | `config.py` | Settings you can tweak, like how random the computer is |
@@ -74,6 +74,7 @@ python3 mock_draft.py
 | `trades.py` | Pick values and trades |
 | `players.csv` | Prospects: rank, name, position, college, height, weight, class |
 | `prospect_stats.csv` | 2025 college stats for the top 100: passing, rushing, receiving, tackles, sacks, interceptions (with the source of each line) |
+| `adp.csv` | From 1,000 simulated drafts: each player's average pick, earliest and latest pick, how often he's drafted and the team that takes him most |
 | `prospect_ages.csv` | Birth date and age on draft day (April 29, 2027) for the top 100, with a link to the source of each date |
 | `teams.csv` | Each team's needs, most important first |
 | `draft_order.csv` | Every pick: round, pick number, team, original team |
