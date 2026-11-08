@@ -1,17 +1,22 @@
 /*
-  Big-head GMs: one original general manager per team, drawn in code.
+  Big-head GMs: one original general manager per team.
 
-  Website:  GM.img("New York Jets", "focused", 96)  -> <img> tag you can drop into HTML
-  Anywhere: GM.svg("New York Jets", "happy")        -> the full SVG drawing as text
+  The GMs are photos (made with ChatGPT, cut out and framed for the site) in docs/gm:
+    gm/small-<mood>.webp  every team for one mood: 8 across, 4 down, 180x216 each, 4px gaps
+    gm/<team-slug>.webp   one team, all 5 moods in a row: 320x384 each, 6px gaps
+  The drawn cartoon GMs below are the backup if a photo can't load.
 
-  Moods:
-    neutral  - relaxed smile
-    focused  - on the clock (wears a draft headset)
-    happy    - steal / good grade (fist pump)
-    sad      - reach / bad grade (grimace, sweat drop)
-    trade    - trade talk (phone to the ear)
+  Website:  GM.img("New York Jets", "focused", 96)  -> HTML you can drop into the page
+  Anywhere: GM.svg("New York Jets", "happy")        -> the drawn backup GM as SVG text
 
-  Every GM is original: team colors and a city personality, no logos, no real people.
+  Moods (photo / drawn backup):
+    neutral  - smug, arms crossed / relaxed smile
+    focused  - on the clock: thinking / draft headset
+    happy    - steal, good grade: laughing / fist pump
+    sad      - reach, bad grade: shocked / grimace
+    trade    - trade talk: pointing, yelling / phone to the ear
+
+  Every GM is original: team colors, no logos, no real people.
 */
 (function (root) {
   "use strict";
@@ -1012,11 +1017,113 @@
     return cache[key];
   }
 
-  // <img> for the website. alt is empty by default, since the team name is shown next to it.
+  // ---------- photo GMs ----------
+
+  const PHOTO_V = "1";                      // bump when the photos change (sw.js uses the same number)
+  const SMALL = { w: 180, h: 216, gap: 4, cols: 8, rows: 4 };
+  const BIG = { w: 320, h: 384, gap: 6 };
+  const BIG_FROM = 72;                      // GMs wider than this use the big photos
+  const state = {};                         // photo url -> "loading" | "ok" | "error"
+  const pictures = {};                      // photo url -> loaded Image, for the share card
+
+  function moodOf(mood) { return MOODS.indexOf(mood) === -1 ? "neutral" : mood; }
+  function smallUrl(mood) { return "gm/small-" + moodOf(mood) + ".webp?v=" + PHOTO_V; }
+  function bigUrl(teamName) { return "gm/" + slug(teamName) + ".webp?v=" + PHOTO_V; }
+  function hasPhoto(teamName) { return TEAM_NAMES.indexOf(teamName) !== -1; }
+
+  // load a photo once; if it fails, every GM using it switches to the next best picture
+  function ensure(src) {
+    if (state[src] || typeof Image === "undefined") return;
+    state[src] = "loading";
+    const im = new Image();
+    im.onload = () => { state[src] = "ok"; pictures[src] = im; };
+    im.onerror = () => { state[src] = "error"; refresh(); };
+    im.src = src;
+  }
+
+  // where this GM's picture is: which file, and how to show one cell of it
+  function source(teamName, mood, big) {
+    mood = moodOf(mood);
+    if (hasPhoto(teamName)) {
+      if (big && state[bigUrl(teamName)] !== "error") {
+        const span = BIG.w * 5 + BIG.gap * 4;
+        return { src: bigUrl(teamName), size: (span / BIG.w * 100) + "% 100%", pos: (MOODS.indexOf(mood) * 25) + "% 0%",
+                 sx: MOODS.indexOf(mood) * (BIG.w + BIG.gap), sy: 0, sw: BIG.w, sh: BIG.h };
+      }
+      if (state[smallUrl(mood)] !== "error") {
+        const i = TEAM_NAMES.indexOf(teamName);
+        const col = i % SMALL.cols, row = Math.floor(i / SMALL.cols);
+        const sw = SMALL.w * SMALL.cols + SMALL.gap * (SMALL.cols - 1);
+        const sh = SMALL.h * SMALL.rows + SMALL.gap * (SMALL.rows - 1);
+        return { src: smallUrl(mood), size: (sw / SMALL.w * 100) + "% " + (sh / SMALL.h * 100) + "%",
+                 pos: (col / (SMALL.cols - 1) * 100) + "% " + (row / (SMALL.rows - 1) * 100) + "%",
+                 sx: col * (SMALL.w + SMALL.gap), sy: row * (SMALL.h + SMALL.gap), sw: SMALL.w, sh: SMALL.h };
+      }
+    }
+    return { src: url(teamName, mood), size: "100% 100%", pos: "0% 0%", sx: 0, sy: 0, sw: W, sh: H, drawn: true };
+  }
+
+  function paint(el) {
+    const s = source(el.dataset.team, el.dataset.mood, el.dataset.big === "1");
+    if (!s.drawn) ensure(s.src);
+    el.style.backgroundImage = 'url("' + s.src + '")';
+    el.style.backgroundSize = s.size;
+    el.style.backgroundPosition = s.pos;
+  }
+
+  // after a photo fails to load, repaint the GMs that used it
+  function refresh() {
+    if (typeof document === "undefined") return;
+    for (const el of document.querySelectorAll(".gm[data-team]")) paint(el);
+  }
+
+  function esc(text) {
+    return String(text).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  }
+
+  // A GM for the website. alt is empty by default, since the team name is shown next to it.
   function img(teamName, mood, size, className, alt) {
     const w = Math.round(size);
-    const h = Math.round(size * 1.2);
-    return '<img class="gm ' + (className || "") + '" src="' + url(teamName, mood) + '" width="' + w + '" height="' + h + '" alt="' + (alt || "") + '" draggable="false">';
+    const big = w > BIG_FROM;
+    const s = source(teamName, mood, big);
+    if (!s.drawn) ensure(s.src);
+    const label = alt ? ' role="img" aria-label="' + esc(alt) + '"' : ' aria-hidden="true"';
+    return '<span class="gm ' + (className || "") + '" data-team="' + esc(teamName) + '" data-mood="' + moodOf(mood) + '"' +
+      (big ? ' data-big="1"' : "") + label + ' style="--w:' + w + "px;--gm-tint:" + tint(teamName) +
+      ";background-image:url(&quot;" + s.src + "&quot;);background-size:" + s.size + ";background-position:" + s.pos + '"></span>';
+  }
+
+  // change the mood of a GM already on the page
+  function setMood(el, mood) {
+    if (!el || !el.dataset) return;
+    el.dataset.mood = moodOf(mood);
+    paint(el);
+  }
+
+  // load a team's photos ahead of time, so mood changes don't flash
+  function preload(teamName) {
+    if (hasPhoto(teamName)) ensure(bigUrl(teamName));
+    for (const m of MOODS) ensure(smallUrl(m));
+  }
+
+  // for <canvas>: { image, sx, sy, sw, sh } (best photo that loads, or the drawn GM)
+  function picture(teamName, mood) {
+    const tries = [source(teamName, mood, true), source(teamName, mood, false)];
+    const load = (src) => new Promise((resolve) => {
+      if (pictures[src]) return resolve(pictures[src]);
+      const im = new Image();
+      im.onload = () => { pictures[src] = im; resolve(im); };
+      im.onerror = () => { state[src] = "error"; resolve(null); };
+      im.src = src;
+    });
+    return (async () => {
+      for (const s of tries) {
+        const im = await load(s.src);
+        if (im) return { image: im, sx: s.sx, sy: s.sy, sw: s.sw, sh: s.sh };
+      }
+      const im = await load(url(teamName, mood));
+      return im ? { image: im, sx: 0, sy: 0, sw: W, sh: H } : null;
+    })();
   }
 
   // team color blended into the page background, for avatar tiles
@@ -1025,8 +1132,8 @@
   }
 
   const api = {
-    MOODS, TEAMS, TEAM_NAMES, W, H,
-    svg, svgFor, drawInner, url, img, tint, quip, QUIPS, slug,
+    MOODS, TEAMS, TEAM_NAMES, W, H, PHOTO_V,
+    svg, svgFor, drawInner, url, img, setMood, preload, picture, tint, quip, QUIPS, slug,
     short: (name) => lookFor(name).short || name,
     catchphrase: (name) => lookFor(name).catchphrase || "",
     persona: (name) => lookFor(name).persona || ""

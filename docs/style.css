@@ -599,7 +599,15 @@ h1 {
 
 /* ---------- Big-head GMs ---------- */
 
-.gm { display: block; max-width: none; }
+/* a GM photo: one cell of a picture sheet, always 5:6 */
+.gm {
+  display: block;
+  flex: 0 0 auto;
+  max-width: none;
+  width: var(--w, 46px);
+  height: calc(var(--w, 46px) * 1.2);
+  background-repeat: no-repeat;
+}
 
 /* a GM on a tile in their team color */
 .avatar {
@@ -651,6 +659,7 @@ h1 {
 .clock-body { display: flex; align-items: flex-end; gap: 4px; }
 .clock-main { flex: 1; min-width: 0; }
 .clock-gm { flex: 0 0 auto; margin: 0 -10px -14px 0; }
+.clock-gm .gm { border-radius: 16px 0 0 0; background-color: var(--gm-tint); }
 .clock-quote {
   position: relative;
   display: inline-block;
@@ -685,6 +694,7 @@ h1 {
 /* Grades: your GM reacts to your grade */
 .grade-card { align-items: flex-end; gap: 12px; padding: 14px 16px 0; overflow: hidden; }
 .grade-gm { flex: 0 0 auto; line-height: 0; }
+.grade-gm .gm { border-radius: 16px 16px 0 0; background-color: var(--gm-tint); }
 .grade-side {
   flex: 1;
   min-width: 0;
@@ -973,13 +983,16 @@ h1 {
   cursor: pointer;
   overflow: hidden;
 }
+/* a square face card at the top of each team */
 .home-team .avatar {
   width: calc(100% + 8px);
-  height: 72px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   margin: 0 -4px 6px;
   border-radius: 0;
+  align-items: center;
 }
-.home-team .avatar img { width: 60px; height: 72px; }
+.home-team .avatar .gm { width: 100%; height: auto; aspect-ratio: 5 / 6; }
 .home-team-name {
   max-width: 100%;
   font-size: 11.5px;
@@ -1056,8 +1069,6 @@ h1 {
   }
   .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
   .home-teams { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
-  .home-team .avatar { height: 84px; }
-  .home-team .avatar img { width: 70px; height: 84px; }
   .home-team-name.long { font-size: 12px; }
   .how { padding-top: 56px; }
 }
@@ -1126,7 +1137,7 @@ h1 {
     align-items: center;
     margin: 0 4px 0 0;
   }
-  .clock-gm .gm { width: clamp(120px, 11vw, 170px); height: auto; position: relative; z-index: 1; margin-bottom: -4px; }
+  .clock-gm .gm { width: clamp(120px, 11vw, 170px); height: auto; aspect-ratio: 5 / 6; border-radius: 18px; position: relative; z-index: 1; margin-bottom: -4px; }
   .clock-gm::after {
     content: "";
     width: calc(clamp(120px, 11vw, 170px) + 20px);

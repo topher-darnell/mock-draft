@@ -2,7 +2,11 @@
 // Online: always gets the newest files (and saves a copy).
 // Offline: uses the saved copy, so the home-screen app still runs a full mock.
 // Bump VERSION if you ever need every phone to throw away its saved copy.
-const VERSION = "bhg-v2";
+const VERSION = "bhg-v3";
+
+// the GM photos: same number as PHOTO_V in gm.js
+const PHOTO_V = "1";
+const GM_SHEETS = ["neutral", "focused", "happy", "sad", "trade"].map((m) => `gm/small-${m}.webp?v=${PHOTO_V}`);
 
 const CORE = [
   "./",
@@ -27,7 +31,9 @@ const CORE = [
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(VERSION)
-      .then((cache) => cache.addAll(CORE.map((u) => new Request(u, { cache: "reload" }))))
+      .then((cache) => cache.addAll(CORE.map((u) => new Request(u, { cache: "reload" })))
+        // the small GM sheets, so a whole draft works offline (not worth failing the install over)
+        .then(() => cache.addAll(GM_SHEETS).catch(() => {})))
       .then(() => self.skipWaiting())
   );
 });
@@ -40,7 +46,7 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// fonts never change: use the saved copy first
+// fonts and GM photos never change (new photos get a new ?v=): use the saved copy first
 async function cacheFirst(request) {
   const cache = await caches.open(VERSION);
   const saved = await cache.match(request);
@@ -76,6 +82,8 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.hostname === "fonts.googleapis.com" || url.hostname === "fonts.gstatic.com") {
+    event.respondWith(cacheFirst(request));
+  } else if (url.origin === self.location.origin && url.pathname.includes("/gm/")) {
     event.respondWith(cacheFirst(request));
   } else if (url.origin === self.location.origin) {
     event.respondWith(networkFirst(request));

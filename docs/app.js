@@ -154,7 +154,7 @@ async function drawShareCard() {
   } catch (e) { /* fall back to system fonts */ }
   const [head, gm] = await Promise.all([
     loadImage("icons/mascot-head.png"),
-    HAS_GM ? loadImage(GM.url(myTeam, moodForGrade(me.grade))) : Promise.resolve(null),
+    HAS_GM ? GM.picture(myTeam, moodForGrade(me.grade)) : Promise.resolve(null),
   ]);
 
   // background with a stadium-light glow
@@ -188,10 +188,15 @@ async function drawShareCard() {
   const cy = 200, ch = 300;
   roundRect(ctx, X - 8, cy, W - 2 * (X - 8), ch, 36, "#1A212B");
   if (gm) {
-    roundRect(ctx, X + 16, cy + 24, 216, ch - 24, 26, HAS_GM ? GM.tint(myTeam) : "#222A35");
+    const tx0 = X + 16, ty0 = cy + 24, tw0 = 216, th0 = ch - 24;
+    roundRect(ctx, tx0, ty0, tw0, th0, 26, HAS_GM ? GM.tint(myTeam) : "#222A35");
     ctx.save();
-    ctx.beginPath(); ctx.roundRect(X + 16, cy + 24, 216, ch - 24, 26); ctx.clip();
-    ctx.drawImage(gm, X + 16 + 4, cy + ch - 250, 208, 250);
+    ctx.beginPath(); ctx.roundRect(tx0, ty0, tw0, th0, 26); ctx.clip();
+    // fill the tile, trimming the sides evenly
+    const k = Math.max(tw0 / gm.sw, th0 / gm.sh);
+    const dw = gm.sw * k, dh = gm.sh * k;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(gm.image, gm.sx, gm.sy, gm.sw, gm.sh, tx0 + (tw0 - dw) / 2, ty0 + th0 - dh, dw, dh);
     ctx.restore();
   }
   const gx = gm ? X + 264 : X + 24;
@@ -472,6 +477,7 @@ function enterApp(screenId) {
 // Start fresh on the setup screen (optionally with a team already picked)
 function openSetup(teamName) {
   if (teamName) myTeam = teamName;
+  if (HAS_GM && myTeam) GM.preload(myTeam);
   enterApp("setup-screen");
   renderSetup();
 }
@@ -548,8 +554,8 @@ function renderHome() {
     button.addEventListener("click", () => openSetup(team.name));
     if (HAS_GM) {
       // the GM cheers when you point at him
-      button.addEventListener("pointerenter", () => { button.querySelector("img").src = GM.url(team.name, "happy"); });
-      button.addEventListener("pointerleave", () => { button.querySelector("img").src = GM.url(team.name, "neutral"); });
+      button.addEventListener("pointerenter", () => GM.setMood(button.querySelector(".gm"), "happy"));
+      button.addEventListener("pointerleave", () => GM.setMood(button.querySelector(".gm"), "neutral"));
     }
     grid.appendChild(button);
   }
@@ -605,6 +611,7 @@ function renderTeams() {
       </span>`;
     button.addEventListener("click", () => {
       myTeam = team.name;
+      if (HAS_GM) GM.preload(myTeam);
       renderSetup();
     });
     grid.appendChild(button);
@@ -715,6 +722,7 @@ function startDraft() {
   onClock = false;
   paused = false;
   clockTurns = 0;
+  if (HAS_GM) GM.preload(myTeam);
   setMyGM("neutral");
   document.getElementById("action-bar").hidden = false;
   draftOrder = baseOrder.map((p) => ({ ...p }));   // fresh copy, so trades don't carry over

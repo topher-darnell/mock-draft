@@ -11,7 +11,7 @@ Pick a team, draft against 31 cartoon GMs who draft for their own needs, trade u
 ## Features
 
 - **Real 2027 data:** 361 prospects, all 257 picks in the current draft order (traded and compensatory picks included), and the top needs for every team
-- **32 original GMs:** every team has its own big-head cartoon GM who reacts to your picks, with five moods and a catchphrase
+- **32 original GMs:** every team has its own big-headed 3D GM who reacts to your picks with five moods (smug, thinking, laughing, shocked and yelling) and a catchphrase
 - **Smart computer teams:** they balance best player available against team needs, with some randomness so no two mocks are the same
 - **Draft style:** a slider from Chalk to Chaos for how predictable the computer teams are, plus Slow to Instant pick speed
 - **Pick labels:** every pick is tagged STEAL, Value, Fair or Reach by comparing where the player went to his big board rank
@@ -30,7 +30,8 @@ The website is plain HTML, CSS and JavaScript in the `docs` folder, hosted free 
 |---|---|
 | `docs/index.html` | The page: home, setup, draft room and grades screens |
 | `docs/app.js` | The draft: computer picks, trades, grades, player cards, saved mocks, sharing |
-| `docs/gm.js` | Draws all 32 GMs in every mood, as code |
+| `docs/gm.js` | Shows the right GM photo for each team and mood (and draws a cartoon backup if a photo can't load) |
+| `docs/gm/` | The GM photos: one sheet per mood with all 32 teams, and one strip per team with all 5 moods |
 | `docs/style.css` | How everything looks, on phones and computers |
 | `docs/sw.js` | Saves the site on your device so it works offline |
 | `docs/manifest.json` | Lets you add it to your home screen like an app |
@@ -90,4 +91,4 @@ python3 mock_draft.py
 
 Data was last updated November 2026. Rankings and the draft order change every week, so mocks reflect the season so far.
 
-Big Head GM is not affiliated with the NFL or any NFL team. Every GM is an original cartoon.
+Big Head GM is not affiliated with the NFL or any NFL team. Every GM is an original character, with team colors and no logos.
