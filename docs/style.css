@@ -833,9 +833,10 @@ h1 {
 }
 .hero-art img {
   display: block;
-  width: min(100%, 340px);
+  width: min(100%, 560px);
   height: auto;
-  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.5));
+  border-radius: 18px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(242, 169, 59, 0.25);
 }
 .hero-art { padding-bottom: 24px; }
 
@@ -1010,7 +1011,8 @@ h1 {
 /* footer */
 .site-footer { border-top: 1px solid var(--line); padding: 28px 0 44px; }
 .footer-row { display: flex; align-items: center; gap: 18px; }
-.footer-logo { flex: 0 0 auto; width: 96px; height: auto; }
+.footer-logo { flex: 0 0 auto; width: 110px; height: auto; border-radius: 8px; }
+@media (min-width: 600px) { .footer-logo { width: 160px; border-radius: 10px; } }
 .footer-text p { margin: 0 0 6px; font-size: 12px; line-height: 1.5; color: var(--muted); }
 .footer-text b { color: var(--text); }
 
@@ -1049,7 +1051,7 @@ h1 {
 
 @media (min-width: 900px) {
   .hero-grid {
-    grid-template-columns: minmax(0, 1fr) 440px;
+    grid-template-columns: minmax(0, 1fr) 520px;
     grid-template-areas: "head art" "rest art";
     column-gap: 32px;
     padding-top: 56px;
@@ -1057,7 +1059,7 @@ h1 {
   .hero-head { align-self: end; }
   .hero-rest { align-self: start; padding-bottom: 64px; }
   .hero-art { align-self: center; margin-top: 0; padding-bottom: 0; }
-  .hero-art img { width: 420px; }
+  .hero-art img { width: 520px; }
   .hero-sub { font-size: 18px; }
   .hero-start { flex: 0 0 auto; }
   .hero {

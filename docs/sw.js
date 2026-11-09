@@ -2,7 +2,7 @@
 // Online: always gets the newest files (and saves a copy).
 // Offline: uses the saved copy, so the home-screen app still runs a full mock.
 // Bump VERSION if you ever need every phone to throw away its saved copy.
-const VERSION = "bhg-v4";
+const VERSION = "bhg-v5";
 
 // the GM photos: same number as PHOTO_V in gm.js
 const PHOTO_V = "1";
@@ -23,8 +23,8 @@ const CORE = [
   "data/trade_chart.json",
   "data/sims.json",
   "icons/mascot-head.png",
-  "icons/logo-sticker.webp",
-  "icons/logo.svg",
+  "icons/logo-banner.webp",
+  "icons/logo-banner-small.webp",
   "icons/favicon-32.png",
   "icons/icon-192.png",
   "icons/icon-512.png",
