@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "19", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "21", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -874,6 +874,12 @@ def games_pages():
           <span>Guess the mystery NFL fantasy player in 8 tries from his team, position and PPR points per game. New player every day, or play unlimited.</span>
           <span class="pg-go">Play →</span></span>
       </a>
+      <a class="gh-card" href="17-0.html">
+        <span class="gh-art gh-p17" aria-hidden="true"><b>17-0</b><span>🟩🟩🟩🟩🟩🟩🟩🟩🟩</span></span>
+        <span class="gh-text"><b>17-0</b>
+          <span>Draft a PPR lineup one random team at a time, then play a 17-week season. Can you go undefeated? New teams every day.</span>
+          <span class="pg-go">Play →</span></span>
+      </a>
     </div>
     <h2 class="home-h2 gh-h2">More games</h2>
     <div class="gh-grid">
@@ -891,7 +897,7 @@ def games_pages():
       </a>
     </div>
     {signup("games")}"""
-    write("games/index.html", page("games/index.html", "Free Football Games: Prospectle, Fantasle, Draft Day Blitz and Juke · Big Head GM",
+    write("games/index.html", page("games/index.html", "Free Football Games: Prospectle, Fantasle, 17-0, Draft Day Blitz and Juke · Big Head GM",
           "Free football games from Big Head GM: Prospectle, a daily guess-the-prospect game, Draft Day Blitz, a daily swipe-to-draft challenge, and Juke, an endless runner through 32 big-headed GMs.",
           hub, crumbs=[("Games", "games/")], nav="games/"))
 
@@ -1098,7 +1104,7 @@ FF_POS_PLURAL = {"QB": "quarterbacks", "RB": "running backs", "WR": "wide receiv
 def nfl_profiles():
     lead = fantasy.leaders()
     raw = {r["name"]: r for r in fantasy.read("fantasy_stats.csv")}
-    full = {short(t): t for t in team_names}
+    full = {FF_TEAM[a]: next(t for t in team_names if t.endswith(FF_TEAM[a])) for a in FF_TEAM}
     fmts = [k for k, _ in fantasy.FORMATS]
     rank, prank = {}, {}
     for k in fmts:
@@ -1229,7 +1235,7 @@ FANTASLE_POOL = 60           # the daily answer is one of the top 60 in PPR poin
 
 
 def fantasle_page():
-    full = {short(t): t for t in team_names}
+    full = {FF_TEAM[a]: next(t for t in team_names if t.endswith(FF_TEAM[a])) for a in FF_TEAM}
     lead = fantasy.leaders()
     ranked = sorted([r for r in lead if r["g"] >= 5], key=lambda r: -r["s"]["ppr"] / r["g"])[:FANTASLE_POOL]
     pool = {r["n"] for r in ranked}
@@ -1340,6 +1346,12 @@ def home_blocks():
             <span>Guess the mystery NFL fantasy player from his PPR stats.</span>
             <span class="pg-go">Play today's →</span>
           </a>
+          <a class="hd-card" href="games/17-0.html">
+            <span class="hd-tiles hd-p17" aria-hidden="true">🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩</span>
+            <b>17-0</b>
+            <span>Draft a PPR lineup from random teams. Can it go undefeated?</span>
+            <span class="pg-go">Play today's →</span>
+          </a>
         </div>
 
         <div class="home-h2-row hf-head">
@@ -1369,6 +1381,77 @@ def home_blocks():
         fh.write(text)
 
 
+# ---------- 17-0 (draft a PPR lineup from random teams, play a 17-week season) ----------
+
+def perfect_page():
+    lead = fantasy.leaders()
+    full = {FF_TEAM[a]: next(t for t in team_names if t.endswith(FF_TEAM[a])) for a in FF_TEAM}
+    tg = {}
+    for r in lead:
+        tg[r["t"]] = max(tg.get(r["t"], 0), r["g"])
+    ppg = lambda r: r["s"]["ppr"] / r["g"]
+    by = {pos: sorted([r for r in lead if r["p"] == pos and r["g"] >= 4], key=lambda r: -ppg(r)) for pos in FF_POS_NAME}
+    nth = lambda pos, n: ppg(by[pos][n - 1])
+    # a typical opponent: about a 12-team league's median starters, a bit easier so 17-0 stays possible
+    opp = 0.95 * (nth("QB", 12) + nth("RB", 12) + nth("RB", 24) + nth("WR", 12) + nth("WR", 24) + nth("TE", 12) + nth("WR", 30))
+    rows = [[r["n"], slug(r["n"]), r["t"], full.get(FF_TEAM.get(r["t"], ""), r["t"]), r["p"], round(ppg(r), 2), r["g"], tg[r["t"]]]
+            for r in lead]
+    data = json.dumps({"opp": round(opp, 1), "players": rows}, separators=(",", ":")).replace("</", "<\\/")
+    body = f"""
+    <div class="gm-shell p17-shell" id="perfect">
+      <div class="gm-top">
+        <div><p class="eyebrow" id="p17-eyebrow">BIG HEAD GM GAMES</p><h1 class="gm-title">17-0</h1></div>
+        <a class="gm-exit" href="./">All games</a>
+      </div>
+
+      <section class="gm-panel" id="p17-intro">
+        <p class="pg-text">Build a PPR fantasy lineup one random NFL team at a time, then see if it can go <b>17-0</b>.</p>
+        <ul class="gm-rules">
+          <li>Each round spins a team. Take <b>one player</b> from it for an open spot: QB, RB, RB, WR, WR, TE and FLEX (RB, WR or TE).</li>
+          <li>Stats stay <b>hidden</b> while you draft, so know your players. You get <b>one re-spin</b>.</li>
+          <li>Your season uses each player's real 2026 PPR points per game, with good and bad weeks. Players who've missed games this year can miss games for you too.</li>
+        </ul>
+        <button class="start gm-wide" id="p17-daily">Play today's draft</button>
+        <button class="secondary gm-wide" id="p17-free">Free play</button>
+        <p class="in-note" id="p17-intro-best">Today's draft: same teams for everyone, new teams at midnight Eastern.</p>
+      </section>
+
+      <section class="gm-panel" id="p17-draft" hidden>
+        <p class="in-note p17-round" id="p17-round">Round 1 of 7</p>
+        <div class="p17-team" id="p17-team"><span class="p17-gm" id="p17-gm"></span><b id="p17-team-name">…</b></div>
+        <ul class="p17-list" id="p17-list"></ul>
+        <button class="secondary gm-wide" id="p17-respin" hidden>Re-spin</button>
+        <h2 class="home-h2 p17-h2">Your lineup</h2>
+        <ol class="p17-lineup" id="p17-lineup"></ol>
+      </section>
+
+      <section class="gm-panel" id="p17-season" hidden>
+        <div class="p17-head"><h2 class="home-h2">Your season</h2><span class="p17-record" id="p17-record">0-0</span></div>
+        <ol class="p17-lineup" id="p17-lineup-s"></ol>
+        <p class="in-note" id="p17-proj"></p>
+        <button class="start gm-wide" id="p17-play">Play the season</button>
+        <ol class="p17-weeks" id="p17-weeks"></ol>
+        <div class="pl-done p17-end" id="p17-end" hidden>
+          <p class="p17-title" id="p17-title"></p>
+          <p class="pl-meta" id="p17-line"></p>
+          <p class="bz-squares pl-squares" id="p17-squares" aria-hidden="true"></p>
+          <div class="bz-buttons">
+            <button class="secondary" id="p17-share">Share</button>
+            <button class="start" id="p17-again">Free play</button>
+          </div>
+          <p class="in-note" id="p17-note" role="status"></p>
+          <p class="in-note" id="p17-best"></p>
+          <p class="pg-more"><a href="../fantasy.html">See every player's PPR stats →</a></p>
+        </div>
+      </section>
+      {signup("17-0")}
+    </div>
+    <script type="application/json" id="p17-data">{data}</script>"""
+    write("games/17-0.html", page("games/17-0.html", "17-0: Draft a Fantasy Team and Go Undefeated · Big Head GM",
+          "17-0 is a free fantasy football game. Draft a PPR lineup one random NFL team at a time, then play a 17-week season with real 2026 stats. Can you go undefeated?",
+          body, nav="games/", scripts=("games/perfect.js?v=2",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
+
+
 # ---------- sitemap ----------
 
 def sitemap(paths):
@@ -1379,7 +1462,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -1393,6 +1476,7 @@ def main():
     games_pages()
     prospectle_page()
     fantasle_page()
+    perfect_page()
     home_blocks()
     paths += nfl_profiles()
     sitemap(paths)
