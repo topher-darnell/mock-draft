@@ -32,8 +32,10 @@ List what you changed in the commit message.
    `https://www.fftoday.com/stats/playerstats.php?Season=2026&GameWeek=&PosID=10&LeagueID=`
    Ask for the table "verbatim, each row on its own line, cells separated by |" (asking for CSV
    scrambles rows).
-2. Rewrite `fantasy_stats.csv` (keep the columns; `fftoday_half` = FFToday's FPts). Keep the top
-   40 QBs and RBs, 50 WRs and 30 TEs. Use JAX for Jacksonville and WAS for Washington, and give
+   Each page shows 50 players; add `&LeagueID=0&order_by=FFPts&sort_order=DESC&cur_page=1` (then 2)
+   for the next pages. Get every page needed for about 50 QBs, 100 RBs, 150 WRs and 85 TEs.
+2. Rewrite `fantasy_stats.csv` (keep the columns; `fftoday_half` = FFToday's FPts). Keep all of
+   those players: Fantasle and the Fantasy page's search use the whole list. Use JAX for Jacksonville and WAS for Washington, and give
    traded players their new team.
 3. Change `STATS_AS_OF` in `fantasy.py` to the new week.
 4. Run `python3 fantasy.py`: it must say "0 to check". The TE table has no rushing columns, so a

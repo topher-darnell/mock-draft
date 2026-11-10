@@ -2107,3 +2107,8 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .gh-h2 { display: flex; align-items: center; gap: 8px; margin: 26px 0 6px; }
 .gh-badge { padding: 3px 8px; border-radius: 999px; background: var(--accent); color: #1B1206; font: 700 11px "Space Grotesk", sans-serif; letter-spacing: 0.06em; }
 .gh-daily .gh-card { border-color: rgba(242, 169, 59, 0.55); }
+
+.ff-more { max-width: 760px; }
+.ff-more[hidden] { display: none; }
+.od-table td.ff-none { padding: 18px 14px; text-align: left; font: 500 14px Inter, sans-serif; color: var(--muted); }
+#leaders .bb-search { margin-bottom: 8px; }

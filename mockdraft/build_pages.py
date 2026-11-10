@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "14", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "15", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -800,6 +800,8 @@ def fantasy_page():
     <section class="pg-section ff-panel" id="leaders" role="tabpanel">
       <h2 class="home-h2">Who's leading in 2026</h2>
       <p class="in-note">Season totals {fantasy.STATS_AS_OF}. Tap a position to see just that group.</p>
+      <label class="bb-search"><span class="sr-only">Search a player</span>
+        <input type="search" id="ff-search" placeholder="Search {len(lead)} players" autocomplete="off"></label>
       <div class="in-chips bb-chips" id="ff-pos" aria-label="Position">{pos_btns}</div>
       <div class="od-wrap">
         <table class="od-table ff-table">
@@ -807,6 +809,7 @@ def fantasy_page():
           <tbody id="ff-lead">{ff_leader_rows(lead, "ppr")}</tbody>
         </table>
       </div>
+      <button class="secondary gm-wide ff-more" id="ff-more">Show all players</button>
     </section>
 
     <section class="pg-section ff-panel" id="next-year" role="tabpanel">
@@ -842,7 +845,7 @@ def fantasy_page():
     desc = (f"2026 fantasy football leaders in Standard, Half PPR, PPR and TE Premium scoring, plus 2027 rookie rankings for next season and dynasty. "
             f"PPR leader: {top['ppr']['n']}. Top dynasty rookie: {r1['n']}.")
     return page("fantasy.html", "Fantasy Football Leaders 2026 and 2027 Dynasty Rookie Rankings · Big Head GM", desc,
-                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=2",))
+                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=3",))
 
 
 # ---------- games ----------
