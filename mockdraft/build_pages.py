@@ -29,7 +29,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "8", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "9", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -197,12 +197,27 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   </footer>
 
   <script src="{root}gm.js?v={GM_V}"></script>
-  <script src="{root}site.js?v={SITE_JS_V}"></script>{tags}
+  <script src="{root}site.js?v={SITE_JS_V}"></script>
+  <script src="{root}newsletter.js?v=1"></script>{tags}
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
 """
+
+
+def signup(src):
+    """the "weekly mock in your inbox" box; newsletter.js turns it on"""
+    return """<section class="nl" data-from="{src}" hidden>
+      <h2>Get the weekly mock</h2>
+      <p>One email a week: the new top 10, the biggest risers and fallers, and the #1 pick odds. Free, no spam, unsubscribe anytime.</p>
+      <form class="nl-form" method="post">
+        <label class="sr-only" for="nl-email-{src}">Email address</label>
+        <input id="nl-email-{src}" type="email" name="email_address" placeholder="you@email.com" autocomplete="email" required>
+        <button class="pg-button" type="submit">Sign up</button>
+      </form>
+      <p class="nl-note" role="status"></p>
+    </section>""".replace("{src}", src)
 
 
 def gm_tag(team, mood="neutral", size=44, cls="avatar"):
@@ -447,6 +462,7 @@ def player_page(p):
       </div>
       <a class="pg-button" href="{root}?start=1">Start mock draft</a>
     </section>
+    {signup("player")}
     {pager}"""
 
     proj_bit = f"projected {label.lower()}" if a.get("avg") else "projected undrafted"
@@ -585,6 +601,8 @@ def team_page(team):
       </div>
     </section>
 
+    {signup("team")}
+
     <nav class="pg-pager" aria-label="More teams">
       <a href="{slug(prev_t)}.html">← {esc(prev_t)}</a>
       <a href="{slug(next_t)}.html">{esc(next_t)} →</a>
@@ -710,6 +728,8 @@ def odds_page():
       <a class="pg-button" href="./?team={slug(team)}">Draft as the {esc(short(team))}</a>
     </section>
 
+    {signup("odds")}
+
     <p class="od-fine">Big Head GM is not a sportsbook and does not take bets. Odds are shown for information only, change often, and may differ by sportsbook and state. Sports betting is for adults 21 and over where legal. If you or someone you know has a gambling problem, call 1-800-GAMBLER.</p>"""
     return page("odds.html", "2027 NFL Draft #1 Pick Odds: Who Goes First Overall? · Big Head GM",
                 f"Odds to be the #1 pick in the 2027 NFL Draft: {SIMS} simulated drafts compared with FanDuel and Kalshi. {summary}".strip(),
@@ -736,7 +756,8 @@ def games_pages():
           <span>Run the ball through 32 angry big-headed GMs. Swipe to dodge, grab footballs, and see how many yards you can get.</span>
           <span class="pg-go">Play →</span></span>
       </a>
-    </div>"""
+    </div>
+    {signup("games")}"""
     write("games/index.html", page("games/index.html", "Free Football Games: Draft Day Blitz and Juke · Big Head GM",
           "Two quick, free football games from Big Head GM: Draft Day Blitz, a daily swipe-to-draft challenge, and Juke, an endless runner through 32 big-headed GMs.",
           hub, crumbs=[("Games", "games/")], nav="games/"))
@@ -790,6 +811,16 @@ def games_pages():
         <h2 class="home-h2">Who you passed on</h2>
         <ol class="bb-list" id="bz-missed"></ol>
         <p class="pg-more"><a href="../?start=1">Now run a full mock draft →</a></p>
+        <section class="nl" data-from="blitz" hidden>
+      <h2>Get the weekly mock</h2>
+      <p>One email a week: the new top 10, the biggest risers and fallers, and the #1 pick odds. Free, no spam, unsubscribe anytime.</p>
+      <form class="nl-form" method="post">
+        <label class="sr-only" for="nl-email-blitz">Email address</label>
+        <input id="nl-email-blitz" type="email" name="email_address" placeholder="you@email.com" autocomplete="email" required>
+        <button class="pg-button" type="submit">Sign up</button>
+      </form>
+      <p class="nl-note" role="status"></p>
+    </section>
       </section>
     </div>"""
     write("games/blitz.html", page("games/blitz.html", "Draft Day Blitz: A Daily NFL Draft Game · Big Head GM",

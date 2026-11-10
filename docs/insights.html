@@ -21,7 +21,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=4">
   <meta name="theme-color" content="#10151C">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body class="insights-page">
 
@@ -80,6 +80,17 @@
       <div id="team-detail" hidden></div>
     </section>
 
+    <section class="nl" data-from="insights" hidden>
+      <h2>Get the weekly mock</h2>
+      <p>One email a week: the new top 10, the biggest risers and fallers, and the #1 pick odds. Free, no spam, unsubscribe anytime.</p>
+      <form class="nl-form" method="post">
+        <label class="sr-only" for="nl-email-insights">Email address</label>
+        <input id="nl-email-insights" type="email" name="email_address" placeholder="you@email.com" autocomplete="email" required>
+        <button class="pg-button" type="submit">Sign up</button>
+      </form>
+      <p class="nl-note" role="status"></p>
+    </section>
+
     <p class="in-error" id="in-error" hidden>Couldn't load the results. Check your connection and refresh.</p>
   </main>
 
@@ -96,6 +107,7 @@
 
   <script src="gm.js?v=5"></script>
   <script src="insights.js?v=1"></script>
+  <script src="newsletter.js?v=1"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>

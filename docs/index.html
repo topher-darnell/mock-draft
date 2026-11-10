@@ -29,7 +29,7 @@
   <meta name="apple-mobile-web-app-title" content="Big Head GM">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -130,6 +130,22 @@
           <a class="explore-card" href="insights.html"><b>1,000 drafts</b><span>The consensus first round and when each position goes.</span><span class="pg-go">See results →</span></a>
           <a class="explore-card" href="games/"><b>Games</b><span>Draft Day Blitz and Juke. Quick, free, made for your phone.</span><span class="pg-go">Play →</span></a>
         </div>
+      </div>
+    </section>
+
+    <!-- email signup (newsletter.js turns it on) -->
+    <section class="home-nl">
+      <div class="wrap">
+        <section class="nl" data-from="home" hidden>
+      <h2>Get the weekly mock</h2>
+      <p>One email a week: the new top 10, the biggest risers and fallers, and the #1 pick odds. Free, no spam, unsubscribe anytime.</p>
+      <form class="nl-form" method="post">
+        <label class="sr-only" for="nl-email-home">Email address</label>
+        <input id="nl-email-home" type="email" name="email_address" placeholder="you@email.com" autocomplete="email" required>
+        <button class="pg-button" type="submit">Sign up</button>
+      </form>
+      <p class="nl-note" role="status"></p>
+    </section>
       </div>
     </section>
 
@@ -313,6 +329,7 @@
 
   </main>
   <script src="gm.js?v=5"></script>
+  <script src="newsletter.js?v=1" defer></script>
   <script src="app.js?v=8"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

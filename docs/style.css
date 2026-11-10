@@ -1732,6 +1732,41 @@ a.home-team { text-decoration: none; }
   .explore-card { padding: 14px 12px; }
 }
 
+/* ---------- Email signup ("the weekly mock in your inbox") ---------- */
+.nl {
+  max-width: 760px;
+  margin-top: 36px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--card);
+  border: 1px solid #2A3442;
+}
+.nl[hidden] { display: none; }
+.nl h2 { margin: 0 0 4px; font: 700 21px "Space Grotesk", sans-serif; }
+.nl p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--muted); }
+.nl-form { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.nl-form[hidden] { display: none; }
+.nl-form input {
+  flex: 1 1 200px;
+  min-width: 0;
+  min-height: 50px;
+  padding: 0 16px;
+  border: 1px solid #3A4656;
+  border-radius: 14px;
+  background: var(--bg, #10151C);
+  color: var(--text);
+  font: 500 16px Inter, sans-serif;
+}
+.nl-form input::placeholder { color: var(--muted); }
+.nl-form button { flex: 0 0 auto; border: 0; cursor: pointer; }
+.nl-form button:disabled { opacity: 0.7; cursor: default; }
+.nl .nl-note { margin-top: 10px; color: var(--text); font-weight: 600; }
+.nl .nl-note:empty { display: none; }
+.wrap > .nl { margin-left: auto; margin-right: auto; }
+.home-nl { padding: 0 0 36px; }
+.home-nl .nl { margin-top: 0; max-width: none; }
+#bz-done .nl { margin-top: 28px; }
+
 /* ---------- Games ---------- */
 
 /* the games hub */
