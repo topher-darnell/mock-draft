@@ -29,7 +29,7 @@
   <meta name="apple-mobile-web-app-title" content="Big Head GM">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -44,6 +44,7 @@
         <button class="header-cta" data-start>Start <span class="cta-long">mock </span>draft</button>
       </div>
     </header>
+    <nav class="site-nav" aria-label="Site"><div class="wrap site-nav-row"><a href="./" aria-current="page">Mock draft</a><a href="players/">Big board</a><a href="teams/">Teams</a><a href="odds.html">#1 pick odds</a><a href="insights.html">1,000 drafts</a><a href="games/">Games</a></div></nav>
 
     <section class="hero">
       <div class="wrap hero-grid">
@@ -118,16 +119,17 @@
       </div>
     </section>
 
-    <!-- link to the 1,000-drafts page -->
-    <section class="sims-teaser">
+    <!-- the rest of the site -->
+    <section class="explore">
       <div class="wrap">
-        <a class="sims-card" href="insights.html">
-          <div>
-            <h2>What 1,000 drafts say</h2>
-            <p>The consensus first round, when each position comes off the board, and every team's most likely picks.</p>
-          </div>
-          <span class="sims-go">See results →</span>
-        </a>
+        <h2 class="home-h2">More to explore</h2>
+        <div class="explore-grid">
+          <a class="explore-card" href="players/"><b>Big board</b><span>Every prospect ranked, with a profile page for each one.</span><span class="pg-go">See players →</span></a>
+          <a class="explore-card" href="teams/"><b>Team mocks</b><span>Needs, picks and most likely selections for all 32 teams.</span><span class="pg-go">Pick a team →</span></a>
+          <a class="explore-card" href="odds.html"><b>#1 pick odds</b><span>Who goes first: our simulations next to the betting odds.</span><span class="pg-go">See odds →</span></a>
+          <a class="explore-card" href="insights.html"><b>1,000 drafts</b><span>The consensus first round and when each position goes.</span><span class="pg-go">See results →</span></a>
+          <a class="explore-card" href="games/"><b>Games</b><span>Draft Day Blitz and Juke. Quick, free, made for your phone.</span><span class="pg-go">Play →</span></a>
+        </div>
       </div>
     </section>
 
@@ -135,7 +137,7 @@
       <div class="wrap footer-row">
         <img class="footer-logo" src="icons/logo-banner-small.webp?v=4" alt="Big Head GM" width="400" height="225">
         <div class="footer-text">
-          <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="insights.html">What 1,000 drafts say</a></p>
+          <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="players/">Big board</a> · <a href="teams/">Team mocks</a> · <a href="odds.html">#1 pick odds</a> · <a href="games/">Games</a></p>
           <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com</p>
           <p>Not affiliated with the NFL or any NFL team. Every GM is an original cartoon.</p>
         </div>
@@ -310,8 +312,8 @@
     </section>
 
   </main>
-  <script src="gm.js?v=4"></script>
-  <script src="app.js?v=7"></script>
+  <script src="gm.js?v=5"></script>
+  <script src="app.js?v=8"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>

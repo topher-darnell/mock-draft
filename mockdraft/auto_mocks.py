@@ -6,13 +6,15 @@ Run:  python3 auto_mocks.py              (10 drafts, 7 rounds)
       python3 auto_mocks.py 100          (100 drafts)
       python3 auto_mocks.py 1000 --save  (1,000 drafts, and save adp.csv)
 
---save writes three files that export_json.py sends to the website:
+--save writes five files that export_json.py and build_pages.py send to the website:
   adp.csv           each player's average draft position (ADP): average, earliest
                     and latest pick, how often he got drafted, and the team that
                     took him most often
   sim_picks.csv     every pick slot: the three players taken there most often
   sim_positions.csv each position: how many go per round on average, and the
                     average pick of the 1st, 2nd and 3rd one taken (position runs)
+  sim_first.csv     everyone who went #1 overall, and how often (for the odds page)
+  sim_teams.csv     each team: the ten players it drafted most often
 """
 
 import contextlib
@@ -39,6 +41,8 @@ def one_draft(rounds):
 ADP_FILE = "adp.csv"
 PICKS_FILE = "sim_picks.csv"
 POSITIONS_FILE = "sim_positions.csv"
+FIRST_FILE = "sim_first.csv"
+TEAMS_SIM_FILE = "sim_teams.csv"
 
 
 def write_csv(path, rows):
@@ -63,6 +67,29 @@ def save_slots(sims, slots):
         rows.append(row)
     write_csv(PICKS_FILE, rows)
     print(f"Saved {PICKS_FILE}: {len(rows)} pick slots")
+
+
+def save_first(sims, slots):
+    """everyone taken with the first pick, most often first"""
+    rnd, team, counts = slots[1]
+    rows = [{"team": team, "name": name, "position": pos, "pct": round(100 * n / sims, 1)}
+            for (name, pos), n in counts.most_common()]
+    write_csv(FIRST_FILE, rows)
+    print(f"Saved {FIRST_FILE}: {len(rows)} players went #1")
+
+
+def save_team_favorites(sims, teams_by_player, positions):
+    """each team's ten most-drafted players (any round)"""
+    by_team = defaultdict(Counter)
+    for name, teams in teams_by_player.items():
+        for team, n in teams.items():
+            by_team[team][name] = n
+    rows = []
+    for team in sorted(by_team):
+        for name, n in by_team[team].most_common(10):
+            rows.append({"team": team, "name": name, "position": positions[name], "pct": round(100 * n / sims, 1)})
+    write_csv(TEAMS_SIM_FILE, rows)
+    print(f"Saved {TEAMS_SIM_FILE}: {len(rows)} rows")
 
 
 def save_positions(sims, rounds, per_round, nth_off):
@@ -110,6 +137,7 @@ def main():
     per_round = defaultdict(Counter)       # position -> round -> players taken
     nth_off = defaultdict(lambda: [[], [], []])
     rank_of = {}
+    position_of = {}
     r1_positions = Counter()
     qbs_in_r1 = []
 
@@ -126,6 +154,7 @@ def main():
             picks_by_player[player.name].append(pick.number)
             teams_by_player[player.name][pick.team] += 1
             rank_of[player.name] = player.rank
+            position_of[player.name] = player.position
             if pick.round == 1:
                 r1_positions[player.position] += 1
                 if player.position == "QB":
@@ -160,6 +189,8 @@ def main():
         save_adp(sims, rounds, picks_by_player, teams_by_player, load_players(PLAYERS_FILE))
         save_slots(sims, slots)
         save_positions(sims, rounds, per_round, nth_off)
+        save_first(sims, slots)
+        save_team_favorites(sims, teams_by_player, position_of)
 
 
 if __name__ == "__main__":

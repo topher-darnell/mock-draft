@@ -1519,6 +1519,7 @@ function renderPlayerCard(player) {
     <h3 class="pc-label">TOP ${player.position}s ON THE BOARD</h3>
     <ol class="pc-bars">${bars}</ol>
     ${soon}
+    <a class="pc-profile" href="players/${pageSlug(player.name)}.html" target="_blank" rel="noopener">Full profile →</a>
     ${canDraft ? `<button class="start" id="pc-draft">Draft ${player.name}</button>` : ""}`;
 
   if (canDraft) {
@@ -1560,6 +1561,21 @@ async function start() {
   document.getElementById("tab-up").addEventListener("click", () => { tradeTab = "up"; renderTradeSheet(); });
   renderSetup();
   renderHome();
+  openFromLink();
+}
+
+// links from the team and player pages: ?team=new-york-jets or ?start=1 go straight to setup
+function openFromLink() {
+  const query = new URLSearchParams(location.search);
+  if (!query.has("team") && !query.has("start")) return;
+  const team = allTeams.find((t) => pageSlug(t.name) === query.get("team"));
+  history.replaceState(null, "", location.pathname);
+  openSetup(team ? team.name : undefined);
+}
+
+// the same page names build_pages.py uses: "A'Mauri Washington" -> "amauri-washington"
+function pageSlug(name) {
+  return name.toLowerCase().replace(/['.]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
 setUpHome();

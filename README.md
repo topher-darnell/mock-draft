@@ -19,6 +19,10 @@ Pick a team, draft against 31 cartoon GMs who draft for their own needs, trade u
 - **Trades:** trade down when you're on the clock, or trade up before your pick, priced with a draft value chart
 - **Grades:** every team gets a letter grade on a curve at the end
 - **1,000 drafts:** a page with the consensus mock (the most common pick at every slot), when each position comes off the board, and every team's most likely picks. Every player's average draft position shows on the big board and his card
+- **Player profiles:** a page for every prospect (`/players/`) with his rank, size, age, stats, draft projection and most likely team, plus a searchable big board
+- **Team mock drafts:** a page for every team (`/teams/`) with its needs, every pick it holds, the most likely pick at each slot and the players it drafts most
+- **#1 pick odds:** who goes first in the simulations, next to the latest sportsbook and prediction-market prices (`/odds.html`)
+- **Games:** Draft Day Blitz, a daily swipe-to-draft challenge with rankings hidden, and Juke, an endless runner through 32 angry GMs (`/games/`)
 - **Share my draft:** one tap makes a picture of your class and grade to text or post
 - **My mocks:** your last 10 drafts are saved on your device
 - **Works everywhere:** phone layout, a three-column draft room on computers, installable on your home screen, and works offline
@@ -38,10 +42,14 @@ The website is plain HTML, CSS and JavaScript in the `docs` folder, hosted free 
 | `docs/sw.js` | Saves the site on your device so it works offline |
 | `docs/manifest.json` | Lets you add it to your home screen like an app |
 | `docs/data/*.json` | Prospects (with college stats, ages and average draft position), teams, draft order, trade chart and the 1,000-draft results (made by `export_json.py`) |
+| `docs/players/`, `docs/teams/`, `docs/odds.html` | Player profiles, team mock drafts and the #1 pick odds page. All made by `build_pages.py`, so don't edit them by hand |
+| `docs/games/` | The games hub, Draft Day Blitz (`blitz.js`) and Juke (`juke.js`) |
+| `docs/site.js` | Shared code for those pages: GM photos, the big board's search and filters |
+| `docs/sitemap.xml`, `docs/robots.txt` | The list of pages for Google (made by `build_pages.py`) |
 | `docs/icons/` | Logo, mascot, home screen icons and the link preview image |
 | `docs/CNAME` | Connects the site to bigheadgm.com (don't delete it) |
 
-Visits are counted with [GoatCounter](https://topherdarnell.goatcounter.com): no cookies and no personal data. Besides page views, it counts four events: started-draft, finished-draft, shared-draft and saved-draft-picture.
+Visits are counted with [GoatCounter](https://topherdarnell.goatcounter.com): no cookies and no personal data. Besides page views, it counts these events: started-draft, finished-draft, shared-draft, saved-draft-picture, and for the games blitz-daily-start, blitz-daily-done, blitz-free-start, blitz-free-done, blitz-shared, juke-start, juke-done and juke-shared.
 
 To run the website on your computer:
 
@@ -70,6 +78,7 @@ python3 mock_draft.py
 | `mock_draft.py` | Runs the draft (run this one) |
 | `auto_mocks.py` | Runs lots of computer-only drafts and prints a summary; `python3 auto_mocks.py 1000 --save` also saves `adp.csv` |
 | `export_json.py` | Turns the CSV files into the JSON the website uses, adding each prospect's stats and age |
+| `build_pages.py` | Builds the player, team, odds and games pages and the sitemap from the data (run it after `export_json.py`) |
 | `convert_board.py` | Rebuilds `players.csv` from a new PFN big board export |
 | `config.py` | Settings you can tweak, like how random the computer is |
 | `models.py` | Player, Team and Pick |
@@ -79,6 +88,9 @@ python3 mock_draft.py
 | `players.csv` | Prospects: rank, name, position, college, height, weight, class |
 | `prospect_stats.csv` | 2025 college stats for the top 100: passing, rushing, receiving, tackles, sacks, interceptions (with the source of each line) |
 | `sim_picks.csv`, `sim_positions.csv` | Also from the 1,000 drafts: the three most common players at every pick, and how many of each position go per round |
+| `sim_first.csv`, `sim_teams.csv` | Also from the 1,000 drafts: everyone who went #1 and how often, and each team's ten most-drafted players |
+| `market_odds.csv` | Sportsbook and prediction-market odds for the #1 pick, typed in by hand with the date and source. Update it when the odds move |
+| `gm_info.csv` | Each GM's short name, catchphrase and team color, copied from `gm.js` for `build_pages.py` |
 | `adp.csv` | From 1,000 simulated drafts: each player's average pick, earliest and latest pick, how often he's drafted and the team that takes him most |
 | `prospect_ages.csv` | Birth date and age on draft day (April 29, 2027) for the top 100, with a link to the source of each date |
 | `teams.csv` | Each team's needs, most important first |
@@ -90,7 +102,8 @@ python3 mock_draft.py
 1. Update the CSV files in `mockdraft` (or run `convert_board.py` on a new big board export).
 2. Run `python3 auto_mocks.py 1000 --save` to re-run the 1,000 drafts.
 3. Run `python3 export_json.py` to rebuild the files in `docs/data`.
-4. Upload the new `docs/data` files to GitHub. The site updates in a minute or two.
+4. Run `python3 build_pages.py` to rebuild the player, team and odds pages.
+5. Upload the new `docs` files to GitHub. The site updates in a minute or two.
 
 ## Data sources
 

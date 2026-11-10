@@ -1027,8 +1027,11 @@
   const pictures = {};                      // photo url -> loaded Image, for the share card
 
   function moodOf(mood) { return MOODS.indexOf(mood) === -1 ? "neutral" : mood; }
-  function smallUrl(mood) { return "gm/small-" + moodOf(mood) + ".webp?v=" + PHOTO_V; }
-  function bigUrl(teamName) { return "gm/" + slug(teamName) + ".webp?v=" + PHOTO_V; }
+  // the folder this file is in, so pages inside players/ or teams/ still find the photos
+  const BASE = (typeof document !== "undefined" && document.currentScript && document.currentScript.getAttribute("src") || "")
+    .replace(/gm\.js.*$/, "");
+  function smallUrl(mood) { return BASE + "gm/small-" + moodOf(mood) + ".webp?v=" + PHOTO_V; }
+  function bigUrl(teamName) { return BASE + "gm/" + slug(teamName) + ".webp?v=" + PHOTO_V; }
   function hasPhoto(teamName) { return TEAM_NAMES.indexOf(teamName) !== -1; }
 
   // load a photo once; if it fails, every GM using it switches to the next best picture
