@@ -2121,3 +2121,16 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   color: var(--text); font: 600 14px Inter, sans-serif; appearance: none; -webkit-appearance: none;
 }
 .ff-team select:focus { outline: none; border-color: var(--accent); }
+
+.ff-head-gm { flex: 0 0 auto; width: 64px; height: 64px; border-radius: 16px; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; }
+.ff-fmt-table thead th { width: 70px; }
+.ff-fmt-table td b { color: var(--accent); }
+.ff-table tbody th a { color: var(--text); text-decoration: none; }
+.ff-table tbody th a:hover { color: var(--accent); }
+
+.ff-fmt-table thead th:first-child { width: 34%; }
+@media (max-width: 480px) {
+  .ff-fmt-table thead th { width: auto; }
+  .ff-fmt-table th, .ff-fmt-table td { padding-left: 4px; padding-right: 4px; font-size: 14px; }
+  .ff-fmt-table th:first-child { padding-left: 12px; }
+}

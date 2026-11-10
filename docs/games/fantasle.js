@@ -14,7 +14,7 @@
   const count = (path, title) => window.BHG && window.BHG.countEvent(path, title);
 
   const players = RAW.map((r) => ({ name: r[0], abbr: r[1], team: r[2], div: r[3], pos: r[4], ppg: r[5], td: r[6],
-    yds: r[7], rec: r[8], pool: r[9] === 1, school: r[2].split(" ").pop() }));
+    yds: r[7], rec: r[8], pool: r[9] === 1, slug: r[10], school: r[2].split(" ").pop() }));
   const byName = new Map(players.map((p) => [p.name, p]));
 
   // a fixed shuffle of the answer pool, so day N always gives the same player
@@ -115,7 +115,7 @@
       ? (game.guesses.length === 1 ? "First try. League winner." : `Got him in ${game.guesses.length}!`)
       : "The mystery player was";
     $("pl-answer").textContent = a.name;
-    $("pl-answer").href = "../fantasy.html";
+    $("pl-answer").href = `../fantasy/${a.slug}.html`;
     $("pl-meta").textContent = `${a.pos} · ${a.team} · ${a.ppg.toFixed(1)} PPR points per game, ${a.td} TD, ${a.yds.toLocaleString("en-US")} yds`;
     const gm = $("pl-gm");
     gm.innerHTML = "";

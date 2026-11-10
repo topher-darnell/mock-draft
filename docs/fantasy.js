@@ -31,7 +31,7 @@
     more.textContent = `Show all ${rows.length} players`;
     if (!all && !words && !team) rows = rows.slice(0, 50);
     document.getElementById("ff-lead").innerHTML = rows.length ? rows.map(([r, i]) =>
-      `<tr><td class="ff-rk">${i}</td><th scope="row">${esc(r.n)}<span>${r.p} · ${esc(TEAM[r.t] || r.t)} · ${esc(r.line)}</span></th>` +
+      `<tr><td class="ff-rk">${i}</td><th scope="row"><a href="fantasy/${r.slug}.html">${esc(r.n)}</a><span>${r.p} · ${esc(TEAM[r.t] || r.t)} · ${esc(r.line)}</span></th>` +
       `<td>${r.g}</td><td><b>${num(r.s[fmt])}</b></td><td>${num(r.s[fmt] / r.g)}</td></tr>`).join("")
       : `<tr><td colspan="5" class="ff-none">No player matches those filters.</td></tr>`;
   }

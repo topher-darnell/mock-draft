@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "16", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "17", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -751,7 +751,7 @@ FF_TEAM = {"ARI": "Cardinals", "ATL": "Falcons", "BAL": "Ravens", "BUF": "Bills"
 def ff_leader_rows(rows, fmt, pos="All", n=50):
     rows = sorted([r for r in rows if pos == "All" or r["p"] == pos], key=lambda r: -r["s"][fmt])[:n]
     return "".join(
-        f'<tr><td class="ff-rk">{i}</td><th scope="row">{esc(r["n"])}<span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))} · {esc(r["line"])}</span></th>'
+        f'<tr><td class="ff-rk">{i}</td><th scope="row"><a href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a><span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))} · {esc(r["line"])}</span></th>'
         f'<td>{r["g"]}</td><td><b>{r["s"][fmt]:.1f}</b></td><td>{r["s"][fmt] / r["g"]:.1f}</td></tr>'
         for i, r in enumerate(rows, 1))
 
@@ -774,7 +774,7 @@ def ff_rookie_rows(rows, key, fmt, n=25):
 def fantasy_page():
     lead = fantasy.leaders()
     rook = fantasy.rookies()
-    data = json.dumps({"leaders": lead, "rookies": [
+    data = json.dumps({"leaders": [dict(r, slug=slug(r["n"])) for r in lead], "rookies": [
         dict(r, slug=by_name[r["n"]]["slug"] if r["n"] in by_name else "", short=short(r["team"])) for r in rook]},
         separators=(",", ":")).replace("</", "<\\/")
     fmt_btns = "".join(f'<button class="filter{" active" if k == "ppr" else ""}" data-fmt="{k}" aria-pressed="{"true" if k == "ppr" else "false"}">{label}</button>'
@@ -849,7 +849,7 @@ def fantasy_page():
     desc = (f"2026 fantasy football leaders in Standard, Half PPR, PPR and TE Premium scoring, plus 2027 rookie rankings for next season and dynasty. "
             f"PPR leader: {top['ppr']['n']}. Top dynasty rookie: {r1['n']}.")
     return page("fantasy.html", "Fantasy Football Leaders 2026 and 2027 Dynasty Rookie Rankings · Big Head GM", desc,
-                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=4",))
+                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=5",))
 
 
 # ---------- games ----------
@@ -1089,6 +1089,127 @@ def prospectle_page():
           body, nav="games/", scripts=("games/prospectle.js?v=1",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
 
 
+# ---------- NFL fantasy player profiles (docs/fantasy/<player>.html) ----------
+
+FF_POS_NAME = {"QB": "quarterback", "RB": "running back", "WR": "wide receiver", "TE": "tight end"}
+FF_POS_PLURAL = {"QB": "quarterbacks", "RB": "running backs", "WR": "wide receivers", "TE": "tight ends"}
+
+
+def nfl_profiles():
+    lead = fantasy.leaders()
+    raw = {r["name"]: r for r in fantasy.read("fantasy_stats.csv")}
+    full = {short(t): t for t in team_names}
+    fmts = [k for k, _ in fantasy.FORMATS]
+    rank, prank = {}, {}
+    for k in fmts:
+        for i, r in enumerate(sorted(lead, key=lambda r: -r["s"][k]), 1):
+            rank[(r["n"], k)] = i
+        for pos in FF_POS_NAME:
+            for i, r in enumerate(sorted([x for x in lead if x["p"] == pos], key=lambda r: -r["s"][k]), 1):
+                prank[(r["n"], k)] = i
+    count = {pos: sum(1 for r in lead if r["p"] == pos) for pos in FF_POS_NAME}
+    paths = []
+    for r in lead:
+        n, pos, g = r["n"], r["p"], r["g"]
+        st = raw[n]
+        f = fantasy.f
+        team = full.get(FF_TEAM.get(r["t"], ""), r["t"])
+        sl = slug(n)
+        ppr, ppg = r["s"]["ppr"], r["s"]["ppr"] / g
+        intro = (f"{n} is a {FF_POS_NAME[pos]} for the {team}. {fantasy.STATS_AS_OF[0].upper() + fantasy.STATS_AS_OF[1:]}, "
+                 f"he has {ppr:.1f} PPR fantasy points in {g} game{'s' if g != 1 else ''} ({ppg:.1f} per game). That ranks "
+                 f"{ordinal(prank[(n, 'ppr')])} among {count[pos]} {FF_POS_PLURAL[pos]} and {ordinal(rank[(n, 'ppr')])} among all "
+                 f"{len(lead)} players in PPR scoring.")
+        if r["line"]:
+            intro += f" His season so far: {r['line']}."
+
+        fmt_rows = "".join(
+            f'<tr><th scope="row">{label}</th><td><b>{r["s"][k]:.1f}</b></td><td>{r["s"][k] / g:.1f}</td>'
+            f'<td>{pos}{prank[(n, k)]}</td><td>#{rank[(n, k)]}</td></tr>'
+            for k, label in fantasy.FORMATS if k != "tep" or pos == "TE")
+
+        tiles = [("Games", g)]
+        if pos == "QB":
+            tiles += [("Pass yds", f(st["pass_yds"])), ("Pass TD", f(st["pass_td"])), ("INT", f(st["int"])),
+                      ("Rush yds", f(st["rush_yds"])), ("Rush TD", f(st["rush_td"]))]
+        elif pos == "RB":
+            tiles += [("Rush yds", f(st["rush_yds"])), ("Rush TD", f(st["rush_td"])), ("Catches", f(st["rec"])),
+                      ("Rec yds", f(st["rec_yds"])), ("Rec TD", f(st["rec_td"]))]
+        else:
+            tiles += [("Catches", f(st["rec"])), ("Rec yds", f(st["rec_yds"])), ("Rec TD", f(st["rec_td"])),
+                      ("Per catch", round(f(st["rec_yds"]) / f(st["rec"]), 1) if f(st["rec"]) else "—")]
+            if f(st["rush_yds"]) or f(st["rush_td"]):
+                tiles += [("Rush yds", f(st["rush_yds"])), ("Rush TD", f(st["rush_td"]))]
+        show = lambda v: v if isinstance(v, str) else (f"{int(v):,}" if float(v).is_integer() else f"{v:g}")
+        tiles_html = "".join(f"<div><dt>{esc(k)}</dt><dd>{esc(show(v))}</dd></div>" for k, v in tiles)
+
+        def mini(rows, me=None):
+            return "".join(
+                f'<li class="bb-row{" me" if q["n"] == me else ""}"><span class="bb-rank">{q["p"]}{prank[(q["n"], "ppr")]}</span>'
+                f'<span class="bb-text"><a class="bb-name" href="{slug(q["n"])}.html">{esc(q["n"])}</a>'
+                f'<span class="bb-meta">{esc(FF_TEAM.get(q["t"], q["t"]))} · {q["s"]["ppr"] / q["g"]:.1f} per game</span></span>'
+                f'<span class="bb-adp">{q["s"]["ppr"]:.1f}</span></li>' for q in rows)
+        mates = sorted([q for q in lead if q["t"] == r["t"]], key=lambda q: -q["s"]["ppr"])
+        same = sorted([q for q in lead if q["p"] == pos], key=lambda q: -q["s"]["ppr"])
+        i = prank[(n, "ppr")] - 1
+        start = max(0, min(i - 3, len(same) - 7))
+        peers = same[start:start + 7]
+
+        body = f"""
+    <p class="eyebrow">2026 FANTASY PROFILE</p>
+    <div class="pg-head">
+      {gm_tag(team, "happy", 64, "avatar ff-head-gm")}
+      <div>
+        <h1 class="pg-title">{esc(n)}</h1>
+        <p class="pg-meta">{pos} · {esc(team)} · {pos}{prank[(n, 'ppr')]} in PPR</p>
+      </div>
+    </div>
+    <p class="pg-text">{esc(intro)}</p>
+
+    <section class="pg-section">
+      <h2 class="home-h2">Fantasy points by scoring</h2>
+      <div class="od-wrap">
+        <table class="od-table ff-fmt-table">
+          <thead><tr><th scope="col">Scoring</th><th scope="col">Points</th><th scope="col">Per game</th><th scope="col">{pos} rank</th><th scope="col">Overall</th></tr></thead>
+          <tbody>{fmt_rows}</tbody>
+        </table>
+      </div>
+      <p class="in-note">Standard: 1 point per 10 rushing or receiving yards, 6 per touchdown, 1 per 25 passing yards, 4 per passing TD, minus 2 per interception. Half PPR and PPR add half or a full point per catch.{' TE Premium adds another half point per catch for tight ends.' if pos == 'TE' else ''}</p>
+    </section>
+
+    <section class="pg-section">
+      <h2 class="home-h2">2026 stats</h2>
+      <p class="in-note">{esc(fantasy.STATS_AS_OF[0].upper() + fantasy.STATS_AS_OF[1:])}</p>
+      <dl class="pc-stats pg-stats">{tiles_html}</dl>
+    </section>
+
+    <section class="pg-section">
+      <h2 class="home-h2">{esc(short(team))} fantasy players</h2>
+      <ol class="bb-list">{mini(mates, n)}</ol>
+    </section>
+
+    <section class="pg-section">
+      <h2 class="home-h2">{pos}s near him in PPR</h2>
+      <ol class="bb-list">{mini(peers, n)}</ol>
+      <p class="pg-more"><a href="../fantasy.html">All fantasy leaders →</a></p>
+    </section>
+
+    <section class="pg-cta">
+      <div>
+        <h2>Can you guess today's mystery player?</h2>
+        <p>Fantasle: find the NFL fantasy player in 8 tries.</p>
+      </div>
+      <a class="pg-button" href="../games/fantasle.html">Play Fantasle</a>
+    </section>
+    {signup("nfl-player")}"""
+        desc = (f"{n} fantasy stats 2026: {ppr:.1f} PPR points ({ppg:.1f} per game), {pos}{prank[(n, 'ppr')]} in PPR. "
+                f"Standard, Half PPR and PPR points, ranks and season stats for the {team} {FF_POS_NAME[pos]}.")
+        write(f"fantasy/{sl}.html", page(f"fantasy/{sl}.html", f"{n} Fantasy Stats 2026 · {pos}, {short(team)} · Big Head GM",
+                                          desc, body, crumbs=[("Fantasy", "fantasy.html"), (n, f"fantasy/{sl}.html")], nav="fantasy.html"))
+        paths.append(f"fantasy/{sl}.html")
+    return paths
+
+
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 
 DIVISION = {}
@@ -1114,7 +1235,7 @@ def fantasle_page():
                      r["p"], round(r["s"]["ppr"] / r["g"], 1),
                      int(fantasy.f(s_["pass_td"]) + fantasy.f(s_["rush_td"]) + fantasy.f(s_["rec_td"])),
                      int(fantasy.f(s_["pass_yds"]) + fantasy.f(s_["rush_yds"]) + fantasy.f(s_["rec_yds"])),
-                     int(fantasy.f(s_["rec"])), 1 if r["n"] in pool else 0])
+                     int(fantasy.f(s_["rec"])), 1 if r["n"] in pool else 0, slug(r["n"])])
     data = json.dumps(rows, separators=(",", ":")).replace("</", "<\\/")
     body = f"""
     <div class="gm-shell pl-shell" id="fantasle">
@@ -1178,7 +1299,7 @@ def fantasle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/fantasle.html", page("games/fantasle.html", "Fantasle: Guess the NFL Fantasy Player · Big Head GM",
           "Fantasle is a free daily NFL fantasy football guessing game. Guess the mystery player in 8 tries from his team, division, position, PPR points per game, touchdowns, yards and catches.",
-          body, nav="games/", scripts=("games/fantasle.js?v=1",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
+          body, nav="games/", scripts=("games/fantasle.js?v=2",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
 
 
 # ---------- home page: today's games and fantasy leaders ----------
@@ -1266,6 +1387,7 @@ def main():
     prospectle_page()
     fantasle_page()
     home_blocks()
+    paths += nfl_profiles()
     sitemap(paths)
     print(f"Built {len(players)} player pages, {len(team_names)} team pages, the odds page, the games pages and sitemap.xml ({len(paths)} pages)")
 
