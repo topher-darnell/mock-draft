@@ -809,7 +809,7 @@ def fantasy_page():
       </div>
       <div class="od-wrap">
         <table class="od-table ff-table">
-          <thead><tr><th scope="col" class="ff-rk">#</th><th scope="col">Player</th><th scope="col">G</th><th scope="col">Pts</th><th scope="col">PPG</th></tr></thead>
+          <thead><tr><th scope="col" class="ff-rk">#</th><th scope="col">Player</th><th scope="col">GP</th><th scope="col">Pts</th><th scope="col">PPG</th></tr></thead>
           <tbody id="ff-lead">{ff_leader_rows(lead, "ppr")}</tbody>
         </table>
       </div>
@@ -1147,7 +1147,7 @@ def nfl_profiles():
             return "".join(
                 f'<li class="bb-row{" me" if q["n"] == me else ""}"><span class="bb-rank">{q["p"]}{prank[(q["n"], "ppr")]}</span>'
                 f'<span class="bb-text"><a class="bb-name" href="{slug(q["n"])}.html">{esc(q["n"])}</a>'
-                f'<span class="bb-meta">{esc(FF_TEAM.get(q["t"], q["t"]))} · {q["s"]["ppr"]:.1f} pts · {q["g"]} G</span></span>'
+                f'<span class="bb-meta">{esc(FF_TEAM.get(q["t"], q["t"]))} · {q["s"]["ppr"]:.1f} pts · {q["g"]} GP</span></span>'
                 f'<span class="ff-ppg"><b>{q["s"]["ppr"] / q["g"]:.1f}</b><span>PPR PPG</span></span></li>' for q in rows)
         order = list(FF_POS_NAME)
         mates = sorted([q for q in lead if q["t"] == r["t"]], key=lambda q: (order.index(q["p"]), -q["s"]["ppr"]))
