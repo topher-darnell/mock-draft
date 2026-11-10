@@ -2,7 +2,7 @@
 // Online: always gets the newest files (and saves a copy).
 // Offline: uses the saved copy, so the home-screen app still runs a full mock.
 // Bump VERSION if you ever need every phone to throw away its saved copy.
-const VERSION = "bhg-v8";
+const VERSION = "bhg-v9";
 
 // the GM photos: same number as PHOTO_V in gm.js
 const PHOTO_V = "1";
@@ -18,6 +18,8 @@ const CORE = [
   "site.js",
   "newsletter.js",
   "games/",
+  "games/prospectle.html",
+  "games/prospectle.js",
   "games/blitz.html",
   "games/blitz.js",
   "games/juke.html",

@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "12", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "13", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -853,6 +853,12 @@ def games_pages():
     <h1 class="in-title">Games</h1>
     <p class="in-sub">Quick games for when you're not on the clock. Free, no sign-up, and they work on your phone.</p>
     <div class="gh-grid">
+      <a class="gh-card" href="prospectle.html">
+        <span class="gh-art gh-pl" aria-hidden="true"><i class="g">SEC</i><i class="y">WR</i><i>6-2</i><i class="g">#7</i></span>
+        <span class="gh-text"><b>Prospectle</b>
+          <span>Guess the mystery 2027 prospect in 8 tries. Green is a match, yellow is close. New player every day, or play unlimited.</span>
+          <span class="pg-go">Play →</span></span>
+      </a>
       <a class="gh-card" href="blitz.html">
         <span class="gh-art gh-blitz" aria-hidden="true"><span>DRAFT</span><span>PASS</span></span>
         <span class="gh-text"><b>Draft Day Blitz</b>
@@ -867,8 +873,8 @@ def games_pages():
       </a>
     </div>
     {signup("games")}"""
-    write("games/index.html", page("games/index.html", "Free Football Games: Draft Day Blitz and Juke · Big Head GM",
-          "Two quick, free football games from Big Head GM: Draft Day Blitz, a daily swipe-to-draft challenge, and Juke, an endless runner through 32 big-headed GMs.",
+    write("games/index.html", page("games/index.html", "Free Football Games: Prospectle, Draft Day Blitz and Juke · Big Head GM",
+          "Free football games from Big Head GM: Prospectle, a daily guess-the-prospect game, Draft Day Blitz, a daily swipe-to-draft challenge, and Juke, an endless runner through 32 big-headed GMs.",
           hub, crumbs=[("Games", "games/")], nav="games/"))
 
     blitz = """
@@ -969,6 +975,102 @@ def games_pages():
           juke, nav="games/", scripts=("games/juke.js?v=1",), body_class="info-page game-page"))
 
 
+# ---------- Prospectle (the daily guess-the-prospect game) ----------
+
+CONF = {}
+for conf, schools in {
+    "SEC": "Alabama|Arkansas|Auburn|Florida|Georgia|Kentucky|LSU|Mississippi State|Missouri|Oklahoma|Ole Miss|South Carolina|Tennessee|Texas|Texas A&M|Vanderbilt",
+    "Big Ten": "Illinois|Indiana|Iowa|Maryland|Michigan|Michigan State|Minnesota|Nebraska|Northwestern|Ohio State|Oregon|Penn State|Rutgers|UCLA|USC|Washington|Wisconsin",
+    "ACC": "California|Clemson|Duke|Florida State|Georgia Tech|Louisville|Miami (FL)|NC State|North Carolina|Pittsburgh|SMU|Stanford|Syracuse|Virginia|Virginia Tech|Wake Forest",
+    "Big 12": "Arizona State|BYU|Baylor|Cincinnati|Colorado|Houston|Kansas State|Oklahoma State|TCU|Texas Tech|UCF|Utah|West Virginia",
+    "Independent": "Notre Dame",
+    "Pac-12": "Boise State|Fresno State",
+    "Mountain West": "Nevada|UNLV",
+    "American": "Army|Florida Atlantic|Memphis|Temple|Tulsa|UTSA",
+    "C-USA": "Liberty",
+    "FCS": "Austin Peay|North Dakota State|Youngstown State|Yale",
+}.items():
+    for school in schools.split("|"):
+        CONF[school] = conf
+PROSPECTLE_POOL = 75         # the daily answer is always one of the top 75 on the board
+
+
+def prospectle_page():
+    rows = []
+    for p in players:
+        a = p.get("adp") or {}
+        ft, inch = (p["height"].split("-") + ["0"])[:2] if p.get("height") else ("0", "0")
+        rows.append([p["name"], p["slug"], p["position"], p["college"], CONF.get(p["college"], "Other"),
+                     int(ft) * 12 + int(inch), int(p.get("weight") or 0), p["year"],
+                     round(a["avg"]) if a.get("avg") and a.get("pct", 0) >= 50 else 0,
+                     a.get("team", ""), 1 if p["rank"] <= PROSPECTLE_POOL else 0])
+    missing = sorted({p["college"] for p in players if p["college"] not in CONF})
+    assert not missing, f"add these schools to CONF: {missing}"
+    data = json.dumps(rows, separators=(",", ":")).replace("</", "<\\/")
+    body = f"""
+    <div class="gm-shell pl-shell" id="prospectle">
+      <div class="gm-top">
+        <div><p class="eyebrow" id="pl-eyebrow">DAILY</p><h1 class="gm-title">Prospectle</h1></div>
+        <a class="gm-exit" href="./">All games</a>
+      </div>
+      <div class="in-chips pl-modes" id="pl-modes">
+        <button class="filter active" data-mode="daily" aria-pressed="true">Daily</button>
+        <button class="filter" data-mode="unlimited" aria-pressed="false">Unlimited</button>
+        <button class="filter" data-mode="help" aria-pressed="false">How to play</button>
+        <button class="filter" data-mode="stats" aria-pressed="false">Stats</button>
+      </div>
+
+      <section class="gm-panel" id="pl-help" hidden>
+        <p class="pg-text">Guess the mystery <b>2027 NFL Draft prospect</b> in <b>8 tries</b>. After each guess, every box tells you how close you are.</p>
+        <ul class="gm-rules">
+          <li><span class="pl-key g"></span> <b>Green</b>: exact match.</li>
+          <li><span class="pl-key y"></span> <b>Yellow</b>: close. Same position group, height within 2 inches, weight within 10 lbs, class one year off, projected pick within 10.</li>
+          <li><b>↑</b> means the mystery player's number is higher. <b>↓</b> means it's lower.</li>
+          <li><b>Pick</b> is where he goes on average in our {SIMS} simulated drafts. UDFA means he usually goes undrafted.</li>
+        </ul>
+        <p class="pg-text">The daily player is the same for everyone and changes at midnight Eastern. Unlimited gives you a new player every round.</p>
+        <button class="start gm-wide" id="pl-help-close">Play</button>
+      </section>
+
+      <section class="gm-panel" id="pl-stats" hidden>
+        <div class="pl-statrow" id="pl-statrow"></div>
+        <h2 class="home-h2">Guesses (daily)</h2>
+        <div class="pl-dist" id="pl-dist"></div>
+        <button class="start gm-wide" id="pl-stats-close">Back to the game</button>
+      </section>
+
+      <section class="gm-panel" id="pl-game">
+        <div class="pl-search">
+          <label class="sr-only" for="pl-input">Guess a 2027 prospect</label>
+          <input id="pl-input" type="search" placeholder="Type a prospect's name" autocomplete="off" autocapitalize="words" spellcheck="false">
+          <ul class="pl-suggest" id="pl-suggest" role="listbox" hidden></ul>
+        </div>
+        <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
+        <div class="pl-head" aria-hidden="true"><span>School</span><span>Conf</span><span>Pos</span><span>Ht</span><span>Wt</span><span>Class</span><span>Pick</span></div>
+        <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
+        <div class="pl-done" id="pl-done" hidden>
+          <div class="pl-reveal">
+            <span class="pl-gm" id="pl-gm"></span>
+            <div><p class="pl-result" id="pl-result"></p><a class="pl-name" id="pl-answer" href="#"></a><span class="pl-meta" id="pl-meta"></span></div>
+          </div>
+          <p class="bz-squares pl-squares" id="pl-squares" aria-hidden="true"></p>
+          <div class="bz-buttons">
+            <button class="secondary" id="pl-share">Share</button>
+            <button class="start" id="pl-next">Play unlimited</button>
+          </div>
+          <p class="in-note" id="pl-share-note" role="status"></p>
+          <p class="in-note" id="pl-countdown"></p>
+        </div>
+        <button class="pl-giveup" id="pl-giveup">Give up</button>
+      </section>
+      {signup("prospectle")}
+    </div>
+    <script type="application/json" id="pl-data">{data}</script>"""
+    write("games/prospectle.html", page("games/prospectle.html", "Prospectle: Guess the 2027 NFL Draft Prospect · Big Head GM",
+          "Prospectle is a free daily NFL draft guessing game. Guess the mystery 2027 prospect in 8 tries using his school, conference, position, size, class and projected pick. Play daily or unlimited.",
+          body, nav="games/", scripts=("games/prospectle.js?v=1",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
+
+
 # ---------- sitemap ----------
 
 def sitemap(paths):
@@ -979,7 +1081,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "games/", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "games/", "games/prospectle.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -991,6 +1093,7 @@ def main():
     write("odds.html", odds_page())
     write("fantasy.html", fantasy_page())
     games_pages()
+    prospectle_page()
     sitemap(paths)
     print(f"Built {len(players)} player pages, {len(team_names)} team pages, the odds page, the games pages and sitemap.xml ({len(paths)} pages)")
 
