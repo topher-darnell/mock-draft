@@ -26,6 +26,19 @@ Search the news for any NFL trade since the last update that moved a 2027 draft 
 pick's row in `draft_order.csv` (set `team` to the new owner and `from` to the original team).
 List what you changed in the commit message.
 
+## 2b. Fantasy stats
+
+1. With WebFetch, open the four FFToday season pages (PosID 10 = QB, 20 = RB, 30 = WR, 40 = TE):
+   `https://www.fftoday.com/stats/playerstats.php?Season=2026&GameWeek=&PosID=10&LeagueID=`
+   Ask for the table "verbatim, each row on its own line, cells separated by |" (asking for CSV
+   scrambles rows).
+2. Rewrite `fantasy_stats.csv` (keep the columns; `fftoday_half` = FFToday's FPts). Keep the top
+   40 QBs and RBs, 50 WRs and 30 TEs. Use JAX for Jacksonville and WAS for Washington, and give
+   traded players their new team.
+3. Change `STATS_AS_OF` in `fantasy.py` to the new week.
+4. Run `python3 fantasy.py`: it must say "0 to check". The TE table has no rushing columns, so a
+   TE that is off by a few points ran the ball: put the missing rushing yards/TDs on his row.
+
 ## 3. Rebuild
 
     python3 update_order.py standings.txt

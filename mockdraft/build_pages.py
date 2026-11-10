@@ -25,11 +25,13 @@ import json
 import os
 import re
 
+import fantasy
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "9", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "10", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -43,7 +45,7 @@ POS_ORDER = ["QB", "RB", "WR", "TE", "OT", "IOL", "EDGE", "IDL", "LB", "CB", "S"
 YEAR_NAME = {"RS Senior": "redshirt senior", "RS Junior": "redshirt junior", "RS Sophomore": "redshirt sophomore"}
 
 NAV = [("", "Mock draft"), ("players/", "Big board"), ("teams/", "Teams"), ("odds.html", "#1 pick odds"),
-       ("insights.html", "1,000 drafts"), ("games/", "Games")]
+       ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("games/", "Games")]
 
 
 # ---------- small helpers ----------
@@ -736,6 +738,109 @@ def odds_page():
                 body, crumbs=[("#1 pick odds", "odds.html")], nav="odds.html")
 
 
+# ---------- fantasy ----------
+
+FF_TEAM = {"ARI": "Cardinals", "ATL": "Falcons", "BAL": "Ravens", "BUF": "Bills", "CAR": "Panthers", "CHI": "Bears",
+           "CIN": "Bengals", "CLE": "Browns", "DAL": "Cowboys", "DEN": "Broncos", "DET": "Lions", "GB": "Packers",
+           "HOU": "Texans", "IND": "Colts", "JAX": "Jaguars", "KC": "Chiefs", "LV": "Raiders", "LAC": "Chargers",
+           "LAR": "Rams", "MIA": "Dolphins", "MIN": "Vikings", "NE": "Patriots", "NO": "Saints", "NYG": "Giants",
+           "NYJ": "Jets", "PHI": "Eagles", "PIT": "Steelers", "SF": "49ers", "SEA": "Seahawks", "TB": "Buccaneers",
+           "TEN": "Titans", "WAS": "Commanders"}
+
+
+def ff_leader_rows(rows, fmt, pos="All", n=50):
+    rows = sorted([r for r in rows if pos == "All" or r["p"] == pos], key=lambda r: -r["s"][fmt])[:n]
+    return "".join(
+        f'<tr><td class="ff-rk">{i}</td><th scope="row">{esc(r["n"])}<span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))} · {esc(r["line"])}</span></th>'
+        f'<td>{r["g"]}</td><td><b>{r["s"][fmt]:.1f}</b></td><td>{r["s"][fmt] / r["g"]:.1f}</td></tr>'
+        for i, r in enumerate(rows, 1))
+
+
+def ff_rookie_rows(rows, key, fmt, n=25):
+    rows = sorted(rows, key=lambda r: -r[key][fmt])[:n]
+    out = ""
+    for i, r in enumerate(rows, 1):
+        p = by_name.get(r["n"])
+        name = f'<a href="players/{p["slug"]}.html">{esc(r["n"])}</a>' if p else esc(r["n"])
+        age = f' · age {r["age"]:g}' if r["age"] else ""
+        why = f' · {esc(r["why"])}' if r["why"] else ""
+        out += (f'<li class="ff-rook"><span class="bb-rank">{i}</span>{gm_tag(r["team"], "happy", 40)}'
+                f'<span class="bb-text"><b class="ff-rname">{name}</b>'
+                f'<span class="bb-meta">{r["p"]} · {esc(r["c"])}{age}{why}</span>'
+                f'<span class="bb-meta">Projected pick #{r["pick"]:g} · most often to the {esc(short(r["team"]))} ({r["tp"]:g}%)</span></span></li>')
+    return out
+
+
+def fantasy_page():
+    lead = fantasy.leaders()
+    rook = fantasy.rookies()
+    data = json.dumps({"leaders": lead, "rookies": [
+        dict(r, slug=by_name[r["n"]]["slug"] if r["n"] in by_name else "", short=short(r["team"])) for r in rook]},
+        separators=(",", ":")).replace("</", "<\\/")
+    fmt_btns = "".join(f'<button class="filter{" active" if k == "ppr" else ""}" data-fmt="{k}" aria-pressed="{"true" if k == "ppr" else "false"}">{label}</button>'
+                       for k, label in fantasy.FORMATS)
+    pos_btns = "".join(f'<button class="filter{" active" if p == "All" else ""}" data-pos="{p}" aria-pressed="{"true" if p == "All" else "false"}">{p}</button>'
+                       for p in ("All", "QB", "RB", "WR", "TE"))
+    top = {k: max(lead, key=lambda r: r["s"][k]) for k, _ in fantasy.FORMATS}
+    r1 = max(rook, key=lambda r: r["dyn"]["ppr"])
+    body = f"""
+    <p class="eyebrow">FANTASY FOOTBALL</p>
+    <h1 class="in-title">Fantasy leaders and 2027 rookie rankings</h1>
+    <p class="in-sub">Who's scoring the most fantasy points in 2026, and which 2027 rookies to target, for next season and for dynasty. Pick your league's scoring and everything on the page updates.</p>
+
+    <div class="ff-bar">
+      <p class="ff-label">Your scoring</p>
+      <div class="in-chips ff-fmt" id="ff-fmt" aria-label="Scoring">{fmt_btns}</div>
+    </div>
+
+    <section class="pg-section" id="leaders">
+      <h2 class="home-h2">Who's leading in 2026</h2>
+      <p class="in-note">Season totals {fantasy.STATS_AS_OF}. Tap a position to see just that group.</p>
+      <div class="in-chips bb-chips" id="ff-pos" aria-label="Position">{pos_btns}</div>
+      <div class="od-wrap">
+        <table class="od-table ff-table">
+          <thead><tr><th scope="col" class="ff-rk">#</th><th scope="col">Player</th><th scope="col">G</th><th scope="col">Pts</th><th scope="col">Per game</th></tr></thead>
+          <tbody id="ff-lead">{ff_leader_rows(lead, "ppr")}</tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="pg-section" id="next-year">
+      <h2 class="home-h2">Best 2027 rookies for next season</h2>
+      <p class="in-note">Who should help a fantasy team the most as a rookie in 2027. Backs and receivers drafted early get the biggest boost; rookie quarterbacks and tight ends usually take time.</p>
+      <ol class="bb-list ff-list" id="ff-y1">{ff_rookie_rows(rook, "y1", "ppr")}</ol>
+    </section>
+
+    <section class="pg-section" id="dynasty">
+      <h2 class="home-h2">2027 dynasty rookie rankings</h2>
+      <p class="in-note">For leagues where you keep players for years. Youth and position matter more here: a 20-year-old receiver can be a starter for a decade. Rankings are for 1-QB leagues.</p>
+      <ol class="bb-list ff-list" id="ff-dyn">{ff_rookie_rows(rook, "dyn", "ppr")}</ol>
+    </section>
+
+    <section class="pg-section">
+      <h2 class="home-h2">How the scoring works</h2>
+      <p class="pg-text"><b>Standard:</b> 1 point per 10 rushing or receiving yards, 6 per rushing or receiving touchdown, 1 per 25 passing yards, 4 per passing touchdown, minus 2 per interception. <b>Half PPR</b> adds half a point per catch. <b>PPR</b> adds a full point per catch. <b>TE Premium</b> is PPR plus an extra half point for every tight end catch. Fumbles and two-point conversions aren't counted.</p>
+      <p class="pg-text"><b>Rookie rankings</b> are our own model, not anyone's consensus. They mix where each player goes in our {SIMS} simulated drafts (the biggest part), his age on draft day and his college production. Most-likely team comes from those same simulations and will change as the draft order does.</p>
+    </section>
+
+    <section class="pg-cta">
+      <div>
+        <h2>Put him on your team</h2>
+        <p>Run a mock and draft the rookies you want.</p>
+      </div>
+      <a class="pg-button" href="./?start=1">Start a mock draft</a>
+    </section>
+
+    {signup("fantasy")}
+
+    <p class="od-fine">2026 stats: <a href="https://www.fftoday.com/stats/playerstats.php" rel="noopener nofollow">FFToday</a>, {fantasy.STATS_AS_OF}. Players traded at the deadline are listed with their new team. Updated every Tuesday.</p>
+    <script type="application/json" id="ff-data">{data}</script>"""
+    desc = (f"2026 fantasy football leaders in Standard, Half PPR, PPR and TE Premium scoring, plus 2027 rookie rankings for next season and dynasty. "
+            f"PPR leader: {top['ppr']['n']}. Top dynasty rookie: {r1['n']}.")
+    return page("fantasy.html", "Fantasy Football Leaders 2026 and 2027 Dynasty Rookie Rankings · Big Head GM", desc,
+                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=1",))
+
+
 # ---------- games ----------
 
 def games_pages():
@@ -870,7 +975,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "games/", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "games/", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -880,6 +985,7 @@ def main():
         write(f"teams/{slug(team)}.html", team_page(team))
         paths.append(f"teams/{slug(team)}.html")
     write("odds.html", odds_page())
+    write("fantasy.html", fantasy_page())
     games_pages()
     sitemap(paths)
     print(f"Built {len(players)} player pages, {len(team_names)} team pages, the odds page, the games pages and sitemap.xml ({len(paths)} pages)")
