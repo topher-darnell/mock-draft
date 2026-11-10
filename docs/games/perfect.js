@@ -13,8 +13,8 @@
   const URL = "bigheadgm.com/games/17-0.html";
   const KEY = "bhg-17-daily", STATS = "bhg-17-stats";
   // the leaderboard lives in Supabase (free plan). Empty = leaderboard turned off.
-  const SUPA_URL = "";
-  const SUPA_KEY = "";
+  const SUPA_URL = "https://xlybkkhxllgypmuakicp.supabase.co";
+  const SUPA_KEY = "sb_publishable_zIGg0KqSR-XqGU48bRwYrQ_03MUQL9s";   // publishable: safe to be public
   const BOARD = !!(SUPA_URL && SUPA_KEY);
   const count = (path, title) => window.BHG && window.BHG.countEvent(path, title);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -292,7 +292,9 @@
   }
   async function api(path, opts = {}) {
     const res = await fetch(`${SUPA_URL}/rest/v1/${path}`, Object.assign({
-      headers: { apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}`, "Content-Type": "application/json" },
+      // new-style publishable keys go in the apikey header only (they aren't JWTs)
+      headers: Object.assign({ apikey: SUPA_KEY, "Content-Type": "application/json" },
+        SUPA_KEY.startsWith("sb_") ? {} : { Authorization: `Bearer ${SUPA_KEY}` }),
     }, opts));
     if (!res.ok) throw new Error(await res.text());
     return res.status === 204 ? null : res.json();

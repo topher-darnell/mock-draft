@@ -1466,7 +1466,7 @@ def perfect_page():
     <script type="application/json" id="p17-data">{data}</script>"""
     write("games/17-0.html", page("games/17-0.html", "17-0: Draft a Fantasy Team and Go Undefeated · Big Head GM",
           "17-0 is a free fantasy football game. Draft a PPR lineup one random NFL team at a time, then play a 17-week season with real 2026 stats. Can you go undefeated?",
-          body, nav="games/", scripts=("games/perfect.js?v=5",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
+          body, nav="games/", scripts=("games/perfect.js?v=6",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
 
 
 # ---------- sitemap ----------
