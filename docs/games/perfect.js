@@ -12,6 +12,10 @@
   const START = Date.UTC(2026, 10, 10);
   const URL = "bigheadgm.com/games/17-0.html";
   const KEY = "bhg-17-daily", STATS = "bhg-17-stats";
+  // the leaderboard lives in Supabase (free plan). Empty = leaderboard turned off.
+  const SUPA_URL = "";
+  const SUPA_KEY = "";
+  const BOARD = !!(SUPA_URL && SUPA_KEY);
   const count = (path, title) => window.BHG && window.BHG.countEvent(path, title);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
@@ -208,7 +212,13 @@
     s.played++; if (w === 17) s.perfect++; s.best = Math.max(s.best, w);
     save(STATS, s);
     $("p17-best").textContent = `Best: ${s.best}-${17 - s.best} · Perfect seasons: ${s.perfect}`;
-    if (g.mode === "daily") save(KEY, { day: g.day, lineup: g.lineup.map((p) => p.n), weeks: g.weeks, w, l });
+    if (g.mode === "daily") {
+      save(KEY, { day: g.day, lineup: g.lineup.map((p) => p.n), weeks: g.weeks, w, l });
+      offerPost(w);
+    } else {
+      $("p17-post").hidden = true;
+      $("p17-post-note").textContent = BOARD ? "Only today's daily draft goes on the leaderboard, since everyone gets the same teams." : "";
+    }
     count(`17-0-${g.mode}-${w}`, "17-0 season");
   }
 
@@ -253,6 +263,7 @@
           $("p17-squares").textContent = squares();
           $("p17-end").hidden = false;
           $("p17-again").textContent = "Free play";
+          offerPost(done.w);
           return;
         }
         g = newGame(mode);
@@ -268,6 +279,95 @@
   $("p17-daily").addEventListener("click", () => start("daily"));
   $("p17-free").addEventListener("click", () => start("free"));
   $("p17-again").addEventListener("click", () => start("free"));
+
+  // ---------- leaderboard ----------
+  const NAME_KEY = "bhg-17-name", POSTED = "bhg-17-posted", DEVICE = "bhg-17-device";
+  function device() {
+    let d = load(DEVICE, null);
+    if (!d) {
+      d = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()).replace(/-/g, "");
+      save(DEVICE, d);
+    }
+    return d;
+  }
+  async function api(path, opts = {}) {
+    const res = await fetch(`${SUPA_URL}/rest/v1/${path}`, Object.assign({
+      headers: { apikey: SUPA_KEY, Authorization: `Bearer ${SUPA_KEY}`, "Content-Type": "application/json" },
+    }, opts));
+    if (!res.ok) throw new Error(await res.text());
+    return res.status === 204 ? null : res.json();
+  }
+  const BAD = /(fuck|shit|bitch|cunt|nigg|fag|dick|pussy|whore|slut|rape|nazi|retard)/i;
+  function cleanName(v) {
+    const n = v.replace(/[^A-Za-z0-9 _.'-]/g, "").replace(/\s+/g, " ").trim().slice(0, 20);
+    return n.length >= 2 && !BAD.test(n.replace(/[^a-z]/gi, "")) ? n : "";
+  }
+
+  function offerPost(w) {
+    if (!BOARD) return;
+    const posted = load(POSTED, 0) === g.day;
+    $("p17-post").hidden = posted;
+    $("p17-post-note").textContent = posted ? "Your record is on today's leaderboard." : "";
+    $("p17-name").value = load(NAME_KEY, "") || "";
+    $("p17-post-btn").dataset.w = w;
+    $("p17-board-link").hidden = false;
+  }
+
+  $("p17-post").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = cleanName($("p17-name").value);
+    if (!name) { $("p17-post-note").textContent = "Pick a name: 2 to 20 letters or numbers, nothing rude."; return; }
+    const btn = $("p17-post-btn");
+    btn.disabled = true;
+    btn.textContent = "Posting…";
+    try {
+      await api("rpc/submit_score", { method: "POST", body: JSON.stringify({
+        p_day: g.day, p_name: name, p_wins: +btn.dataset.w, p_lineup: g.lineup.map((p) => p.n), p_device: device() }) });
+      save(NAME_KEY, name);
+      save(POSTED, g.day);
+      $("p17-post").hidden = true;
+      $("p17-post-note").textContent = "Posted! Here's where you stand.";
+      count("17-0-posted", "17-0 posted to leaderboard");
+      openBoard();
+    } catch (err) {
+      $("p17-post-note").textContent = "Couldn't post right now. Try again in a minute.";
+    }
+    btn.disabled = false;
+    btn.textContent = "Post my record";
+  });
+
+  async function openBoard() {
+    $("p17-board").hidden = false;
+    $("p17-board-day").textContent = `Daily #${dayNumber()}`;
+    $("p17-board-list").innerHTML = `<li class="p17-empty">Loading…</li>`;
+    $("p17-board").scrollIntoView({ behavior: "smooth", block: "start" });
+    try {
+      const day = dayNumber();
+      const rows = await api(`leaderboard?day=eq.${day}&select=name,wins,created_at&order=wins.desc,created_at.asc&limit=1000`);
+      const me = load(POSTED, 0) === day ? load(NAME_KEY, "") : "";
+      const perfect = rows.filter((r) => r.wins === 17).length;
+      $("p17-board-sum").textContent = rows.length
+        ? `${rows.length} GM${rows.length === 1 ? "" : "s"} posted today · ${perfect} went 17-0`
+        : "No one has posted today yet. Be the first.";
+      let rank = 0, prev = null;
+      const ranked = rows.map((r, i) => { if (r.wins !== prev) { rank = i + 1; prev = r.wins; } return Object.assign({ rank }, r); });
+      let mine = me ? ranked.find((r) => r.name === me) : null;
+      const top = ranked.slice(0, 25);
+      if (mine && !top.includes(mine)) top.push(mine);
+      $("p17-board-list").innerHTML = top.length ? top.map((r) =>
+        `<li class="${mine === r ? "me" : ""}${r.wins === 17 ? " perfect" : ""}"><span class="p17-rk">${r.rank}</span>` +
+        `<span class="p17-nm">${esc(r.name)}</span><b>${r.wins}-${17 - r.wins}</b></li>`).join("") : "";
+      const hof = await api("leaderboard?wins=eq.17&select=name,day,created_at&order=created_at.desc&limit=20");
+      $("p17-hof").innerHTML = hof.length ? hof.map((r) =>
+        `<li><span class="p17-nm">🏆 ${esc(r.name)}</span><span class="p17-hof-day">Daily #${r.day}</span></li>`).join("")
+        : `<li class="p17-empty">Nobody has gone 17-0 yet. Will you be first?</li>`;
+    } catch (err) {
+      $("p17-board-list").innerHTML = `<li class="p17-empty">Couldn't load the leaderboard. Try again in a minute.</li>`;
+    }
+  }
+  $("p17-board-link").addEventListener("click", openBoard);
+  $("p17-board-open").addEventListener("click", openBoard);
+  $("p17-board-open").hidden = !BOARD;
 
   const s = load(STATS, null);
   if (s) $("p17-intro-best").textContent = `Your best: ${s.best}-${17 - s.best} · Perfect seasons: ${s.perfect}`;

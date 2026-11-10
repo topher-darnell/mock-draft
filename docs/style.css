@@ -2205,3 +2205,23 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .p17-kick { margin: 4px 0 14px; min-height: 56px; font-size: 18px; animation: p17-pulse 1.4s ease-in-out infinite; }
 @keyframes p17-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(242, 169, 59, 0.5); } 50% { box-shadow: 0 0 0 8px rgba(242, 169, 59, 0); } }
 @media (prefers-reduced-motion: reduce) { .p17-kick { animation: none; } }
+
+.p17-post { margin: 14px 0 0; text-align: left; }
+.p17-post label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 700; }
+.p17-post-row { display: flex; gap: 8px; }
+.p17-post-row input { flex: 1; min-width: 0; min-height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; background: #19202A; color: var(--text); font: 600 16px Inter, sans-serif; }
+.p17-post-row input:focus { outline: none; border-color: var(--accent); }
+.p17-post-row .start { flex: 0 0 auto; min-height: 48px; padding: 0 16px; }
+.p17-post[hidden], .p17-board-link[hidden], #p17-board-open[hidden] { display: none; }
+.p17-board-link { margin: 4px auto 0; min-height: 44px; color: var(--accent); font-weight: 700; }
+.p17-board { margin-top: 22px; }
+.p17-rank { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.p17-rank li { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 12px; border-radius: 10px; background: var(--card); }
+.p17-rank li.me { outline: 2px solid var(--accent); }
+.p17-rank li.perfect b { color: var(--accent); }
+.p17-rk { width: 28px; font: 700 14px "Space Grotesk", sans-serif; color: var(--muted); }
+.p17-nm { flex: 1; min-width: 0; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p17-rank b { font: 700 17px "Space Grotesk", sans-serif; }
+.p17-hof-day { font-size: 12px; color: var(--muted); }
+.p17-empty { color: var(--muted); font-size: 14px; }
+.p17-board { scroll-margin-top: 84px; }

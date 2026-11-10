@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png?v=4">
   <meta name="theme-color" content="#10151C">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="../style.css?v=23">
+  <link rel="stylesheet" href="../style.css?v=24">
   
 </head>
 <body class="info-page game-page">
@@ -54,6 +54,7 @@
         </ul>
         <button class="start gm-wide" id="p17-daily">Play today's draft</button>
         <button class="secondary gm-wide" id="p17-free">Free play</button>
+        <button class="secondary gm-wide" id="p17-board-open" hidden>Today's leaderboard</button>
         <p class="in-note" id="p17-intro-best">Today's draft: same teams for everyone, new teams at midnight Eastern.</p>
       </section>
 
@@ -81,9 +82,25 @@
             <button class="start" id="p17-again">Free play</button>
           </div>
           <p class="in-note" id="p17-note" role="status"></p>
+          <form class="p17-post" id="p17-post" hidden>
+            <label for="p17-name">Put your record on today's leaderboard</label>
+            <div class="p17-post-row">
+              <input id="p17-name" maxlength="20" placeholder="Your name" autocomplete="nickname" autocapitalize="words">
+              <button class="start" id="p17-post-btn" type="submit">Post my record</button>
+            </div>
+          </form>
+          <p class="in-note" id="p17-post-note" role="status"></p>
+          <button class="text-button p17-board-link" id="p17-board-link" type="button" hidden>See today's leaderboard →</button>
           <p class="in-note" id="p17-best"></p>
           <p class="pg-more"><a href="../fantasy.html">See every player's PPR stats →</a></p>
         </div>
+      </section>
+      <section class="gm-panel p17-board" id="p17-board" hidden>
+        <div class="p17-head"><h2 class="home-h2">Leaderboard</h2><span class="in-note" id="p17-board-day"></span></div>
+        <p class="in-note" id="p17-board-sum"></p>
+        <ol class="p17-rank" id="p17-board-list"></ol>
+        <h3 class="ff-grp">17-0 Hall of Fame</h3>
+        <ol class="p17-rank p17-hof" id="p17-hof"></ol>
       </section>
       <section class="nl" data-from="17-0" hidden>
       <h2>Get the weekly mock</h2>
@@ -113,7 +130,7 @@
   <script src="../gm.js?v=5"></script>
   <script src="../site.js?v=1"></script>
   <script src="../newsletter.js?v=1"></script>
-  <script src="../games/perfect.js?v=4"></script>
+  <script src="../games/perfect.js?v=5"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
