@@ -67,6 +67,24 @@
   for (const b of document.querySelectorAll("#ff-pos .filter")) {
     b.addEventListener("click", () => { pos = b.dataset.pos; render(); });
   }
+  // the three tabs: show one list at a time (without this script, all three show)
+  const TABS = ["leaders", "next-year", "dynasty"];
+  function showTab(id, push) {
+    if (!TABS.includes(id)) id = "leaders";
+    for (const t of TABS) document.getElementById(t).hidden = t !== id;
+    for (const a of document.querySelectorAll("#ff-tabs a")) {
+      const on = a.dataset.tab === id;
+      a.classList.toggle("active", on);
+      a.setAttribute("aria-selected", on ? "true" : "false");
+    }
+    if (push) history.replaceState(null, "", id === "leaders" ? location.pathname : "#" + id);
+  }
+  for (const a of document.querySelectorAll("#ff-tabs a")) {
+    a.addEventListener("click", (e) => { e.preventDefault(); showTab(a.dataset.tab, true); });
+  }
+  window.addEventListener("hashchange", () => showTab(location.hash.slice(1)));
+  showTab(location.hash.slice(1));
+
   if (!["std", "half", "ppr", "tep"].includes(fmt)) fmt = "ppr";
   if (fmt !== "ppr") render();
 })();

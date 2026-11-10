@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "11", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "12", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -788,16 +788,16 @@ def fantasy_page():
     <h1 class="in-title">Fantasy leaders and 2027 rookie rankings</h1>
     <p class="in-sub">Who's scoring the most fantasy points in 2026, and which 2027 rookies to target, for next season and for dynasty. Pick your league's scoring and everything on the page updates.</p>
 
-    <nav class="ff-jump" aria-label="On this page">
-      <a href="#leaders">2026 leaders</a><a href="#next-year">Rookies for next season</a><a href="#dynasty">Dynasty rookies</a>
-    </nav>
+    <div class="ff-tabs" id="ff-tabs" role="tablist" aria-label="Show">
+      <a href="#leaders" role="tab" data-tab="leaders" class="active" aria-selected="true">2026 leaders</a><a href="#next-year" role="tab" data-tab="next-year" aria-selected="false">Rookies for next season</a><a href="#dynasty" role="tab" data-tab="dynasty" aria-selected="false">Dynasty rookies</a>
+    </div>
 
     <div class="ff-bar">
       <p class="ff-label">Your scoring</p>
       <div class="in-chips ff-fmt" id="ff-fmt" aria-label="Scoring">{fmt_btns}</div>
     </div>
 
-    <section class="pg-section" id="leaders">
+    <section class="pg-section ff-panel" id="leaders" role="tabpanel">
       <h2 class="home-h2">Who's leading in 2026</h2>
       <p class="in-note">Season totals {fantasy.STATS_AS_OF}. Tap a position to see just that group.</p>
       <div class="in-chips bb-chips" id="ff-pos" aria-label="Position">{pos_btns}</div>
@@ -809,13 +809,13 @@ def fantasy_page():
       </div>
     </section>
 
-    <section class="pg-section" id="next-year">
+    <section class="pg-section ff-panel" id="next-year" role="tabpanel">
       <h2 class="home-h2">Best 2027 rookies for next season</h2>
       <p class="in-note">Who should help a fantasy team the most as a rookie in 2027. Backs and receivers drafted early get the biggest boost; rookie quarterbacks and tight ends usually take time.</p>
       <ol class="bb-list ff-list" id="ff-y1">{ff_rookie_rows(rook, "y1", "ppr")}</ol>
     </section>
 
-    <section class="pg-section" id="dynasty">
+    <section class="pg-section ff-panel" id="dynasty" role="tabpanel">
       <h2 class="home-h2">2027 dynasty rookie rankings</h2>
       <p class="in-note">For leagues where you keep players for years. Youth and position matter more here: a 20-year-old receiver can be a starter for a decade. Rankings are for 1-QB leagues.</p>
       <ol class="bb-list ff-list" id="ff-dyn">{ff_rookie_rows(rook, "dyn", "ppr")}</ol>
@@ -842,7 +842,7 @@ def fantasy_page():
     desc = (f"2026 fantasy football leaders in Standard, Half PPR, PPR and TE Premium scoring, plus 2027 rookie rankings for next season and dynasty. "
             f"PPR leader: {top['ppr']['n']}. Top dynasty rookie: {r1['n']}.")
     return page("fantasy.html", "Fantasy Football Leaders 2026 and 2027 Dynasty Rookie Rankings · Big Head GM", desc,
-                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=1",))
+                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=2",))
 
 
 # ---------- games ----------
