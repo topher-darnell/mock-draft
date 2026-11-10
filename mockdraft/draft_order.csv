@@ -53,7 +53,7 @@ round,pick,team,from
 2,52,New England Patriots,
 2,53,Green Bay Packers,
 2,54,New York Giants,
-2,55,Jacksonville Jaguars,
+2,55,Atlanta Falcons,Jacksonville Jaguars
 2,56,Kansas City Chiefs,
 2,57,Pittsburgh Steelers,
 2,58,Detroit Lions,
@@ -61,7 +61,7 @@ round,pick,team,from
 2,60,Cincinnati Bengals,
 2,61,Chicago Bears,
 2,62,Denver Broncos,
-2,63,Buffalo Bills,
+2,63,Tennessee Titans,Buffalo Bills
 2,64,San Francisco 49ers,
 3,65,Los Angeles Chargers,
 3,66,Tennessee Titans,
@@ -88,7 +88,7 @@ round,pick,team,from
 3,87,Kansas City Chiefs,
 3,88,Pittsburgh Steelers,
 3,89,Detroit Lions,
-3,90,Minnesota Vikings,
+3,90,Las Vegas Raiders,Minnesota Vikings
 3,91,Cincinnati Bengals,
 3,92,Jacksonville Jaguars,
 3,93,Denver Broncos,
@@ -128,9 +128,9 @@ round,pick,team,from
 4,127,Carolina Panthers,Minnesota Vikings
 4,128,Cincinnati Bengals,
 4,129,Jacksonville Jaguars,
-4,130,Kansas City Chiefs,
+4,130,Indianapolis Colts,Kansas City Chiefs
 4,131,Tennessee Titans,Chicago Bears
-4,132,Denver Broncos,
+4,132,Los Angeles Chargers,Denver Broncos
 4,133,Buffalo Bills,
 4,134,Indianapolis Colts,San Francisco 49ers
 4,135,Seattle Seahawks,
@@ -139,7 +139,7 @@ round,pick,team,from
 4,138,Kansas City Chiefs,
 4,139,New York Giants,
 5,140,Los Angeles Chargers,
-5,141,Tennessee Titans,
+5,141,Buffalo Bills,Tennessee Titans
 5,142,Miami Dolphins,
 5,143,Philadelphia Eagles,
 5,144,New York Jets,
@@ -164,7 +164,7 @@ round,pick,team,from
 5,163,Minnesota Vikings,
 5,164,Cincinnati Bengals,
 5,165,Jacksonville Jaguars,
-5,166,Kansas City Chiefs,
+5,166,Indianapolis Colts,Kansas City Chiefs
 5,167,Miami Dolphins,Pittsburgh Steelers
 5,168,Denver Broncos,
 5,169,New England Patriots,Chicago Bears
@@ -192,7 +192,7 @@ round,pick,team,from
 6,191,New England Patriots,Houston Texans
 6,192,Las Vegas Raiders,
 6,193,Pittsburgh Steelers,Dallas Cowboys
-6,194,San Francisco 49ers,Baltimore Ravens
+6,194,Indianapolis Colts,Baltimore Ravens
 6,195,Los Angeles Rams,
 6,196,Houston Texans,Cleveland Browns
 6,197,Los Angeles Chargers,Seattle Seahawks
@@ -223,7 +223,7 @@ round,pick,team,from
 7,222,Detroit Lions,Los Angeles Chargers
 7,223,Tennessee Titans,
 7,224,Pittsburgh Steelers,Miami Dolphins
-7,225,Indianapolis Colts,
+7,225,Kansas City Chiefs,Indianapolis Colts
 7,226,New England Patriots,Philadelphia Eagles
 7,227,Carolina Panthers,New York Jets
 7,228,Washington Commanders,

@@ -326,8 +326,8 @@
  {
   "round": 2,
   "pick": 55,
-  "team": "Jacksonville Jaguars",
-  "from": ""
+  "team": "Atlanta Falcons",
+  "from": "Jacksonville Jaguars"
  },
  {
   "round": 2,
@@ -374,8 +374,8 @@
  {
   "round": 2,
   "pick": 63,
-  "team": "Buffalo Bills",
-  "from": ""
+  "team": "Tennessee Titans",
+  "from": "Buffalo Bills"
  },
  {
   "round": 2,
@@ -536,8 +536,8 @@
  {
   "round": 3,
   "pick": 90,
-  "team": "Minnesota Vikings",
-  "from": ""
+  "team": "Las Vegas Raiders",
+  "from": "Minnesota Vikings"
  },
  {
   "round": 3,
@@ -776,8 +776,8 @@
  {
   "round": 4,
   "pick": 130,
-  "team": "Kansas City Chiefs",
-  "from": ""
+  "team": "Indianapolis Colts",
+  "from": "Kansas City Chiefs"
  },
  {
   "round": 4,
@@ -788,8 +788,8 @@
  {
   "round": 4,
   "pick": 132,
-  "team": "Denver Broncos",
-  "from": ""
+  "team": "Los Angeles Chargers",
+  "from": "Denver Broncos"
  },
  {
   "round": 4,
@@ -842,8 +842,8 @@
  {
   "round": 5,
   "pick": 141,
-  "team": "Tennessee Titans",
-  "from": ""
+  "team": "Buffalo Bills",
+  "from": "Tennessee Titans"
  },
  {
   "round": 5,
@@ -992,8 +992,8 @@
  {
   "round": 5,
   "pick": 166,
-  "team": "Kansas City Chiefs",
-  "from": ""
+  "team": "Indianapolis Colts",
+  "from": "Kansas City Chiefs"
  },
  {
   "round": 5,
@@ -1160,7 +1160,7 @@
  {
   "round": 6,
   "pick": 194,
-  "team": "San Francisco 49ers",
+  "team": "Indianapolis Colts",
   "from": "Baltimore Ravens"
  },
  {
@@ -1346,8 +1346,8 @@
  {
   "round": 7,
   "pick": 225,
-  "team": "Indianapolis Colts",
-  "from": ""
+  "team": "Kansas City Chiefs",
+  "from": "Indianapolis Colts"
  },
  {
   "round": 7,

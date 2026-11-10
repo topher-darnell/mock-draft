@@ -16,11 +16,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 2.8,
+   "avg": 2.9,
    "min": 1,
-   "max": 12,
+   "max": 9,
    "team": "Los Angeles Chargers",
-   "teamPct": 53.7
+   "teamPct": 53.3
   },
   "born": "2005-11-29",
   "age": 21.4
@@ -44,11 +44,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 3.7,
+   "avg": 3.8,
    "min": 1,
-   "max": 10,
+   "max": 11,
    "team": "New York Jets",
-   "teamPct": 36.1
+   "teamPct": 34.4
   }
  },
  {
@@ -74,7 +74,7 @@
    "min": 1,
    "max": 10,
    "team": "Miami Dolphins",
-   "teamPct": 30.3
+   "teamPct": 29
   },
   "born": "2006-01-08",
   "age": 21.3
@@ -102,7 +102,7 @@
    "min": 1,
    "max": 10,
    "team": "Miami Dolphins",
-   "teamPct": 29.1
+   "teamPct": 30.2
   },
   "born": "2005-09-14",
   "age": 21.6
@@ -124,11 +124,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 6.2,
+   "avg": 6.4,
    "min": 1,
-   "max": 13,
+   "max": 14,
    "team": "Washington Commanders",
-   "teamPct": 26.5
+   "teamPct": 26
   }
  },
  {
@@ -143,9 +143,9 @@
    "pct": 100,
    "avg": 4.7,
    "min": 2,
-   "max": 12,
+   "max": 11,
    "team": "Tennessee Titans",
-   "teamPct": 35.8
+   "teamPct": 37.4
   },
   "born": "2005-06-19",
   "age": 21.9
@@ -171,8 +171,8 @@
    "avg": 7.9,
    "min": 1,
    "max": 15,
-   "team": "Tampa Bay Buccaneers",
-   "teamPct": 29.1
+   "team": "Arizona Cardinals",
+   "teamPct": 30
   },
   "born": "2006-08-14",
   "age": 20.7
@@ -193,11 +193,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 7.9,
+   "avg": 7.7,
    "min": 2,
    "max": 14,
    "team": "New York Jets",
-   "teamPct": 37.8
+   "teamPct": 41.3
   },
   "born": "2006-08-07",
   "age": 20.7
@@ -221,11 +221,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 9.1,
+   "avg": 9,
    "min": 2,
    "max": 15,
    "team": "New York Jets",
-   "teamPct": 29.3
+   "teamPct": 28.5
   }
  },
  {
@@ -249,9 +249,9 @@
    "pct": 100,
    "avg": 9.4,
    "min": 3,
-   "max": 18,
+   "max": 16,
    "team": "New York Jets",
-   "teamPct": 18.5
+   "teamPct": 19.1
   }
  },
  {
@@ -274,11 +274,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 9.6,
+   "avg": 9.4,
    "min": 3,
-   "max": 18,
+   "max": 22,
    "team": "New York Jets",
-   "teamPct": 42.5
+   "teamPct": 43.6
   },
   "born": "2006-01",
   "age": 21.3
@@ -303,10 +303,10 @@
   "adp": {
    "pct": 100,
    "avg": 12.2,
-   "min": 2,
-   "max": 23,
+   "min": 5,
+   "max": 22,
    "team": "Houston Texans",
-   "teamPct": 41.3
+   "teamPct": 42.3
   }
  },
  {
@@ -326,11 +326,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 12.6,
+   "avg": 12.8,
    "min": 3,
    "max": 24,
    "team": "New York Jets",
-   "teamPct": 31.4
+   "teamPct": 28.3
   },
   "born": "2005-11-08",
   "age": 21.5
@@ -354,11 +354,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 14,
+   "avg": 14.2,
    "min": 3,
-   "max": 24,
+   "max": 25,
    "team": "Cleveland Browns",
-   "teamPct": 39.9
+   "teamPct": 37.3
   },
   "born": "2002-08-24",
   "age": 24.7
@@ -384,9 +384,9 @@
    "pct": 100,
    "avg": 17.2,
    "min": 9,
-   "max": 27,
+   "max": 26,
    "team": "Cleveland Browns",
-   "teamPct": 23.1
+   "teamPct": 20.9
   }
  },
  {
@@ -407,10 +407,10 @@
   "adp": {
    "pct": 100,
    "avg": 18.7,
-   "min": 8,
+   "min": 11,
    "max": 27,
    "team": "Carolina Panthers",
-   "teamPct": 35.6
+   "teamPct": 35
   }
  },
  {
@@ -424,10 +424,10 @@
   "adp": {
    "pct": 100,
    "avg": 17.6,
-   "min": 8,
-   "max": 28,
+   "min": 10,
+   "max": 31,
    "team": "Cleveland Browns",
-   "teamPct": 23.6
+   "teamPct": 22.1
   }
  },
  {
@@ -449,11 +449,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 16.3,
-   "min": 11,
+   "avg": 16.8,
+   "min": 6,
    "max": 30,
    "team": "Las Vegas Raiders",
-   "teamPct": 20.9
+   "teamPct": 18.8
   },
   "born": "2005-11-20",
   "age": 21.4
@@ -477,11 +477,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 21.6,
+   "avg": 21.3,
    "min": 11,
-   "max": 34,
+   "max": 35,
    "team": "New England Patriots",
-   "teamPct": 25.5
+   "teamPct": 23.2
   },
   "born": "2005-10-03",
   "age": 21.6
@@ -505,11 +505,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 18,
-   "min": 12,
-   "max": 29,
+   "avg": 18.1,
+   "min": 11,
+   "max": 30,
    "team": "Baltimore Ravens",
-   "teamPct": 24.2
+   "teamPct": 23.5
   },
   "born": "2006-01-09",
   "age": 21.3
@@ -533,11 +533,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 23.6,
+   "avg": 23.5,
    "min": 10,
-   "max": 33,
+   "max": 32,
    "team": "Cincinnati Bengals",
-   "teamPct": 23.5
+   "teamPct": 24.5
   }
  },
  {
@@ -559,11 +559,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 24.3,
-   "min": 15,
-   "max": 36,
+   "avg": 24.2,
+   "min": 12,
+   "max": 34,
    "team": "Cincinnati Bengals",
-   "teamPct": 26.4
+   "teamPct": 23.1
   },
   "born": "2006-02-18",
   "age": 21.2
@@ -578,11 +578,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 23.8,
-   "min": 13,
-   "max": 36,
+   "avg": 24,
+   "min": 10,
+   "max": 35,
    "team": "New England Patriots",
-   "teamPct": 19.8
+   "teamPct": 20.3
   },
   "born": "2004-04-15",
   "age": 23
@@ -604,11 +604,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 22.3,
+   "avg": 22.5,
    "min": 15,
-   "max": 38,
+   "max": 40,
    "team": "Dallas Cowboys",
-   "teamPct": 24.5
+   "teamPct": 20.7
   },
   "born": "2006-10-01",
   "age": 20.6
@@ -623,11 +623,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 24.6,
+   "avg": 24.4,
    "min": 11,
-   "max": 39,
-   "team": "Philadelphia Eagles",
-   "teamPct": 16.8
+   "max": 40,
+   "team": "Carolina Panthers",
+   "teamPct": 15.8
   },
   "born": "2004-10-13",
   "age": 22.5
@@ -642,11 +642,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 25.5,
-   "min": 14,
+   "avg": 25.4,
+   "min": 16,
    "max": 40,
-   "team": "Kansas City Chiefs",
-   "teamPct": 15.6
+   "team": "Philadelphia Eagles",
+   "teamPct": 15.5
   }
  },
  {
@@ -668,11 +668,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 25.3,
+   "avg": 25.4,
    "min": 13,
-   "max": 40,
+   "max": 44,
    "team": "Cincinnati Bengals",
-   "teamPct": 14.4
+   "teamPct": 13.8
   },
   "born": "2004-03-11",
   "age": 23.1
@@ -696,11 +696,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 27.9,
+   "avg": 28,
    "min": 15,
    "max": 41,
    "team": "Tennessee Titans",
-   "teamPct": 13
+   "teamPct": 14.5
   },
   "born": "2004-10-13",
   "age": 22.5
@@ -722,11 +722,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 29.8,
+   "avg": 29.7,
    "min": 15,
-   "max": 46,
+   "max": 47,
    "team": "Tennessee Titans",
-   "teamPct": 24.7
+   "teamPct": 23.2
   },
   "born": "2004-04-22",
   "age": 23
@@ -750,11 +750,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 33,
+   "avg": 32.9,
    "min": 20,
-   "max": 50,
+   "max": 51,
    "team": "Buffalo Bills",
-   "teamPct": 15
+   "teamPct": 16
   },
   "born": "2006-03-16",
   "age": 21.1
@@ -778,11 +778,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 31,
+   "avg": 31.4,
    "min": 18,
-   "max": 45,
+   "max": 50,
    "team": "Minnesota Vikings",
-   "teamPct": 22.5
+   "teamPct": 21.3
   },
   "born": "2005-05-26",
   "age": 21.9
@@ -806,11 +806,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 32.8,
+   "avg": 32.3,
    "min": 18,
-   "max": 47,
-   "team": "Miami Dolphins",
-   "teamPct": 16.8
+   "max": 48,
+   "team": "Minnesota Vikings",
+   "teamPct": 17.4
   },
   "born": "2004-04-27",
   "age": 23
@@ -825,11 +825,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 33.1,
+   "avg": 33.2,
    "min": 20,
-   "max": 48,
+   "max": 52,
    "team": "San Francisco 49ers",
-   "teamPct": 21.4
+   "teamPct": 20.8
   },
   "born": "2005-02-18",
   "age": 22.2
@@ -845,10 +845,10 @@
   "adp": {
    "pct": 100,
    "avg": 34,
-   "min": 24,
+   "min": 22,
    "max": 51,
    "team": "Tennessee Titans",
-   "teamPct": 18.9
+   "teamPct": 21.1
   },
   "born": "2005-05-14",
   "age": 22
@@ -873,11 +873,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 35.6,
+   "avg": 35.7,
    "min": 24,
-   "max": 53,
+   "max": 51,
    "team": "Miami Dolphins",
-   "teamPct": 17.2
+   "teamPct": 16.6
   },
   "born": "2005-01-25",
   "age": 22.3
@@ -901,11 +901,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 36.8,
+   "avg": 36.5,
    "min": 24,
-   "max": 55,
+   "max": 54,
    "team": "Arizona Cardinals",
-   "teamPct": 12.8
+   "teamPct": 14.2
   },
   "born": "2005-05-24",
   "age": 21.9
@@ -929,11 +929,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 37.5,
-   "min": 26,
-   "max": 54,
+   "avg": 37.6,
+   "min": 25,
+   "max": 53,
    "team": "Tennessee Titans",
-   "teamPct": 21.7
+   "teamPct": 20.8
   }
  },
  {
@@ -955,11 +955,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 37.8,
+   "avg": 37.2,
    "min": 24,
-   "max": 54,
+   "max": 55,
    "team": "Washington Commanders",
-   "teamPct": 13.4
+   "teamPct": 14.1
   }
  },
  {
@@ -972,11 +972,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 38.4,
+   "avg": 38.7,
    "min": 27,
-   "max": 54,
-   "team": "Los Angeles Chargers",
-   "teamPct": 10.1
+   "max": 57,
+   "team": "San Francisco 49ers",
+   "teamPct": 10.6
   }
  },
  {
@@ -989,11 +989,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 40.7,
+   "avg": 40.5,
    "min": 29,
-   "max": 60,
-   "team": "Arizona Cardinals",
-   "teamPct": 17.7
+   "max": 61,
+   "team": "Atlanta Falcons",
+   "teamPct": 19
   },
   "born": "2004-09-27",
   "age": 22.6
@@ -1018,10 +1018,10 @@
   "adp": {
    "pct": 100,
    "avg": 41.3,
-   "min": 27,
-   "max": 59,
+   "min": 30,
+   "max": 63,
    "team": "Indianapolis Colts",
-   "teamPct": 13.8
+   "teamPct": 13.2
   },
   "born": "2006-01-31",
   "age": 21.2
@@ -1045,11 +1045,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 44.5,
-   "min": 28,
-   "max": 63,
+   "avg": 44.3,
+   "min": 30,
+   "max": 61,
    "team": "New Orleans Saints",
-   "teamPct": 16
+   "teamPct": 16.8
   },
   "born": "2006-07-06",
   "age": 20.8
@@ -1073,11 +1073,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 42.9,
-   "min": 29,
+   "avg": 43.1,
+   "min": 30,
    "max": 63,
    "team": "Indianapolis Colts",
-   "teamPct": 12.2
+   "teamPct": 13.2
   }
  },
  {
@@ -1090,11 +1090,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 43.9,
-   "min": 31,
-   "max": 64,
+   "avg": 44.1,
+   "min": 30,
+   "max": 63,
    "team": "Atlanta Falcons",
-   "teamPct": 9.8
+   "teamPct": 10.2
   },
   "born": "2004-11-15",
   "age": 22.5
@@ -1116,11 +1116,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 45.5,
+   "avg": 45.4,
    "min": 31,
-   "max": 63,
+   "max": 75,
    "team": "Arizona Cardinals",
-   "teamPct": 15.4
+   "teamPct": 16.2
   }
  },
  {
@@ -1144,11 +1144,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 46.1,
-   "min": 33,
+   "avg": 45.9,
+   "min": 32,
    "max": 65,
    "team": "Arizona Cardinals",
-   "teamPct": 15
+   "teamPct": 16.6
   },
   "born": "2007-02-09",
   "age": 20.2
@@ -1172,11 +1172,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 46.3,
+   "avg": 45.8,
    "min": 33,
-   "max": 65,
+   "max": 66,
    "team": "Baltimore Ravens",
-   "teamPct": 9
+   "teamPct": 9.2
   },
   "born": "2006-03-01",
   "age": 21.2
@@ -1200,11 +1200,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 51.3,
+   "avg": 51.2,
    "min": 34,
-   "max": 68,
+   "max": 70,
    "team": "New England Patriots",
-   "teamPct": 12.7
+   "teamPct": 13.2
   },
   "born": "2006-06-24",
   "age": 20.8
@@ -1231,8 +1231,8 @@
    "pct": 100,
    "avg": 48.4,
    "min": 35,
-   "max": 67,
-   "team": "Baltimore Ravens",
+   "max": 70,
+   "team": "Carolina Panthers",
    "teamPct": 8.2
   },
   "born": "2004-02-09",
@@ -1256,11 +1256,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 49.6,
+   "avg": 49.3,
    "min": 37,
-   "max": 73,
+   "max": 70,
    "team": "Los Angeles Rams",
-   "teamPct": 11
+   "teamPct": 10.7
   }
  },
  {
@@ -1280,11 +1280,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 53.4,
+   "avg": 53.9,
    "min": 37,
-   "max": 73,
-   "team": "Jacksonville Jaguars",
-   "teamPct": 13
+   "max": 72,
+   "team": "Green Bay Packers",
+   "teamPct": 10.2
   }
  },
  {
@@ -1306,11 +1306,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 51,
+   "avg": 51.4,
    "min": 38,
-   "max": 71,
-   "team": "Carolina Panthers",
-   "teamPct": 9.6
+   "max": 73,
+   "team": "Green Bay Packers",
+   "teamPct": 9
   },
   "born": "2005-03-28",
   "age": 22.1
@@ -1334,11 +1334,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 50.9,
+   "avg": 51.2,
    "min": 39,
-   "max": 73,
-   "team": "Arizona Cardinals",
-   "teamPct": 11.8
+   "max": 72,
+   "team": "Atlanta Falcons",
+   "teamPct": 11.5
   },
   "born": "2004-12-01",
   "age": 22.4
@@ -1362,11 +1362,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 56.4,
-   "min": 40,
-   "max": 77,
+   "avg": 56.7,
+   "min": 41,
+   "max": 80,
    "team": "New England Patriots",
-   "teamPct": 14.3
+   "teamPct": 12.7
   },
   "born": "2005-09-29",
   "age": 21.6
@@ -1390,11 +1390,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 53.8,
+   "avg": 53.3,
    "min": 41,
-   "max": 73,
-   "team": "Seattle Seahawks",
-   "teamPct": 8.9
+   "max": 76,
+   "team": "Atlanta Falcons",
+   "teamPct": 12.1
   }
  },
  {
@@ -1414,11 +1414,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 57.5,
+   "avg": 57.6,
    "min": 42,
-   "max": 81,
+   "max": 79,
    "team": "Detroit Lions",
-   "teamPct": 14.5
+   "teamPct": 16.1
   }
  },
  {
@@ -1436,11 +1436,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 56.4,
+   "avg": 55.9,
    "min": 43,
-   "max": 75,
-   "team": "Chicago Bears",
-   "teamPct": 7.4
+   "max": 79,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.2
   }
  },
  {
@@ -1462,11 +1462,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 57.9,
+   "avg": 57.3,
    "min": 44,
-   "max": 80,
-   "team": "Chicago Bears",
-   "teamPct": 8.3
+   "max": 83,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.9
   },
   "born": "2005-07-02",
   "age": 21.8
@@ -1488,11 +1488,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 60.8,
+   "avg": 61.1,
    "min": 45,
-   "max": 81,
-   "team": "Jacksonville Jaguars",
-   "teamPct": 10.9
+   "max": 79,
+   "team": "Tennessee Titans",
+   "teamPct": 17
   },
   "born": "2005-12-19",
   "age": 21.4
@@ -1514,11 +1514,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 59.6,
+   "avg": 59.8,
    "min": 46,
-   "max": 84,
+   "max": 85,
    "team": "Kansas City Chiefs",
-   "teamPct": 8.1
+   "teamPct": 10.2
   },
   "born": "2005-07-27",
   "age": 21.8
@@ -1543,11 +1543,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 61.3,
+   "avg": 60.2,
    "min": 47,
-   "max": 80,
-   "team": "Minnesota Vikings",
-   "teamPct": 8.7
+   "max": 81,
+   "team": "Tennessee Titans",
+   "teamPct": 11
   },
   "born": "2005-02-13",
   "age": 22.2
@@ -1562,11 +1562,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 61.8,
+   "avg": 61.2,
    "min": 49,
-   "max": 83,
-   "team": "San Francisco 49ers",
-   "teamPct": 7.9
+   "max": 85,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.2
   },
   "born": "2004-10-10",
   "age": 22.6
@@ -1588,11 +1588,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 64.3,
+   "avg": 63.1,
    "min": 49,
-   "max": 91,
-   "team": "Kansas City Chiefs",
-   "teamPct": 9.2
+   "max": 83,
+   "team": "San Francisco 49ers",
+   "teamPct": 8.1
   },
   "born": "2005-11-18",
   "age": 21.4
@@ -1615,11 +1615,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 64.3,
+   "avg": 65.5,
    "min": 50,
    "max": 88,
-   "team": "Jacksonville Jaguars",
-   "teamPct": 9.1
+   "team": "Tennessee Titans",
+   "teamPct": 14.5
   },
   "born": "2003-11-07",
   "age": 23.5
@@ -1641,11 +1641,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 66.5,
+   "avg": 65.9,
    "min": 51,
    "max": 88,
-   "team": "Indianapolis Colts",
-   "teamPct": 8.4
+   "team": "Kansas City Chiefs",
+   "teamPct": 8.7
   },
   "born": "2005-12-06",
   "age": 21.4
@@ -1669,11 +1669,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 66.3,
+   "avg": 66.9,
    "min": 52,
-   "max": 90,
-   "team": "Indianapolis Colts",
-   "teamPct": 8.2
+   "max": 87,
+   "team": "Tennessee Titans",
+   "teamPct": 13.5
   },
   "born": "2006-03-10",
   "age": 21.1
@@ -1697,11 +1697,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 66,
+   "avg": 66.7,
    "min": 53,
-   "max": 96,
+   "max": 93,
    "team": "Minnesota Vikings",
-   "teamPct": 15.3
+   "teamPct": 16.3
   },
   "born": "2005-09-26",
   "age": 21.6
@@ -1725,11 +1725,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 67.2,
-   "min": 54,
-   "max": 91,
+   "avg": 67.9,
+   "min": 55,
+   "max": 93,
    "team": "Minnesota Vikings",
-   "teamPct": 14.4
+   "teamPct": 15.4
   }
  },
  {
@@ -1753,9 +1753,9 @@
    "pct": 100,
    "avg": 70.6,
    "min": 55,
-   "max": 91,
+   "max": 93,
    "team": "New York Jets",
-   "teamPct": 8.7
+   "teamPct": 13.9
   }
  },
  {
@@ -1777,11 +1777,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 71,
+   "avg": 71.2,
    "min": 56,
-   "max": 96,
+   "max": 91,
    "team": "Indianapolis Colts",
-   "teamPct": 9.3
+   "teamPct": 9.9
   }
  },
  {
@@ -1794,11 +1794,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 71.3,
+   "avg": 71.7,
    "min": 57,
-   "max": 96,
-   "team": "New York Jets",
-   "teamPct": 9.4
+   "max": 99,
+   "team": "Los Angeles Chargers",
+   "teamPct": 7.6
   },
   "born": "2004-10-12",
   "age": 22.5
@@ -1824,9 +1824,9 @@
    "pct": 100,
    "avg": 70.9,
    "min": 58,
-   "max": 93,
-   "team": "New York Jets",
-   "teamPct": 7.2
+   "max": 97,
+   "team": "Tennessee Titans",
+   "teamPct": 10.3
   }
  },
  {
@@ -1848,11 +1848,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 71.9,
+   "avg": 71.7,
    "min": 59,
-   "max": 99,
-   "team": "Washington Commanders",
-   "teamPct": 6.6
+   "max": 94,
+   "team": "Tennessee Titans",
+   "teamPct": 8.2
   }
  },
  {
@@ -1871,11 +1871,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 74,
+   "avg": 74.7,
    "min": 60,
-   "max": 97,
+   "max": 100,
    "team": "Minnesota Vikings",
-   "teamPct": 9.2
+   "teamPct": 8.2
   },
   "born": "2005-02-14",
   "age": 22.2
@@ -1897,11 +1897,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 76.6,
+   "avg": 76.1,
    "min": 61,
-   "max": 98,
-   "team": "Kansas City Chiefs",
-   "teamPct": 10.8
+   "max": 99,
+   "team": "Minnesota Vikings",
+   "teamPct": 9.5
   }
  },
  {
@@ -1921,11 +1921,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 76.8,
+   "avg": 76.9,
    "min": 62,
-   "max": 101,
+   "max": 102,
    "team": "Indianapolis Colts",
-   "teamPct": 14.7
+   "teamPct": 14.3
   },
   "born": "2006-04-14",
   "age": 21
@@ -1948,11 +1948,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 76.3,
+   "avg": 76.1,
    "min": 63,
-   "max": 99,
+   "max": 102,
    "team": "Pittsburgh Steelers",
-   "teamPct": 8.1
+   "teamPct": 8.6
   }
  },
  {
@@ -1974,11 +1974,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 77.4,
+   "avg": 77.5,
    "min": 64,
    "max": 99,
    "team": "Pittsburgh Steelers",
-   "teamPct": 10.2
+   "teamPct": 8.1
   }
  },
  {
@@ -2000,11 +2000,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 79.8,
+   "avg": 80.7,
    "min": 65,
-   "max": 107,
+   "max": 105,
    "team": "Pittsburgh Steelers",
-   "teamPct": 11
+   "teamPct": 11.2
   },
   "born": "2004-11-05",
   "age": 22.5
@@ -2028,11 +2028,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 78.3,
+   "avg": 78.5,
    "min": 66,
-   "max": 109,
-   "team": "Indianapolis Colts",
-   "teamPct": 8.5
+   "max": 103,
+   "team": "Arizona Cardinals",
+   "teamPct": 7.9
   },
   "born": "2004-10-24",
   "age": 22.5
@@ -2047,11 +2047,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 80.8,
+   "avg": 81.1,
    "min": 67,
-   "max": 102,
-   "team": "Indianapolis Colts",
-   "teamPct": 7.7
+   "max": 107,
+   "team": "Green Bay Packers",
+   "teamPct": 9.7
   },
   "born": "2004-06-25",
   "age": 22.8
@@ -2081,9 +2081,9 @@
    "pct": 100,
    "avg": 82.6,
    "min": 68,
-   "max": 107,
+   "max": 108,
    "team": "Pittsburgh Steelers",
-   "teamPct": 14.7
+   "teamPct": 12.1
   },
   "born": "2004-01-20",
   "age": 23.3
@@ -2105,11 +2105,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 83.8,
+   "avg": 83.1,
    "min": 69,
    "max": 108,
    "team": "Kansas City Chiefs",
-   "teamPct": 12.2
+   "teamPct": 12.3
   },
   "born": "2005-09-22",
   "age": 21.6
@@ -2131,11 +2131,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 85,
+   "avg": 85.1,
    "min": 70,
-   "max": 111,
+   "max": 115,
    "team": "Kansas City Chiefs",
-   "teamPct": 13.1
+   "teamPct": 13.6
   },
   "born": "2006-02-15",
   "age": 21.2
@@ -2159,9 +2159,9 @@
    "pct": 100,
    "avg": 85.6,
    "min": 71,
-   "max": 109,
+   "max": 119,
    "team": "Kansas City Chiefs",
-   "teamPct": 11.7
+   "teamPct": 12
   },
   "born": "2006-01-09",
   "age": 21.3
@@ -2187,9 +2187,9 @@
    "pct": 100,
    "avg": 86.3,
    "min": 72,
-   "max": 113,
-   "team": "Pittsburgh Steelers",
-   "teamPct": 10.9
+   "max": 117,
+   "team": "Las Vegas Raiders",
+   "teamPct": 11.8
   },
   "born": "2004-03-19",
   "age": 23.1
@@ -2213,11 +2213,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 87.8,
+   "avg": 88,
    "min": 73,
-   "max": 113,
+   "max": 116,
    "team": "Kansas City Chiefs",
-   "teamPct": 12.1
+   "teamPct": 13.6
   },
   "born": "2004-09-17",
   "age": 22.6
@@ -2241,11 +2241,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 87.1,
+   "avg": 86.9,
    "min": 74,
-   "max": 114,
+   "max": 116,
    "team": "Pittsburgh Steelers",
-   "teamPct": 11.5
+   "teamPct": 9.8
   },
   "born": "2003-09-22",
   "age": 23.6
@@ -2269,11 +2269,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 89.6,
+   "avg": 89.5,
    "min": 75,
-   "max": 117,
+   "max": 119,
    "team": "Cincinnati Bengals",
-   "teamPct": 9.7
+   "teamPct": 11.3
   },
   "born": "2005-09-26",
   "age": 21.6
@@ -2296,11 +2296,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 90.6,
+   "avg": 89.7,
    "min": 76,
-   "max": 120,
-   "team": "Pittsburgh Steelers",
-   "teamPct": 10
+   "max": 119,
+   "team": "Las Vegas Raiders",
+   "teamPct": 9.7
   },
   "born": "2004-04-01",
   "age": 23.1
@@ -2315,11 +2315,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 90.5,
+   "avg": 90.3,
    "min": 77,
-   "max": 118,
+   "max": 119,
    "team": "Green Bay Packers",
-   "teamPct": 11.6
+   "teamPct": 10.7
   }
  },
  {
@@ -2341,11 +2341,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 91.8,
+   "avg": 91.9,
    "min": 78,
-   "max": 118,
-   "team": "Jacksonville Jaguars",
-   "teamPct": 8.4
+   "max": 121,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 8.6
   },
   "born": "2002-11-28",
   "age": 24.4
@@ -2368,11 +2368,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 93.5,
+   "avg": 94.1,
    "min": 79,
-   "max": 119,
-   "team": "Cincinnati Bengals",
-   "teamPct": 7
+   "max": 124,
+   "team": "Seattle Seahawks",
+   "teamPct": 8.1
   },
   "born": "2004-12-20",
   "age": 22.4
@@ -2395,11 +2395,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 95,
+   "avg": 96,
    "min": 80,
-   "max": 123,
+   "max": 129,
    "team": "Cincinnati Bengals",
-   "teamPct": 12.7
+   "teamPct": 12.5
   },
   "born": "2003-08-02",
   "age": 23.7
@@ -2414,11 +2414,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 94.3,
+   "avg": 94,
    "min": 81,
-   "max": 125,
+   "max": 122,
    "team": "Green Bay Packers",
-   "teamPct": 12
+   "teamPct": 13.4
   },
   "born": "2005-02-09",
   "age": 22.2
@@ -2441,11 +2441,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 96.7,
+   "avg": 96.8,
    "min": 82,
-   "max": 126,
+   "max": 127,
    "team": "Seattle Seahawks",
-   "teamPct": 10.8
+   "teamPct": 9.3
   },
   "born": "2003-01-12",
   "age": 24.3
@@ -2467,9 +2467,9 @@
    "pct": 100,
    "avg": 97.7,
    "min": 83,
-   "max": 125,
+   "max": 128,
    "team": "Cincinnati Bengals",
-   "teamPct": 10.1
+   "teamPct": 11.6
   },
   "born": "2004-02-28",
   "age": 23.2
@@ -2493,11 +2493,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 98,
+   "avg": 98.3,
    "min": 84,
-   "max": 130,
-   "team": "Seattle Seahawks",
-   "teamPct": 9.7
+   "max": 123,
+   "team": "Los Angeles Chargers",
+   "teamPct": 10.5
   }
  },
  {
@@ -2517,11 +2517,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 100.5,
+   "avg": 99.6,
    "min": 85,
-   "max": 130,
+   "max": 126,
    "team": "Seattle Seahawks",
-   "teamPct": 11.5
+   "teamPct": 13.4
   },
   "born": "2005-06-24",
   "age": 21.8
@@ -2545,11 +2545,11 @@
   },
   "adp": {
    "pct": 100,
-   "avg": 98.6,
+   "avg": 98.4,
    "min": 86,
-   "max": 128,
+   "max": 126,
    "team": "Cincinnati Bengals",
-   "teamPct": 12.9
+   "teamPct": 11.8
   },
   "born": "2003-03-11",
   "age": 24.1
@@ -2564,11 +2564,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 101.2,
+   "avg": 100.8,
    "min": 87,
-   "max": 125,
+   "max": 124,
    "team": "Seattle Seahawks",
-   "teamPct": 11.2
+   "teamPct": 11.4
   }
  },
  {
@@ -2581,11 +2581,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 101.7,
+   "avg": 102.2,
    "min": 88,
-   "max": 126,
-   "team": "Los Angeles Chargers",
-   "teamPct": 13.3
+   "max": 130,
+   "team": "Seattle Seahawks",
+   "teamPct": 12.3
   }
  },
  {
@@ -2598,11 +2598,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 103.3,
+   "avg": 103.8,
    "min": 89,
-   "max": 128,
+   "max": 135,
    "team": "Cincinnati Bengals",
-   "teamPct": 10.4
+   "teamPct": 10.6
   }
  },
  {
@@ -2615,11 +2615,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 103.9,
+   "avg": 104.8,
    "min": 90,
-   "max": 130,
+   "max": 133,
    "team": "Cincinnati Bengals",
-   "teamPct": 9.5
+   "teamPct": 10
   }
  },
  {
@@ -2632,11 +2632,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 105.8,
+   "avg": 105.4,
    "min": 91,
-   "max": 137,
-   "team": "Tennessee Titans",
-   "teamPct": 9.1
+   "max": 131,
+   "team": "Cincinnati Bengals",
+   "teamPct": 10.6
   }
  },
  {
@@ -2649,11 +2649,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 105.3,
+   "avg": 105.7,
    "min": 92,
-   "max": 138,
+   "max": 137,
    "team": "Seattle Seahawks",
-   "teamPct": 10.8
+   "teamPct": 11.5
   }
  },
  {
@@ -2666,11 +2666,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 108.3,
+   "avg": 108.8,
    "min": 93,
-   "max": 139,
-   "team": "New York Jets",
-   "teamPct": 8.7
+   "max": 138,
+   "team": "Arizona Cardinals",
+   "teamPct": 7.3
   }
  },
  {
@@ -2683,11 +2683,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 107.3,
+   "avg": 107.2,
    "min": 94,
-   "max": 131,
-   "team": "Los Angeles Chargers",
-   "teamPct": 10.9
+   "max": 140,
+   "team": "Seattle Seahawks",
+   "teamPct": 10.6
   }
  },
  {
@@ -2700,10 +2700,10 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 109.9,
+   "avg": 109.4,
    "min": 95,
-   "max": 139,
-   "team": "Arizona Cardinals",
+   "max": 136,
+   "team": "Green Bay Packers",
    "teamPct": 7.5
   }
  },
@@ -2717,11 +2717,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 109.8,
+   "avg": 109.6,
    "min": 96,
-   "max": 146,
+   "max": 141,
    "team": "Green Bay Packers",
-   "teamPct": 9.4
+   "teamPct": 10.3
   }
  },
  {
@@ -2734,11 +2734,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 110.1,
+   "avg": 109.9,
    "min": 97,
-   "max": 144,
-   "team": "Arizona Cardinals",
-   "teamPct": 8.4
+   "max": 140,
+   "team": "Seattle Seahawks",
+   "teamPct": 9.4
   }
  },
  {
@@ -2751,11 +2751,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 113.5,
+   "avg": 113.4,
    "min": 98,
-   "max": 141,
+   "max": 146,
    "team": "Cleveland Browns",
-   "teamPct": 8.9
+   "teamPct": 9.8
   }
  },
  {
@@ -2768,11 +2768,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 112.3,
+   "avg": 112.1,
    "min": 99,
-   "max": 141,
+   "max": 145,
    "team": "Los Angeles Chargers",
-   "teamPct": 9.9
+   "teamPct": 9.6
   }
  },
  {
@@ -2787,9 +2787,9 @@
    "pct": 100,
    "avg": 112.8,
    "min": 100,
-   "max": 141,
+   "max": 142,
    "team": "Arizona Cardinals",
-   "teamPct": 9.6
+   "teamPct": 11.2
   }
  },
  {
@@ -2806,7 +2806,7 @@
    "min": 101,
    "max": 144,
    "team": "Cleveland Browns",
-   "teamPct": 9.7
+   "teamPct": 9.6
   }
  },
  {
@@ -2819,11 +2819,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 117.4,
+   "avg": 117,
    "min": 102,
    "max": 148,
    "team": "Cleveland Browns",
-   "teamPct": 11.7
+   "teamPct": 10
   }
  },
  {
@@ -2836,11 +2836,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 115.7,
+   "avg": 115.9,
    "min": 103,
-   "max": 145,
-   "team": "Arizona Cardinals",
-   "teamPct": 11.1
+   "max": 157,
+   "team": "Cleveland Browns",
+   "teamPct": 11.3
   }
  },
  {
@@ -2853,11 +2853,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 119.1,
+   "avg": 118.9,
    "min": 104,
-   "max": 151,
+   "max": 145,
    "team": "Cleveland Browns",
-   "teamPct": 11.4
+   "teamPct": 12.5
   }
  },
  {
@@ -2870,11 +2870,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 119,
+   "avg": 119.2,
    "min": 105,
-   "max": 148,
+   "max": 147,
    "team": "Cleveland Browns",
-   "teamPct": 12.4
+   "teamPct": 13.8
   }
  },
  {
@@ -2887,11 +2887,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 119.4,
+   "avg": 119.1,
    "min": 106,
-   "max": 157,
+   "max": 147,
    "team": "Cleveland Browns",
-   "teamPct": 16.2
+   "teamPct": 15.1
   }
  },
  {
@@ -2906,9 +2906,9 @@
    "pct": 100,
    "avg": 121.9,
    "min": 107,
-   "max": 153,
+   "max": 159,
    "team": "Cleveland Browns",
-   "teamPct": 13.7
+   "teamPct": 13.6
   }
  },
  {
@@ -2921,11 +2921,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 123.1,
+   "avg": 123.2,
    "min": 108,
-   "max": 155,
+   "max": 154,
    "team": "Cleveland Browns",
-   "teamPct": 11.8
+   "teamPct": 11.9
   }
  },
  {
@@ -2938,11 +2938,11 @@
   "year": "RS Sophomore",
   "adp": {
    "pct": 100,
-   "avg": 123.4,
+   "avg": 123.8,
    "min": 109,
-   "max": 162,
+   "max": 153,
    "team": "Cleveland Browns",
-   "teamPct": 12.6
+   "teamPct": 11.8
   }
  },
  {
@@ -2955,11 +2955,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 125,
+   "avg": 125.2,
    "min": 110,
-   "max": 155,
+   "max": 157,
    "team": "Cleveland Browns",
-   "teamPct": 10.7
+   "teamPct": 10.6
   }
  },
  {
@@ -2974,9 +2974,9 @@
    "pct": 100,
    "avg": 125.2,
    "min": 111,
-   "max": 155,
+   "max": 157,
    "team": "Cleveland Browns",
-   "teamPct": 10.8
+   "teamPct": 11.7
   }
  },
  {
@@ -2989,11 +2989,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 126.9,
+   "avg": 126.3,
    "min": 112,
-   "max": 163,
+   "max": 160,
    "team": "Cleveland Browns",
-   "teamPct": 12.5
+   "teamPct": 11.3
   }
  },
  {
@@ -3006,11 +3006,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 128,
+   "avg": 127.6,
    "min": 113,
-   "max": 165,
-   "team": "Cleveland Browns",
-   "teamPct": 9.2
+   "max": 155,
+   "team": "Indianapolis Colts",
+   "teamPct": 10.5
   }
  },
  {
@@ -3023,11 +3023,11 @@
   "year": "RS Sophomore",
   "adp": {
    "pct": 100,
-   "avg": 129.1,
+   "avg": 128.5,
    "min": 114,
-   "max": 160,
+   "max": 161,
    "team": "Cleveland Browns",
-   "teamPct": 14.3
+   "teamPct": 13.9
   }
  },
  {
@@ -3040,11 +3040,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 130.1,
+   "avg": 129.9,
    "min": 115,
-   "max": 161,
-   "team": "Cleveland Browns",
-   "teamPct": 8.9
+   "max": 163,
+   "team": "Buffalo Bills",
+   "teamPct": 10.6
   }
  },
  {
@@ -3057,11 +3057,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 130.9,
+   "avg": 131.2,
    "min": 116,
-   "max": 158,
+   "max": 169,
    "team": "Cleveland Browns",
-   "teamPct": 13.6
+   "teamPct": 12.1
   }
  },
  {
@@ -3074,11 +3074,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 129.2,
+   "avg": 129.6,
    "min": 117,
-   "max": 166,
+   "max": 161,
    "team": "Cleveland Browns",
-   "teamPct": 11.9
+   "teamPct": 12.2
   }
  },
  {
@@ -3091,11 +3091,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 132.3,
+   "avg": 132.2,
    "min": 118,
-   "max": 163,
-   "team": "Buffalo Bills",
-   "teamPct": 8.4
+   "max": 164,
+   "team": "Indianapolis Colts",
+   "teamPct": 11.3
   }
  },
  {
@@ -3108,11 +3108,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 133.7,
+   "avg": 133.8,
    "min": 119,
-   "max": 165,
-   "team": "Denver Broncos",
-   "teamPct": 9.1
+   "max": 174,
+   "team": "Buffalo Bills",
+   "teamPct": 12.3
   }
  },
  {
@@ -3125,11 +3125,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 133.3,
+   "avg": 133,
    "min": 120,
-   "max": 166,
-   "team": "Tennessee Titans",
-   "teamPct": 9.1
+   "max": 168,
+   "team": "Buffalo Bills",
+   "teamPct": 10.3
   }
  },
  {
@@ -3142,11 +3142,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 134.5,
+   "avg": 135,
    "min": 121,
-   "max": 166,
-   "team": "Denver Broncos",
-   "teamPct": 11.3
+   "max": 168,
+   "team": "Indianapolis Colts",
+   "teamPct": 11.6
   }
  },
  {
@@ -3159,11 +3159,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 134.9,
+   "avg": 134.7,
    "min": 122,
-   "max": 169,
-   "team": "Denver Broncos",
-   "teamPct": 8.7
+   "max": 168,
+   "team": "Buffalo Bills",
+   "teamPct": 12.2
   }
  },
  {
@@ -3176,11 +3176,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 138.3,
+   "avg": 138,
    "min": 123,
-   "max": 171,
+   "max": 168,
    "team": "Indianapolis Colts",
-   "teamPct": 10.9
+   "teamPct": 15.7
   }
  },
  {
@@ -3193,11 +3193,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 137.7,
+   "avg": 136.8,
    "min": 124,
-   "max": 168,
+   "max": 170,
    "team": "Buffalo Bills",
-   "teamPct": 11.7
+   "teamPct": 13.2
   }
  },
  {
@@ -3210,10 +3210,10 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 139,
+   "avg": 139.2,
    "min": 125,
-   "max": 170,
-   "team": "Denver Broncos",
+   "max": 172,
+   "team": "Indianapolis Colts",
    "teamPct": 10.4
   }
  },
@@ -3227,11 +3227,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 140.1,
+   "avg": 139.6,
    "min": 126,
-   "max": 172,
+   "max": 175,
    "team": "Buffalo Bills",
-   "teamPct": 11
+   "teamPct": 16.7
   }
  },
  {
@@ -3244,11 +3244,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 141.3,
+   "avg": 141.7,
    "min": 127,
-   "max": 172,
-   "team": "Kansas City Chiefs",
-   "teamPct": 10.6
+   "max": 179,
+   "team": "Buffalo Bills",
+   "teamPct": 10.3
   }
  },
  {
@@ -3261,11 +3261,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 142.2,
+   "avg": 142.7,
    "min": 128,
-   "max": 181,
-   "team": "Kansas City Chiefs",
-   "teamPct": 11.4
+   "max": 176,
+   "team": "Buffalo Bills",
+   "teamPct": 10.7
   }
  },
  {
@@ -3278,11 +3278,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 143.3,
+   "avg": 143.6,
    "min": 129,
-   "max": 177,
+   "max": 175,
    "team": "Buffalo Bills",
-   "teamPct": 10.7
+   "teamPct": 12.1
   }
  },
  {
@@ -3295,11 +3295,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 143.9,
+   "avg": 145.1,
    "min": 130,
-   "max": 188,
-   "team": "Kansas City Chiefs",
-   "teamPct": 10
+   "max": 174,
+   "team": "Indianapolis Colts",
+   "teamPct": 8.7
   }
  },
  {
@@ -3312,11 +3312,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 146.3,
+   "avg": 146,
    "min": 131,
-   "max": 184,
-   "team": "Philadelphia Eagles",
-   "teamPct": 9
+   "max": 180,
+   "team": "Buffalo Bills",
+   "teamPct": 8.8
   }
  },
  {
@@ -3329,11 +3329,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 145.1,
+   "avg": 144.7,
    "min": 132,
-   "max": 181,
-   "team": "Philadelphia Eagles",
-   "teamPct": 8.3
+   "max": 180,
+   "team": "Buffalo Bills",
+   "teamPct": 14
   }
  },
  {
@@ -3346,11 +3346,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 147.1,
+   "avg": 146.8,
    "min": 133,
-   "max": 182,
+   "max": 183,
    "team": "Buffalo Bills",
-   "teamPct": 9.5
+   "teamPct": 16.6
   }
  },
  {
@@ -3363,11 +3363,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 148.1,
+   "avg": 148.6,
    "min": 134,
-   "max": 186,
+   "max": 180,
    "team": "Indianapolis Colts",
-   "teamPct": 8.7
+   "teamPct": 9.4
   }
  },
  {
@@ -3380,11 +3380,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 149.6,
+   "avg": 148.9,
    "min": 135,
-   "max": 184,
-   "team": "Philadelphia Eagles",
-   "teamPct": 8
+   "max": 189,
+   "team": "Buffalo Bills",
+   "teamPct": 11.5
   }
  },
  {
@@ -3397,11 +3397,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 149.8,
+   "avg": 149.5,
    "min": 136,
-   "max": 179,
-   "team": "Cleveland Browns",
-   "teamPct": 9.7
+   "max": 183,
+   "team": "Philadelphia Eagles",
+   "teamPct": 11
   }
  },
  {
@@ -3414,11 +3414,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 152.1,
+   "avg": 151.4,
    "min": 137,
-   "max": 185,
+   "max": 181,
    "team": "Philadelphia Eagles",
-   "teamPct": 9.9
+   "teamPct": 9.2
   }
  },
  {
@@ -3431,11 +3431,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 151.5,
+   "avg": 152.3,
    "min": 138,
-   "max": 182,
+   "max": 184,
    "team": "Cleveland Browns",
-   "teamPct": 8.9
+   "teamPct": 8.7
   }
  },
  {
@@ -3448,11 +3448,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 152.2,
+   "avg": 152,
    "min": 139,
-   "max": 187,
+   "max": 197,
    "team": "Philadelphia Eagles",
-   "teamPct": 10.7
+   "teamPct": 11.1
   }
  },
  {
@@ -3465,11 +3465,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 154.8,
+   "avg": 155.4,
    "min": 140,
-   "max": 187,
-   "team": "Philadelphia Eagles",
-   "teamPct": 9.7
+   "max": 188,
+   "team": "Minnesota Vikings",
+   "teamPct": 9.4
   }
  },
  {
@@ -3482,11 +3482,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 155.8,
+   "avg": 156.3,
    "min": 141,
-   "max": 190,
+   "max": 192,
    "team": "Philadelphia Eagles",
-   "teamPct": 10.5
+   "teamPct": 10.1
   }
  },
  {
@@ -3499,11 +3499,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 155.5,
+   "avg": 155.4,
    "min": 142,
-   "max": 187,
+   "max": 196,
    "team": "Philadelphia Eagles",
-   "teamPct": 13.6
+   "teamPct": 12.1
   }
  },
  {
@@ -3516,11 +3516,11 @@
   "year": "RS Sophomore",
   "adp": {
    "pct": 100,
-   "avg": 157.1,
+   "avg": 157,
    "min": 143,
-   "max": 189,
+   "max": 195,
    "team": "Philadelphia Eagles",
-   "teamPct": 13.6
+   "teamPct": 15.2
   }
  },
  {
@@ -3533,11 +3533,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 158.5,
+   "avg": 158.7,
    "min": 144,
-   "max": 191,
+   "max": 193,
    "team": "Minnesota Vikings",
-   "teamPct": 9.3
+   "teamPct": 10.2
   }
  },
  {
@@ -3550,11 +3550,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 159.7,
+   "avg": 160,
    "min": 145,
-   "max": 201,
+   "max": 194,
    "team": "Minnesota Vikings",
-   "teamPct": 13.9
+   "teamPct": 12.6
   }
  },
  {
@@ -3567,11 +3567,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 160.5,
+   "avg": 160.6,
    "min": 146,
-   "max": 193,
+   "max": 207,
    "team": "Minnesota Vikings",
-   "teamPct": 14.5
+   "teamPct": 14.4
   }
  },
  {
@@ -3584,11 +3584,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 160.6,
+   "avg": 161,
    "min": 147,
-   "max": 196,
+   "max": 192,
    "team": "Minnesota Vikings",
-   "teamPct": 10.4
+   "teamPct": 12.1
   }
  },
  {
@@ -3601,11 +3601,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 161.4,
+   "avg": 161.6,
    "min": 148,
    "max": 201,
    "team": "Minnesota Vikings",
-   "teamPct": 12.2
+   "teamPct": 13
   }
  },
  {
@@ -3618,11 +3618,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 162.6,
+   "avg": 162.1,
    "min": 149,
-   "max": 202,
-   "team": "Minnesota Vikings",
-   "teamPct": 10.1
+   "max": 198,
+   "team": "Green Bay Packers",
+   "teamPct": 9.5
   }
  },
  {
@@ -3635,11 +3635,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 164.2,
+   "avg": 163.9,
    "min": 150,
-   "max": 199,
+   "max": 197,
    "team": "Minnesota Vikings",
-   "teamPct": 10.6
+   "teamPct": 9.3
   }
  },
  {
@@ -3652,11 +3652,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 165.4,
+   "avg": 164.5,
    "min": 151,
-   "max": 201,
+   "max": 200,
    "team": "Minnesota Vikings",
-   "teamPct": 17.4
+   "teamPct": 19.7
   }
  },
  {
@@ -3669,11 +3669,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 166.8,
+   "avg": 166.6,
    "min": 152,
-   "max": 200,
+   "max": 204,
    "team": "Minnesota Vikings",
-   "teamPct": 15.5
+   "teamPct": 15.6
   }
  },
  {
@@ -3686,9 +3686,9 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 167.6,
+   "avg": 166.8,
    "min": 153,
-   "max": 213,
+   "max": 210,
    "team": "Minnesota Vikings",
    "teamPct": 15.1
   }
@@ -3703,11 +3703,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 167,
+   "avg": 167.4,
    "min": 154,
-   "max": 203,
+   "max": 199,
    "team": "Green Bay Packers",
-   "teamPct": 12.6
+   "teamPct": 12.5
   }
  },
  {
@@ -3720,11 +3720,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 168.3,
+   "avg": 167.9,
    "min": 155,
-   "max": 205,
+   "max": 206,
    "team": "Green Bay Packers",
-   "teamPct": 11.3
+   "teamPct": 12.2
   }
  },
  {
@@ -3737,11 +3737,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 170.9,
+   "avg": 170.8,
    "min": 156,
-   "max": 203,
-   "team": "Green Bay Packers",
-   "teamPct": 10.9
+   "max": 207,
+   "team": "Minnesota Vikings",
+   "teamPct": 12.1
   }
  },
  {
@@ -3754,11 +3754,11 @@
   "year": "RS Sophomore",
   "adp": {
    "pct": 100,
-   "avg": 170.6,
+   "avg": 171.1,
    "min": 157,
-   "max": 212,
+   "max": 210,
    "team": "Minnesota Vikings",
-   "teamPct": 17
+   "teamPct": 15.8
   }
  },
  {
@@ -3771,11 +3771,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 172,
+   "avg": 171.8,
    "min": 158,
    "max": 208,
    "team": "Green Bay Packers",
-   "teamPct": 14.7
+   "teamPct": 14.4
   }
  },
  {
@@ -3788,11 +3788,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 173.5,
+   "avg": 174.3,
    "min": 159,
-   "max": 212,
+   "max": 209,
    "team": "Green Bay Packers",
-   "teamPct": 11.1
+   "teamPct": 10.1
   }
  },
  {
@@ -3805,11 +3805,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 174.1,
+   "avg": 173.6,
    "min": 160,
-   "max": 209,
+   "max": 214,
    "team": "Green Bay Packers",
-   "teamPct": 11.8
+   "teamPct": 13.3
   }
  },
  {
@@ -3822,11 +3822,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 174.4,
+   "avg": 174.2,
    "min": 161,
-   "max": 212,
+   "max": 206,
    "team": "Green Bay Packers",
-   "teamPct": 7.9
+   "teamPct": 9.3
   }
  },
  {
@@ -3839,11 +3839,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 176.1,
+   "avg": 176.2,
    "min": 162,
-   "max": 208,
+   "max": 216,
    "team": "Jacksonville Jaguars",
-   "teamPct": 9.1
+   "teamPct": 10
   }
  },
  {
@@ -3856,11 +3856,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 177.5,
+   "avg": 177.6,
    "min": 163,
-   "max": 218,
-   "team": "Baltimore Ravens",
-   "teamPct": 8.3
+   "max": 209,
+   "team": "New England Patriots",
+   "teamPct": 9
   }
  },
  {
@@ -3873,11 +3873,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 177.7,
+   "avg": 178.1,
    "min": 164,
-   "max": 212,
+   "max": 220,
    "team": "Jacksonville Jaguars",
-   "teamPct": 9.5
+   "teamPct": 9.6
   }
  },
  {
@@ -3890,11 +3890,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 178.9,
+   "avg": 178.6,
    "min": 165,
-   "max": 212,
+   "max": 216,
    "team": "Seattle Seahawks",
-   "teamPct": 10.2
+   "teamPct": 10.8
   }
  },
  {
@@ -3907,11 +3907,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 180.2,
+   "avg": 180.6,
    "min": 166,
-   "max": 215,
-   "team": "Buffalo Bills",
-   "teamPct": 9.6
+   "max": 217,
+   "team": "New England Patriots",
+   "teamPct": 9.9
   }
  },
  {
@@ -3924,11 +3924,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 181.4,
+   "avg": 181.6,
    "min": 167,
-   "max": 219,
+   "max": 221,
    "team": "New England Patriots",
-   "teamPct": 8.8
+   "teamPct": 10.3
   }
  },
  {
@@ -3941,11 +3941,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 181.4,
+   "avg": 181.9,
    "min": 168,
-   "max": 213,
+   "max": 217,
    "team": "Baltimore Ravens",
-   "teamPct": 10.3
+   "teamPct": 10.7
   }
  },
  {
@@ -3960,9 +3960,9 @@
    "pct": 100,
    "avg": 182.5,
    "min": 169,
-   "max": 222,
-   "team": "Green Bay Packers",
-   "teamPct": 11.9
+   "max": 217,
+   "team": "Baltimore Ravens",
+   "teamPct": 11.8
   }
  },
  {
@@ -3975,11 +3975,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 184.7,
+   "avg": 185.5,
    "min": 170,
-   "max": 222,
+   "max": 221,
    "team": "New England Patriots",
-   "teamPct": 7.7
+   "teamPct": 8.4
   }
  },
  {
@@ -3992,11 +3992,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 185.7,
+   "avg": 186.1,
    "min": 171,
    "max": 219,
-   "team": "Buffalo Bills",
-   "teamPct": 8.9
+   "team": "New England Patriots",
+   "teamPct": 9.6
   }
  },
  {
@@ -4009,11 +4009,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 186.8,
+   "avg": 187.1,
    "min": 172,
-   "max": 222,
+   "max": 220,
    "team": "New England Patriots",
-   "teamPct": 9.4
+   "teamPct": 9.8
   }
  },
  {
@@ -4026,11 +4026,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 186.9,
+   "avg": 186.5,
    "min": 173,
-   "max": 219,
-   "team": "Baltimore Ravens",
-   "teamPct": 9
+   "max": 225,
+   "team": "Seattle Seahawks",
+   "teamPct": 10.2
   }
  },
  {
@@ -4043,11 +4043,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 187.9,
+   "avg": 187.6,
    "min": 174,
-   "max": 226,
-   "team": "New England Patriots",
-   "teamPct": 10.9
+   "max": 232,
+   "team": "Baltimore Ravens",
+   "teamPct": 9.7
   }
  },
  {
@@ -4060,11 +4060,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 190.1,
+   "avg": 190.3,
    "min": 175,
    "max": 229,
    "team": "New England Patriots",
-   "teamPct": 9.7
+   "teamPct": 11.3
   }
  },
  {
@@ -4077,11 +4077,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 190.2,
+   "avg": 189.5,
    "min": 176,
-   "max": 225,
+   "max": 231,
    "team": "New England Patriots",
-   "teamPct": 13.9
+   "teamPct": 12.3
   }
  },
  {
@@ -4094,11 +4094,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 190.9,
+   "avg": 190.8,
    "min": 177,
-   "max": 225,
+   "max": 227,
    "team": "New England Patriots",
-   "teamPct": 11.1
+   "teamPct": 13.8
   }
  },
  {
@@ -4111,11 +4111,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 192.7,
+   "avg": 192.2,
    "min": 178,
-   "max": 227,
+   "max": 229,
    "team": "New England Patriots",
-   "teamPct": 14.9
+   "teamPct": 14.8
   }
  },
  {
@@ -4128,11 +4128,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 192.9,
+   "avg": 192.5,
    "min": 179,
-   "max": 227,
+   "max": 225,
    "team": "New England Patriots",
-   "teamPct": 12.9
+   "teamPct": 13.9
   }
  },
  {
@@ -4145,11 +4145,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 193.8,
+   "avg": 193.6,
    "min": 180,
-   "max": 234,
+   "max": 225,
    "team": "New England Patriots",
-   "teamPct": 11.2
+   "teamPct": 12.8
   }
  },
  {
@@ -4162,11 +4162,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 194.9,
+   "avg": 195.1,
    "min": 181,
-   "max": 234,
+   "max": 235,
    "team": "New England Patriots",
-   "teamPct": 12.7
+   "teamPct": 11.8
   }
  },
  {
@@ -4179,11 +4179,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 196.4,
+   "avg": 196,
    "min": 182,
-   "max": 226,
+   "max": 231,
    "team": "New England Patriots",
-   "teamPct": 10.8
+   "teamPct": 12.7
   }
  },
  {
@@ -4196,11 +4196,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 197.4,
+   "avg": 197.1,
    "min": 183,
-   "max": 235,
+   "max": 247,
    "team": "New England Patriots",
-   "teamPct": 15.2
+   "teamPct": 17.5
   }
  },
  {
@@ -4213,11 +4213,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 198.5,
+   "avg": 198.1,
    "min": 184,
-   "max": 235,
+   "max": 236,
    "team": "New England Patriots",
-   "teamPct": 12.7
+   "teamPct": 12.3
   }
  },
  {
@@ -4230,11 +4230,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 199.7,
+   "avg": 199.4,
    "min": 185,
-   "max": 236,
+   "max": 252,
    "team": "New England Patriots",
-   "teamPct": 17.9
+   "teamPct": 16.9
   }
  },
  {
@@ -4247,11 +4247,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 200,
+   "avg": 200.4,
    "min": 186,
-   "max": 242,
+   "max": 245,
    "team": "New England Patriots",
-   "teamPct": 15.2
+   "teamPct": 16.8
   }
  },
  {
@@ -4264,11 +4264,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 201.7,
+   "avg": 202.2,
    "min": 187,
-   "max": 241,
+   "max": 240,
    "team": "New England Patriots",
-   "teamPct": 14.2
+   "teamPct": 13.7
   }
  },
  {
@@ -4281,11 +4281,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 202.3,
+   "avg": 202.9,
    "min": 188,
-   "max": 242,
+   "max": 244,
    "team": "New England Patriots",
-   "teamPct": 18.4
+   "teamPct": 16.9
   }
  },
  {
@@ -4298,11 +4298,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 202.8,
+   "avg": 203.4,
    "min": 189,
-   "max": 243,
+   "max": 240,
    "team": "New England Patriots",
-   "teamPct": 19.6
+   "teamPct": 16.6
   }
  },
  {
@@ -4315,11 +4315,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 203.2,
+   "avg": 204.6,
    "min": 190,
-   "max": 247,
+   "max": 243,
    "team": "New England Patriots",
-   "teamPct": 12.9
+   "teamPct": 11.6
   }
  },
  {
@@ -4332,11 +4332,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 100,
-   "avg": 205.7,
+   "avg": 204.9,
    "min": 191,
-   "max": 242,
+   "max": 246,
    "team": "New England Patriots",
-   "teamPct": 10.3
+   "teamPct": 11.6
   }
  },
  {
@@ -4349,11 +4349,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 205.3,
+   "avg": 205.7,
    "min": 192,
-   "max": 237,
-   "team": "New England Patriots",
-   "teamPct": 8.9
+   "max": 243,
+   "team": "New York Giants",
+   "teamPct": 7.7
   }
  },
  {
@@ -4366,11 +4366,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 207.6,
+   "avg": 208.1,
    "min": 193,
-   "max": 245,
-   "team": "Detroit Lions",
-   "teamPct": 7.8
+   "max": 242,
+   "team": "Pittsburgh Steelers",
+   "teamPct": 8.1
   }
  },
  {
@@ -4383,11 +4383,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 207,
+   "avg": 207.7,
    "min": 194,
-   "max": 246,
-   "team": "New England Patriots",
-   "teamPct": 10.9
+   "max": 245,
+   "team": "New York Giants",
+   "teamPct": 9.5
   }
  },
  {
@@ -4400,11 +4400,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 209.4,
+   "avg": 208.8,
    "min": 195,
-   "max": 257,
-   "team": "New York Giants",
-   "teamPct": 8.5
+   "max": 246,
+   "team": "Detroit Lions",
+   "teamPct": 8.7
   }
  },
  {
@@ -4419,9 +4419,9 @@
    "pct": 100,
    "avg": 209.3,
    "min": 196,
-   "max": 254,
+   "max": 247,
    "team": "New York Giants",
-   "teamPct": 9.1
+   "teamPct": 10.5
   }
  },
  {
@@ -4434,11 +4434,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 100,
-   "avg": 211.5,
+   "avg": 211.1,
    "min": 197,
-   "max": 252,
-   "team": "Detroit Lions",
-   "teamPct": 10.6
+   "max": 249,
+   "team": "New England Patriots",
+   "teamPct": 10.3
   }
  },
  {
@@ -4451,11 +4451,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 212.2,
+   "avg": 211.5,
    "min": 198,
-   "max": 244,
-   "team": "Detroit Lions",
-   "teamPct": 10.9
+   "max": 256,
+   "team": "New York Giants",
+   "teamPct": 10.1
   }
  },
  {
@@ -4468,11 +4468,11 @@
   "year": "Junior",
   "adp": {
    "pct": 100,
-   "avg": 213.7,
+   "avg": 213.1,
    "min": 199,
-   "max": 246,
+   "max": 253,
    "team": "Detroit Lions",
-   "teamPct": 11.1
+   "teamPct": 11.4
   }
  },
  {
@@ -4485,11 +4485,11 @@
   "year": "RS Sophomore",
   "adp": {
    "pct": 100,
-   "avg": 213.4,
+   "avg": 213.7,
    "min": 200,
-   "max": 245,
+   "max": 248,
    "team": "New York Giants",
-   "teamPct": 8.7
+   "teamPct": 10
   }
  },
  {
@@ -4502,11 +4502,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 214.5,
+   "avg": 215.1,
    "min": 201,
-   "max": 252,
+   "max": 250,
    "team": "Detroit Lions",
-   "teamPct": 11.3
+   "teamPct": 12.1
   }
  },
  {
@@ -4518,12 +4518,12 @@
   "weight": "320",
   "year": "RS Senior",
   "adp": {
-   "pct": 99.9,
-   "avg": 216.1,
+   "pct": 100,
+   "avg": 215.9,
    "min": 202,
-   "max": 249,
+   "max": 252,
    "team": "Atlanta Falcons",
-   "teamPct": 9.2
+   "teamPct": 9.1
   }
  },
  {
@@ -4536,11 +4536,11 @@
   "year": "Senior",
   "adp": {
    "pct": 100,
-   "avg": 217,
+   "avg": 216.7,
    "min": 203,
-   "max": 252,
+   "max": 255,
    "team": "Detroit Lions",
-   "teamPct": 13
+   "teamPct": 8
   }
  },
  {
@@ -4552,12 +4552,12 @@
   "weight": "210",
   "year": "Senior",
   "adp": {
-   "pct": 99.7,
-   "avg": 218.7,
+   "pct": 99.8,
+   "avg": 217.9,
    "min": 204,
    "max": 256,
    "team": "Jacksonville Jaguars",
-   "teamPct": 10.3
+   "teamPct": 9.6
   }
  },
  {
@@ -4569,12 +4569,12 @@
   "weight": "200",
   "year": "Senior",
   "adp": {
-   "pct": 99.9,
-   "avg": 219,
+   "pct": 99.8,
+   "avg": 218.7,
    "min": 205,
-   "max": 256,
+   "max": 251,
    "team": "Detroit Lions",
-   "teamPct": 12.8
+   "teamPct": 13.1
   }
  },
  {
@@ -4586,12 +4586,12 @@
   "weight": "306",
   "year": "Senior",
   "adp": {
-   "pct": 99.5,
-   "avg": 220,
+   "pct": 99.6,
+   "avg": 219.8,
    "min": 206,
    "max": 255,
-   "team": "Jacksonville Jaguars",
-   "teamPct": 9.7
+   "team": "Detroit Lions",
+   "teamPct": 9.5
   }
  },
  {
@@ -4604,11 +4604,11 @@
   "year": "RS Senior",
   "adp": {
    "pct": 99.9,
-   "avg": 220.7,
+   "avg": 220.6,
    "min": 207,
-   "max": 255,
+   "max": 254,
    "team": "Detroit Lions",
-   "teamPct": 11.9
+   "teamPct": 11.1
   }
  },
  {
@@ -4620,12 +4620,12 @@
   "weight": "265",
   "year": "Senior",
   "adp": {
-   "pct": 99.8,
-   "avg": 221.7,
+   "pct": 99.7,
+   "avg": 222.4,
    "min": 208,
-   "max": 254,
-   "team": "Atlanta Falcons",
-   "teamPct": 9.2
+   "max": 257,
+   "team": "Jacksonville Jaguars",
+   "teamPct": 8.9
   }
  },
  {
@@ -4638,11 +4638,11 @@
   "year": "Senior",
   "adp": {
    "pct": 99.8,
-   "avg": 224,
+   "avg": 223.5,
    "min": 209,
-   "max": 256,
+   "max": 255,
    "team": "Atlanta Falcons",
-   "teamPct": 9.8
+   "teamPct": 9.6
   }
  },
  {
@@ -4654,12 +4654,12 @@
   "weight": "210",
   "year": "Senior",
   "adp": {
-   "pct": 99.6,
+   "pct": 99.7,
    "avg": 223.4,
    "min": 210,
-   "max": 256,
-   "team": "Detroit Lions",
-   "teamPct": 10.2
+   "max": 257,
+   "team": "Jacksonville Jaguars",
+   "teamPct": 11.9
   }
  },
  {
@@ -4672,11 +4672,11 @@
   "year": "RS Junior",
   "adp": {
    "pct": 99.8,
-   "avg": 224.2,
+   "avg": 225.1,
    "min": 211,
    "max": 257,
    "team": "Atlanta Falcons",
-   "teamPct": 11.5
+   "teamPct": 13.5
   }
  },
  {
@@ -4688,11 +4688,11 @@
   "weight": "315",
   "year": "RS Senior",
   "adp": {
-   "pct": 99.6,
-   "avg": 225.9,
+   "pct": 99.2,
+   "avg": 225.8,
    "min": 212,
    "max": 256,
-   "team": "Indianapolis Colts",
+   "team": "Jacksonville Jaguars",
    "teamPct": 10.8
   }
  },
@@ -4705,12 +4705,12 @@
   "weight": "250",
   "year": "Junior",
   "adp": {
-   "pct": 99.9,
-   "avg": 227.7,
+   "pct": 99.7,
+   "avg": 227.4,
    "min": 213,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 11.7
+   "teamPct": 10.3
   }
  },
  {
@@ -4722,12 +4722,12 @@
   "weight": "200",
   "year": "Senior",
   "adp": {
-   "pct": 99.1,
-   "avg": 228.2,
+   "pct": 99.6,
+   "avg": 227.7,
    "min": 214,
-   "max": 257,
+   "max": 256,
    "team": "Atlanta Falcons",
-   "teamPct": 10.1
+   "teamPct": 10.5
   }
  },
  {
@@ -4739,12 +4739,12 @@
   "weight": "185",
   "year": "RS Sophomore",
   "adp": {
-   "pct": 98.7,
-   "avg": 229.3,
+   "pct": 98.6,
+   "avg": 229.5,
    "min": 215,
    "max": 257,
    "team": "Atlanta Falcons",
-   "teamPct": 9.7
+   "teamPct": 10.5
   }
  },
  {
@@ -4757,11 +4757,11 @@
   "year": "Senior",
   "adp": {
    "pct": 99,
-   "avg": 230.4,
+   "avg": 229.3,
    "min": 216,
    "max": 257,
    "team": "Atlanta Falcons",
-   "teamPct": 9.7
+   "teamPct": 10.9
   }
  },
  {
@@ -4773,12 +4773,12 @@
   "weight": "305",
   "year": "RS Senior",
   "adp": {
-   "pct": 98.9,
+   "pct": 98.2,
    "avg": 230.6,
    "min": 217,
-   "max": 256,
-   "team": "Indianapolis Colts",
-   "teamPct": 10.4
+   "max": 257,
+   "team": "Atlanta Falcons",
+   "teamPct": 9.3
   }
  },
  {
@@ -4795,7 +4795,7 @@
    "min": 218,
    "max": 257,
    "team": "Atlanta Falcons",
-   "teamPct": 13
+   "teamPct": 13.8
   }
  },
  {
@@ -4807,12 +4807,12 @@
   "weight": "260",
   "year": "Senior",
   "adp": {
-   "pct": 98.7,
-   "avg": 232.4,
+   "pct": 97.6,
+   "avg": 232.9,
    "min": 219,
    "max": 257,
-   "team": "Indianapolis Colts",
-   "teamPct": 9.6
+   "team": "Baltimore Ravens",
+   "teamPct": 7.9
   }
  },
  {
@@ -4824,12 +4824,12 @@
   "weight": "192",
   "year": "Senior",
   "adp": {
-   "pct": 97.8,
-   "avg": 233.4,
+   "pct": 98.3,
+   "avg": 233.3,
    "min": 220,
    "max": 257,
-   "team": "Indianapolis Colts",
-   "teamPct": 7.9
+   "team": "Cleveland Browns",
+   "teamPct": 7.5
   }
  },
  {
@@ -4841,12 +4841,12 @@
   "weight": "301",
   "year": "RS Senior",
   "adp": {
-   "pct": 97,
+   "pct": 97.4,
    "avg": 234,
    "min": 221,
    "max": 257,
    "team": "Atlanta Falcons",
-   "teamPct": 9.1
+   "teamPct": 10.3
   }
  },
  {
@@ -4859,11 +4859,11 @@
   "year": "Senior",
   "adp": {
    "pct": 95.3,
-   "avg": 235.6,
+   "avg": 235.3,
    "min": 222,
    "max": 257,
-   "team": "Pittsburgh Steelers",
-   "teamPct": 7.2
+   "team": "Cleveland Browns",
+   "teamPct": 7.3
   }
  },
  {
@@ -4875,12 +4875,12 @@
   "weight": "334",
   "year": "Senior",
   "adp": {
-   "pct": 97,
-   "avg": 235.4,
+   "pct": 95.3,
+   "avg": 236.3,
    "min": 223,
    "max": 257,
    "team": "Cleveland Browns",
-   "teamPct": 7.6
+   "teamPct": 8.4
   }
  },
  {
@@ -4892,8 +4892,8 @@
   "weight": "327",
   "year": "Junior",
   "adp": {
-   "pct": 94.7,
-   "avg": 236.6,
+   "pct": 94.9,
+   "avg": 236.9,
    "min": 224,
    "max": 257,
    "team": "Cleveland Browns",
@@ -4909,11 +4909,11 @@
   "weight": "250",
   "year": "Senior",
   "adp": {
-   "pct": 94.7,
+   "pct": 95.8,
    "avg": 237.4,
    "min": 225,
    "max": 257,
-   "team": "Carolina Panthers",
+   "team": "Cleveland Browns",
    "teamPct": 9.4
   }
  },
@@ -4926,12 +4926,12 @@
   "weight": "334",
   "year": "Junior",
   "adp": {
-   "pct": 94,
-   "avg": 238,
+   "pct": 94.8,
+   "avg": 238.2,
    "min": 226,
    "max": 257,
-   "team": "Cleveland Browns",
-   "teamPct": 10.6
+   "team": "Carolina Panthers",
+   "teamPct": 8.8
   }
  },
  {
@@ -4944,11 +4944,11 @@
   "year": "Senior",
   "adp": {
    "pct": 92.8,
-   "avg": 239.6,
+   "avg": 239.3,
    "min": 227,
    "max": 257,
    "team": "Cleveland Browns",
-   "teamPct": 8
+   "teamPct": 9.2
   }
  },
  {
@@ -4960,12 +4960,12 @@
   "weight": "285",
   "year": "Junior",
   "adp": {
-   "pct": 90.3,
-   "avg": 239.6,
+   "pct": 91.5,
+   "avg": 240.3,
    "min": 228,
    "max": 257,
    "team": "Cleveland Browns",
-   "teamPct": 9.3
+   "teamPct": 8.2
   }
  },
  {
@@ -4977,12 +4977,12 @@
   "weight": "320",
   "year": "Senior",
   "adp": {
-   "pct": 90.4,
-   "avg": 240.7,
+   "pct": 90.3,
+   "avg": 240.8,
    "min": 229,
    "max": 257,
    "team": "Cleveland Browns",
-   "teamPct": 9.4
+   "teamPct": 9.6
   }
  },
  {
@@ -4994,12 +4994,12 @@
   "weight": "200",
   "year": "Junior",
   "adp": {
-   "pct": 88.3,
-   "avg": 241.8,
+   "pct": 87.9,
+   "avg": 241.6,
    "min": 230,
    "max": 257,
-   "team": "Cleveland Browns",
-   "teamPct": 8.6
+   "team": "Arizona Cardinals",
+   "teamPct": 8.3
   }
  },
  {
@@ -5011,12 +5011,12 @@
   "weight": "240",
   "year": "Senior",
   "adp": {
-   "pct": 86.6,
-   "avg": 243,
+   "pct": 87.2,
+   "avg": 242.6,
    "min": 231,
    "max": 257,
-   "team": "Detroit Lions",
-   "teamPct": 8.4
+   "team": "Denver Broncos",
+   "teamPct": 8.1
   }
  },
  {
@@ -5028,12 +5028,12 @@
   "weight": "249",
   "year": "Senior",
   "adp": {
-   "pct": 87.9,
+   "pct": 85.3,
    "avg": 243.1,
    "min": 232,
    "max": 257,
    "team": "Cleveland Browns",
-   "teamPct": 8.8
+   "teamPct": 8.4
   }
  },
  {
@@ -5045,12 +5045,12 @@
   "weight": "240",
   "year": "Senior",
   "adp": {
-   "pct": 82.9,
-   "avg": 244.1,
+   "pct": 83,
+   "avg": 243.5,
    "min": 233,
    "max": 257,
    "team": "Denver Broncos",
-   "teamPct": 8.2
+   "teamPct": 10
   }
  },
  {
@@ -5062,12 +5062,12 @@
   "weight": "313",
   "year": "RS Junior",
   "adp": {
-   "pct": 84.2,
-   "avg": 244.3,
+   "pct": 82.9,
+   "avg": 244.1,
    "min": 234,
    "max": 257,
    "team": "Miami Dolphins",
-   "teamPct": 9.6
+   "teamPct": 9.3
   }
  },
  {
@@ -5079,12 +5079,12 @@
   "weight": "205",
   "year": "RS Senior",
   "adp": {
-   "pct": 78.8,
-   "avg": 245,
+   "pct": 79.5,
+   "avg": 245.5,
    "min": 235,
    "max": 257,
-   "team": "Miami Dolphins",
-   "teamPct": 9.5
+   "team": "Detroit Lions",
+   "teamPct": 10.2
   }
  },
  {
@@ -5096,12 +5096,12 @@
   "weight": "249",
   "year": "Senior",
   "adp": {
-   "pct": 76.7,
-   "avg": 245.8,
+   "pct": 77.8,
+   "avg": 246.1,
    "min": 236,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 10.4
+   "teamPct": 10.9
   }
  },
  {
@@ -5113,12 +5113,12 @@
   "weight": "301",
   "year": "Senior",
   "adp": {
-   "pct": 75.2,
-   "avg": 246.2,
+   "pct": 75.3,
+   "avg": 246,
    "min": 237,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 9.6
+   "teamPct": 8
   }
  },
  {
@@ -5130,12 +5130,12 @@
   "weight": "202",
   "year": "Senior",
   "adp": {
-   "pct": 74.5,
-   "avg": 247,
+   "pct": 73.7,
+   "avg": 247.2,
    "min": 238,
    "max": 257,
-   "team": "Detroit Lions",
-   "teamPct": 11.9
+   "team": "Miami Dolphins",
+   "teamPct": 13.3
   }
  },
  {
@@ -5147,12 +5147,12 @@
   "weight": "300",
   "year": "Senior",
   "adp": {
-   "pct": 71.9,
-   "avg": 247.3,
+   "pct": 72.9,
+   "avg": 247.7,
    "min": 239,
    "max": 257,
    "team": "Miami Dolphins",
-   "teamPct": 11.5
+   "teamPct": 12.3
   }
  },
  {
@@ -5164,12 +5164,12 @@
   "weight": "316",
   "year": "Senior",
   "adp": {
-   "pct": 63.2,
-   "avg": 248.4,
+   "pct": 65.2,
+   "avg": 248,
    "min": 240,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 11.7
+   "teamPct": 11.3
   }
  },
  {
@@ -5181,12 +5181,12 @@
   "weight": "250",
   "year": "Senior",
   "adp": {
-   "pct": 64.2,
-   "avg": 248.8,
+   "pct": 62.5,
+   "avg": 248.5,
    "min": 241,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 14.3
+   "teamPct": 11.8
   }
  },
  {
@@ -5198,12 +5198,12 @@
   "weight": "230",
   "year": "Senior",
   "adp": {
-   "pct": 59,
-   "avg": 249.4,
+   "pct": 57.2,
+   "avg": 249.3,
    "min": 242,
    "max": 257,
-   "team": "Miami Dolphins",
-   "teamPct": 11.4
+   "team": "Detroit Lions",
+   "teamPct": 12.2
   }
  },
  {
@@ -5215,12 +5215,12 @@
   "weight": "230",
   "year": "Senior",
   "adp": {
-   "pct": 59.3,
-   "avg": 249.4,
+   "pct": 59.9,
+   "avg": 250,
    "min": 243,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 13.5
+   "teamPct": 13.2
   }
  },
  {
@@ -5232,12 +5232,12 @@
   "weight": "192",
   "year": "Senior",
   "adp": {
-   "pct": 51.4,
-   "avg": 250.3,
+   "pct": 53.2,
+   "avg": 250.4,
    "min": 244,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 16.1
+   "teamPct": 14.7
   }
  },
  {
@@ -5249,12 +5249,12 @@
   "weight": "190",
   "year": "Senior",
   "adp": {
-   "pct": 47.2,
-   "avg": 251,
+   "pct": 49.2,
+   "avg": 250.9,
    "min": 245,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 15
+   "teamPct": 13.8
   }
  },
  {
@@ -5266,12 +5266,12 @@
   "weight": "228",
   "year": "Senior",
   "adp": {
-   "pct": 48.4,
-   "avg": 251.7,
+   "pct": 47,
+   "avg": 251.6,
    "min": 246,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 16.7
+   "teamPct": 14.3
   }
  },
  {
@@ -5283,12 +5283,12 @@
   "weight": "215",
   "year": "Senior",
   "adp": {
-   "pct": 44.1,
+   "pct": 41.3,
    "avg": 252.1,
    "min": 247,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 16.8
+   "teamPct": 16.9
   }
  },
  {
@@ -5300,12 +5300,12 @@
   "weight": "208",
   "year": "Senior",
   "adp": {
-   "pct": 39.9,
-   "avg": 252.6,
+   "pct": 40.9,
+   "avg": 252.5,
    "min": 248,
    "max": 257,
    "team": "Detroit Lions",
-   "teamPct": 21.3
+   "teamPct": 22.5
   }
  },
  {
@@ -5317,12 +5317,12 @@
   "weight": "190",
   "year": "Senior",
   "adp": {
-   "pct": 36.7,
-   "avg": 252.6,
+   "pct": 36.6,
+   "avg": 253,
    "min": 249,
    "max": 257,
-   "team": "Chicago Bears",
-   "teamPct": 15.3
+   "team": "Arizona Cardinals",
+   "teamPct": 13.9
   }
  },
  {
@@ -5334,12 +5334,12 @@
   "weight": "210",
   "year": "Senior",
   "adp": {
-   "pct": 31.7,
-   "avg": 253.4,
+   "pct": 35.2,
+   "avg": 253.2,
    "min": 250,
    "max": 257,
-   "team": "Chicago Bears",
-   "teamPct": 15.8
+   "team": "Arizona Cardinals",
+   "teamPct": 15.6
   }
  },
  {
@@ -5351,12 +5351,12 @@
   "weight": "178",
   "year": "Senior",
   "adp": {
-   "pct": 27.6,
-   "avg": 253.8,
+   "pct": 24.6,
+   "avg": 254.1,
    "min": 251,
    "max": 257,
-   "team": "Indianapolis Colts",
-   "teamPct": 19.2
+   "team": "Kansas City Chiefs",
+   "teamPct": 15.4
   }
  },
  {
@@ -5368,12 +5368,12 @@
   "weight": "225",
   "year": "Senior",
   "adp": {
-   "pct": 25.3,
-   "avg": 254.3,
+   "pct": 24.6,
+   "avg": 254.4,
    "min": 252,
    "max": 257,
-   "team": "Indianapolis Colts",
-   "teamPct": 20.6
+   "team": "Arizona Cardinals",
+   "teamPct": 19.9
   }
  },
  {
@@ -5385,12 +5385,12 @@
   "weight": "320",
   "year": "Senior",
   "adp": {
-   "pct": 17.3,
-   "avg": 254.9,
+   "pct": 20.8,
+   "avg": 255.1,
    "min": 253,
    "max": 257,
    "team": "Miami Dolphins",
-   "teamPct": 31.2
+   "teamPct": 24
   }
  },
  {
@@ -5402,12 +5402,12 @@
   "weight": "203",
   "year": "Senior",
   "adp": {
-   "pct": 15.8,
-   "avg": 255.5,
+   "pct": 14.2,
+   "avg": 255.6,
    "min": 254,
    "max": 257,
-   "team": "Miami Dolphins",
-   "teamPct": 34.2
+   "team": "Kansas City Chiefs",
+   "teamPct": 28.9
   }
  },
  {
@@ -5419,12 +5419,12 @@
   "weight": "325",
   "year": "RS Senior",
   "adp": {
-   "pct": 13.5,
-   "avg": 256,
+   "pct": 11.4,
+   "avg": 255.9,
    "min": 255,
    "max": 257,
    "team": "Kansas City Chiefs",
-   "teamPct": 36.3
+   "teamPct": 37.7
   }
  },
  {
@@ -5436,12 +5436,12 @@
   "weight": "275",
   "year": "Senior",
   "adp": {
-   "pct": 9.4,
+   "pct": 11.3,
    "avg": 256.5,
    "min": 256,
    "max": 257,
-   "team": "Kansas City Chiefs",
-   "teamPct": 52.1
+   "team": "New England Patriots",
+   "teamPct": 54.9
   }
  },
  {
@@ -5453,7 +5453,7 @@
   "weight": "215",
   "year": "RS Junior",
   "adp": {
-   "pct": 4.6,
+   "pct": 4.4,
    "avg": 257,
    "min": 257,
    "max": 257,
