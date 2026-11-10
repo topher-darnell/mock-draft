@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "17", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "18", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -849,7 +849,7 @@ def fantasy_page():
     desc = (f"2026 fantasy football leaders in Standard, Half PPR, PPR and TE Premium scoring, plus 2027 rookie rankings for next season and dynasty. "
             f"PPR leader: {top['ppr']['n']}. Top dynasty rookie: {r1['n']}.")
     return page("fantasy.html", "Fantasy Football Leaders 2026 and 2027 Dynasty Rookie Rankings · Big Head GM", desc,
-                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=5",))
+                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=6",))
 
 
 # ---------- games ----------
@@ -1149,7 +1149,13 @@ def nfl_profiles():
                 f'<span class="bb-text"><a class="bb-name" href="{slug(q["n"])}.html">{esc(q["n"])}</a>'
                 f'<span class="bb-meta">{esc(FF_TEAM.get(q["t"], q["t"]))} · {q["s"]["ppr"] / q["g"]:.1f} per game</span></span>'
                 f'<span class="bb-adp">{q["s"]["ppr"]:.1f}</span></li>' for q in rows)
-        mates = sorted([q for q in lead if q["t"] == r["t"]], key=lambda q: -q["s"]["ppr"])
+        order = list(FF_POS_NAME)
+        mates = sorted([q for q in lead if q["t"] == r["t"]], key=lambda q: (order.index(q["p"]), -q["s"]["ppr"]))
+        mates_html = ""
+        for ps in order:
+            grp = [q for q in mates if q["p"] == ps]
+            if grp:
+                mates_html += f'<h3 class="ff-grp">{FF_POS_PLURAL[ps].capitalize()}</h3><ol class="bb-list">{mini(grp, n)}</ol>'
         same = sorted([q for q in lead if q["p"] == pos], key=lambda q: -q["s"]["ppr"])
         i = prank[(n, "ppr")] - 1
         start = max(0, min(i - 3, len(same) - 7))
@@ -1185,7 +1191,8 @@ def nfl_profiles():
 
     <section class="pg-section">
       <h2 class="home-h2">{esc(short(team))} fantasy players</h2>
-      <ol class="bb-list">{mini(mates, n)}</ol>
+      {mates_html}
+      <p class="pg-more"><a href="../fantasy.html?team={r['t']}">{esc(short(team))} on the leaderboard →</a></p>
     </section>
 
     <section class="pg-section">

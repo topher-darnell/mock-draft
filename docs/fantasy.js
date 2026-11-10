@@ -24,7 +24,11 @@
   function leaders() {
     const ranked = DATA.leaders.filter((r) => pos === "All" || r.p === pos).sort((a, b) => b.s[fmt] - a.s[fmt]);
     let rows = ranked.map((r, i) => [r, i + 1]);
-    if (team) rows = rows.filter(([r]) => r.t === team);
+    if (team) {
+      const ORDER = ["QB", "RB", "WR", "TE"];
+      rows = rows.filter(([r]) => r.t === team)
+        .sort((x, y) => ORDER.indexOf(x[0].p) - ORDER.indexOf(y[0].p) || x[1] - y[1]);
+    }
     if (words) rows = rows.filter(([r]) => r.n.toLowerCase().includes(words) || (TEAM[r.t] || "").toLowerCase().includes(words));
     const more = document.getElementById("ff-more");
     more.hidden = all || words || team || rows.length <= 50;
@@ -100,5 +104,10 @@
   showTab(location.hash.slice(1));
 
   if (!["std", "half", "ppr", "tep"].includes(fmt)) fmt = "ppr";
+  const want = new URLSearchParams(location.search).get("team");
+  if (want && TEAM[want]) {
+    team = want;
+    document.getElementById("ff-team").value = want;
+  }
   render();
 })();
