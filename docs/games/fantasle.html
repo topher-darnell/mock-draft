@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fantasle: Guess the NFL Fantasy Player · Big Head GM</title>
+  <meta name="description" content="Fantasle is a free daily NFL fantasy football guessing game. Guess the mystery player in 8 tries from his team, division, position, PPR points per game, touchdowns, yards and catches.">
+  <link rel="canonical" href="https://bigheadgm.com/games/fantasle.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Big Head GM">
+  <meta property="og:title" content="Fantasle: guess today&#x27;s mystery NFL fantasy player">
+  <meta property="og:description" content="Fantasle is a free daily NFL fantasy football guessing game. Guess the mystery player in 8 tries from his team, division, position, PPR points per game, touchdowns, yards and catches.">
+  <meta property="og:url" content="https://bigheadgm.com/games/fantasle.html">
+  <meta property="og:image" content="https://bigheadgm.com/icons/og-image.jpg?v=4">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="manifest" href="../manifest.json?v=3">
+  <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png?v=4">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png?v=4">
+  <meta name="theme-color" content="#10151C">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="../style.css?v=13">
+  
+</head>
+<body class="info-page game-page">
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="../" aria-label="Big Head GM home">
+        <span class="brand-tile"><img src="../icons/mascot-head.png?v=4" alt="" width="40" height="40"></span>
+        <span class="brand-word">BIG HEAD <span>GM</span></span>
+      </a>
+      <a class="header-cta" href="../?start=1">Start <span class="cta-long">mock </span>draft</a>
+    </div>
+  </header>
+  <nav class="site-nav" aria-label="Site"><div class="wrap site-nav-row"><a href="../">Mock draft</a><a href="../players/">Big board</a><a href="../teams/">Teams</a><a href="../odds.html">#1 pick odds</a><a href="../insights.html">1,000 drafts</a><a href="../fantasy.html">Fantasy</a><a href="../games/" aria-current="page">Games</a></div></nav>
+
+  <main class="wrap pg-main">
+    
+
+    <div class="gm-shell pl-shell" id="fantasle">
+      <div class="gm-top">
+        <div><p class="eyebrow" id="pl-eyebrow">DAILY</p><h1 class="gm-title">Fantasle</h1></div>
+        <a class="gm-exit" href="./">All games</a>
+      </div>
+      <div class="in-chips pl-modes" id="pl-modes">
+        <button class="filter active" data-mode="daily" aria-pressed="true">Daily</button>
+        <button class="filter" data-mode="unlimited" aria-pressed="false">Unlimited</button>
+        <button class="filter" data-mode="help" aria-pressed="false">How to play</button>
+        <button class="filter" data-mode="stats" aria-pressed="false">Stats</button>
+      </div>
+
+      <section class="gm-panel" id="pl-help" hidden>
+        <p class="pg-text">Guess the mystery <b>NFL fantasy player</b> in <b>8 tries</b>. Every QB, RB, WR and TE in our 2026 fantasy rankings is fair game. After each guess, every box tells you how close you are.</p>
+        <ul class="gm-rules">
+          <li><span class="pl-key g"></span> <b>Green</b>: exact match.</li>
+          <li><span class="pl-key y"></span> <b>Yellow</b>: close. Division is yellow when he's in the same conference (AFC or NFC). Position is yellow for another RB/WR/TE. Numbers are yellow within 3 PPR points per game, 2 touchdowns, 150 yards or 8 catches.</li>
+          <li><b>↑</b> means the mystery player's number is higher. <b>↓</b> means it's lower.</li>
+          <li><b>PPR/G</b> is PPR fantasy points per game. <b>TD</b> and <b>Yds</b> count passing, rushing and receiving together. Season totals through Week 10 of the 2026 season.</li>
+        </ul>
+        <p class="pg-text">The daily player is the same for everyone and changes at midnight Eastern. Unlimited gives you a new player every round.</p>
+        <button class="start gm-wide" id="pl-help-close">Play</button>
+      </section>
+
+      <section class="gm-panel" id="pl-stats" hidden>
+        <div class="pl-statrow" id="pl-statrow"></div>
+        <h2 class="home-h2">Guesses (daily)</h2>
+        <div class="pl-dist" id="pl-dist"></div>
+        <button class="start gm-wide" id="pl-stats-close">Back to the game</button>
+      </section>
+
+      <section class="gm-panel" id="pl-game">
+        <div class="pl-search">
+          <label class="sr-only" for="pl-input">Guess an NFL player</label>
+          <input id="pl-input" type="search" placeholder="Type a player's name" autocomplete="off" autocapitalize="words" spellcheck="false">
+          <ul class="pl-suggest" id="pl-suggest" role="listbox" hidden></ul>
+        </div>
+        <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
+        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPR/G</span><span>TD</span><span>Yds</span><span>Rec</span></div>
+        <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
+        <div class="pl-done" id="pl-done" hidden>
+          <div class="pl-reveal">
+            <span class="pl-gm" id="pl-gm"></span>
+            <div><p class="pl-result" id="pl-result"></p><a class="pl-name" id="pl-answer" href="#"></a><span class="pl-meta" id="pl-meta"></span></div>
+          </div>
+          <p class="bz-squares pl-squares" id="pl-squares" aria-hidden="true"></p>
+          <div class="bz-buttons">
+            <button class="secondary" id="pl-share">Share</button>
+            <button class="start" id="pl-next">Play unlimited</button>
+          </div>
+          <p class="in-note" id="pl-share-note" role="status"></p>
+          <p class="in-note" id="pl-countdown"></p>
+          <p class="pg-more"><a href="../fantasy.html">See the full fantasy leaderboard →</a></p>
+        </div>
+        <button class="pl-giveup" id="pl-giveup">Give up</button>
+      </section>
+      <section class="nl" data-from="fantasle" hidden>
+      <h2>Get the weekly mock</h2>
+      <p>One email a week: the new top 10, the biggest risers and fallers, and the #1 pick odds. Free, no spam, unsubscribe anytime.</p>
+      <form class="nl-form" method="post">
+        <label class="sr-only" for="nl-email-fantasle">Email address</label>
+        <input id="nl-email-fantasle" type="email" name="email_address" placeholder="you@email.com" autocomplete="email" required>
+        <button class="pg-button" type="submit">Sign up</button>
+      </form>
+      <p class="nl-note" role="status"></p>
+    </section>
+    </div>
+    <script type="application/json" id="pl-data">[["Joe Burrow","CIN","Cincinnati Bengals","AFC N","QB",25.1,26,2463,0,1],["Josh Allen","BUF","Buffalo Bills","AFC E","QB",24.9,21,2312,0,1],["Drake Maye","NE","New England Patriots","AFC E","QB",20.1,21,2501,0,1],["Jordan Love","GB","Green Bay Packers","NFC N","QB",20.3,21,2641,0,1],["Kirk Cousins","MIN","Minnesota Vikings","NFC N","QB",18.9,22,2347,0,1],["Brock Purdy","SF","San Francisco 49ers","NFC W","QB",21.2,19,2181,0,1],["Dak Prescott","DAL","Dallas Cowboys","NFC E","QB",18.4,17,2483,0,1],["C.J. Stroud","HOU","Houston Texans","AFC S","QB",20.8,17,2351,0,1],["Tyler Shough","NO","New Orleans Saints","NFC S","QB",18.9,16,2148,0,1],["Bryce Young","CAR","Carolina Panthers","NFC S","QB",18.8,17,2244,0,1],["Matthew Stafford","LAR","Los Angeles Rams","NFC W","QB",15.9,16,2393,0,1],["Trevor Lawrence","JAX","Jacksonville Jaguars","AFC S","QB",18.6,18,2011,0,1],["Jared Goff","DET","Detroit Lions","NFC N","QB",18.7,16,2154,0,1],["Patrick Mahomes","KC","Kansas City Chiefs","AFC W","QB",18.0,15,2122,0,1],["Bo Nix","DEN","Denver Broncos","AFC W","QB",14.3,13,1846,0,1],["Geno Smith","NYJ","New York Jets","AFC E","QB",14.5,12,2132,0,1],["Aaron Rodgers","PIT","Pittsburgh Steelers","AFC N","QB",14.6,13,1894,0,1],["Deshaun Watson","CLE","Cleveland Browns","AFC N","QB",15.2,8,2023,0,1],["Jacoby Brissett","ARI","Arizona Cardinals","NFC W","QB",13.7,11,1806,0,0],["Malik Willis","MIA","Miami Dolphins","AFC E","QB",13.6,9,1628,0,0],["Caleb Williams","CHI","Chicago Bears","NFC N","QB",18.4,10,1691,0,1],["Jayden Daniels","WAS","Washington Commanders","NFC E","QB",19.2,9,1502,0,1],["Daniel Jones","IND","Indianapolis Colts","AFC S","QB",9.7,7,1808,0,0],["Justin Herbert","LAC","Los Angeles Chargers","AFC W","QB",10.6,6,1781,0,0],["Cam Ward","TEN","Tennessee Titans","AFC S","QB",12.1,8,1595,0,0],["Sam Darnold","SEA","Seattle Seahawks","NFC W","QB",12.6,10,1550,0,0],["Michael Penix Jr.","ATL","Atlanta Falcons","NFC S","QB",13.2,10,1509,0,0],["Jalen Hurts","PHI","Philadelphia Eagles","NFC E","QB",16.0,9,1040,0,1],["Jameis Winston","NYG","New York Giants","NFC E","QB",10.7,9,1089,0,0],["Lamar Jackson","BAL","Baltimore Ravens","AFC N","QB",16.2,7,1111,0,1],["Kyler Murray","MIN","Minnesota Vikings","NFC N","QB",11.9,5,1189,0,0],["Baker Mayfield","TB","TB","NFC S","QB",9.2,4,1002,0,0],["Tyler Huntley","BAL","Baltimore Ravens","AFC N","QB",11.3,5,803,0,0],["Drew Lock","SEA","Seattle Seahawks","NFC W","QB",15.6,5,626,0,0],["Jalon Daniels","TB","TB","NFC S","QB",6.9,3,624,0,0],["Tanner McKee","PHI","Philadelphia Eagles","NFC E","QB",10.7,2,664,0,0],["Marcus Mariota","WAS","Washington Commanders","NFC E","QB",11.5,4,389,0,0],["J.J. McCarthy","NYG","New York Giants","NFC E","QB",8.0,1,673,0,0],["Case Keenum","CHI","Chicago Bears","NFC N","QB",13.6,3,365,0,0],["Jaxson Dart","NYG","New York Giants","NFC E","QB",13.7,3,304,0,0],["Jahmyr Gibbs","DET","Detroit Lions","NFC N","RB",26.6,11,1132,34,1],["Kenneth Walker","KC","Kansas City Chiefs","AFC W","RB",24.6,11,1044,26,1],["Bijan Robinson","ATL","Atlanta Falcons","NFC S","RB",20.0,6,1130,31,1],["Bucky Irving","TB","TB","NFC S","RB",18.1,8,931,22,1],["Christian McCaffrey","SF","San Francisco 49ers","NFC W","RB",21.1,10,727,36,1],["Jonathan Taylor","IND","Indianapolis Colts","AFC S","RB",18.0,8,876,26,1],["Javonte Williams","DAL","Dallas Cowboys","NFC E","RB",17.7,10,756,24,1],["James Cook","BUF","Buffalo Bills","AFC E","RB",19.1,8,924,12,1],["D'Andre Swift","CHI","Chicago Bears","NFC N","RB",17.5,10,738,24,1],["Kyren Williams","LAR","Los Angeles Rams","NFC W","RB",18.1,7,851,36,1],["Derrick Henry","BAL","Baltimore Ravens","AFC N","RB",15.8,9,764,12,1],["Chuba Hubbard","CAR","Carolina Panthers","NFC S","RB",18.3,7,786,26,1],["Jaylen Warren","PIT","Pittsburgh Steelers","AFC N","RB",17.9,3,998,25,1],["Bhayshul Tuten","JAX","Jacksonville Jaguars","AFC S","RB",15.9,7,702,15,1],["Ashton Jeanty","LV","Las Vegas Raiders","AFC W","RB",15.5,4,733,42,1],["Tony Pollard","TEN","Tennessee Titans","AFC S","RB",14.6,6,665,14,1],["Rhamondre Stevenson","NE","New England Patriots","AFC E","RB",12.9,4,657,26,0],["Braelon Allen","NYJ","New York Jets","AFC E","RB",11.9,3,700,19,0],["Blake Corum","LAR","Los Angeles Rams","NFC W","RB",10.5,5,546,10,0],["Chase Brown","CIN","Cincinnati Bengals","AFC N","RB",13.2,1,604,39,0],["Quinshon Judkins","CLE","Cleveland Browns","AFC N","RB",11.5,3,521,22,0],["Tyler Allgeier","ARI","Arizona Cardinals","NFC W","RB",10.1,3,497,23,0],["Aaron Jones","MIN","Minnesota Vikings","NFC N","RB",10.6,2,569,16,0],["Ollie Gordon II","MIA","Miami Dolphins","AFC E","RB",11.4,4,486,7,0],["Emanuel Wilson","SEA","Seattle Seahawks","NFC W","RB",11.0,4,468,6,0],["Cam Skattebo","NYG","New York Giants","NFC E","RB",12.1,2,494,11,0],["Omarion Hampton","LAC","Los Angeles Chargers","AFC W","RB",9.0,3,432,11,0],["Woody Marks","HOU","Houston Texans","AFC S","RB",8.9,2,439,15,0],["Rachaad White","WAS","Washington Commanders","NFC E","RB",10.2,3,357,18,0],["Alvin Kamara","NO","New Orleans Saints","NFC S","RB",10.5,3,307,25,0],["J.K. Dobbins","DEN","Denver Broncos","AFC W","RB",6.9,3,355,9,0],["Kyle Monangai","CHI","Chicago Bears","NFC N","RB",14.8,3,363,5,0],["Jonah Coleman","DEN","Denver Broncos","AFC W","RB",15.7,3,319,13,0],["Kenneth Gainwell","TB","TB","NFC S","RB",7.1,1,426,15,0],["Saquon Barkley","PHI","Philadelphia Eagles","NFC E","RB",8.4,3,337,7,0],["RJ Harvey","DEN","Denver Broncos","AFC W","RB",11.2,2,304,25,0],["Emmett Johnson","KC","Kansas City Chiefs","AFC W","RB",7.6,2,348,14,0],["Chris Rodriguez Jr.","JAX","Jacksonville Jaguars","AFC S","RB",6.8,4,264,4,0],["Justice Hill","BAL","Baltimore Ravens","AFC N","RB",6.8,1,351,20,0],["Brian Robinson Jr.","ATL","Atlanta Falcons","NFC S","RB",8.8,4,241,5,0],["Jaxon Smith-Njigba","SEA","Seattle Seahawks","NFC W","WR",25.7,9,1065,71,1],["CeeDee Lamb","DAL","Dallas Cowboys","NFC E","WR",22.4,7,898,70,1],["Christian Watson","GB","Green Bay Packers","NFC N","WR",19.9,7,879,49,1],["Puka Nacua","LAR","Los Angeles Rams","NFC W","WR",25.1,5,756,70,1],["Tee Higgins","CIN","Cincinnati Bengals","AFC N","WR",20.0,6,758,48,1],["Matthew Golden","GB","Green Bay Packers","NFC N","WR",18.0,5,789,53,1],["Ja'Marr Chase","CIN","Cincinnati Bengals","AFC N","WR",20.0,7,647,53,1],["Amon-Ra St. Brown","DET","Detroit Lions","NFC N","WR",19.7,5,666,61,1],["Luther Burden III","CHI","Chicago Bears","NFC N","WR",15.6,4,673,49,1],["Chris Olave","NO","New Orleans Saints","NFC S","WR",17.7,2,734,56,1],["Zay Flowers","BAL","Baltimore Ravens","AFC N","WR",15.9,3,665,43,1],["Tetairoa McMillan","CAR","Carolina Panthers","NFC S","WR",15.8,3,625,46,1],["Malik Nabers","NYG","New York Giants","NFC E","WR",16.2,2,648,53,1],["Drake London","ATL","Atlanta Falcons","NFC S","WR",13.3,1,696,44,0],["Parker Washington","JAX","Jacksonville Jaguars","AFC S","WR",13.7,5,506,29,1],["Michael Wilson","ARI","Arizona Cardinals","NFC W","WR",13.4,2,574,51,0],["Tre Tucker","LV","Las Vegas Raiders","AFC W","WR",12.1,4,523,33,0],["Garrett Wilson","NYJ","New York Jets","AFC E","WR",14.2,3,527,43,1],["Jameson Williams","DET","Detroit Lions","NFC N","WR",13.2,5,477,28,0],["Davante Adams","LAR","Los Angeles Rams","NFC W","WR",17.0,4,480,30,1],["George Pickens","DAL","Dallas Cowboys","NFC E","WR",13.0,2,533,39,0],["Denzel Boston","CLE","Cleveland Browns","AFC N","WR",11.2,3,507,32,0],["Demario Douglas","NE","New England Patriots","AFC E","WR",10.9,4,434,31,0],["Justin Jefferson","MIN","Minnesota Vikings","NFC N","WR",13.3,4,382,31,0],["Nico Collins","HOU","Houston Texans","AFC S","WR",15.3,4,396,28,1],["Stefon Diggs","WAS","Washington Commanders","NFC E","WR",12.9,5,303,30,0],["Rome Odunze","CHI","Chicago Bears","NFC N","WR",10.1,1,528,32,0],["Mike Evans","SF","San Francisco 49ers","NFC W","WR",14.5,3,420,27,1],["Jalen Coker","CAR","Carolina Panthers","NFC S","WR",12.6,3,390,31,0],["Devaughn Vele","NO","New Orleans Saints","NFC S","WR",11.2,3,365,35,0],["KC Concepcion","CLE","Cleveland Browns","AFC N","WR",10.0,1,474,37,0],["Ryan Flournoy","DAL","Dallas Cowboys","NFC E","WR",9.3,2,398,32,0],["Carnell Tate","TEN","Tennessee Titans","AFC S","WR",11.6,1,413,34,0],["Jaylen Waddle","DEN","Denver Broncos","AFC W","WR",8.7,2,360,30,0],["Khalil Shakir","BUF","Buffalo Bills","AFC E","WR",9.8,1,412,31,0],["Jakobi Meyers","JAX","Jacksonville Jaguars","AFC S","WR",9.4,2,376,26,0],["Emeka Egbuka","TB","TB","NFC S","WR",11.1,3,290,31,0],["Wan'Dale Robinson","TEN","Tennessee Titans","AFC S","WR",9.9,3,263,35,0],["DK Metcalf","PIT","Pittsburgh Steelers","AFC N","WR",9.7,1,389,33,0],["Malik Washington","MIA","Miami Dolphins","AFC E","WR",9.7,1,388,33,0],["Keenan Allen","SF","San Francisco 49ers","NFC W","WR",10.1,1,351,40,0],["Keon Coleman","BUF","Buffalo Bills","AFC E","WR",8.9,3,304,23,0],["Josh Downs","KC","Kansas City Chiefs","AFC W","WR",8.3,1,361,33,0],["Jaylin Noel","HOU","Houston Texans","AFC S","WR",9.5,2,357,19,0],["DeVonta Smith","PHI","Philadelphia Eagles","NFC E","WR",17.2,2,310,26,0],["Jahan Dotson","ATL","Atlanta Falcons","NFC S","WR",7.0,2,353,16,0],["Makai Lemon","PHI","Philadelphia Eagles","NFC E","WR",8.2,1,307,37,0],["Kalif Raymond","CHI","Chicago Bears","NFC N","WR",7.9,1,327,32,0],["Deebo Samuel","SF","San Francisco 49ers","NFC W","WR",12.5,3,284,16,0],["Xavier Hutchinson","HOU","Houston Texans","AFC S","WR",8.3,2,303,24,0],["Trey McBride","ARI","Arizona Cardinals","NFC W","TE",18.1,5,598,73,1],["Brock Bowers","LV","Las Vegas Raiders","AFC W","TE",21.4,6,660,48,1],["Isaiah Likely","NYG","New York Giants","NFC E","TE",15.8,6,448,46,1],["George Kittle","SF","San Francisco 49ers","NFC W","TE",14.5,5,483,38,1],["Harold Fannin Jr.","CLE","Cleveland Browns","AFC N","TE",11.8,4,453,37,0],["Travis Kelce","KC","Kansas City Chiefs","AFC W","TE",12.4,3,483,33,0],["Sam LaPorta","DET","Detroit Lions","NFC N","TE",11.6,3,401,35,0],["Tucker Kraft","GB","Green Bay Packers","NFC N","TE",10.0,3,364,36,0],["Mike Gesicki","CIN","Cincinnati Bengals","AFC N","TE",11.5,6,252,19,0],["Dalton Kincaid","BUF","Buffalo Bills","AFC E","TE",10.6,2,429,30,0],["T.J. Hockenson","MIN","Minnesota Vikings","NFC N","TE",10.7,3,328,35,0],["Juwan Johnson","NO","New Orleans Saints","NFC S","TE",10.1,4,289,28,0],["Colston Loveland","CHI","Chicago Bears","NFC N","TE",9.5,2,363,37,0],["Pat Freiermuth","PIT","Pittsburgh Steelers","AFC N","TE",9.9,5,240,25,0],["Darren Waller","CAR","Carolina Panthers","NFC S","TE",9.6,4,299,23,0],["Tyler Warren","IND","Indianapolis Colts","AFC S","TE",12.0,3,281,38,0],["Michael Mayer","LV","Las Vegas Raiders","AFC W","TE",9.3,1,388,39,0],["Hunter Henry","NE","New England Patriots","AFC E","TE",8.9,2,361,32,0],["Dallas Goedert","PHI","Philadelphia Eagles","NFC E","TE",10.6,2,310,31,0],["Kyle Pitts","ATL","Atlanta Falcons","NFC S","TE",7.9,4,220,25,0],["Brenton Strange","JAX","Jacksonville Jaguars","AFC S","TE",8.9,1,356,30,0],["Dalton Schultz","HOU","Houston Texans","AFC S","TE",8.9,0,364,35,0],["Darnell Washington","PIT","Pittsburgh Steelers","AFC N","TE",7.8,3,254,19,0],["AJ Barner","SEA","Seattle Seahawks","NFC W","TE",7.0,3,218,23,0],["Tyler Higbee","LAR","Los Angeles Rams","NFC W","TE",7.8,1,287,28,0],["Jake Ferguson","DAL","Dallas Cowboys","NFC E","TE",7.1,4,136,19,0],["Tommy Tremble","CAR","Carolina Panthers","NFC S","TE",7.1,3,179,21,0],["Kenyon Sadiq","NYJ","New York Jets","AFC E","TE",6.3,2,238,21,0],["Mark Andrews","BAL","Baltimore Ravens","AFC N","TE",6.7,1,237,31,0],["Eli Raridon","NE","New England Patriots","AFC E","TE",6.3,2,225,16,0]]</script>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <img class="footer-logo" src="../icons/logo-banner-small.webp?v=4" alt="Big Head GM" width="400" height="225" loading="lazy">
+      <div class="footer-text">
+        <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="../?start=1">Run your own mock</a></p>
+        <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com · Updated November 10, 2026</p>
+        <p>Not affiliated with the NFL or any NFL team. Every GM is an original character.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../gm.js?v=5"></script>
+  <script src="../site.js?v=1"></script>
+  <script src="../newsletter.js?v=1"></script>
+  <script src="../games/fantasle.js?v=1"></script>
+  <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
+  <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

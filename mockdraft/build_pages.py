@@ -859,6 +859,12 @@ def games_pages():
           <span>Guess the mystery 2027 prospect in 8 tries. Green is a match, yellow is close. New player every day, or play unlimited.</span>
           <span class="pg-go">Play →</span></span>
       </a>
+      <a class="gh-card" href="fantasle.html">
+        <span class="gh-art gh-pl" aria-hidden="true"><i class="g">WR</i><i class="y">25.7</i><i>NFC W</i><i class="g">9</i></span>
+        <span class="gh-text"><b>Fantasle</b>
+          <span>Guess the mystery NFL fantasy player in 8 tries from his team, position and PPR points per game. New player every day, or play unlimited.</span>
+          <span class="pg-go">Play →</span></span>
+      </a>
       <a class="gh-card" href="blitz.html">
         <span class="gh-art gh-blitz" aria-hidden="true"><span>DRAFT</span><span>PASS</span></span>
         <span class="gh-text"><b>Draft Day Blitz</b>
@@ -873,7 +879,7 @@ def games_pages():
       </a>
     </div>
     {signup("games")}"""
-    write("games/index.html", page("games/index.html", "Free Football Games: Prospectle, Draft Day Blitz and Juke · Big Head GM",
+    write("games/index.html", page("games/index.html", "Free Football Games: Prospectle, Fantasle, Draft Day Blitz and Juke · Big Head GM",
           "Free football games from Big Head GM: Prospectle, a daily guess-the-prospect game, Draft Day Blitz, a daily swipe-to-draft challenge, and Juke, an endless runner through 32 big-headed GMs.",
           hub, crumbs=[("Games", "games/")], nav="games/"))
 
@@ -1071,6 +1077,98 @@ def prospectle_page():
           body, nav="games/", scripts=("games/prospectle.js?v=1",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
 
 
+# ---------- Fantasle (guess the NFL fantasy player) ----------
+
+DIVISION = {}
+for div, abbrs in {"AFC East": "BUF MIA NE NYJ", "AFC North": "BAL CIN CLE PIT", "AFC South": "HOU IND JAX TEN",
+                   "AFC West": "DEN KC LV LAC", "NFC East": "DAL NYG PHI WAS", "NFC North": "CHI DET GB MIN",
+                   "NFC South": "ATL CAR NO TB", "NFC West": "ARI LAR SF SEA"}.items():
+    for a in abbrs.split():
+        DIVISION[a] = div
+FANTASLE_POOL = 60           # the daily answer is one of the top 60 in PPR points per game
+
+
+def fantasle_page():
+    full = {short(t): t for t in team_names}
+    lead = fantasy.leaders()
+    ranked = sorted([r for r in lead if r["g"] >= 5], key=lambda r: -r["s"]["ppr"] / r["g"])[:FANTASLE_POOL]
+    pool = {r["n"] for r in ranked}
+    stats = {r["name"]: r for r in fantasy.read("fantasy_stats.csv")}
+    rows = []
+    for r in lead:
+        s_ = stats[r["n"]]
+        team = full.get(FF_TEAM.get(r["t"], ""), r["t"])
+        rows.append([r["n"], r["t"], team, DIVISION[r["t"]].replace("North", "N").replace("South", "S").replace("East", "E").replace("West", "W"),
+                     r["p"], round(r["s"]["ppr"] / r["g"], 1),
+                     int(fantasy.f(s_["pass_td"]) + fantasy.f(s_["rush_td"]) + fantasy.f(s_["rec_td"])),
+                     int(fantasy.f(s_["pass_yds"]) + fantasy.f(s_["rush_yds"]) + fantasy.f(s_["rec_yds"])),
+                     int(fantasy.f(s_["rec"])), 1 if r["n"] in pool else 0])
+    data = json.dumps(rows, separators=(",", ":")).replace("</", "<\\/")
+    body = f"""
+    <div class="gm-shell pl-shell" id="fantasle">
+      <div class="gm-top">
+        <div><p class="eyebrow" id="pl-eyebrow">DAILY</p><h1 class="gm-title">Fantasle</h1></div>
+        <a class="gm-exit" href="./">All games</a>
+      </div>
+      <div class="in-chips pl-modes" id="pl-modes">
+        <button class="filter active" data-mode="daily" aria-pressed="true">Daily</button>
+        <button class="filter" data-mode="unlimited" aria-pressed="false">Unlimited</button>
+        <button class="filter" data-mode="help" aria-pressed="false">How to play</button>
+        <button class="filter" data-mode="stats" aria-pressed="false">Stats</button>
+      </div>
+
+      <section class="gm-panel" id="pl-help" hidden>
+        <p class="pg-text">Guess the mystery <b>NFL fantasy player</b> in <b>8 tries</b>. Every QB, RB, WR and TE in our 2026 fantasy rankings is fair game. After each guess, every box tells you how close you are.</p>
+        <ul class="gm-rules">
+          <li><span class="pl-key g"></span> <b>Green</b>: exact match.</li>
+          <li><span class="pl-key y"></span> <b>Yellow</b>: close. Division is yellow when he's in the same conference (AFC or NFC). Position is yellow for another RB/WR/TE. Numbers are yellow within 3 PPR points per game, 2 touchdowns, 150 yards or 8 catches.</li>
+          <li><b>↑</b> means the mystery player's number is higher. <b>↓</b> means it's lower.</li>
+          <li><b>PPR/G</b> is PPR fantasy points per game. <b>TD</b> and <b>Yds</b> count passing, rushing and receiving together. Season totals {fantasy.STATS_AS_OF}.</li>
+        </ul>
+        <p class="pg-text">The daily player is the same for everyone and changes at midnight Eastern. Unlimited gives you a new player every round.</p>
+        <button class="start gm-wide" id="pl-help-close">Play</button>
+      </section>
+
+      <section class="gm-panel" id="pl-stats" hidden>
+        <div class="pl-statrow" id="pl-statrow"></div>
+        <h2 class="home-h2">Guesses (daily)</h2>
+        <div class="pl-dist" id="pl-dist"></div>
+        <button class="start gm-wide" id="pl-stats-close">Back to the game</button>
+      </section>
+
+      <section class="gm-panel" id="pl-game">
+        <div class="pl-search">
+          <label class="sr-only" for="pl-input">Guess an NFL player</label>
+          <input id="pl-input" type="search" placeholder="Type a player's name" autocomplete="off" autocapitalize="words" spellcheck="false">
+          <ul class="pl-suggest" id="pl-suggest" role="listbox" hidden></ul>
+        </div>
+        <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
+        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPR/G</span><span>TD</span><span>Yds</span><span>Rec</span></div>
+        <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
+        <div class="pl-done" id="pl-done" hidden>
+          <div class="pl-reveal">
+            <span class="pl-gm" id="pl-gm"></span>
+            <div><p class="pl-result" id="pl-result"></p><a class="pl-name" id="pl-answer" href="#"></a><span class="pl-meta" id="pl-meta"></span></div>
+          </div>
+          <p class="bz-squares pl-squares" id="pl-squares" aria-hidden="true"></p>
+          <div class="bz-buttons">
+            <button class="secondary" id="pl-share">Share</button>
+            <button class="start" id="pl-next">Play unlimited</button>
+          </div>
+          <p class="in-note" id="pl-share-note" role="status"></p>
+          <p class="in-note" id="pl-countdown"></p>
+          <p class="pg-more"><a href="../fantasy.html">See the full fantasy leaderboard →</a></p>
+        </div>
+        <button class="pl-giveup" id="pl-giveup">Give up</button>
+      </section>
+      {signup("fantasle")}
+    </div>
+    <script type="application/json" id="pl-data">{data}</script>"""
+    write("games/fantasle.html", page("games/fantasle.html", "Fantasle: Guess the NFL Fantasy Player · Big Head GM",
+          "Fantasle is a free daily NFL fantasy football guessing game. Guess the mystery player in 8 tries from his team, division, position, PPR points per game, touchdowns, yards and catches.",
+          body, nav="games/", scripts=("games/fantasle.js?v=1",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
+
+
 # ---------- sitemap ----------
 
 def sitemap(paths):
@@ -1081,7 +1179,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "games/", "games/prospectle.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -1094,6 +1192,7 @@ def main():
     write("fantasy.html", fantasy_page())
     games_pages()
     prospectle_page()
+    fantasle_page()
     sitemap(paths)
     print(f"Built {len(players)} player pages, {len(team_names)} team pages, the odds page, the games pages and sitemap.xml ({len(paths)} pages)")
 
