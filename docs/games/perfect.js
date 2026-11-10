@@ -1,5 +1,5 @@
 // 17-0: draft a PPR fantasy lineup one random NFL team at a time, then play a 17-week season.
-// Each round spins a team; you take one of its players for an open slot (stats stay hidden).
+// Each round spins a team; you take one of its players for an open slot (PPR PPG shown).
 // The season uses each player's real 2026 PPR points per game, with weekly swings and missed games.
 // Daily: same teams and same luck for everyone. Free play: random.
 
@@ -93,7 +93,8 @@
     gm.dataset.size = "56";
     if (window.BHG) window.BHG.paintGMs(gm.parentNode);
     $("p17-list").innerHTML = choices(g.team).map((p, i) =>
-      `<li><button class="p17-pick" data-i="${i}"><span class="p17-pos p-${p.p}">${p.p}</span><b>${esc(p.n)}</b></button></li>`).join("");
+      `<li><button class="p17-pick" data-i="${i}"><span class="p17-pos p-${p.p}">${p.p}</span><b>${esc(p.n)}</b>` +
+      `<span class="ff-ppg"><b>${p.ppg.toFixed(1)}</b><span>PPR PPG · ${p.gp} GP</span></span></button></li>`).join("");
     $("p17-respin").hidden = g.respins < 1;
     $("p17-respin").textContent = `Re-spin (${g.respins} left)`;
   }
@@ -114,7 +115,7 @@
       const p = g.lineup[i];
       return `<li class="${p ? "on" : ""}"><span class="p17-slot">${s}</span>` +
         (p ? `<span class="p17-who"><b>${esc(p.n)}</b><span>${p.p} · ${esc(short(p.t))}</span></span>` +
-          (reveal ? `<span class="ff-ppg"><b>${p.ppg.toFixed(1)}</b><span>PPR PPG</span></span>` : "")
+          (reveal || true ? `<span class="ff-ppg"><b>${p.ppg.toFixed(1)}</b><span>PPR PPG</span></span>` : "")
           : `<span class="p17-who empty">Empty</span>`) + "</li>";
     }).join("");
     $("p17-lineup").innerHTML = html;

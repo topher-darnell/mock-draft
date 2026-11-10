@@ -2197,3 +2197,6 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .hd-card:nth-child(3) { grid-column: 1 / -1; }
 @media (min-width: 760px) { .hd-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .hd-card:nth-child(3) { grid-column: auto; } }
 .hd-tiles.hd-p17 { display: block; height: auto; min-height: 34px; font-size: 13px; letter-spacing: 1px; line-height: 34px; overflow: hidden; white-space: nowrap; }
+
+.p17-pick > b { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p17-pick .ff-ppg span { white-space: nowrap; }

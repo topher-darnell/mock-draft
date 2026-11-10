@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "21", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "22", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1408,7 +1408,7 @@ def perfect_page():
         <p class="pg-text">Build a PPR fantasy lineup one random NFL team at a time, then see if it can go <b>17-0</b>.</p>
         <ul class="gm-rules">
           <li>Each round spins a team. Take <b>one player</b> from it for an open spot: QB, RB, RB, WR, WR, TE and FLEX (RB, WR or TE).</li>
-          <li>Stats stay <b>hidden</b> while you draft, so know your players. You get <b>one re-spin</b>.</li>
+          <li>Each player shows his <b>PPR points per game</b> and games played. Pick smart: a big average from a guy who keeps missing games can cost you. You get <b>one re-spin</b>.</li>
           <li>Your season uses each player's real 2026 PPR points per game, with good and bad weeks. Players who've missed games this year can miss games for you too.</li>
         </ul>
         <button class="start gm-wide" id="p17-daily">Play today's draft</button>
@@ -1449,7 +1449,7 @@ def perfect_page():
     <script type="application/json" id="p17-data">{data}</script>"""
     write("games/17-0.html", page("games/17-0.html", "17-0: Draft a Fantasy Team and Go Undefeated · Big Head GM",
           "17-0 is a free fantasy football game. Draft a PPR lineup one random NFL team at a time, then play a 17-week season with real 2026 stats. Can you go undefeated?",
-          body, nav="games/", scripts=("games/perfect.js?v=2",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
+          body, nav="games/", scripts=("games/perfect.js?v=3",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
 
 
 # ---------- sitemap ----------
