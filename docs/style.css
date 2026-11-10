@@ -2137,3 +2137,8 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 
 .ff-grp { margin: 16px 0 6px; font: 700 12px "Space Grotesk", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .ff-grp:first-of-type { margin-top: 4px; }
+
+.ff-ppg { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; }
+.ff-ppg b { font: 700 19px "Space Grotesk", sans-serif; color: var(--accent); }
+.ff-ppg span { font: 700 10px "Space Grotesk", sans-serif; letter-spacing: 0.05em; color: var(--muted); }
+.ff-table thead th:nth-child(5) { width: 56px; }

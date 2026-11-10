@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "18", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "19", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -809,7 +809,7 @@ def fantasy_page():
       </div>
       <div class="od-wrap">
         <table class="od-table ff-table">
-          <thead><tr><th scope="col" class="ff-rk">#</th><th scope="col">Player</th><th scope="col">G</th><th scope="col">Pts</th><th scope="col">Per game</th></tr></thead>
+          <thead><tr><th scope="col" class="ff-rk">#</th><th scope="col">Player</th><th scope="col">G</th><th scope="col">Pts</th><th scope="col">PPG</th></tr></thead>
           <tbody id="ff-lead">{ff_leader_rows(lead, "ppr")}</tbody>
         </table>
       </div>
@@ -1117,7 +1117,7 @@ def nfl_profiles():
         sl = slug(n)
         ppr, ppg = r["s"]["ppr"], r["s"]["ppr"] / g
         intro = (f"{n} is a {FF_POS_NAME[pos]} for the {team}. {fantasy.STATS_AS_OF[0].upper() + fantasy.STATS_AS_OF[1:]}, "
-                 f"he has {ppr:.1f} PPR fantasy points in {g} game{'s' if g != 1 else ''} ({ppg:.1f} per game). That ranks "
+                 f"he has {ppr:.1f} PPR fantasy points in {g} game{'s' if g != 1 else ''}, an average of {ppg:.1f} points per game (PPG). That ranks "
                  f"{ordinal(prank[(n, 'ppr')])} among {count[pos]} {FF_POS_PLURAL[pos]} and {ordinal(rank[(n, 'ppr')])} among all "
                  f"{len(lead)} players in PPR scoring.")
         if r["line"]:
@@ -1147,8 +1147,8 @@ def nfl_profiles():
             return "".join(
                 f'<li class="bb-row{" me" if q["n"] == me else ""}"><span class="bb-rank">{q["p"]}{prank[(q["n"], "ppr")]}</span>'
                 f'<span class="bb-text"><a class="bb-name" href="{slug(q["n"])}.html">{esc(q["n"])}</a>'
-                f'<span class="bb-meta">{esc(FF_TEAM.get(q["t"], q["t"]))} · {q["s"]["ppr"] / q["g"]:.1f} per game</span></span>'
-                f'<span class="bb-adp">{q["s"]["ppr"]:.1f}</span></li>' for q in rows)
+                f'<span class="bb-meta">{esc(FF_TEAM.get(q["t"], q["t"]))} · {q["s"]["ppr"]:.1f} pts · {q["g"]} G</span></span>'
+                f'<span class="ff-ppg"><b>{q["s"]["ppr"] / q["g"]:.1f}</b><span>PPR PPG</span></span></li>' for q in rows)
         order = list(FF_POS_NAME)
         mates = sorted([q for q in lead if q["t"] == r["t"]], key=lambda q: (order.index(q["p"]), -q["s"]["ppr"]))
         mates_html = ""
@@ -1176,7 +1176,7 @@ def nfl_profiles():
       <h2 class="home-h2">Fantasy points by scoring</h2>
       <div class="od-wrap">
         <table class="od-table ff-fmt-table">
-          <thead><tr><th scope="col">Scoring</th><th scope="col">Points</th><th scope="col">Per game</th><th scope="col">{pos} rank</th><th scope="col">Overall</th></tr></thead>
+          <thead><tr><th scope="col">Scoring</th><th scope="col">Points</th><th scope="col">PPG</th><th scope="col">{pos} rank</th><th scope="col">Overall</th></tr></thead>
           <tbody>{fmt_rows}</tbody>
         </table>
       </div>
@@ -1263,7 +1263,7 @@ def fantasle_page():
           <li><span class="pl-key g"></span> <b>Green</b>: exact match.</li>
           <li><span class="pl-key y"></span> <b>Yellow</b>: close. Division is yellow when he's in the same conference (AFC or NFC). Position is yellow for another RB/WR/TE. Numbers are yellow within 3 PPR points per game, 2 touchdowns, 150 yards or 8 catches.</li>
           <li><b>↑</b> means the mystery player's number is higher. <b>↓</b> means it's lower.</li>
-          <li><b>PPR/G</b> is PPR fantasy points per game. <b>TD</b> and <b>Yds</b> count passing, rushing and receiving together. Season totals {fantasy.STATS_AS_OF}.</li>
+          <li><b>PPG</b> is PPR fantasy points per game. <b>TD</b> and <b>Yds</b> count passing, rushing and receiving together. Season totals {fantasy.STATS_AS_OF}.</li>
         </ul>
         <p class="pg-text">The daily player is the same for everyone and changes at midnight Eastern. Unlimited gives you a new player every round.</p>
         <button class="start gm-wide" id="pl-help-close">Play</button>
@@ -1283,7 +1283,7 @@ def fantasle_page():
           <ul class="pl-suggest" id="pl-suggest" role="listbox" hidden></ul>
         </div>
         <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
-        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPR/G</span><span>TD</span><span>Yds</span><span>Rec</span></div>
+        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPG</span><span>TD</span><span>Yds</span><span>Rec</span></div>
         <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
         <div class="pl-done" id="pl-done" hidden>
           <div class="pl-reveal">
@@ -1306,7 +1306,7 @@ def fantasle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/fantasle.html", page("games/fantasle.html", "Fantasle: Guess the NFL Fantasy Player · Big Head GM",
           "Fantasle is a free daily NFL fantasy football guessing game. Guess the mystery player in 8 tries from his team, division, position, PPR points per game, touchdowns, yards and catches.",
-          body, nav="games/", scripts=("games/fantasle.js?v=2",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
+          body, nav="games/", scripts=("games/fantasle.js?v=3",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
 
 
 # ---------- home page: today's games and fantasy leaders ----------
@@ -1316,7 +1316,7 @@ def home_blocks():
     top = sorted(lead, key=lambda r: -r["s"]["ppr"])[:5]
     rook = sorted(fantasy.rookies(), key=lambda r: -r["dyn"]["ppr"])[:3]
     rows = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name"><b>{esc(r["n"])}</b><span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))}</span></span>'
-                   f'<span class="hf-pts">{r["s"]["ppr"]:.1f}<span>{r["s"]["ppr"] / r["g"]:.1f}/g</span></span></li>'
+                   f'<span class="hf-pts">{r["s"]["ppr"]:.1f}<span>{r["s"]["ppr"] / r["g"]:.1f} PPG</span></span></li>'
                    for i, r in enumerate(top, 1))
     rk = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name"><b>{esc(r["n"])}</b><span>{r["p"]} · {esc(r["c"])}</span></span>'
                  f'<span class="hf-pts">#{r["pick"]:g}<span>proj. pick</span></span></li>' for i, r in enumerate(rook, 1))

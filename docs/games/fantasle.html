@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png?v=4">
   <meta name="theme-color" content="#10151C">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="../style.css?v=18">
+  <link rel="stylesheet" href="../style.css?v=19">
   
 </head>
 <body class="info-page game-page">
@@ -57,7 +57,7 @@
           <li><span class="pl-key g"></span> <b>Green</b>: exact match.</li>
           <li><span class="pl-key y"></span> <b>Yellow</b>: close. Division is yellow when he's in the same conference (AFC or NFC). Position is yellow for another RB/WR/TE. Numbers are yellow within 3 PPR points per game, 2 touchdowns, 150 yards or 8 catches.</li>
           <li><b>↑</b> means the mystery player's number is higher. <b>↓</b> means it's lower.</li>
-          <li><b>PPR/G</b> is PPR fantasy points per game. <b>TD</b> and <b>Yds</b> count passing, rushing and receiving together. Season totals through Week 10 of the 2026 season.</li>
+          <li><b>PPG</b> is PPR fantasy points per game. <b>TD</b> and <b>Yds</b> count passing, rushing and receiving together. Season totals through Week 10 of the 2026 season.</li>
         </ul>
         <p class="pg-text">The daily player is the same for everyone and changes at midnight Eastern. Unlimited gives you a new player every round.</p>
         <button class="start gm-wide" id="pl-help-close">Play</button>
@@ -77,7 +77,7 @@
           <ul class="pl-suggest" id="pl-suggest" role="listbox" hidden></ul>
         </div>
         <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
-        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPR/G</span><span>TD</span><span>Yds</span><span>Rec</span></div>
+        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPG</span><span>TD</span><span>Yds</span><span>Rec</span></div>
         <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
         <div class="pl-done" id="pl-done" hidden>
           <div class="pl-reveal">
@@ -123,7 +123,7 @@
   <script src="../gm.js?v=5"></script>
   <script src="../site.js?v=1"></script>
   <script src="../newsletter.js?v=1"></script>
-  <script src="../games/fantasle.js?v=2"></script>
+  <script src="../games/fantasle.js?v=3"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>

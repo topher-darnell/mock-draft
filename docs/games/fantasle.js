@@ -116,7 +116,7 @@
       : "The mystery player was";
     $("pl-answer").textContent = a.name;
     $("pl-answer").href = `../fantasy/${a.slug}.html`;
-    $("pl-meta").textContent = `${a.pos} · ${a.team} · ${a.ppg.toFixed(1)} PPR points per game, ${a.td} TD, ${a.yds.toLocaleString("en-US")} yds`;
+    $("pl-meta").textContent = `${a.pos} · ${a.team} · ${a.ppg.toFixed(1)} PPR PPG, ${a.td} TD, ${a.yds.toLocaleString("en-US")} yds`;
     const gm = $("pl-gm");
     gm.innerHTML = "";
     if (a.team) {
