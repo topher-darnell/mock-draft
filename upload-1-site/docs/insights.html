@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1,000 Drafts · Big Head GM</title>
+  <meta name="description" content="What 1,000 simulated 2027 NFL mock drafts say: the consensus first round, when each position comes off the board, and every team's most likely picks.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Big Head GM">
+  <meta property="og:title" content="What 1,000 mock drafts say · Big Head GM">
+  <meta property="og:description" content="The consensus 2027 first round, position runs and every team's most likely picks.">
+  <meta property="og:url" content="https://bigheadgm.com/insights.html">
+  <meta property="og:image" content="https://bigheadgm.com/icons/og-image.jpg?v=4">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="manifest" href="manifest.json?v=3">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=4">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=4">
+  <meta name="theme-color" content="#10151C">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=8">
+</head>
+<body class="insights-page">
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="./" aria-label="Big Head GM home">
+        <span class="brand-tile"><img src="icons/mascot-head.png?v=4" alt="" width="40" height="40"></span>
+        <span class="brand-word">BIG HEAD <span>GM</span></span>
+      </a>
+      <a class="header-cta" href="./?start=1">Start <span class="cta-long">mock </span>draft</a>
+    </div>
+  </header>
+  <nav class="site-nav" aria-label="Site"><div class="wrap site-nav-row"><a href="./">Mock draft</a><a href="players/">Big board</a><a href="teams/">Teams</a><a href="odds.html">#1 pick odds</a><a href="insights.html" aria-current="page">1,000 drafts</a><a href="games/">Games</a></div></nav>
+
+  <main class="wrap in-main">
+    <p class="eyebrow">1,000 SIMULATED DRAFTS</p>
+    <h1 class="in-title">What 1,000 drafts say</h1>
+    <p class="in-sub" id="in-sub">We ran 1,000 computer-only drafts with today's big board, draft order and team needs. Here's what happens most.</p>
+
+    <div class="in-tabs" role="tablist" aria-label="Results">
+      <button class="in-tab" role="tab" id="tab-mock" aria-controls="panel-mock" data-tab="mock"><span class="tab-long">Consensus </span>mock</button>
+      <button class="in-tab" role="tab" id="tab-runs" aria-controls="panel-runs" data-tab="runs">Position<span class="tab-long"> runs</span></button>
+      <button class="in-tab" role="tab" id="tab-teams" aria-controls="panel-teams" data-tab="teams">Teams</button>
+    </div>
+
+    <!-- the most common pick at every slot -->
+    <section class="in-panel" role="tabpanel" id="panel-mock" aria-labelledby="tab-mock" hidden>
+      <div class="in-row">
+        <h2 class="home-h2" id="mock-heading">Round 1</h2>
+        <div class="in-chips" id="round-chips" aria-label="Round"></div>
+      </div>
+      <p class="in-note">The player taken most often at each pick, and how often.</p>
+      <ol class="in-mock" id="mock-list"></ol>
+    </section>
+
+    <!-- when each position comes off the board -->
+    <section class="in-panel" role="tabpanel" id="panel-runs" aria-labelledby="tab-runs" hidden>
+      <h2 class="home-h2">Round 1 by position</h2>
+      <p class="in-note">Average players taken in the first round, per draft.</p>
+      <ol class="in-hbars" id="r1-bars"></ol>
+
+      <div class="in-row in-row-gap">
+        <h2 class="home-h2" id="runs-heading">Quarterbacks by round</h2>
+      </div>
+      <div class="in-chips" id="pos-chips" aria-label="Position"></div>
+      <p class="in-callout" id="runs-callout"></p>
+      <div class="in-vbars" id="runs-chart" role="img"></div>
+    </section>
+
+    <!-- every team's most likely picks -->
+    <section class="in-panel" role="tabpanel" id="panel-teams" aria-labelledby="tab-teams" hidden>
+      <div id="team-grid-wrap">
+        <h2 class="home-h2">Pick a team</h2>
+        <div class="home-teams" id="team-grid"></div>
+      </div>
+      <div id="team-detail" hidden></div>
+    </section>
+
+    <p class="in-error" id="in-error" hidden>Couldn't load the results. Check your connection and refresh.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <img class="footer-logo" src="icons/logo-banner-small.webp?v=4" alt="Big Head GM" width="400" height="225">
+      <div class="footer-text">
+        <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="./?start=1">Run your own mock</a> · <a href="players/">Big board</a> · <a href="teams/">Team mocks</a> · <a href="odds.html">#1 pick odds</a> · <a href="games/">Games</a></p>
+        <p>Results from 1,000 computer drafts using the Pro Football Network consensus board, the Tankathon draft order and NFL.com team needs.</p>
+        <p>Not affiliated with the NFL or any NFL team. Every GM is an original character.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="gm.js?v=5"></script>
+  <script src="insights.js?v=1"></script>
+  <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
+  <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

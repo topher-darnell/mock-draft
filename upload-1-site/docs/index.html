@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Big Head GM · 2027 NFL Mock Draft Simulator</title>
+  <meta name="description" content="Run a free 2027 NFL mock draft against 31 big-headed GMs. Real big board, real draft order, trades, and a grade for every team.">
+
+  <!-- Link previews when you share the site in a text or on social -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Big Head GM">
+  <meta property="og:title" content="Big Head GM · 2027 NFL Mock Draft Simulator">
+  <meta property="og:description" content="Big heads. Big picks. Make your draft.">
+  <meta property="og:url" content="https://bigheadgm.com/">
+  <meta property="og:image" content="https://bigheadgm.com/icons/og-image.jpg?v=4">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Big Head GM: a goofy big-headed GM in a suit and orange tie">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Makes it installable: home screen icon, opens full-screen like an app -->
+  <link rel="manifest" href="manifest.json?v=3">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=4">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=4">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=4">
+  <meta name="theme-color" content="#10151C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Big Head GM">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="style.css?v=8">
+</head>
+<body>
+
+  <!-- Home page -->
+  <div id="home-screen" class="home">
+    <header class="site-header">
+      <div class="wrap header-row">
+        <a class="brand" href="./" id="brand-top" aria-label="Big Head GM, back to top">
+          <span class="brand-tile"><img src="icons/mascot-head.png?v=4" alt="" width="40" height="40"></span>
+          <span class="brand-word">BIG HEAD <span>GM</span></span>
+        </a>
+        <button class="header-cta" data-start>Start <span class="cta-long">mock </span>draft</button>
+      </div>
+    </header>
+    <nav class="site-nav" aria-label="Site"><div class="wrap site-nav-row"><a href="./" aria-current="page">Mock draft</a><a href="players/">Big board</a><a href="teams/">Teams</a><a href="odds.html">#1 pick odds</a><a href="insights.html">1,000 drafts</a><a href="games/">Games</a></div></nav>
+
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-head">
+          <p class="eyebrow">2027 NFL MOCK DRAFT SIMULATOR</p>
+          <h1 class="hero-title">Big heads.<br>Big picks.<br><span>Make your<br>draft.</span></h1>
+        </div>
+        <div class="hero-rest">
+          <p class="hero-sub">Run a 2027 mock draft against 31 big-headed GMs. Draft from a real big board, trade up or down, then see how your class grades out.</p>
+          <div class="hero-buttons">
+            <button class="hero-start" data-start>Start mock draft</button>
+            <button class="hero-how" id="how-button">How it works</button>
+          </div>
+          <p class="hero-stats" id="hero-stats">Real big board · every pick · 32 GMs</p>
+        </div>
+        <div class="hero-art">
+          <img src="icons/logo-banner.webp?v=4" alt="Big Head GM logo: a big-headed GM in sunglasses and an orange tie points at you, holding a Pick #1 card, under stadium lights" width="1200" height="676">
+        </div>
+      </div>
+    </section>
+
+    <!-- your saved drafts (only shows once you've finished one) -->
+    <section class="my-mocks" id="my-mocks" hidden>
+      <div class="wrap">
+        <div class="home-h2-row">
+          <h2 class="home-h2">My mocks</h2>
+          <button class="text-button" id="clear-mocks">Clear all</button>
+        </div>
+        <div class="mock-list" id="mock-list"></div>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <div class="wrap">
+        <h2 class="home-h2">How it works</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <div class="step-text">
+              <h3>Pick your team</h3>
+              <p>Take over any of the 32 teams and choose how many rounds, 1 to 7.</p>
+            </div>
+            <span class="step-gm" data-gm="Green Bay Packers" data-mood="neutral"></span>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <div class="step-text">
+              <h3>Run the draft</h3>
+              <p>The other 31 GMs draft for their needs. Pick from the big board, or work the phones to trade up or down.</p>
+            </div>
+            <span class="step-gm" data-gm="Atlanta Falcons" data-mood="trade"></span>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <div class="step-text">
+              <h3>Get your grade</h3>
+              <p>Every team gets graded on a curve. Find out who got the steals and who reached.</p>
+            </div>
+            <span class="step-gm" data-gm="New Orleans Saints" data-mood="happy"></span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="choose">
+      <div class="wrap">
+        <div class="home-h2-row">
+          <h2 class="home-h2">Choose your team</h2>
+          <span class="section-note">Tap a GM to start</span>
+        </div>
+        <div class="home-teams" id="home-teams"></div>
+      </div>
+    </section>
+
+    <!-- the rest of the site -->
+    <section class="explore">
+      <div class="wrap">
+        <h2 class="home-h2">More to explore</h2>
+        <div class="explore-grid">
+          <a class="explore-card" href="players/"><b>Big board</b><span>Every prospect ranked, with a profile page for each one.</span><span class="pg-go">See players →</span></a>
+          <a class="explore-card" href="teams/"><b>Team mocks</b><span>Needs, picks and most likely selections for all 32 teams.</span><span class="pg-go">Pick a team →</span></a>
+          <a class="explore-card" href="odds.html"><b>#1 pick odds</b><span>Who goes first: our simulations next to the betting odds.</span><span class="pg-go">See odds →</span></a>
+          <a class="explore-card" href="insights.html"><b>1,000 drafts</b><span>The consensus first round and when each position goes.</span><span class="pg-go">See results →</span></a>
+          <a class="explore-card" href="games/"><b>Games</b><span>Draft Day Blitz and Juke. Quick, free, made for your phone.</span><span class="pg-go">Play →</span></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <img class="footer-logo" src="icons/logo-banner-small.webp?v=4" alt="Big Head GM" width="400" height="225">
+        <div class="footer-text">
+          <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="players/">Big board</a> · <a href="teams/">Team mocks</a> · <a href="odds.html">#1 pick odds</a> · <a href="games/">Games</a></p>
+          <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com</p>
+          <p>Not affiliated with the NFL or any NFL team. Every GM is an original cartoon.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- one saved mock, opened from My mocks -->
+    <div class="sheet-backdrop" id="mock-sheet" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mock-title">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2 class="sheet-title" id="mock-title">Mock</h2>
+          <button class="close-button" id="close-mock" aria-label="Close">✕</button>
+        </div>
+        <div id="mock-body"></div>
+      </div>
+    </div>
+
+    <!-- shows when you left a draft going -->
+    <button class="resume" id="resume-button" hidden>Back to your draft</button>
+  </div>
+
+  <main class="page" id="app" hidden>
+
+    <!-- Screen 1: pick your team -->
+    <section id="setup-screen">
+      <div class="app-bar">
+        <button class="app-home" id="app-home" aria-label="Back to the Big Head GM home page">
+          <span class="brand-tile small"><img src="icons/mascot-head.png?v=4" alt="" width="32" height="32"></span>
+          <span class="brand-word small">BIG HEAD <span>GM</span></span>
+        </button>
+      </div>
+      <p class="eyebrow">2027 NFL MOCK DRAFT</p>
+      <h1>Set up your draft</h1>
+      <p class="subtitle" id="subtitle">Loading…</p>
+
+      <div class="label-row">
+        <h2 class="section-label">CHOOSE YOUR TEAM</h2>
+        <span class="section-note">Round 1 picks</span>
+      </div>
+      <div class="team-grid" id="team-grid"></div>
+
+      <h2 class="section-label">ROUNDS</h2>
+      <div class="rounds" id="rounds"></div>
+
+      <h2 class="section-label">DRAFT STYLE</h2>
+      <div class="setting">
+        <div class="setting-top">
+          <label class="setting-name" for="chaos">Computer teams</label>
+          <span class="setting-value" id="chaos-value">Normal</span>
+        </div>
+        <input class="slider" type="range" id="chaos" min="1" max="5" step="1" value="3" aria-describedby="chaos-hint">
+        <div class="setting-ends"><span>Chalk</span><span>Chaos</span></div>
+        <p class="setting-hint" id="chaos-hint"></p>
+      </div>
+      <div class="setting">
+        <div class="setting-top"><span class="setting-name" id="speed-label">Pick speed</span></div>
+        <div class="speed" id="speed" role="group" aria-labelledby="speed-label"></div>
+      </div>
+
+      <button class="start" id="start-button" disabled>Pick a team to start</button>
+    </section>
+
+    <!-- Screen 2: the draft -->
+    <section id="draft-screen" hidden>
+      <div class="draft-header">
+        <div class="draft-heading">
+          <p class="eyebrow" id="draft-eyebrow">ROUND 1</p>
+          <h1 id="draft-title">Draft room</h1>
+        </div>
+        <div class="my-gm" id="my-gm"></div>
+      </div>
+
+      <div class="status" id="status">Starting…</div>
+      <div class="hints" id="hints" hidden></div>
+
+      <h2 class="section-label">PICKS</h2>
+      <div class="ticker" id="feed"></div>
+
+      <h2 class="section-label" id="board-label">BIG BOARD</h2>
+      <div class="filters" id="filters"></div>
+      <ol class="board" id="board"></ol>
+
+      <div class="action-bar" id="action-bar" hidden>
+        <button class="secondary" id="pause-button">Pause</button>
+        <button class="secondary" id="trade-button">Trade</button>
+      </div>
+    </section>
+
+    <!-- Trade panel: slides up over the draft screen -->
+    <div class="sheet-backdrop" id="trade-sheet" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="trade-title">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2 class="sheet-title" id="trade-title">Trade</h2>
+          <button class="close-button" id="close-trade" aria-label="Close">✕</button>
+        </div>
+        <div class="tabs">
+          <button class="tab" id="tab-down">Trade down</button>
+          <button class="tab" id="tab-up">Trade up</button>
+        </div>
+        <div class="sheet-worth" id="trade-worth"></div>
+        <div id="trade-offers"></div>
+      </div>
+    </div>
+
+    <!-- Player card: tap a player's name -->
+    <div class="sheet-backdrop" id="player-sheet" hidden>
+      <div class="sheet player-sheet" role="dialog" aria-modal="true" aria-labelledby="pc-name">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <div class="pc-head">
+            <span class="pc-rank" id="pc-rank">#1</span>
+            <div class="pc-title">
+              <h2 class="sheet-title" id="pc-name">Player</h2>
+              <p class="pc-meta" id="pc-meta"></p>
+            </div>
+          </div>
+          <button class="close-button" id="close-player" aria-label="Close">✕</button>
+        </div>
+        <div class="pc-body" id="pc-body"></div>
+      </div>
+    </div>
+
+    <!-- Share my draft: a picture of your class -->
+    <div class="sheet-backdrop" id="share-sheet" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="share-title">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2 class="sheet-title" id="share-title">Share my draft</h2>
+          <button class="close-button" id="close-share" aria-label="Close">✕</button>
+        </div>
+        <img class="share-preview" id="share-preview" alt="Picture of your draft class and grade">
+        <p class="share-status" id="share-status"></p>
+        <div class="share-actions">
+          <button class="secondary" id="share-save">Save image</button>
+          <button class="start" id="share-native" hidden>Share</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen 3: grades -->
+    <section id="results-screen" hidden>
+      <p class="eyebrow" id="results-eyebrow">DRAFT COMPLETE</p>
+
+      <div class="grade-card">
+        <div class="grade-gm" id="grade-gm"></div>
+        <div class="grade-side">
+          <div class="grade-top">
+            <div class="grade-letter" id="my-grade">–</div>
+            <div class="grade-info">
+              <div class="grade-team" id="my-team-name"></div>
+              <div class="meta" id="my-grade-detail"></div>
+            </div>
+          </div>
+          <p class="gm-quote" id="grade-quote" hidden></p>
+        </div>
+      </div>
+
+      <button class="share-button" id="share-button" hidden>Share my draft</button>
+
+      <h2 class="section-label">YOUR CLASS</h2>
+      <ol class="board" id="my-class"></ol>
+
+      <h2 class="section-label">ALL TEAMS</h2>
+      <ol class="grades" id="all-grades"></ol>
+
+      <div class="results-buttons">
+        <button class="secondary" id="view-picks-button">View all picks</button>
+        <button class="start" id="new-mock-button">New mock</button>
+      </div>
+    </section>
+
+  </main>
+  <script src="gm.js?v=5"></script>
+  <script src="app.js?v=8"></script>
+  <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
+  <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Juke: Dodge 32 Big-Headed GMs · Big Head GM</title>
+  <meta name="description" content="Juke is a free endless-runner football game. Swipe to dodge 32 big-headed GMs, grab footballs and see how many yards you can run.">
+  <link rel="canonical" href="https://bigheadgm.com/games/juke.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Big Head GM">
+  <meta property="og:title" content="Juke: Dodge 32 Big-Headed GMs · Big Head GM">
+  <meta property="og:description" content="Juke is a free endless-runner football game. Swipe to dodge 32 big-headed GMs, grab footballs and see how many yards you can run.">
+  <meta property="og:url" content="https://bigheadgm.com/games/juke.html">
+  <meta property="og:image" content="https://bigheadgm.com/icons/og-image.jpg?v=4">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="manifest" href="../manifest.json?v=3">
+  <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png?v=4">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png?v=4">
+  <meta name="theme-color" content="#10151C">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="../style.css?v=8">
+  
+</head>
+<body class="info-page game-page">
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="../" aria-label="Big Head GM home">
+        <span class="brand-tile"><img src="../icons/mascot-head.png?v=4" alt="" width="40" height="40"></span>
+        <span class="brand-word">BIG HEAD <span>GM</span></span>
+      </a>
+      <a class="header-cta" href="../?start=1">Start <span class="cta-long">mock </span>draft</a>
+    </div>
+  </header>
+  <nav class="site-nav" aria-label="Site"><div class="wrap site-nav-row"><a href="../">Mock draft</a><a href="../players/">Big board</a><a href="../teams/">Teams</a><a href="../odds.html">#1 pick odds</a><a href="../insights.html">1,000 drafts</a><a href="../games/" aria-current="page">Games</a></div></nav>
+
+  <main class="wrap pg-main">
+    
+
+    <div class="gm-shell" id="juke">
+      <div class="gm-top">
+        <div><p class="eyebrow">BIG HEAD GM GAMES</p><h1 class="gm-title">Juke</h1></div>
+        <a class="gm-exit" href="./">All games</a>
+      </div>
+      <div class="jk-frame">
+        <canvas id="jk-canvas" width="360" height="560" aria-label="Juke: dodge the big-headed GMs"></canvas>
+        <div class="jk-overlay" id="jk-start">
+          <h2>Run through 32 angry GMs</h2>
+          <p><b>Swipe</b> or tap the left and right side to change lanes. On a keyboard, use the arrow keys.</p>
+          <p>Grab footballs for bonus yards. It gets faster every touchdown.</p>
+          <button class="start" id="jk-go">Start running</button>
+          <p class="in-note" id="jk-best"></p>
+        </div>
+        <div class="jk-overlay" id="jk-over" hidden>
+          <span class="jk-tackler" id="jk-tackler"></span>
+          <h2 id="jk-over-title">Tackled!</h2>
+          <p id="jk-over-text"></p>
+          <div class="bz-buttons">
+            <button class="secondary" id="jk-share">Share</button>
+            <button class="start" id="jk-retry">Run it back</button>
+          </div>
+          <p class="in-note" id="jk-share-note" role="status"></p>
+        </div>
+      </div>
+      <p class="in-note jk-help">Swipe or tap left/right · arrow keys on a computer · P to pause</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <img class="footer-logo" src="../icons/logo-banner-small.webp?v=4" alt="Big Head GM" width="400" height="225" loading="lazy">
+      <div class="footer-text">
+        <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="../?start=1">Run your own mock</a></p>
+        <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com · Updated November 9, 2026</p>
+        <p>Not affiliated with the NFL or any NFL team. Every GM is an original character.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../gm.js?v=5"></script>
+  <script src="../site.js?v=1"></script>
+  <script src="../games/juke.js?v=1"></script>
+  <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
+  <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
