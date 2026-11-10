@@ -2225,3 +2225,14 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .p17-hof-day { font-size: 12px; color: var(--muted); }
 .p17-empty { color: var(--muted); font-size: 14px; }
 .p17-board { scroll-margin-top: 84px; }
+
+.p17-chips { margin: 0 0 8px; align-items: center; }
+.p17-chips .filter { min-height: 38px; }
+.p17-sort .in-note { margin: 0 4px 0 0; }
+.p17-cols { flex: 0 0 auto; display: flex; align-items: center; gap: 14px; }
+.p17-cols b { font: 700 15px "Space Grotesk", sans-serif; color: var(--muted); text-align: right; }
+.p17-cols b:first-child { min-width: 70px; }
+.p17-cols b:last-child { min-width: 44px; }
+.p17-cols b.lead { color: var(--text); font-size: 17px; }
+.p17-rank li.perfect .p17-cols b:last-child { color: var(--accent); }
+.p17-cols i { margin-left: 3px; font: 600 10px Inter, sans-serif; font-style: normal; color: var(--muted); }

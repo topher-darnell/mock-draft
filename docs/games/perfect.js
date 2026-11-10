@@ -212,13 +212,8 @@
     s.played++; if (w === 17) s.perfect++; s.best = Math.max(s.best, w);
     save(STATS, s);
     $("p17-best").textContent = `Best: ${s.best}-${17 - s.best} · Perfect seasons: ${s.perfect}`;
-    if (g.mode === "daily") {
-      save(KEY, { day: g.day, lineup: g.lineup.map((p) => p.n), weeks: g.weeks, w, l });
-      offerPost(w);
-    } else {
-      $("p17-post").hidden = true;
-      $("p17-post-note").textContent = BOARD ? "Only today's daily draft goes on the leaderboard, since everyone gets the same teams." : "";
-    }
+    if (g.mode === "daily") save(KEY, { day: g.day, lineup: g.lineup.map((p) => p.n), weeks: g.weeks, w, l });
+    offerPost(w);
     count(`17-0-${g.mode}-${w}`, "17-0 season");
   }
 
@@ -281,7 +276,9 @@
   $("p17-again").addEventListener("click", () => start("free"));
 
   // ---------- leaderboard ----------
+  // Two boards: Daily (today's draft only) and Free play (all-time). Sort by team PPG (default) or record.
   const NAME_KEY = "bhg-17-name", POSTED = "bhg-17-posted", DEVICE = "bhg-17-device";
+  let boardMode = "daily", boardSort = "ppg";
   function device() {
     let d = load(DEVICE, null);
     if (!d) {
@@ -304,12 +301,14 @@
     const n = v.replace(/[^A-Za-z0-9 _.'-]/g, "").replace(/\s+/g, " ").trim().slice(0, 20);
     return n.length >= 2 && !BAD.test(n.replace(/[^a-z]/gi, "")) ? n : "";
   }
+  const teamPPG = () => Math.round(g.lineup.reduce((a, p) => a + p.ppg, 0) * 10) / 10;
 
   function offerPost(w) {
     if (!BOARD) return;
-    const posted = load(POSTED, 0) === g.day;
+    const posted = g.mode === "daily" ? load(POSTED, 0) === g.day : !!g.posted;
     $("p17-post").hidden = posted;
-    $("p17-post-note").textContent = posted ? "Your record is on today's leaderboard." : "";
+    $("p17-post-label").textContent = g.mode === "daily" ? "Put your record on today's Daily leaderboard" : "Put this team on the Free play leaderboard";
+    $("p17-post-note").textContent = posted ? (g.mode === "daily" ? "Your record is on today's leaderboard." : "This team is on the Free play leaderboard.") : "";
     $("p17-name").value = load(NAME_KEY, "") || "";
     $("p17-post-btn").dataset.w = w;
     $("p17-board-link").hidden = false;
@@ -324,51 +323,73 @@
     btn.textContent = "Posting…";
     try {
       await api("rpc/submit_score", { method: "POST", body: JSON.stringify({
-        p_day: g.day, p_name: name, p_wins: +btn.dataset.w, p_lineup: g.lineup.map((p) => p.n), p_device: device() }) });
+        p_mode: g.mode === "daily" ? "daily" : "free", p_day: g.mode === "daily" ? g.day : dayNumber(), p_name: name,
+        p_wins: +btn.dataset.w, p_ppg: teamPPG(), p_lineup: g.lineup.map((p) => p.n), p_device: device() }) });
       save(NAME_KEY, name);
-      save(POSTED, g.day);
+      if (g.mode === "daily") save(POSTED, g.day); else g.posted = true;
       $("p17-post").hidden = true;
       $("p17-post-note").textContent = "Posted! Here's where you stand.";
-      count("17-0-posted", "17-0 posted to leaderboard");
-      openBoard();
+      count(`17-0-posted-${g.mode}`, "17-0 posted to leaderboard");
+      openBoard(g.mode === "daily" ? "daily" : "free", name);
     } catch (err) {
-      $("p17-post-note").textContent = "Couldn't post right now. Try again in a minute.";
+      $("p17-post-note").textContent = /slow down/.test(String(err)) ? "Easy there: wait a few seconds and try again." : "Couldn't post right now. Try again in a minute.";
     }
     btn.disabled = false;
     btn.textContent = "Post my record";
   });
 
-  async function openBoard() {
+  function markChips() {
+    for (const b of document.querySelectorAll("#p17-board-modes .filter")) {
+      const on = b.dataset.board === boardMode;
+      b.classList.toggle("active", on); b.setAttribute("aria-pressed", on ? "true" : "false");
+    }
+    for (const b of document.querySelectorAll("#p17-board-sort .filter")) {
+      const on = b.dataset.sort === boardSort;
+      b.classList.toggle("active", on); b.setAttribute("aria-pressed", on ? "true" : "false");
+    }
+  }
+
+  let me = "";
+  async function openBoard(mode, myName) {
+    if (mode) boardMode = mode;
+    if (myName !== undefined) me = myName;
+    else if (!me) me = load(NAME_KEY, "") || "";
+    markChips();
     $("p17-board").hidden = false;
-    $("p17-board-day").textContent = `Daily #${dayNumber()}`;
+    $("p17-board-day").textContent = boardMode === "daily" ? `Daily #${dayNumber()}` : "All-time";
     $("p17-board-list").innerHTML = `<li class="p17-empty">Loading…</li>`;
-    $("p17-board").scrollIntoView({ behavior: "smooth", block: "start" });
+    if (mode) $("p17-board").scrollIntoView({ behavior: "smooth", block: "start" });
+    const order = boardSort === "ppg" ? "ppg.desc,wins.desc,created_at.asc" : "wins.desc,ppg.desc,created_at.asc";
+    const filter = boardMode === "daily" ? `mode=eq.daily&day=eq.${dayNumber()}` : "mode=eq.free";
     try {
-      const day = dayNumber();
-      const rows = await api(`leaderboard?day=eq.${day}&select=name,wins,created_at&order=wins.desc,created_at.asc&limit=1000`);
-      const me = load(POSTED, 0) === day ? load(NAME_KEY, "") : "";
+      const rows = await api(`leaderboard?${filter}&select=name,wins,ppg,created_at&order=${order}&limit=500`);
       const perfect = rows.filter((r) => r.wins === 17).length;
       $("p17-board-sum").textContent = rows.length
-        ? `${rows.length} GM${rows.length === 1 ? "" : "s"} posted today · ${perfect} went 17-0`
-        : "No one has posted today yet. Be the first.";
+        ? `${rows.length}${rows.length === 500 ? "+" : ""} team${rows.length === 1 ? "" : "s"} posted${boardMode === "daily" ? " today" : ""} · ${perfect} went 17-0`
+        : (boardMode === "daily" ? "No one has posted today yet. Be the first." : "No free play teams yet. Be the first.");
+      const key = (r) => (boardSort === "ppg" ? `${r.ppg}|${r.wins}` : `${r.wins}|${r.ppg}`);
       let rank = 0, prev = null;
-      const ranked = rows.map((r, i) => { if (r.wins !== prev) { rank = i + 1; prev = r.wins; } return Object.assign({ rank }, r); });
-      let mine = me ? ranked.find((r) => r.name === me) : null;
+      const ranked = rows.map((r, i) => { const k = key(r); if (k !== prev) { rank = i + 1; prev = k; } return Object.assign({ rank }, r); });
+      const mine = me ? ranked.find((r) => r.name === me) : null;
       const top = ranked.slice(0, 25);
       if (mine && !top.includes(mine)) top.push(mine);
-      $("p17-board-list").innerHTML = top.length ? top.map((r) =>
+      $("p17-board-list").innerHTML = top.map((r) =>
         `<li class="${mine === r ? "me" : ""}${r.wins === 17 ? " perfect" : ""}"><span class="p17-rk">${r.rank}</span>` +
-        `<span class="p17-nm">${esc(r.name)}</span><b>${r.wins}-${17 - r.wins}</b></li>`).join("") : "";
-      const hof = await api("leaderboard?wins=eq.17&select=name,day,created_at&order=created_at.desc&limit=20");
+        `<span class="p17-nm">${esc(r.name)}</span>` +
+        `<span class="p17-cols"><b class="${boardSort === "ppg" ? "lead" : ""}">${Number(r.ppg).toFixed(1)}<i>PPG</i></b>` +
+        `<b class="${boardSort === "wins" ? "lead" : ""}">${r.wins}-${17 - r.wins}</b></span></li>`).join("");
+      const hof = await api("leaderboard?wins=eq.17&select=name,day,mode,ppg,created_at&order=created_at.desc&limit=20");
       $("p17-hof").innerHTML = hof.length ? hof.map((r) =>
-        `<li><span class="p17-nm">🏆 ${esc(r.name)}</span><span class="p17-hof-day">Daily #${r.day}</span></li>`).join("")
+        `<li><span class="p17-nm">🏆 ${esc(r.name)}</span><span class="p17-hof-day">${r.mode === "free" ? "Free play" : `Daily #${r.day}`} · ${Number(r.ppg).toFixed(1)} PPG</span></li>`).join("")
         : `<li class="p17-empty">Nobody has gone 17-0 yet. Will you be first?</li>`;
     } catch (err) {
       $("p17-board-list").innerHTML = `<li class="p17-empty">Couldn't load the leaderboard. Try again in a minute.</li>`;
     }
   }
-  $("p17-board-link").addEventListener("click", openBoard);
-  $("p17-board-open").addEventListener("click", openBoard);
+  for (const b of document.querySelectorAll("#p17-board-modes .filter")) b.addEventListener("click", () => { boardMode = b.dataset.board; openBoard(); });
+  for (const b of document.querySelectorAll("#p17-board-sort .filter")) b.addEventListener("click", () => { boardSort = b.dataset.sort; openBoard(); });
+  $("p17-board-link").addEventListener("click", () => openBoard(g && g.mode === "free" ? "free" : "daily"));
+  $("p17-board-open").addEventListener("click", () => openBoard("daily"));
   $("p17-board-open").hidden = !BOARD;
 
   const s = load(STATS, null);

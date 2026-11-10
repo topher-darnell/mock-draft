@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "24", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "25", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1413,7 +1413,7 @@ def perfect_page():
         </ul>
         <button class="start gm-wide" id="p17-daily">Play today's draft</button>
         <button class="secondary gm-wide" id="p17-free">Free play</button>
-        <button class="secondary gm-wide" id="p17-board-open" hidden>Today's leaderboard</button>
+        <button class="secondary gm-wide" id="p17-board-open" hidden>Leaderboards</button>
         <p class="in-note" id="p17-intro-best">Today's draft: same teams for everyone, new teams at midnight Eastern.</p>
       </section>
 
@@ -1442,7 +1442,7 @@ def perfect_page():
           </div>
           <p class="in-note" id="p17-note" role="status"></p>
           <form class="p17-post" id="p17-post" hidden>
-            <label for="p17-name">Put your record on today's leaderboard</label>
+            <label for="p17-name" id="p17-post-label">Put your record on today's leaderboard</label>
             <div class="p17-post-row">
               <input id="p17-name" maxlength="20" placeholder="Your name" autocomplete="nickname" autocapitalize="words">
               <button class="start" id="p17-post-btn" type="submit">Post my record</button>
@@ -1456,6 +1456,15 @@ def perfect_page():
       </section>
       <section class="gm-panel p17-board" id="p17-board" hidden>
         <div class="p17-head"><h2 class="home-h2">Leaderboard</h2><span class="in-note" id="p17-board-day"></span></div>
+        <div class="in-chips p17-chips" id="p17-board-modes">
+          <button class="filter active" data-board="daily" aria-pressed="true">Daily</button>
+          <button class="filter" data-board="free" aria-pressed="false">Free play</button>
+        </div>
+        <div class="in-chips p17-chips p17-sort" id="p17-board-sort" aria-label="Sort by">
+          <span class="in-note">Sort:</span>
+          <button class="filter active" data-sort="ppg" aria-pressed="true">Team PPG</button>
+          <button class="filter" data-sort="wins" aria-pressed="false">Best record</button>
+        </div>
         <p class="in-note" id="p17-board-sum"></p>
         <ol class="p17-rank" id="p17-board-list"></ol>
         <h3 class="ff-grp">17-0 Hall of Fame</h3>
@@ -1466,7 +1475,7 @@ def perfect_page():
     <script type="application/json" id="p17-data">{data}</script>"""
     write("games/17-0.html", page("games/17-0.html", "17-0: Draft a Fantasy Team and Go Undefeated · Big Head GM",
           "17-0 is a free fantasy football game. Draft a PPR lineup one random NFL team at a time, then play a 17-week season with real 2026 stats. Can you go undefeated?",
-          body, nav="games/", scripts=("games/perfect.js?v=6",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
+          body, nav="games/", scripts=("games/perfect.js?v=7",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
 
 
 # ---------- sitemap ----------
