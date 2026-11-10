@@ -2075,3 +2075,35 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .gh-pl i { display: flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 12px; background: #2A323D; color: #fff; font: 700 14px Inter, sans-serif; font-style: normal; }
 .gh-pl i.g { background: #2E9E5B; } .gh-pl i.y { background: #D6A82A; color: #1B1206; }
 @media (prefers-reduced-motion: reduce) { .pl-tile.flip, .pl-done.pop { animation: none; } }
+
+/* ---------- home: daily games + fantasy leaders ---------- */
+.home-daily { padding: 34px 0 6px; }
+.hd-grid, .hf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.hd-card {
+  display: flex; flex-direction: column; gap: 6px; padding: 14px; border: 1px solid var(--line); border-radius: 18px;
+  background: linear-gradient(160deg, #1D2A22, var(--card) 60%); color: var(--text); text-decoration: none;
+}
+.hd-card:hover, .hd-card:focus-visible { border-color: var(--accent); }
+.hd-card b { font: 700 20px "Space Grotesk", sans-serif; }
+.hd-card > span:not(.hd-tiles):not(.pg-go) { font-size: 13px; line-height: 1.4; color: var(--muted); }
+.hd-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 4px; }
+.hd-tiles i { display: flex; align-items: center; justify-content: center; height: 34px; border-radius: 8px; background: #2A323D; color: #fff; font: 700 11px Inter, sans-serif; font-style: normal; }
+.hd-tiles i.g { background: #2E9E5B; } .hd-tiles i.y { background: #D6A82A; color: #1B1206; }
+.hf-head { margin-top: 28px; }
+.hf-card { display: flex; flex-direction: column; gap: 8px; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); }
+.hf-card .pg-go { font-size: 14px; text-decoration: none; }
+.hf-label { margin: 0; font: 700 11px "Space Grotesk", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.hf-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.hf-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.hf-list li:last-child { border-bottom: 0; }
+.hf-rk { width: 18px; font: 700 14px "Space Grotesk", sans-serif; color: var(--muted); }
+.hf-name { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.hf-name b { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hf-name span, .hf-pts span { font-size: 12px; color: var(--muted); }
+.hf-pts { display: flex; flex-direction: column; align-items: flex-end; font: 700 16px "Space Grotesk", sans-serif; color: var(--accent); }
+.hf-pts span { font-family: Inter, sans-serif; font-weight: 500; }
+@media (max-width: 640px) { .hf-grid { grid-template-columns: 1fr; } }
+@media (max-width: 380px) { .hd-grid { grid-template-columns: 1fr; } }
+.gh-h2 { display: flex; align-items: center; gap: 8px; margin: 26px 0 6px; }
+.gh-badge { padding: 3px 8px; border-radius: 999px; background: var(--accent); color: #1B1206; font: 700 11px "Space Grotesk", sans-serif; letter-spacing: 0.06em; }
+.gh-daily .gh-card { border-color: rgba(242, 169, 59, 0.55); }

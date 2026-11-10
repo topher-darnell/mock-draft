@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "13", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "14", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -852,7 +852,9 @@ def games_pages():
     <p class="eyebrow">BIG HEAD GM GAMES</p>
     <h1 class="in-title">Games</h1>
     <p class="in-sub">Quick games for when you're not on the clock. Free, no sign-up, and they work on your phone.</p>
-    <div class="gh-grid">
+    <h2 class="home-h2 gh-h2">Daily games <span class="gh-badge">NEW</span></h2>
+    <p class="in-note">A new mystery player every day at midnight Eastern. Share your score and see if your friends can beat it.</p>
+    <div class="gh-grid gh-daily">
       <a class="gh-card" href="prospectle.html">
         <span class="gh-art gh-pl" aria-hidden="true"><i class="g">SEC</i><i class="y">WR</i><i>6-2</i><i class="g">#7</i></span>
         <span class="gh-text"><b>Prospectle</b>
@@ -865,6 +867,9 @@ def games_pages():
           <span>Guess the mystery NFL fantasy player in 8 tries from his team, position and PPR points per game. New player every day, or play unlimited.</span>
           <span class="pg-go">Play →</span></span>
       </a>
+    </div>
+    <h2 class="home-h2 gh-h2">More games</h2>
+    <div class="gh-grid">
       <a class="gh-card" href="blitz.html">
         <span class="gh-art gh-blitz" aria-hidden="true"><span>DRAFT</span><span>PASS</span></span>
         <span class="gh-text"><b>Draft Day Blitz</b>
@@ -1169,6 +1174,66 @@ def fantasle_page():
           body, nav="games/", scripts=("games/fantasle.js?v=1",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
 
 
+# ---------- home page: today's games and fantasy leaders ----------
+
+def home_blocks():
+    lead = fantasy.leaders()
+    top = sorted(lead, key=lambda r: -r["s"]["ppr"])[:5]
+    rook = sorted(fantasy.rookies(), key=lambda r: -r["dyn"]["ppr"])[:3]
+    rows = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name"><b>{esc(r["n"])}</b><span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))}</span></span>'
+                   f'<span class="hf-pts">{r["s"]["ppr"]:.1f}<span>{r["s"]["ppr"] / r["g"]:.1f}/g</span></span></li>'
+                   for i, r in enumerate(top, 1))
+    rk = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name"><b>{esc(r["n"])}</b><span>{r["p"]} · {esc(r["c"])}</span></span>'
+                 f'<span class="hf-pts">#{r["pick"]:g}<span>proj. pick</span></span></li>' for i, r in enumerate(rook, 1))
+    block = f"""<!-- home-daily:start (written by build_pages.py) -->
+    <section class="home-daily">
+      <div class="wrap">
+        <div class="home-h2-row">
+          <h2 class="home-h2">Today's daily games</h2>
+          <span class="section-note">New player every day</span>
+        </div>
+        <div class="hd-grid">
+          <a class="hd-card" href="games/prospectle.html">
+            <span class="hd-tiles" aria-hidden="true"><i class="g">SEC</i><i class="y">WR</i><i>6-2</i><i class="g">#7</i></span>
+            <b>Prospectle</b>
+            <span>Guess the mystery 2027 draft prospect in 8 tries.</span>
+            <span class="pg-go">Play today's →</span>
+          </a>
+          <a class="hd-card" href="games/fantasle.html">
+            <span class="hd-tiles" aria-hidden="true"><i class="g">WR</i><i class="y">25.7</i><i>NFC W</i><i class="g">9</i></span>
+            <b>Fantasle</b>
+            <span>Guess the mystery NFL fantasy player from his PPR stats.</span>
+            <span class="pg-go">Play today's →</span>
+          </a>
+        </div>
+
+        <div class="home-h2-row hf-head">
+          <h2 class="home-h2">Fantasy leaders</h2>
+          <span class="section-note">PPR · {esc(fantasy.STATS_AS_OF.replace(" of the 2026 season", ""))}</span>
+        </div>
+        <div class="hf-grid">
+          <div class="hf-card">
+            <p class="hf-label">2026 PPR leaders</p>
+            <ol class="hf-list">{rows}</ol>
+            <a class="pg-go" href="fantasy.html">All leaders and scoring formats →</a>
+          </div>
+          <div class="hf-card">
+            <p class="hf-label">Top 2027 dynasty rookies</p>
+            <ol class="hf-list">{rk}</ol>
+            <a class="pg-go" href="fantasy.html#dynasty">Full rookie rankings →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- home-daily:end -->"""
+    path = os.path.join(DOCS, "index.html")
+    with open(path, encoding="utf-8") as fh:
+        text = fh.read()
+    text = re.sub(r"<!-- home-daily:start.*?<!-- home-daily:end -->", lambda m: block, text, flags=re.S)
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(text)
+
+
 # ---------- sitemap ----------
 
 def sitemap(paths):
@@ -1193,6 +1258,7 @@ def main():
     games_pages()
     prospectle_page()
     fantasle_page()
+    home_blocks()
     sitemap(paths)
     print(f"Built {len(players)} player pages, {len(team_names)} team pages, the odds page, the games pages and sitemap.xml ({len(paths)} pages)")
 
