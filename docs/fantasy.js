@@ -15,6 +15,7 @@
   let pos = "All";
   let all = false;           // "Show all players" pressed
   let words = "";            // the search box
+  let team = "";             // the team dropdown ("" = all teams)
   try { fmt = localStorage.getItem(KEY) || fmt; } catch (e) { /* private window */ }
 
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -23,15 +24,16 @@
   function leaders() {
     const ranked = DATA.leaders.filter((r) => pos === "All" || r.p === pos).sort((a, b) => b.s[fmt] - a.s[fmt]);
     let rows = ranked.map((r, i) => [r, i + 1]);
+    if (team) rows = rows.filter(([r]) => r.t === team);
     if (words) rows = rows.filter(([r]) => r.n.toLowerCase().includes(words) || (TEAM[r.t] || "").toLowerCase().includes(words));
     const more = document.getElementById("ff-more");
-    more.hidden = all || words || rows.length <= 50;
+    more.hidden = all || words || team || rows.length <= 50;
     more.textContent = `Show all ${rows.length} players`;
-    if (!all && !words) rows = rows.slice(0, 50);
+    if (!all && !words && !team) rows = rows.slice(0, 50);
     document.getElementById("ff-lead").innerHTML = rows.length ? rows.map(([r, i]) =>
       `<tr><td class="ff-rk">${i}</td><th scope="row">${esc(r.n)}<span>${r.p} · ${esc(TEAM[r.t] || r.t)} · ${esc(r.line)}</span></th>` +
       `<td>${r.g}</td><td><b>${num(r.s[fmt])}</b></td><td>${num(r.s[fmt] / r.g)}</td></tr>`).join("")
-      : `<tr><td colspan="5" class="ff-none">No player matches that search.</td></tr>`;
+      : `<tr><td colspan="5" class="ff-none">No player matches those filters.</td></tr>`;
   }
 
   function rookies(id, key) {
@@ -77,6 +79,7 @@
     b.addEventListener("click", () => { pos = b.dataset.pos; all = false; render(); });
   }
   document.getElementById("ff-more").addEventListener("click", () => { all = true; leaders(); });
+  document.getElementById("ff-team").addEventListener("change", (e) => { team = e.target.value; leaders(); });
   document.getElementById("ff-search").addEventListener("input", (e) => { words = e.target.value.trim().toLowerCase(); leaders(); });
   // the three tabs: show one list at a time (without this script, all three show)
   const TABS = ["leaders", "next-year", "dynasty"];

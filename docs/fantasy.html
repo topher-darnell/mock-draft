@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=4">
   <meta name="theme-color" content="#10151C">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=15">
+  <link rel="stylesheet" href="style.css?v=16">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Big Head GM", "item": "https://bigheadgm.com/"}, {"@type": "ListItem", "position": 2, "name": "Fantasy", "item": "https://bigheadgm.com/fantasy.html"}]}</script>
 </head>
 <body class="info-page">
@@ -57,7 +57,11 @@
       <p class="in-note">Season totals through Week 10 of the 2026 season. Tap a position to see just that group.</p>
       <label class="bb-search"><span class="sr-only">Search a player</span>
         <input type="search" id="ff-search" placeholder="Search 384 players" autocomplete="off"></label>
-      <div class="in-chips bb-chips" id="ff-pos" aria-label="Position"><button class="filter active" data-pos="All" aria-pressed="true">All</button><button class="filter" data-pos="QB" aria-pressed="false">QB</button><button class="filter" data-pos="RB" aria-pressed="false">RB</button><button class="filter" data-pos="WR" aria-pressed="false">WR</button><button class="filter" data-pos="TE" aria-pressed="false">TE</button></div>
+      <div class="ff-filters">
+        <div class="in-chips bb-chips" id="ff-pos" aria-label="Position"><button class="filter active" data-pos="All" aria-pressed="true">All</button><button class="filter" data-pos="QB" aria-pressed="false">QB</button><button class="filter" data-pos="RB" aria-pressed="false">RB</button><button class="filter" data-pos="WR" aria-pressed="false">WR</button><button class="filter" data-pos="TE" aria-pressed="false">TE</button></div>
+        <label class="ff-team"><span class="sr-only">Team</span>
+          <select id="ff-team"><option value="">All teams</option><option value="SF">49ers</option><option value="CHI">Bears</option><option value="CIN">Bengals</option><option value="BUF">Bills</option><option value="DEN">Broncos</option><option value="CLE">Browns</option><option value="TB">Buccaneers</option><option value="ARI">Cardinals</option><option value="LAC">Chargers</option><option value="KC">Chiefs</option><option value="IND">Colts</option><option value="WAS">Commanders</option><option value="DAL">Cowboys</option><option value="MIA">Dolphins</option><option value="PHI">Eagles</option><option value="ATL">Falcons</option><option value="NYG">Giants</option><option value="JAX">Jaguars</option><option value="NYJ">Jets</option><option value="DET">Lions</option><option value="GB">Packers</option><option value="CAR">Panthers</option><option value="NE">Patriots</option><option value="LV">Raiders</option><option value="LAR">Rams</option><option value="BAL">Ravens</option><option value="NO">Saints</option><option value="SEA">Seahawks</option><option value="PIT">Steelers</option><option value="HOU">Texans</option><option value="TEN">Titans</option><option value="MIN">Vikings</option></select></label>
+      </div>
       <div class="od-wrap">
         <table class="od-table ff-table">
           <thead><tr><th scope="col" class="ff-rk">#</th><th scope="col">Player</th><th scope="col">G</th><th scope="col">Pts</th><th scope="col">Per game</th></tr></thead>
@@ -122,7 +126,7 @@
   <script src="gm.js?v=5"></script>
   <script src="site.js?v=1"></script>
   <script src="newsletter.js?v=1"></script>
-  <script src="fantasy.js?v=3"></script>
+  <script src="fantasy.js?v=4"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
