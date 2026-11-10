@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png?v=4">
   <meta name="theme-color" content="#10151C">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="../style.css?v=22">
+  <link rel="stylesheet" href="../style.css?v=23">
   
 </head>
 <body class="info-page game-page">
@@ -67,10 +67,10 @@
       </section>
 
       <section class="gm-panel" id="p17-season" hidden>
-        <div class="p17-head"><h2 class="home-h2">Your season</h2><span class="p17-record" id="p17-record">0-0</span></div>
-        <ol class="p17-lineup" id="p17-lineup-s"></ol>
+        <div class="p17-head"><h2 class="home-h2" id="p17-head">Draft complete!</h2><span class="p17-record" id="p17-record" hidden>0-0</span></div>
         <p class="in-note" id="p17-proj"></p>
-        <button class="start gm-wide" id="p17-play">Play the season</button>
+        <button class="start gm-wide p17-kick" id="p17-play">Kick off the season ▶</button>
+        <ol class="p17-lineup" id="p17-lineup-s"></ol>
         <ol class="p17-weeks" id="p17-weeks"></ol>
         <div class="pl-done p17-end" id="p17-end" hidden>
           <p class="p17-title" id="p17-title"></p>
@@ -113,7 +113,7 @@
   <script src="../gm.js?v=5"></script>
   <script src="../site.js?v=1"></script>
   <script src="../newsletter.js?v=1"></script>
-  <script src="../games/perfect.js?v=3"></script>
+  <script src="../games/perfect.js?v=4"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>

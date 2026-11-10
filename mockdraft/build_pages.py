@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "22", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "23", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1426,10 +1426,10 @@ def perfect_page():
       </section>
 
       <section class="gm-panel" id="p17-season" hidden>
-        <div class="p17-head"><h2 class="home-h2">Your season</h2><span class="p17-record" id="p17-record">0-0</span></div>
-        <ol class="p17-lineup" id="p17-lineup-s"></ol>
+        <div class="p17-head"><h2 class="home-h2" id="p17-head">Draft complete!</h2><span class="p17-record" id="p17-record" hidden>0-0</span></div>
         <p class="in-note" id="p17-proj"></p>
-        <button class="start gm-wide" id="p17-play">Play the season</button>
+        <button class="start gm-wide p17-kick" id="p17-play">Kick off the season ▶</button>
+        <ol class="p17-lineup" id="p17-lineup-s"></ol>
         <ol class="p17-weeks" id="p17-weeks"></ol>
         <div class="pl-done p17-end" id="p17-end" hidden>
           <p class="p17-title" id="p17-title"></p>
@@ -1449,7 +1449,7 @@ def perfect_page():
     <script type="application/json" id="p17-data">{data}</script>"""
     write("games/17-0.html", page("games/17-0.html", "17-0: Draft a Fantasy Team and Go Undefeated · Big Head GM",
           "17-0 is a free fantasy football game. Draft a PPR lineup one random NFL team at a time, then play a 17-week season with real 2026 stats. Can you go undefeated?",
-          body, nav="games/", scripts=("games/perfect.js?v=3",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
+          body, nav="games/", scripts=("games/perfect.js?v=4",), body_class="info-page game-page", og_title="17-0: can your fantasy team go undefeated?"))
 
 
 # ---------- sitemap ----------

@@ -157,13 +157,17 @@
     drawLineup(true);
     $("p17-proj").textContent = `Your lineup averages ${g.lineup.reduce((a, p) => a + p.ppg, 0).toFixed(1)} PPR points a week when everyone plays. A typical opponent scores about ${OPP_MEAN.toFixed(0)}.`;
     $("p17-weeks").innerHTML = "";
-    $("p17-record").textContent = "0-0";
+    $("p17-head").textContent = "Draft complete!";
+    $("p17-record").hidden = true;
     $("p17-end").hidden = true;
     $("p17-play").hidden = false;
   }
 
   $("p17-play").addEventListener("click", () => {
     $("p17-play").hidden = true;
+    $("p17-head").textContent = "Your season";
+    $("p17-record").textContent = "0-0";
+    $("p17-record").hidden = false;
     g.weeks = simulate();
     let w = 0, l = 0, i = 0;
     const list = $("p17-weeks");
@@ -241,6 +245,8 @@
           $("p17-play").hidden = true;
           $("p17-weeks").innerHTML = g.weeks.map((x) => `<li class="${x.me > x.opp ? "win" : "loss"}"><span class="p17-wk">Wk ${x.w}</span><span class="p17-vs">vs ${esc(short(x.vs))} GM</span><span class="p17-score">${x.me.toFixed(1)}–${x.opp.toFixed(1)}</span><b>${x.me > x.opp ? "W" : "L"}</b></li>`).join("");
           $("p17-record").textContent = `${done.w}-${done.l}`;
+          $("p17-record").hidden = false;
+          $("p17-head").textContent = "Your season";
           $("p17-proj").textContent = "You already played today's draft. New teams at midnight Eastern.";
           const [title, line] = verdict(done.w);
           $("p17-title").textContent = title; $("p17-line").textContent = line;
