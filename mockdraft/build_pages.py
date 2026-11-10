@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "10", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "11", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -787,6 +787,10 @@ def fantasy_page():
     <p class="eyebrow">FANTASY FOOTBALL</p>
     <h1 class="in-title">Fantasy leaders and 2027 rookie rankings</h1>
     <p class="in-sub">Who's scoring the most fantasy points in 2026, and which 2027 rookies to target, for next season and for dynasty. Pick your league's scoring and everything on the page updates.</p>
+
+    <nav class="ff-jump" aria-label="On this page">
+      <a href="#leaders">2026 leaders</a><a href="#next-year">Rookies for next season</a><a href="#dynasty">Dynasty rookies</a>
+    </nav>
 
     <div class="ff-bar">
       <p class="ff-label">Your scoring</p>
