@@ -1159,6 +1159,8 @@ FF_POS_PLURAL = {"QB": "quarterbacks", "RB": "running backs", "WR": "wide receiv
 
 def nfl_profiles():
     lead = fantasy.leaders()
+    rosd = fantasy.rest_of_season()
+    ros = {r["n"]: r for r in rosd["players"]}
     raw = {r["name"]: r for r in fantasy.read("fantasy_stats.csv")}
     full = {FF_TEAM[a]: next(t for t in team_names if t.endswith(FF_TEAM[a])) for a in FF_TEAM}
     fmts = [k for k, _ in fantasy.FORMATS]
@@ -1184,6 +1186,26 @@ def nfl_profiles():
                  f"{len(lead)} players in PPR scoring.")
         if r["line"]:
             intro += f" His season so far: {r['line']}."
+        x = ros.get(n)
+        if x:
+            i = x.get("inj")
+            if i:
+                hurt = f" ({i['inj'].split(' (')[0].lower()})" if i.get("inj") else ""
+                if i["s"] == "season":
+                    intro += f" He's out for the season{hurt}."
+                elif i["s"] == "ir":
+                    intro += f" He's on injured reserve{hurt}" + (f" and is expected back around Week {i['back']}." if i.get("back") and i["back"] < 99 else ".")
+                elif i["s"] == "out":
+                    intro += f" He's out{hurt}" + (f" until about Week {i['back']}." if i.get("back") else ".")
+                else:
+                    intro += f" He's {i['s']} for Week {rosd['from']}{hurt}."
+            q = x.get("qb")
+            if q:
+                intro += (f" The {short(team)} have a new starting quarterback, {q['name']}"
+                          f"{' (expected)' if q['status'] == 'expected' else ''}, which should {'help' if q['m'] > 1 else 'hurt'} his numbers a little.")
+            if x["ros"]["ppr"] > 0:
+                intro += (f" For the rest of the season (Weeks {rosd['from']}–{rosd['to']}) we project {x['ros']['ppr']:.0f} PPR points,"
+                          f" counting his bye, matchups and any games he'll miss.")
 
         fmt_rows = "".join(
             f'<tr><th scope="row">{label}</th><td><b>{r["s"][k]:.1f}</b></td><td>{r["s"][k] / g:.1f}</td>'
@@ -1261,6 +1283,7 @@ def nfl_profiles():
       <h2 class="home-h2">{pos}s near him in PPR</h2>
       <ol class="bb-list">{mini(peers, n)}</ol>
       <p class="pg-more"><a href="../fantasy.html">All fantasy leaders →</a></p>
+      <p class="pg-more"><a href="../fantasy-ros.html">Rest-of-season rankings →</a> · <a href="../fantasy-start-sit.html?p={sl}">Start or sit him? →</a> · <a href="../fantasy-trade.html?give={sl}">Trade value →</a></p>
     </section>
 
     <section class="pg-cta">
@@ -1419,6 +1442,12 @@ def fantasy_trade_page():
         if r.get("inj"):
             games = [a for w, opp, m, a, q in r["sched"] if opp]
             d["inj"][slug(r["n"])] = [round(sum(games) / max(1, len(games)), 2), r["inj"]["s"], r["inj"].get("back", 0)]
+    # redraft: new starting QB moves pass catchers up or down (same numbers as the rankings)
+    d["qb"] = {}
+    for r in ros["players"]:
+        if r.get("qb"):
+            qs = [q for w, opp, m, a, q in r["sched"] if opp]
+            d["qb"][slug(r["n"])] = [round(sum(qs) / max(1, len(qs)), 3), r["qb"]["name"], r["qb"]["status"]]
     data = json.dumps(d, separators=(",", ":")).replace("</", "<\\/")
     chips = lambda name, opts, on: "".join(
         f'<button class="filter{" active" if v == on else ""}" data-set="{name}" data-v="{v}" aria-pressed="{"true" if v == on else "false"}">{label}</button>'
@@ -1466,8 +1495,9 @@ def fantasy_trade_page():
         <li><b>Value</b> runs from 0 to 100. It's how many more points a player should score than a typical starter you could pick up off waivers, in your scoring and league size.</li>
         <li>Stars are worth more than two average starters added together, and each extra player in a trade counts a little less. You only get so many lineup spots.</li>
         <li><b>Redraft</b> uses each player's 2026 points per game, steadied for players who've missed games. <b>Dynasty</b> also weighs age and adds the 2027 rookies and rookie picks.</li>
+        <li>In redraft, <b>injuries</b> (games he'll miss) and <b>new starting quarterbacks</b> (up to 15% up or down for receivers) count, the same as in our rest-of-season rankings.</li>
         <li>In 1 QB leagues, quarterbacks are worth less than their points suggest, since good ones are easy to find. Superflex and 2 QB change that.</li>
-        <li>Injuries and news aren't counted. Check them before you accept.</li>
+        <li>News from the last few days may not be in yet. Check injuries before you accept.</li>
       </ul>
       <p class="in-note">Stats {esc(fantasy.STATS_AS_OF)}. Updated every Tuesday.</p>
       <p class="pg-more"><a href="fantasy-draft.html">Try the fantasy mock draft →</a></p>
@@ -1478,7 +1508,7 @@ def fantasy_trade_page():
             "1 QB or Superflex, redraft or dynasty with 2027 rookie picks.")
     return page("fantasy-trade.html", "Fantasy Football Trade Analyzer 2026 · Who Wins the Trade · Big Head GM", desc,
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Trade analyzer", "fantasy-trade.html")], nav="fantasy.html",
-                scripts=("fantasy-trade.js?v=4",))
+                scripts=("fantasy-trade.js?v=5",))
 
 
 def fantasy_ros_page():

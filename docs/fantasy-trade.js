@@ -8,6 +8,7 @@
   const POS = ["QB", "RB", "WR", "TE"];
   const count = (path, title) => { try { window.BHG && BHG.countEvent(path, title); } catch (e) { /* ignore */ } };
 
+  const QB = raw.qb || {};        // slug -> [multiplier from a new starting QB, QB name, named/expected] (redraft only)
   const INJ = raw.inj || {};      // slug -> [share of remaining games available, status, back week]
   const ALL = [
     ...raw.v.map(([name, team, pos, games, ppg, age, slug, real]) =>
@@ -34,7 +35,7 @@
   // Dynasty: the same, weighted for age, plus the 2027 rookies.
   const base = (p) => {
     const i = FMT[S.fmt];
-    if (S.kind === "redraft") return p.ppg[i];
+    if (S.kind === "redraft") return p.ppg[i] * (QB[p.slug] ? QB[p.slug][0] : 1);   // new starting QB moves receivers a bit
     // a quarter of a veteran's value is what he does now (contenders still want him), the rest is his future
     return p.rookie ? p.dyn[i] : p.ppg[i] * (0.25 + 0.75 * dynastyMult(p.pos, p.age));
   };
@@ -94,7 +95,9 @@
     const now = p.rookie ? "Rookie" : `'26 ${p.real[i].toFixed(1)} PPG`;
     const hurt = INJ[p.slug];
     const tag = !hurt ? "" : hurt[1] === "season" ? " · Out for season" : hurt[1] === "ir" ? ` · On IR${hurt[2] && hurt[2] < 99 ? ", back ~Wk " + hurt[2] : ""}` : hurt[1] === "out" ? " · Out" : ` · ${hurt[1][0].toUpperCase() + hurt[1].slice(1)}`;
-    return `${p.pos}${p.posRank} · ${p.rookie ? p.team || p.college : p.team}${p.age ? " · " + Math.floor(p.age) : ""} · ${now}${tag}`;
+    const nq = QB[p.slug];
+    const qb = S.kind === "redraft" && nq ? ` · New QB ${nq[1]}${nq[2] === "expected" ? " (expected)" : ""} ${nq[0] > 1 ? "↑" : "↓"}` : "";
+    return `${p.pos}${p.posRank} · ${p.rookie ? p.team || p.college : p.team}${p.age ? " · " + Math.floor(p.age) : ""} · ${now}${tag}${qb}`;
   }
 
   function renderSide(which) {
