@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "33", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "34", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1404,8 +1404,8 @@ def home_blocks():
         </div>
         <div class="hf-card hf-wide">
           <div class="in-chips hf-chips" id="hm-rounds" aria-label="Round">{"".join(f'<button class="filter{" active" if r_ == 1 else ""}" data-round="{r_}" aria-pressed="{"true" if r_ == 1 else "false"}" aria-label="Round {r_}">R{r_}</button>' for r_ in range(1, 8))}</div>
-          <label class="ff-team hm-team-pick"><span class="sr-only">Show one team's picks</span>
-            <select id="hm-team"><option value="">View a team's mock draft…</option>{"".join(f'<option value="{esc(t)}">{esc(t)}</option>' for t in team_names)}</select></label>
+          <label class="hm-team-pick"><span class="hm-team-label">Or pick a team to see its full 7-round mock</span>
+            <select id="hm-team"><option value="">🏈 Choose a team</option>{"".join(f'<option value="{esc(t)}">{esc(t)}</option>' for t in team_names)}</select></label>
           <ol class="hf-list hf-scroll hm-list" id="hm-list">{home_mock()}</ol>
           <p class="hf-foot">At each pick: the player that team takes most often in our simulations who's still on the board.</p>
           <a class="pg-go" href="?start=1">Think you can do better? Run your own mock →</a>
