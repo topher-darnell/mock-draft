@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "34", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "35", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -44,7 +44,7 @@ POS_PLURAL = {"QB": "quarterbacks", "RB": "running backs", "WR": "wide receivers
 POS_ORDER = ["QB", "RB", "WR", "TE", "OT", "IOL", "EDGE", "IDL", "LB", "CB", "S"]
 YEAR_NAME = {"RS Senior": "redshirt senior", "RS Junior": "redshirt junior", "RS Sophomore": "redshirt sophomore"}
 
-NAV = [("", "Mock draft"), ("players/", "Big board"), ("teams/", "Teams"), ("odds.html", "#1 pick odds"),
+NAV = [("", "Mock draft"), ("players/", "Big board"), ("teams/", "Team mocks"), ("odds.html", "#1 pick odds"),
        ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("games/", "Games")]
 
 
@@ -612,7 +612,7 @@ def team_page(team):
     desc = (f"{team} 2027 mock draft: {len(picks)} picks, team needs and the most likely selection at every slot "
             f"from {SIMS} simulated drafts. Then run the {sh} draft yourself.")
     return page(f"teams/{slug(team)}.html", f"{team} 2027 Mock Draft: Picks, Needs and Projections · Big Head GM", desc, body,
-                crumbs=[("Teams", "teams/"), (team, f"teams/{slug(team)}.html")], nav="teams/",
+                crumbs=[("Team mocks", "teams/"), (team, f"teams/{slug(team)}.html")], nav="teams/",
                 og_title=f"{team} 2027 mock draft")
 
 
@@ -620,16 +620,19 @@ def teams_index():
     cards = ""
     for team in team_names:
         picks = [o for o in order if o["team"] == team]
-        firsts = ", ".join(f"#{o['pick']}" for o in picks if o["round"] == 1) or "No 1st"
+        firsts = ", ".join(f"#{o['pick']}" for o in picks if o["round"] == 1) or "none"
         sh = short(team)
+        city = team.rsplit(" ", 1)[0]
         cards += (f'<a class="home-team" href="{slug(team)}.html" aria-label="{esc(team)} mock draft">'
                   f'{gm_tag(team, "neutral", 60)}'
+                  f'<span class="home-team-city">{esc(city)}</span>'
                   f'<span class="home-team-name{" long" if len(sh) > 9 else ""}">{esc(sh)}</span>'
-                  f'<span class="home-team-picks">{firsts}</span></a>')
+                  f'<span class="home-team-picks">1st: {firsts}</span>'
+                  f'<span class="home-team-go">See mock →</span></a>')
     body = f"""
     <p class="eyebrow">2027 NFL MOCK DRAFT</p>
     <h1 class="in-title">Team mock drafts</h1>
-    <p class="in-sub">Pick a team to see its needs, every pick it holds, and who it takes most often in {SIMS} simulated drafts.</p>
+    <p class="in-sub">Find your team to see <b>its full 7-round mock draft</b>: every pick it holds, its biggest needs, and who it takes most often in {SIMS} simulated drafts. Teams are listed A to Z by city.</p>
     <div class="home-teams pg-teams">{cards}</div>
 
     <section class="pg-section">
@@ -639,7 +642,7 @@ def teams_index():
     </section>"""
     return page("teams/index.html", "2027 NFL Mock Draft for All 32 Teams · Big Head GM",
                 f"A 2027 NFL mock draft page for every team: needs, picks and the most likely selections from {SIMS} simulated drafts.",
-                body, crumbs=[("Teams", "teams/")], nav="teams/")
+                body, crumbs=[("Team mocks", "teams/")], nav="teams/")
 
 
 # ---------- who goes #1 ----------

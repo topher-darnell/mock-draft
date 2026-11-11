@@ -2310,3 +2310,8 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 }
 .hm-team-pick select:focus { outline: none; box-shadow: 0 0 0 4px rgba(242, 169, 59, 0.25); }
 .hm-team-pick select option { background: #151B24; color: var(--text); }
+
+.home-team-city { max-width: 100%; font: 700 9.5px "Space Grotesk", sans-serif; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.home-team-go { margin-top: 3px; font-size: 11px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+@media (min-width: 600px) { .home-team-city { font-size: 10px; } }
