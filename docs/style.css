@@ -2684,3 +2684,31 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .rs-po-opps .rs-m { padding: 2px 6px; text-align: center; }
 .ff-ctas:has(> :nth-child(3)) { grid-template-columns: 1fr; }
 @media (min-width: 900px) { .ff-ctas:has(> :nth-child(3)) { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- Start/sit ---------- */
+.ss-verdict { margin: 14px 0 12px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+.ss-verdict.clear { border-color: #6CD39A; background: linear-gradient(180deg, rgba(108,211,154,0.12), rgba(108,211,154,0.02)), var(--card); }
+.ss-verdict.clear .ft-v-title { color: #6CD39A; }
+.ss-verdict.close { border-color: var(--accent); background: linear-gradient(180deg, rgba(242,169,59,0.12), rgba(242,169,59,0.02)), var(--card); }
+.ss-verdict.close .ft-v-title { color: var(--accent); }
+.ss-v-eyebrow { margin: 0 0 4px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: 0.08em; }
+.ss-why { margin: 8px 0 0; padding-left: 18px; color: #D5DCE4; font-size: 14px; line-height: 1.45; }
+.ss-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+@media (min-width: 900px) { .ss-cards { grid-template-columns: 1fr 1fr; } }
+.ss-card { padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+.ss-card.is-start { border-color: rgba(108,211,154,0.6); }
+.ss-card.is-sit { opacity: 0.85; }
+.ss-top { display: flex; align-items: center; gap: 10px; }
+.ss-top .fd-who b a { color: var(--text); text-decoration: none; }
+.ss-tag { flex: 0 0 auto; padding: 3px 7px; border-radius: 6px; font-size: 10px; font-weight: 900; letter-spacing: 0.06em; }
+.ss-tag.ss-go { background: #6CD39A; color: #0E2418; }
+.ss-tag.ss-no { background: #3A4656; color: #D5DCE4; }
+.ss-proj { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; }
+.ss-proj b { color: var(--accent); font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.ss-proj i { font-style: normal; color: var(--muted); font-size: 11px; font-weight: 700; }
+.ss-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 8px; color: var(--muted); font-size: 12px; }
+.ss-meta:empty { display: none; }
+.ss-meta .rs-m { padding: 2px 7px; }
+.ss-warn { color: #F2876B; font-weight: 700; }
+.ss-search { margin: 12px 0 0; }
+@media (min-width: 900px) { .ff-ctas:has(> :nth-child(4)) { grid-template-columns: repeat(2, 1fr); } }

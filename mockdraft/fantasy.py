@@ -305,11 +305,18 @@ def rest_of_season():
         ros = {k: round(sum(ppg[k] * m for _, _, m in sched), 1) for k in keys}
         po = [m for w, _, m in sched if w in PLAYOFF_WEEKS]
         played = sorted(int(x["week"]) for x in gs)
+        wk = [points(x, "ppr") for x in gs]
+        if len(wk) >= 3:                                    # how much his week-to-week scoring swings
+            mean = sum(wk) / len(wk)
+            sd = (sum((v - mean) ** 2 for v in wk) / (len(wk) - 1)) ** 0.5
+        else:
+            sd = 0.4 * ppg["ppr"]
         missed = len([w for w in team_weeks.get(team, set()) if not played or w > played[-1]])
         players.append({
             "n": me["name"], "t": team, "p": pos, "g": int(g),
             "ppg": {k: round(v, 1) for k, v in ppg.items()}, "ros": ros, "sched": sched,
             "po": round(sum(po) / len(po), 3) if po and all(po) else round(sum(po) / max(1, len(po)), 3),
+            "sd": round(sd / max(0.1, ppg["ppr"]), 2),             # swing as a share of his PPR average
             "out": played[-1] if gs and missed >= 2 else 0,            # last week played, if he's missed 2+ games since
         })
     return {"from": weeks[0], "to": weeks[-1], "playoffs": list(PLAYOFF_WEEKS), "players": players,

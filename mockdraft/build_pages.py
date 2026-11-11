@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "43", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "44", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -763,7 +763,11 @@ FF_ROS_CTA = ('<a class="ff-cta" href="fantasy-ros.html">'
               '<span class="ff-cta-text"><span class="ff-cta-tag">NEW</span><b class="ff-cta-title">Rest-of-season rankings</b>'
               '<span class="ff-cta-sub">Every player through Week 17, with matchups and playoff schedules.</span></span>'
               '<span class="ff-cta-go">See rankings →</span></a>')
-FF_CTAS = '<div class="ff-ctas">' + FF_CTA + FF_TRADE_CTA + FF_ROS_CTA + '</div>'
+FF_SS_CTA = ('<a class="ff-cta" href="fantasy-start-sit.html">'
+             '<span class="ff-cta-text"><span class="ff-cta-tag">NEW</span><b class="ff-cta-title">Start or sit?</b>'
+             '<span class="ff-cta-sub">Stuck between two players? Get a call for this week.</span></span>'
+             '<span class="ff-cta-go">Who do I start? →</span></a>')
+FF_CTAS = '<div class="ff-ctas">' + FF_SS_CTA + FF_TRADE_CTA + FF_ROS_CTA + FF_CTA + '</div>'
 
 
 # ---------- fantasy ----------
@@ -1522,6 +1526,73 @@ def fantasy_ros_page():
                 crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
                 scripts=("fantasy-ros.js?v=1",))
 
+
+def fantasy_startsit_page():
+    ros = fantasy.rest_of_season()
+    trend = fantasy.trends()
+    recent = {r["n"]: r for r in trend["players"]} if trend["ready"] else {}
+    days = sorted(g["day"] for g in fantasy.read("fantasy_schedule.csv") if int(g["week"]) == ros["from"])
+    when = ""
+    if days:
+        d0, d1 = datetime.date.fromisoformat(days[0]), datetime.date.fromisoformat(days[-1])
+        when = f'{d0.strftime("%b")} {d0.day}–{d1.day}' if d0.month == d1.month else f'{d0.strftime("%b")} {d0.day}–{d1.strftime("%b")} {d1.day}'
+    rows = []
+    for r in ros["players"]:
+        w, opp, m = r["sched"][0]
+        t = recent.get(r["n"])
+        rows.append({"n": r["n"], "t": r["t"], "p": r["p"], "slug": slug(r["n"]), "ppg": r["ppg"], "opp": opp, "m": m,
+                     "sd": r["sd"], "out": r["out"],
+                     "hot": [t["was"]["ppr"], t["now"]["ppr"]] if t and t["g0"] >= 2 and t["gw"] >= 2 else None,
+                     "use": [round(t["tgt"][0] + (t["car"][0] if r["p"] == "RB" else 0), 1),
+                             round(t["tgt"][1] + (t["car"][1] if r["p"] == "RB" else 0), 1)] if t and t["g0"] >= 2 and t["gw"] >= 2 and r["p"] != "QB" else None})
+    data = json.dumps({"week": ros["from"], "when": when, "span": [trend.get("from"), trend.get("to")], "players": rows},
+                      separators=(",", ":")).replace("</", "<\\/")
+    fmt_btns = "".join(f'<button class="filter{" active" if k == "ppr" else ""}" data-fmt="{k}" aria-pressed="{"true" if k == "ppr" else "false"}">{label}</button>'
+                       for k, label in fantasy.FORMATS)
+    body = f"""
+    <div class="ss" id="ss">
+      <p class="eyebrow">FANTASY FOOTBALL · WEEK {ros["from"]}{(" · " + when.upper()) if when else ""}</p>
+      <h1 class="in-title">Start or sit?</h1>
+      <p class="in-sub">Add the players you're deciding between. We'll tell you who to start this week, based on his scoring, how he's played lately and who he's facing.</p>
+
+      <div class="ft-settings">
+        <div class="ft-set"><span class="fd-h">Scoring</span><div class="in-chips" id="ss-fmt">{fmt_btns}</div></div>
+        <div class="ft-set"><span class="fd-h">How many do you start?</span><div class="in-chips" id="ss-n">
+          <button class="filter active" data-n="1" aria-pressed="true">1</button><button class="filter" data-n="2" aria-pressed="false">2</button><button class="filter" data-n="3" aria-pressed="false">3</button></div></div>
+      </div>
+
+      <p class="ft-example" id="ss-example" hidden>This is an example. Remove players or tap <b>Clear</b> to check your own.</p>
+      <div class="ss-verdict" id="ss-verdict" aria-live="polite"></div>
+      <ol class="ss-cards" id="ss-cards"></ol>
+      <div class="ft-search ss-search">
+        <label class="sr-only" for="ss-q">Add a player</label>
+        <input id="ss-q" type="search" placeholder="+ Add a player (up to 6)" autocomplete="off" spellcheck="false">
+        <ul class="ft-sug" id="ss-sug" role="listbox" hidden></ul>
+      </div>
+      <div class="ft-actions">
+        <button class="secondary" id="ss-clear">Clear</button>
+        <button class="start" id="ss-share">Copy link to ask your league</button>
+      </div>
+      <p class="in-note" id="ss-share-note" role="status"></p>
+
+      <h2 class="home-h2">How we decide</h2>
+      <ul class="gm-rules">
+        <li><b>Projection</b> = his points per game (season average with extra weight on his last 3 games) times this week's matchup: how many fantasy points his opponent gives up to his position compared with an average defense.</li>
+        <li><b>Range</b> is a normal bad week to a normal good week, from how much his scoring has swung this season.</li>
+        <li><b>Lately</b> compares his last 3 games with the rest of the season. <b>Touches</b> are targets, plus carries for running backs.</li>
+        <li>Injuries, weather and late news aren't counted. Check them before kickoff.</li>
+      </ul>
+      <div class="ff-ctas">{FF_ROS_CTA}{FF_TRADE_CTA}{FF_CTA}</div>
+      <p class="od-fine">Stats and schedule: <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a> and FFToday, {esc(fantasy.STATS_AS_OF)}. Updated every Tuesday.</p>
+    </div>
+    <script type="application/json" id="ss-data">{data}</script>
+    {signup("fantasy-startsit")}"""
+    desc = (f"Free fantasy football start/sit tool for Week {ros['from']} of 2026. Compare players and see who to start, "
+            "with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
+    return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Fantasy Start/Sit Tool · Big Head GM", desc, body,
+                crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
+                scripts=("fantasy-start-sit.js?v=3",))
+
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 
 DIVISION = {}
@@ -1874,7 +1945,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -1888,6 +1959,7 @@ def main():
     write("fantasy-draft.html", fantasy_draft_page())
     write("fantasy-trade.html", fantasy_trade_page())
     write("fantasy-ros.html", fantasy_ros_page())
+    write("fantasy-start-sit.html", fantasy_startsit_page())
     games_pages()
     prospectle_page()
     fantasle_page()
