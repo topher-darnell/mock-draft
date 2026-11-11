@@ -25,6 +25,7 @@ import json
 import os
 import re
 
+import consensus
 import fantasy
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -249,6 +250,8 @@ round_of = {o["pick"]: o["round"] for o in order}
 slots_by_team = {}
 for s in sims["slots"]:
     slots_by_team.setdefault(s["team"], []).append(s)
+MOCK_LIST = consensus.build()                       # [(slot, player)] for every pick, in order
+MOCK = {s_["pick"]: p for s_, p in MOCK_LIST}
 favorites = {}
 for r in read_csv("sim_teams.csv"):
     favorites.setdefault(r["team"], []).append((r["name"], r["position"], float(r["pct"])))
@@ -506,10 +509,16 @@ def players_index():
 # ---------- team pages ----------
 
 def pick_row(s, root, show_team=False):
-    name, pos, share = s["top"][0]
-    others = " · ".join(f"{player_link(n, root)} {pct(v)}" for n, _, v in s["top"][1:])
+    """one pick: our logical mock's player, with the sims' most common choices at that slot underneath"""
+    chosen = MOCK.get(s["pick"])
+    sims_top = {n: v for n, _, v in s["top"]}
+    if chosen:
+        name, pos, share = chosen["name"], chosen["position"], sims_top.get(chosen["name"])
+    else:
+        name, pos, share = s["top"][0]
+    others = " · ".join(f"{player_link(n, root)} {pct(v)}" for n, _, v in s["top"] if n != name)
     college = by_name[name]["college"] if name in by_name else ""
-    lead = gm_tag(s["team"], "happy" if share >= 40 else "focused", 40) if show_team else ""
+    lead = gm_tag(s["team"], "happy" if (share or 0) >= 40 else "focused", 40) if show_team else ""
     top = esc(short(s["team"])) if show_team else f"Round {s['round']}"
     return f"""<li class="in-pick">
         <span class="in-pick-no">{s['pick']}</span>{lead}
@@ -517,9 +526,9 @@ def pick_row(s, root, show_team=False):
           <span class="in-pick-team">{top}</span>
           <span class="in-pick-name">{player_link(name, root)}</span>
           <span class="in-pick-meta">{pos} · {esc(college)}</span>
-          {f'<span class="in-pick-alt">Also: {others}</span>' if others else ''}
+          {f'<span class="in-pick-alt">Sims also like: {others}</span>' if others else ''}
         </span>
-        <span class="in-pick-pct" title="Taken here in {pct(share)} of drafts">{pct(share)}</span>
+        {f'<span class="in-pick-pct" title="Taken here in {pct(share)} of simulated drafts">{pct(share)}</span>' if share else ''}
       </li>"""
 
 
@@ -585,8 +594,8 @@ def team_page(team):
     </section>
 
     <section class="pg-section">
-      <h2 class="home-h2">Most likely pick at each slot</h2>
-      <p class="in-note">The player the {esc(sh)} took most often at each of their picks, across {SIMS} simulated drafts.</p>
+      <h2 class="home-h2">{esc(sh)} 7-round mock draft</h2>
+      <p class="in-note">Our mock takes the best player available, leans toward the {esc(sh)}' needs, and doesn't stack up one position. The % is how often the {esc(sh)} took that player at that pick in {SIMS} simulated drafts.</p>
       <ol class="in-mock">{''.join(pick_row(s, root) for s in slots)}</ol>
     </section>
 
@@ -637,7 +646,7 @@ def teams_index():
 
     <section class="pg-section">
       <h2 class="home-h2">Round 1, pick by pick</h2>
-      <p class="in-note">The most common pick at each first-round slot.</p>
+      <p class="in-note">Our first-round mock: best player available, team needs, no position stacked twice.</p>
       <ol class="in-mock">{''.join(pick_row(s, "../", True) for s in sims['slots'] if s['round'] == 1)}</ol>
     </section>"""
     return page("teams/index.html", "2027 NFL Mock Draft for All 32 Teams · Big Head GM",
@@ -1321,24 +1330,9 @@ def fantasle_page():
 # ---------- home page: today's games and fantasy leaders ----------
 
 def home_mock():
-    """one clean 7-round mock from the 1,000 simulations: at each pick, the team's most common choice who's
-    still on the board (from that pick's top three), unless a clearly better player is sliding: then the best
-    player left by average pick"""
-    adp_rows = sorted([r for r in read_csv("adp.csv") if float(r["drafted_pct"] or 0) > 0], key=lambda r: float(r["avg_pick"]))
+    """the home page's 7-round mock: the same logical mock as the team pages (consensus.py)"""
     via = {o["pick"]: o["from"] for o in order}
-    taken, picks = set(), []
-    avg = {r["name"]: float(r["avg_pick"]) for r in adp_rows}
-    for s_ in sims["slots"]:
-        best = next((r for r in adp_rows if r["name"] not in taken), None)
-        # the team's favorite still available, unless a much better player is sliding past his average pick
-        name = next((n for n, _, _ in s_["top"] if n not in taken
-                     and (not best or avg.get(n, 999) <= float(best["avg_pick"]) + max(4, s_["pick"] * 0.15))), None)
-        if not name and best:
-            name = best["name"]
-        if not name:
-            continue
-        taken.add(name)
-        picks.append((s_, by_name.get(name, {"name": name, "position": "", "college": "", "slug": ""})))
+    picks = [(s_, by_name.get(p["name"], p)) for s_, p in MOCK_LIST]
     out = ""
     for s_, pl in picks:
         t = s_["team"]

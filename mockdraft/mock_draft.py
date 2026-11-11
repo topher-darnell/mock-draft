@@ -100,7 +100,7 @@ def run_draft(teams, players, order, rounds, user_teams, chart):
             player = user_pick(team, available, pick, order, chart, user_teams)
             team = by_name[pick.team]        # changes if you traded the pick away
         if player is None:
-            player = cpu_pick(team, available)
+            player = cpu_pick(team, available, pick.round, pick.number)
 
         available.remove(player)
         team.picks.append(player)

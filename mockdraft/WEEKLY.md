@@ -90,6 +90,12 @@ Description: "Weekly mock (after Week N, <date>)". Leave it as a draft.
 Finish with a short message for Topher: the new top 5, any trades, anything you couldn't
 verify, and the Kit link (`confirm_url`) so he can review and send.
 
+## Franchise QBs
+
+`FRANCHISE_QB` in `config.py` (and the same list in `docs/app.js`) lists teams with an established
+starting QB; they don't draft a QB in rounds 1-3. If a team benches, cuts or trades its starter, or
+signs/trades for one, update both lists before running the simulations.
+
 ## Rules that always apply
 
 - No NFL or team logos, no real player photos, never identify people from faces.

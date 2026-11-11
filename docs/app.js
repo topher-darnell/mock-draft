@@ -4,6 +4,13 @@ const POSITIONS = ["All", "QB", "RB", "WR", "TE", "OT", "IOL", "EDGE", "IDL", "L
 
 // Settings: the same ones you tuned in config.py
 const NEED_BONUS = [8, 6, 4, 3, 2];  // bonus (in rank spots) for top need, 2nd need, ...
+// Teams with an established starting QB: no QB in rounds 1-3, rarely a backup later (same list as config.py)
+const FRANCHISE_QB = new Set(["Baltimore Ravens", "Buffalo Bills", "Carolina Panthers", "Chicago Bears", "Cincinnati Bengals", "Dallas Cowboys", "Denver Broncos", "Detroit Lions", "Green Bay Packers", "Houston Texans", "Jacksonville Jaguars", "Kansas City Chiefs", "Los Angeles Chargers", "New England Patriots", "New York Giants", "Philadelphia Eagles", "San Francisco 49ers", "Tennessee Titans", "Washington Commanders"]);
+const QB_PENALTY = { 1: 1000, 2: 1000, 3: 1000, 4: 60, 5: 60, 6: 25, 7: 25 };
+// another player at a position the team already drafted costs rank spots (a second QB costs a lot more)
+function stackPenalty(position, already, pickNumber) {
+  return already ? (10 + 0.3 * pickNumber) * already * (position === "QB" ? 4 : 1) : 0;
+}
 const RANDOMNESS = 7;                // random swing for the top players
 const DEEP_RANDOMNESS = 0.4;         // deeper players swing more: rank x this
 const LOOK_AHEAD = 15;               // computer only considers this many best-available players
@@ -757,8 +764,10 @@ function startDraft() {
 // ---------- The draft ----------
 
 // Same idea as cpu_pick in draft_logic.py: lowest score wins
-function cpuPick(teamName) {
+function cpuPick(teamName, pick) {
   const mult = chaosMult();
+  const mine = results.filter((r) => r.team === teamName).map((r) => r.player.position);
+  const round = pick ? pick.round : 1, number = pick ? (pick.number || pick.pick || 1) : 1;
   const candidates = available.slice(0, Math.round(LOOK_AHEAD * Math.max(1, mult)));
   const teamNeeds = needs[teamName];
   let best = null;
@@ -771,7 +780,9 @@ function cpuPick(teamName) {
       bonus = idx < NEED_BONUS.length ? NEED_BONUS[idx] : 1;
     }
     const swing = Math.max(RANDOMNESS, p.rank * DEEP_RANDOMNESS) * mult;
-    const score = p.rank - bonus + (Math.random() * 2 - 1) * swing;
+    let extra = stackPenalty(p.position, mine.filter((x) => x === p.position).length, number);
+    if (p.position === "QB" && FRANCHISE_QB.has(teamName)) extra += QB_PENALTY[round] || 25;
+    const score = p.rank - bonus + extra + (Math.random() * 2 - 1) * swing;
     if (score < bestScore) {
       bestScore = score;
       best = p;
@@ -861,7 +872,7 @@ function runDraft() {
   }
 
   statusWithGM(pick.team, "focused", `<b>Pick ${pick.pick} · ${pick.team}</b><span class="status-quote">On the clock…</span>`);
-  makePick(pick, cpuPick(pick.team));
+  makePick(pick, cpuPick(pick.team, pick));
   scheduleNext(pickDelay());
 }
 

@@ -2,14 +2,16 @@
 
 import random
 
-from config import NEED_BONUS, RANDOMNESS, LOOK_AHEAD, VALUE_MIN_MARGIN, VALUE_MARGIN_RATE
+from config import (NEED_BONUS, RANDOMNESS, LOOK_AHEAD, VALUE_MIN_MARGIN, VALUE_MARGIN_RATE,
+                    FRANCHISE_QB, QB_PENALTY, stack_penalty)
 
 LABEL_POINTS = {"STEAL": 3, "Value": 2, "Fair": 1, "Reach": 0}
 
 
-def cpu_pick(team, available):
+def cpu_pick(team, available, round_no=1, pick_number=1):
     """Pick the player with the best score: lower is better.
-    Score = big-board rank - need bonus + a little randomness."""
+    Score = big-board rank - need bonus + a little randomness
+            + a penalty for a position the team already drafted, and for a QB when it has a franchise QB."""
     candidates = available[:LOOK_AHEAD]
 
     def score(p):
@@ -18,7 +20,10 @@ def cpu_pick(team, available):
             idx = team.needs.index(p.position)
             bonus = NEED_BONUS[idx] if idx < len(NEED_BONUS) else 1
         swing = max(RANDOMNESS, p.rank * 0.4)    # deeper players get bigger swings
-        return p.rank - bonus + random.uniform(-swing, swing)
+        extra = stack_penalty(p.position, sum(1 for q in team.picks if q.position == p.position), pick_number)
+        if p.position == "QB" and team.name in FRANCHISE_QB:
+            extra += QB_PENALTY.get(round_no, 25)
+        return p.rank - bonus + extra + random.uniform(-swing, swing)
 
     return min(candidates, key=score)
 
