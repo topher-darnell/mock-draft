@@ -2236,3 +2236,8 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .p17-cols b.lead { color: var(--text); font-size: 17px; }
 .p17-rank li.perfect .p17-cols b:last-child { color: var(--accent); }
 .p17-cols i { margin-left: 3px; font: 600 10px Inter, sans-serif; font-style: normal; color: var(--muted); }
+
+.hf-list li { position: relative; }
+.hf-link { font-size: 15px; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hf-link::after { content: ""; position: absolute; inset: 0; }   /* the whole row is the link */
+.hf-list li:hover .hf-link { color: var(--accent); }

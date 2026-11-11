@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "25", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "26", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1321,10 +1321,12 @@ def home_blocks():
     lead = fantasy.leaders()
     top = sorted(lead, key=lambda r: -r["s"]["ppr"])[:5]
     rook = sorted(fantasy.rookies(), key=lambda r: -r["dyn"]["ppr"])[:3]
-    rows = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name"><b>{esc(r["n"])}</b><span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))}</span></span>'
+    rows = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name"><a class="hf-link" href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a><span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))}</span></span>'
                    f'<span class="hf-pts">{r["s"]["ppr"]:.1f}<span>{r["s"]["ppr"] / r["g"]:.1f} PPG</span></span></li>'
                    for i, r in enumerate(top, 1))
-    rk = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name"><b>{esc(r["n"])}</b><span>{r["p"]} · {esc(r["c"])}</span></span>'
+    rk = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name">'
+                 + (f'<a class="hf-link" href="players/{by_name[r["n"]]["slug"]}.html">{esc(r["n"])}</a>' if r["n"] in by_name else f'<b>{esc(r["n"])}</b>')
+                 + f'<span>{r["p"]} · {esc(r["c"])}</span></span>'
                  f'<span class="hf-pts">#{r["pick"]:g}<span>proj. pick</span></span></li>' for i, r in enumerate(rook, 1))
     block = f"""<!-- home-daily:start (written by build_pages.py) -->
     <section class="home-daily">
