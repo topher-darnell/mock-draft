@@ -867,6 +867,7 @@ function runDraft() {
     onClock = true;
     updatePauseButton();
     showOnTheClock(pick);
+    renderMine();
     renderBoard();
     return;   // wait for you to tap a Draft button
   }
@@ -998,6 +999,7 @@ function makeTrade(myPick, offer) {
     p.from = p.from || offer.team;
     p.team = myTeam;
   }
+  renderMine();
 }
 
 function openTradeSheet() {
@@ -1133,6 +1135,7 @@ function acceptTrade(myPick, offer) {
   updatePauseButton();
   document.getElementById("hints").hidden = true;
   showTradeMessage(`Trade! #${myPick.pick} to ${offer.team} for ${offer.picks.map((p) => "#" + p.pick).join(", ")}`);
+  renderMine();
   renderBoard();
   scheduleNext(1500);   // pause so you can read the trade
 }
@@ -1313,6 +1316,52 @@ function renderFeed() {
   // slide to the newest pick: on the right on phones, at the bottom on desktop
   ticker.scrollLeft = ticker.scrollWidth;
   ticker.scrollTop = ticker.scrollHeight;
+  renderMine();
+}
+
+// Your own picks so far, plus the picks you still have coming
+function renderMine() {
+  const list = document.getElementById("mine-list");
+  const label = document.getElementById("my-picks-label");
+  if (!list) return;
+  const made = results.filter((r) => r.team === myTeam);
+  const coming = draftOrder.slice(nextPick).filter((p) => p.team === myTeam && p.round <= rounds);
+  label.textContent = made.length ? `YOUR PICKS · ${made.length}` : "YOUR PICKS";
+  list.innerHTML = "";
+
+  for (const { pick, player, label: value } of made) {
+    const li = document.createElement("li");
+    li.className = "mine-row";
+    li.tabIndex = 0;
+    li.setAttribute("role", "button");
+    li.setAttribute("aria-label", `More about ${player.name}`);
+    li.innerHTML = `
+      <span class="mine-slot">R${pick.round}<b>#${pick.pick}</b></span>
+      <span class="mine-text">
+        <span class="mine-name">${player.name}</span>
+        <span class="mine-meta">${player.position} · ${player.college} · <span class="label ${value.toLowerCase()}">${value}</span></span>
+      </span>`;
+    li.addEventListener("click", () => openPlayerCard(player));
+    li.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPlayerCard(player); } });
+    list.appendChild(li);
+  }
+  coming.forEach((pick, i) => {
+    const li = document.createElement("li");
+    li.className = "mine-row upcoming";
+    const now = i === 0 && onClock;
+    li.innerHTML = `
+      <span class="mine-slot">R${pick.round}<b>#${pick.pick}</b></span>
+      <span class="mine-text"><span class="mine-name">${now ? "On the clock" : "Still to come"}</span></span>`;
+    if (now) li.classList.add("now");
+    list.appendChild(li);
+  });
+  if (!made.length && !coming.length) {
+    list.innerHTML = '<li class="mine-row upcoming"><span class="mine-text"><span class="mine-name">No picks left. Try a trade.</span></span></li>';
+  }
+  // keep your newest pick in view
+  const done = list.querySelectorAll(".mine-row:not(.upcoming)");
+  const last = done[done.length - 1];
+  if (last) list.scrollLeft = Math.max(0, last.offsetLeft - 20);
 }
 
 // ---------- Screen 2: the big board ----------

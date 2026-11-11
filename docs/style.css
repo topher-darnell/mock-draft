@@ -2321,3 +2321,77 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .pl-board + .pl-search .pl-suggest { top: calc(100% + 6px); bottom: auto; }
 #pl-input { scroll-margin-top: 76px; }
 .pl-suggest { max-height: 290px; overflow-y: auto; }
+
+/* ---------- Your picks: what you've drafted so far ---------- */
+.my-picks { margin: 18px 0 4px; }
+.mine-list {
+  position: relative;
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0 -20px 20px;
+  padding: 0 20px 4px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.mine-list::-webkit-scrollbar { display: none; }
+.mine-row {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 230px;
+  padding: 8px 12px 8px 8px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: var(--card);
+  cursor: pointer;
+}
+.mine-row.upcoming { border: 1px dashed #36414F; background: transparent; cursor: default; }
+.mine-row.upcoming.now { border: 1px solid var(--accent); }
+.mine-row.upcoming .mine-name { color: var(--muted); font-weight: 600; }
+.mine-row.upcoming.now .mine-name { color: var(--accent); }
+.mine-slot {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 38px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  background: #222A35;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.mine-slot b { color: var(--text, #fff); font-size: 13px; }
+.mine-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mine-name { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mine-meta { font-size: 11px; font-weight: 600; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mine-row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+@media (min-width: 1024px) {
+  #draft-screen:not([hidden]) {
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "picksl  header  boardl"
+      "feed    status  board"
+      "feed    hints   board"
+      "feed    mine    board"
+      "feed    actions board";
+  }
+  #my-picks { grid-area: mine; min-height: 0; display: flex; flex-direction: column; margin: 18px 0 12px; }
+  .mine-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    align-content: start;
+    margin: 0;
+    padding: 0 4px 0 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .mine-row { max-width: none; }
+}
