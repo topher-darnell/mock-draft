@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "27", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "29", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1317,6 +1317,37 @@ def fantasle_page():
 
 # ---------- home page: today's games and fantasy leaders ----------
 
+def home_mock():
+    """one clean 7-round mock from the 1,000 simulations: at each pick, the team's most common choice who's
+    still on the board (from that pick's top three), unless a clearly better player is sliding: then the best
+    player left by average pick"""
+    adp_rows = sorted([r for r in read_csv("adp.csv") if float(r["drafted_pct"] or 0) > 0], key=lambda r: float(r["avg_pick"]))
+    via = {o["pick"]: o["from"] for o in order}
+    taken, picks = set(), []
+    avg = {r["name"]: float(r["avg_pick"]) for r in adp_rows}
+    for s_ in sims["slots"]:
+        best = next((r for r in adp_rows if r["name"] not in taken), None)
+        # the team's favorite still available, unless a much better player is sliding past his average pick
+        name = next((n for n, _, _ in s_["top"] if n not in taken
+                     and (not best or avg.get(n, 999) <= float(best["avg_pick"]) + max(4, s_["pick"] * 0.15))), None)
+        if not name and best:
+            name = best["name"]
+        if not name:
+            continue
+        taken.add(name)
+        picks.append((s_, by_name.get(name, {"name": name, "position": "", "college": "", "slug": ""})))
+    out = ""
+    for s_, pl in picks:
+        t = s_["team"]
+        tint = gm_info.get(t, {}).get("tint", "#2A323D")
+        frm = f' <i>via {esc(short(via[s_["pick"]]))}</i>' if via.get(s_["pick"]) else ""
+        nm = f'<a class="hm-name" href="players/{pl["slug"]}.html">{esc(pl["name"])}</a>' if pl.get("slug") else f'<b class="hm-name">{esc(pl["name"])}</b>'
+        out += (f'<li data-round="{s_["round"]}"{"" if s_["round"] == 1 else " hidden"}><span class="hm-pick">{s_["pick"]}</span>'
+                f'<a class="hm-team" href="teams/{slug(t)}.html" style="--tint:{tint}">{esc(short(t))}</a>'
+                f'<span class="hm-text">{nm}<span>{esc(pl["position"])} · {esc(pl["college"])}{frm}</span></span></li>')
+    return out
+
+
 def home_blocks():
     lead = fantasy.leaders()
     MIN_GP = 4
@@ -1359,6 +1390,30 @@ def home_blocks():
             <span class="pg-go">Play today's →</span>
           </a>
         </div>
+
+        <div class="home-h2-row hf-head">
+          <h2 class="home-h2">2027 mock draft</h2>
+          <span class="section-note">All 7 rounds · from {SIMS} simulations</span>
+        </div>
+        <div class="hf-card hf-wide">
+          <div class="in-chips hf-chips" id="hm-rounds" aria-label="Round">{"".join(f'<button class="filter{" active" if r_ == 1 else ""}" data-round="{r_}" aria-pressed="{"true" if r_ == 1 else "false"}" aria-label="Round {r_}">R{r_}</button>' for r_ in range(1, 8))}</div>
+          <ol class="hf-list hf-scroll hm-list" id="hm-list">{home_mock()}</ol>
+          <p class="hf-foot">At each pick: the player that team takes most often in our simulations who's still on the board.</p>
+          <a class="pg-go" href="?start=1">Think you can do better? Run your own mock →</a>
+        </div>
+        <script>
+          (function () {{
+            var list = document.getElementById("hm-list"), chips = document.querySelectorAll("#hm-rounds .filter");
+            chips.forEach(function (c) {{
+              c.addEventListener("click", function () {{
+                var r = c.getAttribute("data-round");
+                chips.forEach(function (x) {{ x.classList.toggle("active", x === c); x.setAttribute("aria-pressed", x === c ? "true" : "false"); }});
+                Array.prototype.forEach.call(list.children, function (li) {{ li.hidden = li.getAttribute("data-round") !== r; }});
+                list.scrollTop = 0;
+              }});
+            }});
+          }})();
+        </script>
 
         <div class="home-h2-row hf-head">
           <h2 class="home-h2">Fantasy leaders</h2>

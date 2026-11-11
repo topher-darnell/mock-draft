@@ -2253,3 +2253,17 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .hf-ppg b { font: 700 20px "Space Grotesk", sans-serif; color: var(--accent); }
 .hf-ppg span { font: 700 10px "Space Grotesk", sans-serif; letter-spacing: 0.05em; color: var(--muted); }
 .hf-foot { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+
+.hm-list li { gap: 10px; }
+.hm-list li[hidden] { display: none; }
+.hm-pick { flex: 0 0 auto; width: 30px; font: 700 15px "Space Grotesk", sans-serif; color: var(--muted); }
+.hm-team { flex: 0 0 auto; width: 92px; padding: 5px 0; border-radius: 8px; background: var(--tint); color: #fff !important;
+  font: 700 12px "Space Grotesk", sans-serif; text-align: center; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hm-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.hm-name { font-size: 15px; font-weight: 700; color: var(--text) !important; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hm-name:hover { color: var(--accent) !important; }
+.hm-text span { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hm-text i { font-style: normal; color: var(--accent); }
+
+#hm-rounds { flex-wrap: nowrap; gap: 5px; }
+#hm-rounds .filter { flex: 1 1 0; min-width: 0; padding: 0 4px; }
