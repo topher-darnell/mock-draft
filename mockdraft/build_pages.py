@@ -164,6 +164,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <meta name="twitter:card" content="summary_large_image">
   <link rel="manifest" href="{root}manifest.json?v=3">
   <link rel="apple-touch-icon" href="{root}icons/apple-touch-icon.png?v={ICON_V}">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" sizes="32x32" href="{root}icons/favicon-32.png?v={ICON_V}">
   <meta name="theme-color" content="#10151C">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
