@@ -2395,3 +2395,44 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   }
   .mine-row { max-width: none; }
 }
+
+/* ---------- Incoming trade calls from computer teams ---------- */
+.incoming {
+  margin: 14px 0 0;
+  padding: 14px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(242,169,59,0.14), rgba(242,169,59,0.04)), var(--card);
+  animation: call-in 0.35s ease-out;
+}
+@keyframes call-in { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .incoming { animation: none; } }
+.call-top { display: flex; gap: 12px; align-items: center; }
+.call-top .avatar { flex: 0 0 auto; width: 48px; height: 56px; border-radius: 10px; }
+.call-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.call-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--accent); }
+.call-team { font-size: 17px; }
+.call-why { font-size: 13px; color: var(--muted); line-height: 1.35; }
+.call-why b { color: var(--text); }
+.call-deal { display: flex; align-items: center; gap: 12px; margin: 14px 0 6px; flex-wrap: wrap; }
+.call-side { display: flex; flex-direction: column; gap: 4px; }
+.call-side .meta { font-size: 11px; font-weight: 600; }
+.call-arrow { color: var(--accent); font-size: 20px; font-weight: 700; }
+.offer-pick.give { align-self: flex-start; }
+.call-worth { margin: 4px 0 12px; font-size: 12px; color: #6CD39A; }
+.call-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.call-buttons button { width: 100%; }
+
+@media (min-width: 1024px) {
+  #draft-screen:not([hidden]) {
+    grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "picksl  header  boardl"
+      "feed    status  board"
+      "feed    hints   board"
+      "feed    call    board"
+      "feed    mine    board"
+      "feed    actions board";
+  }
+  #incoming { grid-area: call; }
+}

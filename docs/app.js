@@ -736,6 +736,7 @@ function startDraft() {
     needs[team.name] = [...team.needs];
   }
   results = [];
+  hideIncomingCall();
   nextPick = 0;
   onClock = false;
   paused = false;
@@ -873,7 +874,8 @@ function runDraft() {
   }
 
   statusWithGM(pick.team, "focused", `<b>Pick ${pick.pick} · ${pick.team}</b><span class="status-quote">On the clock…</span>`);
-  makePick(pick, cpuPick(pick.team, pick));
+  const wanted = pick.wants && available.includes(pick.wants) ? pick.wants : null;
+  makePick(pick, wanted || cpuPick(pick.team, pick));
   scheduleNext(pickDelay());
 }
 
@@ -918,12 +920,89 @@ function showOnTheClock(pick) {
     hints.appendChild(card);
   }
   hints.hidden = hints.children.length === 0;
+  maybeIncomingCall(pick);
   status.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// ---------- Trade calls: computer teams phone you with offers ----------
+
+// Sometimes a team behind you wants a player who's still on the board,
+// and calls to move up into your spot.
+function findIncomingCall(myPick) {
+  const offers = findTradeOffers(myPick);
+  const calls = [];
+  for (const offer of offers) {
+    const teamNeeds = needs[offer.team] || [];
+    // the best player they need who's still here and worth taking this high
+    const target = available.slice(0, 12).find((p) => teamNeeds.slice(0, 3).includes(p.position));
+    if (!target) continue;
+    calls.push({ ...offer, target });
+  }
+  if (!calls.length) return null;
+  return calls[Math.floor(Math.random() * calls.length)];
+}
+
+function hideIncomingCall() {
+  const box = document.getElementById("incoming");
+  if (box) { box.hidden = true; box.innerHTML = ""; }
+}
+
+function maybeIncomingCall(myPick) {
+  hideIncomingCall();
+  if (myPick.called) return;          // one call per pick, so it never nags
+  myPick.called = true;
+  const chance = myPick.round === 1 ? 0.5 : myPick.round <= 3 ? 0.4 : 0.3;
+  if (Math.random() > chance) return;
+  const call = findIncomingCall(myPick);
+  if (!call) return;
+
+  const box = document.getElementById("incoming");
+  const short = HAS_GM ? GM.short(call.team) : call.team;
+  const extra = Math.round(call.total - value(myPick));
+  const pickList = call.picks.map((p) => `<span class="offer-pick">R${p.round} #${p.pick}</span>`).join("");
+  box.innerHTML = `
+    <div class="call-top">
+      ${avatar(call.team, "trade", 48)}
+      <div class="call-text">
+        <span class="call-label">📞 INCOMING TRADE OFFER</span>
+        <b class="call-team">${call.team}</b>
+        <span class="call-why">They want to move up for <b>${call.target.name}</b> (${call.target.position}, ${call.target.college}).</span>
+      </div>
+    </div>
+    <div class="call-deal">
+      <span class="call-side"><span class="meta">You give</span><span class="offer-pick give">R${myPick.round} #${myPick.pick}</span></span>
+      <span class="call-arrow" aria-hidden="true">→</span>
+      <span class="call-side"><span class="meta">You get</span><span class="offer-picks">${pickList}</span></span>
+    </div>
+    <p class="call-worth meta">${extra > 0 ? `You'd come out ${extra.toLocaleString()} pts ahead on the trade chart.` : "Even trade on the trade chart."}</p>
+    <div class="call-buttons">
+      <button class="secondary" id="call-no">No thanks</button>
+      <button class="accept-button" id="call-yes">Accept</button>
+    </div>`;
+  box.hidden = false;
+  countEvent("trade-call", "Got a trade call");
+  document.getElementById("call-no").addEventListener("click", () => {
+    hideIncomingCall();
+    statusQuoteAfterDecline(short);
+  });
+  document.getElementById("call-yes").addEventListener("click", () => {
+    if (!onClock || draftOrder[nextPick] !== myPick) return hideIncomingCall();
+    countEvent("trade-call-accepted", "Took a trade call");
+    myPick.wants = call.target;       // they'll take the player they called about
+    hideIncomingCall();
+    acceptTrade(myPick, call);
+  });
+}
+
+function statusQuoteAfterDecline(short) {
+  const q = document.querySelector("#status .clock-quote");
+  if (q) q.textContent = `Told the ${short} no. We're picking.`;
 }
 
 function userPick(player) {
   if (!onClock) return;
   onClock = false;
+  hideIncomingCall();
   document.getElementById("hints").hidden = true;
   const pick = draftOrder[nextPick];
   makePick(pick, player);
@@ -993,6 +1072,7 @@ function findTradeOffers(myPick) {
 
 // Your pick goes to them, their picks come to you
 function makeTrade(myPick, offer) {
+  hideIncomingCall();
   myPick.from = myPick.from || myTeam;
   myPick.team = offer.team;
   for (const p of offer.picks) {
