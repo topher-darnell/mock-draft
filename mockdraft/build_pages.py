@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "40", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "41", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -755,6 +755,12 @@ FF_CTA = ('<a class="ff-cta" href="fantasy-draft.html">'
           '<span class="ff-cta-sub">Set up your league and draft against the computer. Free, no sign-up.</span></span>'
           '<span class="ff-cta-chips" aria-hidden="true"><i>4 to 16 teams</i><i>PPR</i><i>Superflex</i><i>Dynasty</i><i>Rookie drafts</i></span>'
           '<span class="ff-cta-go">Draft now →</span></a>')
+FF_TRADE_CTA = ('<a class="ff-cta" href="fantasy-trade.html">'
+                '<span class="ff-cta-text"><span class="ff-cta-tag">NEW</span><b class="ff-cta-title">Trade analyzer</b>'
+                '<span class="ff-cta-sub">Who wins your trade? Redraft or dynasty, any scoring.</span></span>'
+                '<span class="ff-cta-go">Check a trade →</span></a>')
+FF_CTAS = '<div class="ff-ctas">' + FF_CTA + FF_TRADE_CTA + '</div>'
+
 
 # ---------- fantasy ----------
 
@@ -805,7 +811,7 @@ def fantasy_page():
     <p class="eyebrow">FANTASY FOOTBALL</p>
     <h1 class="in-title">Fantasy leaders and 2027 rookie rankings</h1>
     <p class="in-sub">Who's scoring the most fantasy points in 2026, and which 2027 rookies to target, for next season and for dynasty. Pick your league's scoring and everything on the page updates.</p>
-    {FF_CTA}
+    {FF_CTAS}
 
     <div class="ff-tabs" id="ff-tabs" role="tablist" aria-label="Show">
       <a href="#leaders" role="tab" data-tab="leaders" class="active" aria-selected="true">2026 leaders</a><a href="#next-year" role="tab" data-tab="next-year" aria-selected="false">Rookies for next season</a><a href="#dynasty" role="tab" data-tab="dynasty" aria-selected="false">Dynasty rookies</a>
@@ -1314,7 +1320,7 @@ def fantasy_draft_page():
 
         <p class="fd-summary" id="fd-summary"></p>
         <button class="start gm-wide" id="fd-start">Start the draft</button>
-        <p class="in-note">Rankings use 2026 points per game ({esc(fantasy.STATS_AS_OF)}), adjusted for age, plus our 2027 rookie rankings. <a href="fantasy.html">See the fantasy leaders</a>.</p>
+        <p class="in-note">Rankings use 2026 points per game ({esc(fantasy.STATS_AS_OF)}), adjusted for age, plus our 2027 rookie rankings. <a href="fantasy.html">See the fantasy leaders</a> or <a href="fantasy-trade.html">check a trade</a>.</p>
       </section>
 
       <section id="fd-draft" hidden>
@@ -1371,6 +1377,69 @@ def fantasy_draft_page():
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Mock draft", "fantasy-draft.html")], nav="fantasy.html",
                 scripts=("fantasy-draft.js?v=4",))
 
+
+
+def fantasy_trade_page():
+    data = json.dumps(fantasy_draft_data(), separators=(",", ":")).replace("</", "<\\/")
+    chips = lambda name, opts, on: "".join(
+        f'<button class="filter{" active" if v == on else ""}" data-set="{name}" data-v="{v}" aria-pressed="{"true" if v == on else "false"}">{label}</button>'
+        for v, label in opts)
+    side = lambda key, title: f"""
+          <div class="ft-side">
+            <div class="ft-side-head"><h2 class="ft-h">{title}</h2><span class="ft-total">Value <b id="ft-{key}-total">0</b></span></div>
+            <ol class="ft-list" id="ft-{key}-list"></ol>
+            <div class="ft-search">
+              <label class="sr-only" for="ft-{key}-q">Add a player to {title.lower()}</label>
+              <input id="ft-{key}-q" type="search" placeholder="+ Add a player" autocomplete="off" spellcheck="false">
+              <ul class="ft-sug" id="ft-{key}-sug" role="listbox" hidden></ul>
+            </div>
+          </div>"""
+    body = f"""
+    <div class="ft" id="ft">
+      <p class="eyebrow">FANTASY FOOTBALL</p>
+      <h1 class="in-title">Fantasy trade analyzer</h1>
+      <p class="in-sub">Add the players on each side and see who wins the trade, for your league's scoring. Free, no sign-up.</p>
+
+      <div class="ft-settings">
+        <div class="ft-set"><span class="fd-h">Scoring</span><div class="in-chips">{chips("fmt", [("ppr", "PPR"), ("half", "Half PPR"), ("std", "Standard"), ("tep", "TE Premium")], "ppr")}</div></div>
+        <div class="ft-set"><span class="fd-h">Teams</span><div class="in-chips">{chips("teams", [(n, str(n)) for n in (8, 10, 12, 14, 16)], 12)}</div></div>
+        <div class="ft-set"><span class="fd-h">Quarterbacks</span><div class="in-chips">{chips("qb", [("1qb", "1 QB"), ("sf", "Superflex"), ("2qb", "2 QB")], "1qb")}</div></div>
+        <div class="ft-set"><span class="fd-h">League</span><div class="in-chips">{chips("kind", [("redraft", "Redraft (rest of 2026)"), ("dynasty", "Dynasty")], "redraft")}</div></div>
+      </div>
+      <p class="in-note" id="ft-kind-note"></p>
+
+      <p class="ft-example" id="ft-example" hidden>This is an example trade. Remove players or tap <b>Clear</b> to start your own.</p>
+      <div class="ft-sides">{side("give", "You give")}
+        <button class="ft-swap" id="ft-swap" aria-label="Swap sides">⇄</button>{side("get", "You get")}
+      </div>
+
+      <div class="ft-verdict" id="ft-verdict" aria-live="polite"></div>
+      <div class="ft-balance" id="ft-balance" hidden></div>
+
+      <div class="ft-actions">
+        <button class="secondary" id="ft-clear">Clear</button>
+        <button class="start" id="ft-share">Copy link to this trade</button>
+      </div>
+      <p class="in-note" id="ft-share-note" role="status"></p>
+
+      <h2 class="home-h2">How the values work</h2>
+      <ul class="gm-rules">
+        <li><b>Value</b> runs from 0 to 100. It's how many more points a player should score than a typical starter you could pick up off waivers, in your scoring and league size.</li>
+        <li>Stars are worth more than two average starters added together, and each extra player in a trade counts a little less. You only get so many lineup spots.</li>
+        <li><b>Redraft</b> uses each player's 2026 points per game, steadied for players who've missed games. <b>Dynasty</b> also weighs age and adds the 2027 rookies and rookie picks.</li>
+        <li>In 1 QB leagues, quarterbacks are worth less than their points suggest, since good ones are easy to find. Superflex and 2 QB change that.</li>
+        <li>Injuries and news aren't counted. Check them before you accept.</li>
+      </ul>
+      <p class="in-note">Stats {esc(fantasy.STATS_AS_OF)}. Updated every Tuesday.</p>
+      <p class="pg-more"><a href="fantasy-draft.html">Try the fantasy mock draft →</a></p>
+    </div>
+    <script id="ft-data" type="application/json">{data}</script>
+    {signup("fantasy-trade")}"""
+    desc = ("Free fantasy football trade analyzer for 2026. See who wins your trade in PPR, Half PPR, Standard or TE Premium, "
+            "1 QB or Superflex, redraft or dynasty with 2027 rookie picks.")
+    return page("fantasy-trade.html", "Fantasy Football Trade Analyzer 2026 · Who Wins the Trade · Big Head GM", desc,
+                body, crumbs=[("Fantasy", "fantasy.html"), ("Trade analyzer", "fantasy-trade.html")], nav="fantasy.html",
+                scripts=("fantasy-trade.js?v=2",))
 
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 
@@ -1583,7 +1652,7 @@ def home_blocks():
           <p class="hf-foot">Ranked by PPR points per game (PPG), {MIN_GP}+ games played. Scroll for more.</p>
           <a class="pg-go" href="fantasy.html">All {len(lead)} players, every scoring format →</a>
         </div>
-        {FF_CTA}
+        {FF_CTAS}
         <dialog class="pop" id="pop" aria-label="Player">
           <button class="pop-close" id="pop-close" aria-label="Close">✕</button>
           <div id="pop-body"></div>
@@ -1724,7 +1793,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -1736,6 +1805,7 @@ def main():
     write("odds.html", odds_page())
     write("fantasy.html", fantasy_page())
     write("fantasy-draft.html", fantasy_draft_page())
+    write("fantasy-trade.html", fantasy_trade_page())
     games_pages()
     prospectle_page()
     fantasle_page()
