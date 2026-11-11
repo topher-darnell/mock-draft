@@ -151,10 +151,10 @@ def rookie_line(x):
     return f"{yr}: {int(f(s['rec']))} catches, {int(f(s['rec_yds'])):,} yds, {int(f(s['rec_td']))} TD"
 
 
-# ---------- Trending: week-over-week changes ----------
-# Every Tuesday a copy of fantasy_stats.csv is saved as fantasy_history/2026-wNN.csv (NN = the
-# last week it counts). Subtracting one copy from a later one gives what each player did in the
-# weeks between, so we can see who's heating up and who's cooling off.
+# ---------- Trending: who's heating up and cooling off ----------
+# fantasy_weekly.csv has every player's stats game by game (from nflverse, see fetch_weekly.py).
+# We compare the last TREND_WEEKS weeks with the weeks before them. Copies of fantasy_stats.csv
+# are also kept in fantasy_history/ each Tuesday as a backup record of the season totals.
 
 HISTORY = os.path.join(HERE, "fantasy_history")
 TREND_WEEKS = 3          # compare the last 3 weeks to everything before them
@@ -171,32 +171,50 @@ def snapshots():
     return sorted(out)
 
 
+def _key(name):
+    """match names across sources: 'A.J. Brown' = 'AJ Brown', 'Kenneth Walker III' = 'Kenneth Walker'"""
+    n = name.lower().replace(".", "").replace("'", "").replace("-", " ")
+    parts = [x for x in n.split() if x not in ("jr", "sr", "ii", "iii", "iv", "v")]
+    return " ".join(parts)
+
+
 def trends():
-    """per player: points per game in the recent weeks vs. before, in every format"""
-    snaps = snapshots()
-    if len(snaps) < 2:
-        return {"ready": False, "since": snaps[-1][0] if snaps else None}
-    start_week, start = snaps[max(0, len(snaps) - 1 - TREND_WEEKS)]
-    end_week, end = snaps[-1]
+    """
+    Per player: fantasy points per game in the last few weeks vs. the weeks before, plus targets and
+    carries (his role). Uses fantasy_weekly.csv (nflverse, week by week; refresh with fetch_weekly.py).
+    Only players on our fantasy list are included, with our spelling of their names.
+    """
+    path = os.path.join(HERE, "fantasy_weekly.csv")
+    if not os.path.exists(path):
+        return {"ready": False, "since": None}
+    ours = {_key(r["name"]): r for r in read("fantasy_stats.csv")}
+    games = {}
+    for r in read("fantasy_weekly.csv"):
+        me = ours.get(_key(r["name"]))
+        if me:
+            games.setdefault(me["name"], []).append(r)
+    last = max(int(g["week"]) for gs in games.values() for g in gs)
+    first_recent = last - TREND_WEEKS + 1
     keys = [k for k, _ in FORMATS]
-    zero = {c: 0 for c in ("games", "pass_yds", "pass_td", "int", "rush_yds", "rush_td", "rec", "rec_yds", "rec_td")}
+    avg = lambda gs, fn: sum(fn(g) for g in gs) / len(gs) if gs else 0
     players = []
-    for name, r in end.items():
-        s0 = start.get(name) or dict(zero, pos=r["pos"])
-        g0, g1 = f(s0["games"]), f(r["games"])
-        gw = g1 - g0                       # games he played in the window (byes and injuries don't count)
-        if gw < 1:
-            continue
-        per = lambda col, row, g: f(row[col]) / g if g else 0
-        yds = lambda row: f(row["rush_yds"]) + f(row["rec_yds"])
+    for name, gs in games.items():
+        me = ours[_key(name)]
+        for g in gs:
+            g["pos"] = me["pos"]
+        now = [g for g in gs if int(g["week"]) >= first_recent]
+        was = [g for g in gs if int(g["week"]) < first_recent]
+        if not now:
+            continue                          # didn't play lately (bye, injury): no trend
         players.append({
-            "n": name, "t": r["team"], "p": r["pos"], "gw": int(gw), "g0": int(g0),
-            "now": {k: round((points(r, k) - points(s0, k)) / gw, 1) for k in keys},
-            "was": {k: round(points(s0, k) / g0, 1) if g0 else 0 for k in keys},
-            "rec": [round(per("rec", s0, g0), 1), round((f(r["rec"]) - f(s0["rec"])) / gw, 1)],
-            "yds": [round(yds(s0) / g0, 1) if g0 else 0, round((yds(r) - yds(s0)) / gw, 1)],
+            "n": name, "t": me["team"], "p": me["pos"], "gw": len(now), "g0": len(was),
+            "now": {k: round(avg(now, lambda g: points(g, k)), 1) for k in keys},
+            "was": {k: round(avg(was, lambda g: points(g, k)), 1) for k in keys},
+            "tgt": [round(avg(was, lambda g: f(g["tgt"])), 1), round(avg(now, lambda g: f(g["tgt"])), 1)],
+            "car": [round(avg(was, lambda g: f(g["car"])), 1), round(avg(now, lambda g: f(g["car"])), 1)],
+            "share": [round(100 * avg(was, lambda g: f(g["tgt_share"]))), round(100 * avg(now, lambda g: f(g["tgt_share"])))],
         })
-    return {"ready": True, "from": start_week + 1, "to": end_week, "players": players}
+    return {"ready": True, "from": first_recent, "to": last, "players": players}
 
 
 if __name__ == "__main__":

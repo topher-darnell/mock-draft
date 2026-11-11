@@ -68,20 +68,23 @@
     const pool = T.players.filter((r) => tpos === "All" || r.p === tpos);
     const line = (r) => {
       const bits = [`${num(r.now[fmt])} PPG in ${span}` + (r.g0 ? ` (was ${num(r.was[fmt])})` : " (first games)")];
-      if (r.p !== "QB" && (r.rec[1] >= 2 || r.rec[0] >= 2)) bits.push(`${num(r.rec[1])} catches a game (was ${num(r.rec[0])})`);
-      if (r.p !== "QB") bits.push(`${Math.round(r.yds[1])} yards a game (was ${Math.round(r.yds[0])})`);
+      if (r.p === "RB") bits.push(`${num(r.car[1])} carries a game (was ${num(r.car[0])})`);
+      if (r.p !== "QB" && (r.tgt[1] >= 2 || r.tgt[0] >= 2)) bits.push(`${num(r.tgt[1])} targets a game (was ${num(r.tgt[0])})`);
+      if ((r.p === "WR" || r.p === "TE") && r.share[1] >= 10) bits.push(`${r.share[1]}% of team targets`);
       return bits.join(" · ");
     };
     const item = (r, dir) => {
       const d = r.now[fmt] - r.was[fmt];
-      const tag = !r.g0 || r.was[fmt] < 6 * scale ? '<span class="tr-tag">New role</span>' : "";
+      const touches = (i) => r.tgt[i] + (r.p === "RB" ? r.car[i] : 0);
+      const tag = dir === "up" && r.p !== "QB" && (r.was[fmt] < 6 * scale || touches(1) - touches(0) >= 5) ? '<span class="tr-tag">Bigger role</span>' : "";
       return `<li class="tr-item ${dir}"><span class="tr-delta">${dir === "up" ? "+" : "−"}${num(Math.abs(d))}</span>` +
         `<span class="tr-text"><span class="tr-name"><a href="fantasy/${r.slug}.html">${esc(r.n)}</a> ${tag}</span>` +
         `<span class="tr-meta">${r.p} · ${esc(TEAM[r.t] || r.t)}</span><span class="tr-meta">${line(r)}</span></span></li>`;
     };
-    const risers = pool.filter((r) => r.now[fmt] >= 8 * scale && r.now[fmt] - r.was[fmt] >= 3 * scale)
+    // at least 2 earlier games and 2 recent ones, so one injury exit, a backup filling in or a player back from injury isn't a "trend"
+    const risers = pool.filter((r) => r.g0 >= 2 && r.gw >= Math.min(2, T.to - T.from + 1) && r.now[fmt] >= 8 * scale && r.now[fmt] - r.was[fmt] >= 3 * scale)
       .sort((a, b) => (b.now[fmt] - b.was[fmt]) - (a.now[fmt] - a.was[fmt])).slice(0, 15);
-    const fallers = pool.filter((r) => r.g0 >= 2 && r.was[fmt] >= 10 * scale && r.was[fmt] - r.now[fmt] >= 3 * scale)
+    const fallers = pool.filter((r) => r.g0 >= 2 && r.gw >= Math.min(2, T.to - T.from + 1) && r.was[fmt] >= 10 * scale && r.was[fmt] - r.now[fmt] >= 3 * scale)
       .sort((a, b) => (a.now[fmt] - a.was[fmt]) - (b.now[fmt] - b.was[fmt])).slice(0, 10);
     up.innerHTML = risers.map((r) => item(r, "up")).join("") || '<li class="ff-none">Nobody new is heating up at this position.</li>';
     down.innerHTML = fallers.map((r) => item(r, "down")).join("") || '<li class="ff-none">Nobody is cooling off at this position.</li>';

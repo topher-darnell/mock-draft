@@ -797,13 +797,11 @@ def ff_rookie_rows(rows, key, fmt, n=25):
 
 def trending_intro(trend):
     if not trend["ready"]:
-        return (f'<div class="tr-soon"><b>Trending starts Tuesday, November 17.</b> We save the stats every Tuesday. '
-                f'Once Week {(trend["since"] or 10) + 1} is in, this shows who\'s heating up and who\'s cooling off: '
-                f'points per game over the last few weeks compared with before, plus catches and yards. '
-                f'It gets sharper every week.</div>')
+        return ('<div class="tr-soon"><b>Trending is updating.</b> Check back after Tuesday\'s stats update.</div>')
     span = f'Week {trend["to"]}' if trend["from"] == trend["to"] else f'Weeks {trend["from"]}–{trend["to"]}'
-    return (f'<p class="in-note">Points per game in {span} compared with the rest of the season, in your scoring. '
-            f'Only games played count, so byes and injuries don\'t drag anyone down.</p>')
+    return (f'<p class="in-note">Fantasy points per game in {span} compared with Weeks 1–{trend["from"] - 1}, in your scoring, '
+            f'plus carries and targets (how much the offense uses him). Only games he played count, so byes and injuries '
+            f'don\'t drag anyone down. Game-by-game stats from <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a>.</p>')
 
 
 def fantasy_page():
@@ -899,7 +897,7 @@ def fantasy_page():
     desc = (f"2026 fantasy football leaders in Standard, Half PPR, PPR and TE Premium scoring, plus 2027 rookie rankings for next season and dynasty. "
             f"PPR leader: {top['ppr']['n']}. Top dynasty rookie: {r1['n']}.")
     return page("fantasy.html", "Fantasy Football Leaders 2026 and 2027 Dynasty Rookie Rankings · Big Head GM", desc,
-                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=7",))
+                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=10",))
 
 
 # ---------- games ----------
