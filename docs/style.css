@@ -2295,3 +2295,8 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 
 .pl-tile b { display: flex; flex-direction: column; align-items: center; }
 .pl-tile b small { margin-top: 1px; font: 800 8px/1 Inter, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
+
+.hm-team-pick { display: block; margin: 0 0 6px; }
+.hm-team-pick select { width: 100%; }
+.hm-list.by-team li::before { content: "R" attr(data-round); flex: 0 0 auto; width: 26px; font: 700 12px "Space Grotesk", sans-serif; color: var(--accent); }
+.hm-list.by-team .hm-team { display: none; }

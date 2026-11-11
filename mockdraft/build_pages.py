@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "31", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "33", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1342,7 +1342,7 @@ def home_mock():
         tint = gm_info.get(t, {}).get("tint", "#2A323D")
         frm = f' <i>via {esc(short(via[s_["pick"]]))}</i>' if via.get(s_["pick"]) else ""
         nm = f'<a class="hm-name" href="players/{pl["slug"]}.html">{esc(pl["name"])}</a>' if pl.get("slug") else f'<b class="hm-name">{esc(pl["name"])}</b>'
-        out += (f'<li data-round="{s_["round"]}"{"" if s_["round"] == 1 else " hidden"}><span class="hm-pick">{s_["pick"]}</span>'
+        out += (f'<li data-round="{s_["round"]}" data-team="{esc(t)}"{"" if s_["round"] == 1 else " hidden"}><span class="hm-pick">{s_["pick"]}</span>'
                 f'<a class="hm-team" href="teams/{slug(t)}.html" style="--tint:{tint}">{esc(short(t))}</a>'
                 f'<span class="hm-text">{nm}<span>{esc(pl["position"])} · {esc(pl["college"])}{frm}</span></span></li>')
     return out
@@ -1404,20 +1404,35 @@ def home_blocks():
         </div>
         <div class="hf-card hf-wide">
           <div class="in-chips hf-chips" id="hm-rounds" aria-label="Round">{"".join(f'<button class="filter{" active" if r_ == 1 else ""}" data-round="{r_}" aria-pressed="{"true" if r_ == 1 else "false"}" aria-label="Round {r_}">R{r_}</button>' for r_ in range(1, 8))}</div>
+          <label class="ff-team hm-team-pick"><span class="sr-only">Show one team's picks</span>
+            <select id="hm-team"><option value="">View a team's mock draft…</option>{"".join(f'<option value="{esc(t)}">{esc(t)}</option>' for t in team_names)}</select></label>
           <ol class="hf-list hf-scroll hm-list" id="hm-list">{home_mock()}</ol>
           <p class="hf-foot">At each pick: the player that team takes most often in our simulations who's still on the board.</p>
           <a class="pg-go" href="?start=1">Think you can do better? Run your own mock →</a>
         </div>
         <script>
           (function () {{
-            var list = document.getElementById("hm-list"), chips = document.querySelectorAll("#hm-rounds .filter");
+            var list = document.getElementById("hm-list"), chips = document.querySelectorAll("#hm-rounds .filter"),
+                pick = document.getElementById("hm-team");
+            function show(test) {{
+              Array.prototype.forEach.call(list.children, function (li) {{ li.hidden = !test(li); }});
+              list.scrollTop = 0;
+            }}
             chips.forEach(function (c) {{
               c.addEventListener("click", function () {{
                 var r = c.getAttribute("data-round");
                 chips.forEach(function (x) {{ x.classList.toggle("active", x === c); x.setAttribute("aria-pressed", x === c ? "true" : "false"); }});
-                Array.prototype.forEach.call(list.children, function (li) {{ li.hidden = li.getAttribute("data-round") !== r; }});
-                list.scrollTop = 0;
+                pick.value = "";
+                list.classList.remove("by-team");
+                show(function (li) {{ return li.getAttribute("data-round") === r; }});
               }});
+            }});
+            pick.addEventListener("change", function () {{
+              var t = pick.value;
+              if (!t) {{ chips[0].click(); return; }}
+              chips.forEach(function (x) {{ x.classList.remove("active"); x.setAttribute("aria-pressed", "false"); }});
+              list.classList.add("by-team");
+              show(function (li) {{ return li.getAttribute("data-team") === t; }});
             }});
           }})();
         </script>
