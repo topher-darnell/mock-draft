@@ -502,7 +502,7 @@ def weekly_picks(per_pos=2):
                        f"{'an upgrade' if r['qb']['m'] > 1 else 'a step down'} for him.")
         if call == "sit" and r.get("inj") and r["inj"]["s"] in ("questionable", "doubtful"):
             out.append(f"Banged up: {r['inj']['s']} this week" + (f" ({r['inj']['inj'].split(' (')[0].lower()})." if r["inj"].get("inj") else "."))
-        return out[:2]
+        return out[:3]
 
     def form(r):
         t = r["tr"]
