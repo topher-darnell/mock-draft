@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "47", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "48", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1628,6 +1628,7 @@ def fantasy_startsit_page():
         <button class="start" id="ss-share">Copy link to ask your league</button>
       </div>
       <p class="in-note" id="ss-share-note" role="status"></p>
+      <div class="ss-picks">{home_startem()}</div>
 
       <h2 class="home-h2">How we decide</h2>
       <ul class="gm-rules">
@@ -1642,9 +1643,9 @@ def fantasy_startsit_page():
     </div>
     <script type="application/json" id="ss-data">{data}</script>
     {signup("fantasy-startsit")}"""
-    desc = (f"Free fantasy football start/sit tool for Week {ros['from']} of 2026. Compare players and see who to start, "
-            "with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
-    return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Fantasy Start/Sit Tool · Big Head GM", desc, body,
+    desc = (f"Free fantasy football start/sit tool for Week {ros['from']} of 2026, plus this week's start 'em, sit 'em picks. "
+            "Compare players and see who to start, with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
+    return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Start/Sit Tool + Start 'Em Sit 'Em Picks · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
                 scripts=("fantasy-start-sit.js?v=5",))
 
@@ -1658,7 +1659,7 @@ def se_matchup(m):
 
 def se_card(r, call, depth=""):
     why = "".join(f"<li>{esc(w)}</li>" for w in r["why"])
-    return (f'<li class="se-card {call}"><div class="se-top"><span class="ss-tag {"ss-go" if call == "start" else "ss-no"}">{call.upper()}</span>'
+    return (f'<li class="se-card se-{call}"><div class="se-top"><span class="ss-tag {"ss-go" if call == "start" else "ss-no"}">{call.upper()}</span>'
             f'<span class="fd-pos {r["p"].lower()}">{r["p"]}</span>'
             f'<span class="fd-who"><b><a href="{depth}fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a></b><span>{esc(FF_TEAM.get(r["t"], r["t"]))}</span></span>'
             f'<span class="rs-m {se_matchup(r["m"])}">vs {r["opp"]}</span></div>'
