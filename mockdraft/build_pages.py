@@ -1304,7 +1304,8 @@ def nfl_profiles():
 
 # ---------- Fantasy mock draft (docs/fantasy-draft.html + fantasy-draft.js) ----------
 
-ROOKIE_PPG = (3.0, 0.135)    # rookie PPR points per game = 3 + 0.135 x our rookie score (top rookie WR ~ 16)
+ROOKIE_PPG = (3.0, 0.135)
+RECENCY = {2026: 1.0, 2025: 0.6, 2024: 0.35}   # how much each season counts toward the long-run number    # rookie PPR points per game = 3 + 0.135 x our rookie score (top rookie WR ~ 16)
 
 
 def fantasy_draft_data():
@@ -1313,6 +1314,11 @@ def fantasy_draft_data():
     ages = {r["name"]: int(r["age"]) for r in fantasy.read("nfl_ages.csv") if r["age"]}
     fmts = [k for k, _ in fantasy.FORMATS]
     vets, ratio = [], {}
+    # past seasons, so one down year (or one hot month) doesn't decide a player's long-run value
+    past = {}
+    if os.path.exists(os.path.join(fantasy.HERE, "fantasy_seasons.csv")):
+        for r in fantasy.read("fantasy_seasons.csv"):
+            past.setdefault(fantasy._key(r["name"]), []).append(r)
     for pos in ("QB", "RB", "WR", "TE"):
         group = sorted([r for r in lead if r["p"] == pos and r["g"] >= 4], key=lambda r: -r["s"]["ppr"] / r["g"])
         base = {k: sorted(r["s"][k] / r["g"] for r in group[:40])[len(group[:40]) // 2] for k in fmts}
@@ -1323,7 +1329,16 @@ def fantasy_draft_data():
             if ppg[2] < 4:
                 continue
             real = [round(r["s"][k] / r["g"], 1) for k in fmts]     # what he's actually averaging, shown on the page
-            vets.append([r["n"], r["t"], pos, r["g"], ppg, ages.get(r["n"], 0), slug(r["n"]), real])
+            # long run: 2026 plus earlier seasons, each weighted by recency and games played
+            long = []
+            for k in fmts:
+                pts, wts = r["s"][k] * RECENCY[2026] + 3 * base[k], r["g"] * RECENCY[2026] + 3
+                for old in past.get(fantasy._key(r["n"]), []):
+                    w = RECENCY.get(int(old["season"]), 0)
+                    pts += float(old[k]) * w
+                    wts += int(old["games"]) * w
+                long.append(round(pts / wts, 2))
+            vets.append([r["n"], r["t"], pos, r["g"], ppg, ages.get(r["n"], 0), slug(r["n"]), real, long])
     rooks = []
     for x in fantasy.rookies():
         a, b = ROOKIE_PPG
@@ -1429,7 +1444,7 @@ def fantasy_draft_page():
             "Superflex or 2 QB, your own lineup, snake or linear, redraft, dynasty startup or rookie draft.")
     return page("fantasy-draft.html", "Fantasy Football Mock Draft 2027 · PPR, Superflex, Dynasty · Big Head GM", desc,
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Mock draft", "fantasy-draft.html")], nav="fantasy.html",
-                scripts=("fantasy-draft.js?v=4",))
+                scripts=("fantasy-draft.js?v=5",))
 
 
 
@@ -1508,7 +1523,7 @@ def fantasy_trade_page():
             "1 QB or Superflex, redraft or dynasty with 2027 rookie picks.")
     return page("fantasy-trade.html", "Fantasy Football Trade Analyzer 2026 · Who Wins the Trade · Big Head GM", desc,
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Trade analyzer", "fantasy-trade.html")], nav="fantasy.html",
-                scripts=("fantasy-trade.js?v=5",))
+                scripts=("fantasy-trade.js?v=6",))
 
 
 def fantasy_ros_page():

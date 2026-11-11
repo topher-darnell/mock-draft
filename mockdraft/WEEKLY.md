@@ -61,7 +61,10 @@ List what you changed in the commit message.
    who started most of its games (trade, injury, benching): team, qb, from_week, status (`named` once
    the team says so, `expected` if reported but not announced), source, date. Remove a row once that
    QB has started 4+ games for the team (his numbers are then in the team's season). Two sources.
-8. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
+8. Past seasons (`fantasy_seasons.csv`, used for dynasty values and 2027 projections) only change once
+   a year: after the 2026 season ends, run `python3 fetch_seasons.py 2025 2026` and update `RECENCY` in
+   `build_pages.py` (most recent season 1.0, then 0.6, then 0.35).
+9. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
    espn.com/nfl/team/roster/_/name/buf). About once a month, refresh everyone's age so birthdays count. The TE table has no rushing columns, so a
    TE that is off by a few points ran the ball: put the missing rushing yards/TDs on his row.
 

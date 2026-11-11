@@ -11,8 +11,8 @@
   const QB = raw.qb || {};        // slug -> [multiplier from a new starting QB, QB name, named/expected] (redraft only)
   const INJ = raw.inj || {};      // slug -> [share of remaining games available, status, back week]
   const ALL = [
-    ...raw.v.map(([name, team, pos, games, ppg, age, slug, real]) =>
-      ({ id: slug, name, team, pos, games, ppg, real, age, slug, rookie: false })),
+    ...raw.v.map(([name, team, pos, games, ppg, age, slug, real, long]) =>
+      ({ id: slug, name, team, pos, games, ppg, real, long: long || ppg, age, slug, rookie: false })),
     ...raw.r.map(([name, pos, college, ppg, dyn, age, team, slug]) =>
       ({ id: slug, name, team: team || college, college, pos, ppg, dyn, age, slug, rookie: true })),
   ];
@@ -29,7 +29,7 @@
   function dynastyMult(pos, age) {
     const cliff = { QB: 37, RB: 29, WR: 31, TE: 32 }[pos];
     const top = pos === "QB" && S.qb === "1qb" ? 1.0 : 1.35;
-    return Math.max(0.3, Math.min(top, 0.35 + 0.09 * (cliff - (age || 27))));
+    return Math.max(0.3, Math.min(top, 0.45 + 0.08 * (cliff - (age || 27))));
   }
   // Redraft: rest-of-season points per game (2026 average, steadied for players with few games).
   // Dynasty: the same, weighted for age, plus the 2027 rookies.
@@ -37,7 +37,8 @@
     const i = FMT[S.fmt];
     if (S.kind === "redraft") return p.ppg[i] * (QB[p.slug] ? QB[p.slug][0] : 1);   // new starting QB moves receivers a bit
     // a quarter of a veteran's value is what he does now (contenders still want him), the rest is his future
-    return p.rookie ? p.dyn[i] : p.ppg[i] * (0.25 + 0.75 * dynastyMult(p.pos, p.age));
+    // dynasty: 2026 blended with his 2024-25 seasons, so one down (or hot) year doesn't decide it
+    return p.rookie ? p.dyn[i] : p.long[i] * (0.25 + 0.75 * dynastyMult(p.pos, p.age));
   };
 
   let pool = [], picks = [];

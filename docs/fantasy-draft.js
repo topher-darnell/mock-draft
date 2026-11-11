@@ -10,8 +10,8 @@
   const count = (path, title) => { try { window.BHG && BHG.countEvent(path, title); } catch (e) { /* ignore */ } };
 
   const ALL = [
-    ...raw.v.map(([name, team, pos, games, ppg, age, slug, real]) =>
-      ({ name, team, pos, games, ppg, real, dyn: null, age, slug, rookie: false })),
+    ...raw.v.map(([name, team, pos, games, ppg, age, slug, real, long]) =>
+      ({ name, team, pos, games, ppg, real, long: long || ppg, dyn: null, age, slug, rookie: false })),
     ...raw.r.map(([name, pos, college, ppg, dyn, age, team, slug]) =>
       ({ name, team: team || college, college, pos, ppg, dyn, age, slug, rookie: true })),
   ];
@@ -40,12 +40,13 @@
   function dynastyMult(pos, age) {
     const cliff = { QB: 37, RB: 29, WR: 31, TE: 32 }[pos];
     const top = pos === "QB" && S.qb === "1qb" ? 1.0 : 1.35;   // one-QB leagues: young QBs are nice, not first-rounders
-    return Math.max(0.3, Math.min(top, 0.35 + 0.09 * (cliff - (age || 27))));
+    return Math.max(0.3, Math.min(top, 0.45 + 0.08 * (cliff - (age || 27))));
   }
   function value(p) {
     const i = FMT[S.fmt];
-    if (S.kind === "redraft") return p.rookie ? p.ppg[i] : p.ppg[i] * redraftMult(p.pos, p.age);
-    let v = p.rookie ? p.dyn[i] : p.ppg[i] * dynastyMult(p.pos, p.age);
+    // veterans: 2026 blended with 2024-25 (recent seasons count more), so one odd year doesn't decide it
+    if (S.kind === "redraft") return p.rookie ? p.ppg[i] : p.long[i] * redraftMult(p.pos, p.age);
+    let v = p.rookie ? p.dyn[i] : p.long[i] * dynastyMult(p.pos, p.age);
     if (S.kind === "rookie" && p.pos === "QB" && S.qb !== "1qb") v *= 1.3;   // QBs go early when you can start two
     return v;
   }
@@ -198,7 +199,7 @@
   // Rookies haven't played yet, so they show our projection for 2027.
   // Two numbers: what he's averaging in 2026 (real) and what we project for 2027 (age-adjusted).
   const now26 = (p) => (p.rookie ? null : p.real[FMT[S.fmt]]);
-  const proj27 = (p) => (p.rookie ? p.ppg[FMT[S.fmt]] : p.ppg[FMT[S.fmt]] * redraftMult(p.pos, p.age));
+  const proj27 = (p) => (p.rookie ? p.ppg[FMT[S.fmt]] : p.long[FMT[S.fmt]] * redraftMult(p.pos, p.age));
   const valueText = (p) => `${now26(p) == null ? "Rookie" : "'26 " + now26(p).toFixed(1)} · '27 proj ${proj27(p).toFixed(1)}`;
   const valueHTML = (p) => `
     <span class="fd-num"><b>${now26(p) == null ? "—" : now26(p).toFixed(1)}</b><i>'26 PPG</i></span>
