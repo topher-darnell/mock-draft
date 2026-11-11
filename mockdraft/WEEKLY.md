@@ -38,7 +38,9 @@ List what you changed in the commit message.
    those players: Fantasle and the Fantasy page's search use the whole list. Use JAX for Jacksonville and WAS for Washington, and give
    traded players their new team.
 3. Change `STATS_AS_OF` in `fantasy.py` to the new week.
-4. Run `python3 fantasy.py`: it must say "0 to check". The TE table has no rushing columns, so a
+4. Run `python3 fantasy.py`: it must say "0 to check".
+5. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
+   espn.com/nfl/team/roster/_/name/buf). About once a month, refresh everyone's age so birthdays count. The TE table has no rushing columns, so a
    TE that is off by a few points ran the ball: put the missing rushing yards/TDs on his row.
 
 ## 3. Rebuild

@@ -1252,6 +1252,7 @@ def fantasle_page():
     ranked = sorted([r for r in lead if r["g"] >= 5], key=lambda r: -r["s"]["ppr"] / r["g"])[:FANTASLE_POOL]
     pool = {r["n"] for r in ranked}
     stats = {r["name"]: r for r in fantasy.read("fantasy_stats.csv")}
+    ages = {r["name"]: int(r["age"]) for r in fantasy.read("nfl_ages.csv") if r["age"]}
     rows = []
     for r in lead:
         s_ = stats[r["n"]]
@@ -1260,7 +1261,7 @@ def fantasle_page():
                      r["p"], round(r["s"]["ppr"] / r["g"], 1),
                      int(fantasy.f(s_["pass_td"]) + fantasy.f(s_["rush_td"]) + fantasy.f(s_["rec_td"])),
                      int(fantasy.f(s_["pass_yds"]) + fantasy.f(s_["rush_yds"]) + fantasy.f(s_["rec_yds"])),
-                     int(fantasy.f(s_["rec"])), 1 if r["n"] in pool else 0, slug(r["n"])])
+                     int(fantasy.f(s_["rec"])), 1 if r["n"] in pool else 0, slug(r["n"]), ages.get(r["n"], 0)])
     data = json.dumps(rows, separators=(",", ":")).replace("</", "<\\/")
     body = f"""
     <div class="gm-shell pl-shell" id="fantasle">
@@ -1279,9 +1280,10 @@ def fantasle_page():
         <p class="pg-text">Guess the mystery <b>NFL fantasy player</b> in <b>8 tries</b>. Every QB, RB, WR and TE in our 2026 fantasy rankings is fair game. After each guess, every box tells you how close you are.</p>
         <ul class="gm-rules">
           <li><span class="pl-key g"></span> <b>Green</b>: exact match.</li>
-          <li><span class="pl-key y"></span> <b>Yellow</b>: close. Division is yellow when he's in the same conference (AFC or NFC). Position is yellow for another RB/WR/TE. Numbers are yellow within 3 PPR points per game, 2 touchdowns, 150 yards or 8 catches.</li>
+          <li><span class="pl-key y"></span> <b>Yellow</b>: close. Division is yellow when he's in the same conference (AFC or NFC). Position is yellow for another RB/WR/TE. Numbers are yellow within 3 PPG, 150 yards, 2 touchdowns or 2 years of age.</li>
           <li><b>↑</b> means the mystery player's number is higher. <b>↓</b> means it's lower.</li>
-          <li><b>PPG</b> is PPR fantasy points per game. <b>TD</b> and <b>Yds</b> count passing, rushing and receiving together. Season totals {fantasy.STATS_AS_OF}.</li>
+          <li>Arrows and words describe the <b>mystery player</b> compared with your guess: <b>↑ Higher / ↓ Lower</b> PPG, <b>↑ More / ↓ Fewer</b> yards and touchdowns, <b>↑ Older / ↓ Younger</b>.</li>
+          <li><b>PPG</b> is PPR fantasy points per game. <b>Yds</b> and <b>TD</b> count passing, rushing and receiving together. Season totals {fantasy.STATS_AS_OF}.</li>
         </ul>
         <p class="pg-text">The daily player is the same for everyone and changes at midnight Eastern. Unlimited gives you a new player every round.</p>
         <button class="start gm-wide" id="pl-help-close">Play</button>
@@ -1296,7 +1298,7 @@ def fantasle_page():
 
       <section class="gm-panel" id="pl-game">
         <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
-        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPG</span><span>TD</span><span>Yds</span><span>Rec</span></div>
+        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPG</span><span>Yds</span><span>TD</span><span>Age</span></div>
         <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
         <div class="pl-search">
           <label class="sr-only" for="pl-input">Guess an NFL player</label>
@@ -1324,7 +1326,7 @@ def fantasle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/fantasle.html", page("games/fantasle.html", "Fantasle: Guess the NFL Fantasy Player · Big Head GM",
           "Fantasle is a free daily NFL fantasy football guessing game. Guess the mystery player in 8 tries from his team, division, position, PPR points per game, touchdowns, yards and catches.",
-          body, nav="games/", scripts=("games/fantasle.js?v=5",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
+          body, nav="games/", scripts=("games/fantasle.js?v=6",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
 
 
 # ---------- home page: today's games and fantasy leaders ----------

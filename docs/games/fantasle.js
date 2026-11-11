@@ -14,7 +14,7 @@
   const count = (path, title) => window.BHG && window.BHG.countEvent(path, title);
 
   const players = RAW.map((r) => ({ name: r[0], abbr: r[1], team: r[2], div: r[3], pos: r[4], ppg: r[5], td: r[6],
-    yds: r[7], rec: r[8], pool: r[9] === 1, slug: r[10], school: r[2].split(" ").pop() }));
+    yds: r[7], rec: r[8], pool: r[9] === 1, slug: r[10], age: r[11] || 0, school: r[2].split(" ").pop() }));
   const byName = new Map(players.map((p) => [p.name, p]));
 
   // a fixed shuffle of the answer pool, so day N always gives the same player
@@ -74,18 +74,21 @@
   }
 
   function compare(g, a) {
-    const num = (gv, av, near, show) => {
+    // up/down plus a word saying how the MYSTERY player compares to your guess
+    const num = (gv, av, near, show, up, down) => {
       const d = Math.round((av - gv) * 10) / 10;
-      return { v: show, c: d === 0 ? "g" : Math.abs(d) <= near ? "y" : "x", arrow: d > 0 ? "↑" : d < 0 ? "↓" : "" };
+      return { v: show, c: d === 0 ? "g" : Math.abs(d) <= near ? "y" : "x",
+        arrow: d > 0 ? "↑" : d < 0 ? "↓" : "", word: d > 0 ? up : d < 0 ? down : "" };
     };
+    const age = g.age && a.age ? num(g.age, a.age, 2, g.age, "Older", "Younger") : { v: g.age || "—", c: "x", arrow: "", word: "" };
     return [
       { v: g.abbr, c: g.abbr === a.abbr ? "g" : "x" },
       { v: g.div, c: g.div === a.div ? "g" : g.div.slice(0, 3) === a.div.slice(0, 3) ? "y" : "x" },
       { v: g.pos, c: g.pos === a.pos ? "g" : GROUP[g.pos] === GROUP[a.pos] ? "y" : "x" },
-      num(g.ppg, a.ppg, 3, g.ppg.toFixed(1)),
-      num(g.td, a.td, 2, g.td),
-      num(g.yds, a.yds, 150, g.yds.toLocaleString("en-US")),
-      num(g.rec, a.rec, 8, g.rec),
+      num(g.ppg, a.ppg, 3, g.ppg.toFixed(1), "Higher", "Lower"),
+      num(g.yds, a.yds, 150, g.yds.toLocaleString("en-US"), "More", "Fewer"),
+      num(g.td, a.td, 2, g.td, "More", "Fewer"),
+      age,
     ];
   }
 
@@ -94,7 +97,7 @@
   function rowHTML(name, animate) {
     const g = byName.get(name), a = byName.get(game.answer);
     const cells = compare(g, a).map((x, i) =>
-      `<span class="pl-tile ${x.c}${animate ? " flip" : ""}" style="--i:${i}">${esc(x.v)}${x.arrow && x.c !== "g" ? `<b>${x.arrow}</b>` : ""}</span>`).join("");
+      `<span class="pl-tile ${x.c}${animate ? " flip" : ""}" style="--i:${i}">${esc(x.v)}${x.arrow && x.c !== "g" ? `<b>${x.arrow}<small>${x.word}</small></b>` : ""}</span>`).join("");
     return `<li class="pl-row${name === game.answer ? " win" : ""}"><span class="pl-guess">${esc(name)}</span><span class="pl-tiles">${cells}</span></li>`;
   }
 
@@ -118,7 +121,7 @@
       : "The mystery player was";
     $("pl-answer").textContent = a.name;
     $("pl-answer").href = `../fantasy/${a.slug}.html`;
-    $("pl-meta").textContent = `${a.pos} · ${a.team} · ${a.ppg.toFixed(1)} PPR PPG, ${a.td} TD, ${a.yds.toLocaleString("en-US")} yds`;
+    $("pl-meta").textContent = `${a.pos} · ${a.team} · ${a.ppg.toFixed(1)} PPR PPG, ${a.yds.toLocaleString("en-US")} yds, ${a.td} TD` + (a.age ? ` · age ${a.age}` : "");
     const gm = $("pl-gm");
     gm.innerHTML = "";
     if (a.team) {
