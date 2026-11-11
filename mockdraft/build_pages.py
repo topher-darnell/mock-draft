@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "26", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "27", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1319,15 +1319,19 @@ def fantasle_page():
 
 def home_blocks():
     lead = fantasy.leaders()
-    top = sorted(lead, key=lambda r: -r["s"]["ppr"])[:5]
-    rook = sorted(fantasy.rookies(), key=lambda r: -r["dyn"]["ppr"])[:3]
-    rows = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name"><a class="hf-link" href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a><span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))}</span></span>'
-                   f'<span class="hf-pts">{r["s"]["ppr"]:.1f}<span>{r["s"]["ppr"] / r["g"]:.1f} PPG</span></span></li>'
-                   for i, r in enumerate(top, 1))
-    rk = "".join(f'<li><span class="hf-rk">{i}</span><span class="hf-name">'
-                 + (f'<a class="hf-link" href="players/{by_name[r["n"]]["slug"]}.html">{esc(r["n"])}</a>' if r["n"] in by_name else f'<b>{esc(r["n"])}</b>')
-                 + f'<span>{r["p"]} · {esc(r["c"])}</span></span>'
-                 f'<span class="hf-pts">#{r["pick"]:g}<span>proj. pick</span></span></li>' for i, r in enumerate(rook, 1))
+    MIN_GP = 4
+    ppg = lambda r: r["s"]["ppr"] / r["g"]
+    keep = []
+    for pos in FF_POS_NAME:          # the top 30 at each position by PPR points per game
+        keep += sorted([r for r in lead if r["p"] == pos and r["g"] >= MIN_GP], key=lambda r: -ppg(r))[:30]
+    keep.sort(key=lambda r: -ppg(r))
+    rows = "".join(
+        f'<li data-pos="{r["p"]}"><span class="hf-rk">{i}</span><span class="hf-name"><a class="hf-link" href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a>'
+        f'<span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))} · {r["s"]["ppr"]:.1f} pts · {r["g"]} GP</span></span>'
+        f'<span class="hf-ppg"><b>{ppg(r):.1f}</b><span>PPG</span></span></li>'
+        for i, r in enumerate(keep, 1))
+    chips = "".join(f'<button class="filter{" active" if p_ == "All" else ""}" data-pos="{p_}" aria-pressed="{"true" if p_ == "All" else "false"}">{p_}</button>'
+                    for p_ in ("All", "QB", "RB", "WR", "TE"))
     block = f"""<!-- home-daily:start (written by build_pages.py) -->
     <section class="home-daily">
       <div class="wrap">
@@ -1360,18 +1364,29 @@ def home_blocks():
           <h2 class="home-h2">Fantasy leaders</h2>
           <span class="section-note">PPR · {esc(fantasy.STATS_AS_OF.replace(" of the 2026 season", ""))}</span>
         </div>
-        <div class="hf-grid">
-          <div class="hf-card">
-            <p class="hf-label">2026 PPR leaders</p>
-            <ol class="hf-list">{rows}</ol>
-            <a class="pg-go" href="fantasy.html">All leaders and scoring formats →</a>
-          </div>
-          <div class="hf-card">
-            <p class="hf-label">Top 2027 dynasty rookies</p>
-            <ol class="hf-list">{rk}</ol>
-            <a class="pg-go" href="fantasy.html#dynasty">Full rookie rankings →</a>
-          </div>
+        <div class="hf-card hf-wide">
+          <div class="in-chips hf-chips" id="hf-pos" aria-label="Position">{chips}</div>
+          <ol class="hf-list hf-scroll" id="hf-list">{rows}</ol>
+          <p class="hf-foot">Ranked by PPR points per game (PPG), {MIN_GP}+ games played. Scroll for more.</p>
+          <a class="pg-go" href="fantasy.html">All {len(lead)} players, every scoring format →</a>
         </div>
+        <script>
+          (function () {{
+            var list = document.getElementById("hf-list"), chips = document.querySelectorAll("#hf-pos .filter");
+            chips.forEach(function (c) {{
+              c.addEventListener("click", function () {{
+                var pos = c.getAttribute("data-pos"), n = 0;
+                chips.forEach(function (x) {{ x.classList.toggle("active", x === c); x.setAttribute("aria-pressed", x === c ? "true" : "false"); }});
+                Array.prototype.forEach.call(list.children, function (li) {{
+                  var on = pos === "All" || li.getAttribute("data-pos") === pos;
+                  li.hidden = !on;
+                  if (on) li.querySelector(".hf-rk").textContent = ++n;
+                }});
+                list.scrollTop = 0;
+              }});
+            }});
+          }})();
+        </script>
       </div>
     </section>
     <!-- home-daily:end -->"""
