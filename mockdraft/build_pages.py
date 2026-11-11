@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "46", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "47", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1648,6 +1648,86 @@ def fantasy_startsit_page():
                 crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
                 scripts=("fantasy-start-sit.js?v=5",))
 
+
+POS_FULL = {"QB": "Quarterbacks", "RB": "Running backs", "WR": "Wide receivers", "TE": "Tight ends"}
+
+
+def se_matchup(m):
+    return "g2" if m >= 1.1 else "g1" if m >= 1.04 else "n" if m > 0.96 else "r1" if m > 0.9 else "r2"
+
+
+def se_card(r, call, depth=""):
+    why = "".join(f"<li>{esc(w)}</li>" for w in r["why"])
+    return (f'<li class="se-card {call}"><div class="se-top"><span class="ss-tag {"ss-go" if call == "start" else "ss-no"}">{call.upper()}</span>'
+            f'<span class="fd-pos {r["p"].lower()}">{r["p"]}</span>'
+            f'<span class="fd-who"><b><a href="{depth}fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a></b><span>{esc(FF_TEAM.get(r["t"], r["t"]))}</span></span>'
+            f'<span class="rs-m {se_matchup(r["m"])}">vs {r["opp"]}</span></div>'
+            f'<p class="se-proj">Projected <b>{r["proj"]:.1f}</b> PPR this week · usually {r["avg"]:.1f}</p>'
+            f'<ul class="se-why">{why}</ul></li>')
+
+
+def fantasy_startem_page():
+    p = fantasy.weekly_picks()
+    when = startsit_when(p["week"])
+    sections = ""
+    for pos in ("QB", "RB", "WR", "TE"):
+        st, si = p["start"][pos], p["sit"][pos]
+        if not st and not si:
+            continue
+        sections += f"""
+      <h2 class="home-h2">{POS_FULL[pos]}</h2>
+      <div class="se-cols">
+        <div><h3 class="tr-h up">Start 'em</h3><ol class="se-list">{"".join(se_card(r, "start") for r in st) or '<li class="ff-none">No strong starts this week.</li>'}</ol></div>
+        <div><h3 class="tr-h down">Sit 'em</h3><ol class="se-list">{"".join(se_card(r, "sit") for r in si) or '<li class="ff-none">No clear sits this week.</li>'}</ol></div>
+      </div>"""
+    body = f"""
+    <div class="se">
+      <p class="eyebrow">FANTASY FOOTBALL · WEEK {p["week"]}{(" · " + when.upper()) if when else ""}</p>
+      <h1 class="in-title">Week {p["week"]} start 'em, sit 'em</h1>
+      <p class="in-sub">Players you might be on the fence about. Starts have a better week than usual coming; sits face a tough one. Every pick says why. PPR scoring.</p>
+      {sections}
+      <a class="ff-cta se-tool" href="fantasy-start-sit.html"><span class="ff-cta-text"><b class="ff-cta-title">Deciding between your own players?</b>
+        <span class="ff-cta-sub">Put them in the start/sit tool and get a call in seconds.</span></span><span class="ff-cta-go">Who do I start? →</span></a>
+      <h2 class="home-h2">How we pick</h2>
+      <ul class="gm-rules">
+        <li>We skip the obvious studs and focus on borderline players: the ones people actually ask about.</li>
+        <li><b>Starts</b> project at least 6% above their usual points per game this week. <b>Sits</b> project at least 8% below theirs.</li>
+        <li>Projections use season scoring with extra weight on the last 3 games, the opponent's fantasy points allowed to that position, injuries and new quarterbacks. A player who's on fire is never a sit, and a player who lost his role is never a start.</li>
+        <li>New picks every Tuesday. Check injury news before kickoff.</li>
+      </ul>
+      <p class="od-fine">Stats and schedule: <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a> and FFToday, {esc(fantasy.STATS_AS_OF)}.</p>
+    </div>
+    {signup("fantasy-startem")}"""
+    desc = f"Week {p['week']} fantasy football start 'em, sit 'em picks for 2026 at QB, RB, WR and TE, with the reason for every call."
+    return page("fantasy-start-em-sit-em.html", f"Week {p['week']} Start 'Em Sit 'Em: Fantasy Football Picks · Big Head GM", desc, body,
+                crumbs=[("Fantasy", "fantasy.html"), (f"Week {p['week']} start 'em, sit 'em", "fantasy-start-em-sit-em.html")], nav="fantasy.html")
+
+
+def home_startem():
+    """home page block: one start and one sit per position"""
+    p = fantasy.weekly_picks(per_pos=1)
+    st = [r for pos in ("QB", "RB", "WR", "TE") for r in p["start"][pos]]
+    si = [r for pos in ("QB", "RB", "WR", "TE") for r in p["sit"][pos]]
+    when = startsit_when(p["week"])
+    return f"""
+        <div class="home-h2-row hf-head">
+          <h2 class="home-h2">Week {p["week"]} start 'em, sit 'em</h2>
+          <span class="section-note">{esc(when) + " · " if when else ""}PPR · new every Tuesday</span>
+        </div>
+        <div class="se-cols se-home">
+          <div><h3 class="tr-h up">Start 'em</h3><ol class="se-list">{"".join(se_card(r, "start") for r in st)}</ol></div>
+          <div><h3 class="tr-h down">Sit 'em</h3><ol class="se-list">{"".join(se_card(r, "sit") for r in si)}</ol></div>
+        </div>
+        <a class="pg-go" href="fantasy-start-em-sit-em.html">All Week {p["week"]} picks →</a>"""
+
+
+def startsit_when(week):
+    days = sorted(g["day"] for g in fantasy.read("fantasy_schedule.csv") if int(g["week"]) == week)
+    if not days:
+        return ""
+    d0, d1 = datetime.date.fromisoformat(days[0]), datetime.date.fromisoformat(days[-1])
+    return f'{d0.strftime("%b")} {d0.day}–{d1.day}' if d0.month == d1.month else f'{d0.strftime("%b")} {d0.day}–{d1.strftime("%b")} {d1.day}'
+
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 
 DIVISION = {}
@@ -1809,6 +1889,8 @@ def home_blocks():
             <span class="pg-go">Play today's →</span>
           </a>
         </div>
+
+        {home_startem()}
 
         <div class="home-h2-row hf-head">
           <h2 class="home-h2">2027 mock draft</h2>
@@ -2000,7 +2082,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2015,6 +2097,7 @@ def main():
     write("fantasy-trade.html", fantasy_trade_page())
     write("fantasy-ros.html", fantasy_ros_page())
     write("fantasy-start-sit.html", fantasy_startsit_page())
+    write("fantasy-start-em-sit-em.html", fantasy_startem_page())
     games_pages()
     prospectle_page()
     fantasle_page()

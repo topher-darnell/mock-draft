@@ -2717,3 +2717,20 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .ss-meta .rs-qb { display: inline; }
 .rs-qb.up { color: #6CD39A; } .rs-qb.down { color: #F2876B; }
 .rs-table tbody .rs-pl .rs-qb.up { color: #6CD39A; } .rs-table tbody .rs-pl .rs-qb.down { color: #F2876B; }
+
+/* ---------- Start 'em, sit 'em ---------- */
+.se-cols { display: grid; gap: 14px; }
+@media (min-width: 900px) { .se-cols { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.se-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.se-card { padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+.se-card.start { border-color: rgba(108,211,154,0.45); }
+.se-card.sit { border-color: rgba(242,135,107,0.4); }
+.se-top { display: flex; align-items: center; gap: 10px; }
+.se-top .fd-who b a { color: var(--text); text-decoration: none; }
+.se-top .fd-who b a:hover { color: var(--accent); }
+.se-top .rs-m { flex: 0 0 auto; padding: 3px 8px; }
+.se-proj { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+.se-proj b { color: var(--accent); font-size: 15px; }
+.se-why { margin: 6px 0 0; padding-left: 18px; color: #D5DCE4; font-size: 13px; line-height: 1.45; }
+.se-home + .pg-go { display: inline-block; margin-top: 12px; }
+.se-tool { margin: 24px 0 8px; }

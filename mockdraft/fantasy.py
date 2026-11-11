@@ -444,6 +444,112 @@ def rest_of_season():
             "fac": fac, "sched": {t: {str(w): o for w, o in v.items() if w in weeks} for t, v in games.items()}}
 
 
+
+# ---------- Weekly Start 'Em / Sit 'Em ----------
+# Built every Tuesday from the same numbers as the start/sit tool (PPR). Starts: borderline players
+# whose projection this week beats their usual average. Sits: players people usually start who face a
+# tough week. fantasy_picks.csv (week, name, call, reason) can add or override picks by hand.
+
+START_POOL = {"QB": (8, 24), "RB": (10, 40), "WR": (12, 45), "TE": (5, 18)}   # season PPG ranks to pick starts from
+SIT_POOL = {"QB": (6, 16), "RB": (8, 30), "WR": (10, 36), "TE": (4, 12)}       # ...and sits: usual starters, not studs
+POS_WORD = {"QB": "quarterbacks", "RB": "running backs", "WR": "receivers", "TE": "tight ends"}
+TEAM_NAME = {"ARI": "Cardinals", "ATL": "Falcons", "BAL": "Ravens", "BUF": "Bills", "CAR": "Panthers", "CHI": "Bears",
+             "CIN": "Bengals", "CLE": "Browns", "DAL": "Cowboys", "DEN": "Broncos", "DET": "Lions", "GB": "Packers",
+             "HOU": "Texans", "IND": "Colts", "JAX": "Jaguars", "KC": "Chiefs", "LV": "Raiders", "LAC": "Chargers",
+             "LAR": "Rams", "MIA": "Dolphins", "MIN": "Vikings", "NE": "Patriots", "NO": "Saints", "NYG": "Giants",
+             "NYJ": "Jets", "PHI": "Eagles", "PIT": "Steelers", "SF": "49ers", "SEA": "Seahawks", "TB": "Buccaneers",
+             "TEN": "Titans", "WAS": "Commanders"}
+
+
+def weekly_picks(per_pos=2):
+    ros = rest_of_season()
+    trend = trends()
+    hot = {r["n"]: r for r in trend["players"]} if trend["ready"] else {}
+    week = ros["from"]
+    rows = []
+    for r in ros["players"]:
+        w, opp, m, a, q = r["sched"][0]
+        if not opp or a == 0 or r["out"] or r["g"] < 4:
+            continue                                         # bye, out, or not playing lately
+        t = hot.get(r["n"])
+        rows.append(dict(r, opp=opp, m=m, a=a, q=q, proj=r["ppg"]["ppr"] * m * a * q, avg=r["ppg"]["ppr"], tr=t))
+    for pos in POS_WORD:                                     # season PPG rank within position
+        for i, r in enumerate(sorted((x for x in rows if x["p"] == pos), key=lambda x: -x["avg"]), 1):
+            r["rank"] = i
+
+    def reasons(r, call):
+        out = []
+        pct = round(abs(r["m"] - 1) * 100)
+        foe = TEAM_NAME.get(r["opp"], r["opp"])
+        if call == "start" and r["m"] >= 1.05:
+            out.append(f"Good matchup: the {foe} give up {pct}% more fantasy points to {POS_WORD[r['p']]} than an average defense.")
+        if call == "sit" and r["m"] <= 0.95:
+            out.append(f"Tough matchup: the {foe} allow {pct}% fewer fantasy points to {POS_WORD[r['p']]} than an average defense.")
+        t = r["tr"]
+        if t and t["g0"] >= 2 and t["gw"] >= 2:
+            d = t["now"]["ppr"] - t["was"]["ppr"]
+            if call == "start" and d >= 3:
+                out.append(f"Heating up: {t['now']['ppr']:.1f} PPR points a game over his last {t['gw']} games, up from {t['was']['ppr']:.1f}.")
+            if call == "sit" and d <= -3:
+                out.append(f"Cooling off: {t['now']['ppr']:.1f} PPR points a game over his last {t['gw']} games, down from {t['was']['ppr']:.1f}.")
+            touch = lambda i: t["tgt"][i] + (t["car"][i] if r["p"] == "RB" else 0)
+            if r["p"] != "QB" and call == "start" and touch(1) - touch(0) >= 3:
+                out.append(f"More work lately: {touch(1):.1f} {'touches' if r['p'] == 'RB' else 'targets'} a game, up from {touch(0):.1f}.")
+            if r["p"] != "QB" and call == "sit" and touch(0) - touch(1) >= 3:
+                out.append(f"Less work lately: {touch(1):.1f} {'touches' if r['p'] == 'RB' else 'targets'} a game, down from {touch(0):.1f}.")
+        if r.get("qb") and ((call == "start" and r["qb"]["m"] > 1) or (call == "sit" and r["qb"]["m"] < 1)):
+            out.append(f"New quarterback: {r['qb']['name']}{' (expected)' if r['qb']['status'] == 'expected' else ''} is "
+                       f"{'an upgrade' if r['qb']['m'] > 1 else 'a step down'} for him.")
+        if call == "sit" and r.get("inj") and r["inj"]["s"] in ("questionable", "doubtful"):
+            out.append(f"Banged up: {r['inj']['s']} this week" + (f" ({r['inj']['inj'].split(' (')[0].lower()})." if r["inj"].get("inj") else "."))
+        return out[:2]
+
+    def form(r):
+        t = r["tr"]
+        return t["now"]["ppr"] - t["was"]["ppr"] if t and t["g0"] >= 2 and t["gw"] >= 2 else 0
+
+    def touches(r, i):
+        t = r["tr"]
+        return t["tgt"][i] + (t["car"][i] if r["p"] == "RB" else 0) if t and t["g0"] >= 2 and t["gw"] >= 2 else None
+
+    def ok_start(r):
+        if r["p"] != "QB" and touches(r, 0) and touches(r, 1) < 0.7 * touches(r, 0):
+            return False     # lost a big part of his role
+        return form(r) > -3 or (r.get("qb") and r["qb"]["m"] > 1)   # cooling off hard? only with a new QB
+
+    def ok_sit(r):       # never bench a guy who's on fire
+        return form(r) < 3
+
+    picks = {"start": {}, "sit": {}}
+    for pos in POS_WORD:
+        lo, hi = START_POOL[pos]
+        pool = [r for r in rows if r["p"] == pos and lo <= r["rank"] <= hi]
+        cands = sorted(pool, key=lambda r: -(r["proj"] / r["avg"] - 1))
+        picks["start"][pos] = [r for r in cands if r["proj"] / r["avg"] >= 1.06 and ok_start(r) and reasons(r, "start")][:per_pos]
+        lo, hi = SIT_POOL[pos]
+        pool = [r for r in rows if r["p"] == pos and lo <= r["rank"] <= hi]
+        cands = sorted(pool, key=lambda r: (r["proj"] / r["avg"] - 1))
+        picks["sit"][pos] = [r for r in cands if r["proj"] / r["avg"] <= 0.92 and ok_sit(r) and reasons(r, "sit")][:per_pos]
+
+    # hand-picked additions or overrides for this week
+    if os.path.exists(os.path.join(HERE, "fantasy_picks.csv")):
+        byname = {_key(r["n"]): r for r in rows}
+        for h in read("fantasy_picks.csv"):
+            r = byname.get(_key(h["name"]))
+            if not r or int(h["week"]) != week or h["call"] not in ("start", "sit"):
+                continue
+            for c in ("start", "sit"):
+                picks[c][r["p"]] = [x for x in picks[c][r["p"]] if x["n"] != r["n"]]
+            picks[h["call"]][r["p"]].insert(0, dict(r, mine=h["reason"]))
+
+    out = {"week": week, "start": {}, "sit": {}}
+    for c in ("start", "sit"):
+        for pos, lst in picks[c].items():
+            out[c][pos] = [{"n": r["n"], "t": r["t"], "p": pos, "opp": r["opp"], "m": r["m"], "proj": round(r["proj"], 1),
+                            "avg": round(r["avg"], 1), "why": [r["mine"]] if r.get("mine") else reasons(r, c)} for r in lst]
+    return out
+
+
 if __name__ == "__main__":
     bad = 0
     rows = read("fantasy_stats.csv")
