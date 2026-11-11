@@ -2648,3 +2648,39 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .tr-name a:hover { color: var(--accent); }
 .tr-tag { margin-left: 4px; padding: 1px 6px; border-radius: 6px; background: var(--accent); color: #1B1206; font-size: 10px; font-weight: 900; letter-spacing: 0.04em; vertical-align: 2px; }
 .tr-meta { color: var(--muted); font-size: 12px; line-height: 1.4; }
+
+/* ---------- Rest-of-season rankings ---------- */
+.rs-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.rs-check { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer; }
+.rs-check input { width: 18px; height: 18px; accent-color: var(--accent); }
+.rs-key { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+.rs-key .rs-m { padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+.rs-wrap { overflow-x: auto; margin: 0 -20px; padding: 0 20px; }
+.rs-table { width: 100%; border-collapse: separate; border-spacing: 0 4px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.rs-table th, .rs-table td { padding: 6px 5px; text-align: center; white-space: nowrap; }
+.rs-table thead th { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: 0.04em; }
+.rs-table thead th.po { color: var(--accent); }
+.rs-table .rs-pl { position: sticky; left: 0; z-index: 1; min-width: 150px; max-width: 190px; text-align: left; background: var(--bg, #10151C); }
+.rs-table tbody .rs-pl a { display: block; color: var(--text); font-size: 14px; font-weight: 700; text-decoration: none; overflow: hidden; text-overflow: ellipsis; }
+.rs-table tbody .rs-pl a:hover { color: var(--accent); }
+.rs-table tbody .rs-pl span { display: block; color: var(--muted); font-size: 11px; font-weight: 600; }
+.rs-table tbody .rs-pl .rs-out { color: #F2876B; }
+.rs-rk { color: var(--muted); font-weight: 700; }
+.rs-proj { color: var(--accent); font-size: 15px; font-weight: 900; }
+.rs-ppg { color: #B9C3CF; font-weight: 700; }
+.rs-m { min-width: 34px; border-radius: 6px; font-size: 11px; font-weight: 800; color: #10151C; }
+.rs-m.g2 { background: #6CD39A; } .rs-m.g1 { background: #B7E6C7; } .rs-m.n { background: #3A4656; color: #D5DCE4; }
+.rs-m.r1 { background: #F5B7A6; } .rs-m.r2 { background: #F2876B; } .rs-m.bye { background: transparent; color: var(--muted); border: 1px dashed #3A4656; }
+.rs-table td.rs-m { border-left: 2px solid var(--bg, #10151C); }
+.rs-table td.rs-m.po { box-shadow: inset 0 -3px 0 var(--accent); }
+.rs-po { display: grid; gap: 12px; }
+@media (min-width: 760px) { .rs-po { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .rs-po { grid-template-columns: repeat(4, 1fr); } }
+.rs-po-card { padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+.rs-po-card h3 { margin: 0 0 8px; font-size: 16px; color: var(--accent); }
+.rs-po-card ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.rs-po-card li b { display: block; font-size: 14px; }
+.rs-po-opps { display: flex; gap: 4px; margin-top: 3px; }
+.rs-po-opps .rs-m { padding: 2px 6px; text-align: center; }
+.ff-ctas:has(> :nth-child(3)) { grid-template-columns: 1fr; }
+@media (min-width: 900px) { .ff-ctas:has(> :nth-child(3)) { grid-template-columns: repeat(3, 1fr); } }

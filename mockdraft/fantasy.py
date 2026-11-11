@@ -21,7 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FORMATS = [("std", "Standard"), ("half", "Half PPR"), ("ppr", "PPR"), ("tep", "TE Premium")]
 PER_CATCH = {"std": 0, "half": 0.5, "ppr": 1, "tep": 1}
 TE_BONUS = {"tep": 0.5}                       # TE Premium: an extra half point per tight end catch
-STATS_AS_OF = "through Week 10 of the 2026 season"
+STATS_AS_OF = "through Week 9 of the 2026 season"
 
 
 def read(name):
@@ -215,6 +215,105 @@ def trends():
             "share": [round(100 * avg(was, lambda g: f(g["tgt_share"]))), round(100 * avg(now, lambda g: f(g["tgt_share"])))],
         })
     return {"ready": True, "from": first_recent, "to": last, "players": players}
+
+
+
+# ---------- Rest of season: projections with matchups and playoff schedules ----------
+# Every defense gets a matchup number per position: fantasy points it allows per game compared
+# with an average defense (1.10 = gives up 10% more). A player's projection for each remaining
+# week is his points per game times that week's matchup (0 on his bye). Fantasy playoffs: Weeks 15-17.
+
+LAST_FANTASY_WEEK = 17
+PLAYOFF_WEEKS = (15, 16, 17)
+
+
+def schedule():
+    games = {}
+    for g in read("fantasy_schedule.csv"):
+        w = int(g["week"])
+        games.setdefault(g["away"], {})[w] = g["home"]
+        games.setdefault(g["home"], {})[w] = g["away"]
+    return games
+
+
+def matchups(weekly):
+    """{pos: {defense: factor}} from fantasy points allowed per game (PPR), steadied toward 1.0"""
+    allowed = {}                                            # (pos, defense, week) -> points
+    for r in weekly:
+        key = (r["pos"], r["opp"], int(r["week"]))
+        allowed[key] = allowed.get(key, 0) + points(r, "ppr")
+    out = {}
+    for pos in ("QB", "RB", "WR", "TE"):
+        per = {}
+        for (p, d, w), pts in allowed.items():
+            if p == pos:
+                per.setdefault(d, []).append(pts)
+        avg = sum(sum(v) / len(v) for v in per.values()) / len(per)
+        out[pos] = {}
+        for d, v in per.items():
+            raw = (sum(v) / len(v)) / avg
+            steady = 1 + (raw - 1) * len(v) / (len(v) + 3)   # few games: trust it less
+            out[pos][d] = round(max(0.75, min(1.25, steady)), 3)
+    return out
+
+
+def rest_of_season():
+    if not os.path.exists(os.path.join(HERE, "fantasy_schedule.csv")):
+        return None
+    weekly = read("fantasy_weekly.csv")
+    last = max(int(r["week"]) for r in weekly)
+    weeks = list(range(last + 1, LAST_FANTASY_WEEK + 1))
+    games = schedule()
+    fac = matchups(weekly)
+    keys = [k for k, _ in FORMATS]
+    ours = {_key(r["name"]): r for r in read("fantasy_stats.csv")}
+    by_player = {}
+    for r in weekly:
+        me = ours.get(_key(r["name"]))
+        if me:
+            r["pos"] = me["pos"]
+            by_player.setdefault(me["name"], []).append(r)
+    team_weeks = {}                                         # weeks each offense has played
+    for r in weekly:
+        team_weeks.setdefault(r["team"], set()).add(int(r["week"]))
+
+    # a typical starter's points per game, to steady players with few games
+    base = {}
+    for pos in ("QB", "RB", "WR", "TE"):
+        grp = sorted((points(m, "ppr") / f(m["games"]) for m in ours.values() if m["pos"] == pos and f(m["games"]) >= 4), reverse=True)
+        base[pos] = grp[min(len(grp) - 1, {"QB": 15, "RB": 30, "WR": 40, "TE": 15}[pos])]
+
+    players = []
+    for me in ours.values():
+        g = f(me["games"])
+        if g < 2:
+            continue
+        pos, team = me["pos"], me["team"]
+        gs = by_player.get(me["name"], [])
+        recent = [x for x in gs if int(x["week"]) > last - 3]
+        ppg = {}
+        for k in keys:
+            ratio = points(me, k) / max(0.1, points(me, "ppr")) if points(me, "ppr") > 0 else 1
+            season = (points(me, k) + 2 * base[pos] * ratio) / (g + 2)
+            if len(recent) >= 2:
+                season = 0.65 * season + 0.35 * sum(points(x, k) for x in recent) / len(recent)
+            ppg[k] = season
+        sched = []
+        for w in weeks:
+            opp = games.get(team, {}).get(w, "")
+            sched.append([w, opp, fac[pos].get(opp, 1.0) if opp else 0])
+        ros = {k: round(sum(ppg[k] * m for _, _, m in sched), 1) for k in keys}
+        po = [m for w, _, m in sched if w in PLAYOFF_WEEKS]
+        played = sorted(int(x["week"]) for x in gs)
+        missed = len([w for w in team_weeks.get(team, set()) if not played or w > played[-1]])
+        players.append({
+            "n": me["name"], "t": team, "p": pos, "g": int(g),
+            "ppg": {k: round(v, 1) for k, v in ppg.items()}, "ros": ros, "sched": sched,
+            "po": round(sum(po) / len(po), 3) if po and all(po) else round(sum(po) / max(1, len(po)), 3),
+            "out": played[-1] if gs and missed >= 2 else 0,            # last week played, if he's missed 2+ games since
+        })
+    return {"from": weeks[0], "to": weeks[-1], "playoffs": list(PLAYOFF_WEEKS), "players": players,
+            "fac": fac, "sched": {t: {str(w): o for w, o in v.items() if w in weeks} for t, v in games.items()}}
 
 
 if __name__ == "__main__":

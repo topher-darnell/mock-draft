@@ -37,9 +37,10 @@ List what you changed in the commit message.
 2. Rewrite `fantasy_stats.csv` (keep the columns; `fftoday_half` = FFToday's FPts). Keep all of
    those players: Fantasle and the Fantasy page's search use the whole list. Use JAX for Jacksonville and WAS for Washington, and give
    traded players their new team.
-3. Change `STATS_AS_OF` in `fantasy.py` to the new week.
-   Then refresh the game-by-game stats for the Trending tab: `python3 fetch_weekly.py` (downloads
-   from nflverse on GitHub; it should report the week just played; nflverse can lag a day, which is fine).
+3. Change `STATS_AS_OF` in `fantasy.py` to the new week: the last week whose Monday game is done
+   (on Tuesday Nov 17 that's Week 10). `fetch_weekly.py` prints the last week played; they must agree.
+   Then refresh the game-by-game stats and schedule: `python3 fetch_weekly.py` (downloads from
+   nflverse on GitHub; used by Trending and the rest-of-season rankings; nflverse can lag a day).
    Also save a backup copy of the season totals: `cp fantasy_stats.csv fantasy_history/2026-wNN.csv`, where NN is
    the last week the stats count (two digits, e.g. `2026-w11.csv`). Never edit or delete old copies:
    they're a week-by-week record of the season totals.

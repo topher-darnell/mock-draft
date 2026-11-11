@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "42", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "43", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -759,7 +759,11 @@ FF_TRADE_CTA = ('<a class="ff-cta" href="fantasy-trade.html">'
                 '<span class="ff-cta-text"><span class="ff-cta-tag">NEW</span><b class="ff-cta-title">Trade analyzer</b>'
                 '<span class="ff-cta-sub">Who wins your trade? Redraft or dynasty, any scoring.</span></span>'
                 '<span class="ff-cta-go">Check a trade →</span></a>')
-FF_CTAS = '<div class="ff-ctas">' + FF_CTA + FF_TRADE_CTA + '</div>'
+FF_ROS_CTA = ('<a class="ff-cta" href="fantasy-ros.html">'
+              '<span class="ff-cta-text"><span class="ff-cta-tag">NEW</span><b class="ff-cta-title">Rest-of-season rankings</b>'
+              '<span class="ff-cta-sub">Every player through Week 17, with matchups and playoff schedules.</span></span>'
+              '<span class="ff-cta-go">See rankings →</span></a>')
+FF_CTAS = '<div class="ff-ctas">' + FF_CTA + FF_TRADE_CTA + FF_ROS_CTA + '</div>'
 
 
 # ---------- fantasy ----------
@@ -1464,6 +1468,60 @@ def fantasy_trade_page():
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Trade analyzer", "fantasy-trade.html")], nav="fantasy.html",
                 scripts=("fantasy-trade.js?v=2",))
 
+
+def fantasy_ros_page():
+    ros = fantasy.rest_of_season()
+    for r in ros["players"]:
+        r["slug"] = slug(r["n"])
+    data = json.dumps(ros, separators=(",", ":")).replace("</", "<\\/")
+    fmt_btns = "".join(f'<button class="filter{" active" if k == "ppr" else ""}" data-fmt="{k}" aria-pressed="{"true" if k == "ppr" else "false"}">{label}</button>'
+                       for k, label in fantasy.FORMATS)
+    pos_btns = "".join(f'<button class="filter{" active" if p == "All" else ""}" data-pos="{p}" aria-pressed="{"true" if p == "All" else "false"}">{p}</button>'
+                       for p in ("All", "QB", "RB", "WR", "TE"))
+    weeks = f'Weeks {ros["from"]}–{ros["to"]}'
+    body = f"""
+    <div class="rs">
+      <p class="eyebrow">FANTASY FOOTBALL · {weeks.upper()}</p>
+      <h1 class="in-title">Rest-of-season rankings and playoff schedules</h1>
+      <p class="in-sub">Every player ranked on what he should score from Week {ros["from"]} through Week {ros["to"]}, using his points per game, his bye and who he plays. Green means an easy matchup, red a tough one. Fantasy playoffs are Weeks 15–17.</p>
+
+      <div class="ff-bar"><p class="ff-label">Your scoring</p><div class="in-chips" id="rs-fmt">{fmt_btns}</div></div>
+      <div class="rs-tools">
+        <div class="in-chips" id="rs-pos">{pos_btns}</div>
+        <label class="rs-check"><input type="checkbox" id="rs-out"> Show players who haven't played lately</label>
+      </div>
+      <div class="rs-key" aria-hidden="true"><span class="rs-m g2">Easy</span><span class="rs-m g1">Good</span><span class="rs-m n">Average</span><span class="rs-m r1">Tough</span><span class="rs-m r2">Very tough</span><span class="rs-m bye">BYE</span></div>
+
+      <div class="rs-wrap">
+        <table class="rs-table">
+          <thead><tr><th scope="col">#</th><th scope="col" class="rs-pl">Player</th><th scope="col" title="Projected fantasy points, Weeks {ros['from']}–{ros['to']}">Proj</th><th scope="col">PPG</th>
+            {"".join(f'<th scope="col" class="rs-w{" po" if w in ros["playoffs"] else ""}">{w}</th>' for w in range(ros["from"], ros["to"] + 1))}</tr></thead>
+          <tbody id="rs-body"></tbody>
+        </table>
+      </div>
+      <button class="secondary gm-wide" id="rs-more">Show more</button>
+
+      <h2 class="home-h2">Easiest fantasy playoff schedules</h2>
+      <p class="in-note">Teams whose Week 15–17 opponents give up the most fantasy points to each position. Good to know before your trade deadline.</p>
+      <div class="rs-po" id="rs-po"></div>
+
+      <h2 class="home-h2">How it works</h2>
+      <ul class="gm-rules">
+        <li><b>Matchups:</b> for each defense, we add up the fantasy points it has allowed to each position per game this season and compare it with an average defense. "Easy" gives up about 10% or more above average, "very tough" about 10% or more below.</li>
+        <li><b>Projection:</b> a player's points per game (mostly his season average, with extra weight on his last 3 games) times each week's matchup, with 0 on his bye week.</li>
+        <li>Injuries and depth chart news aren't counted. Players who haven't played in 2+ of their team's games are hidden unless you turn them on.</li>
+      </ul>
+      <div class="ff-ctas">{FF_TRADE_CTA}{FF_CTA}</div>
+      <p class="od-fine">Stats and schedule: <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a> and FFToday, {esc(fantasy.STATS_AS_OF)}. Updated every Tuesday.</p>
+    </div>
+    <script type="application/json" id="rs-data">{data}</script>
+    {signup("fantasy-ros")}"""
+    desc = (f"Rest-of-season fantasy football rankings for {weeks} of 2026 with matchups, bye weeks and fantasy playoff schedules (Weeks 15–17). "
+            "PPR, Half PPR, Standard and TE Premium.")
+    return page("fantasy-ros.html", f"Rest of Season Fantasy Rankings 2026 · Playoff Schedules · Big Head GM", desc, body,
+                crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
+                scripts=("fantasy-ros.js?v=1",))
+
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 
 DIVISION = {}
@@ -1816,7 +1874,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -1829,6 +1887,7 @@ def main():
     write("fantasy.html", fantasy_page())
     write("fantasy-draft.html", fantasy_draft_page())
     write("fantasy-trade.html", fantasy_trade_page())
+    write("fantasy-ros.html", fantasy_ros_page())
     games_pages()
     prospectle_page()
     fantasle_page()
