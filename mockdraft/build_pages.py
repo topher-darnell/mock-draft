@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "41", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "42", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -795,10 +795,25 @@ def ff_rookie_rows(rows, key, fmt, n=25):
     return out
 
 
+def trending_intro(trend):
+    if not trend["ready"]:
+        return (f'<div class="tr-soon"><b>Trending starts Tuesday, November 17.</b> We save the stats every Tuesday. '
+                f'Once Week {(trend["since"] or 10) + 1} is in, this shows who\'s heating up and who\'s cooling off: '
+                f'points per game over the last few weeks compared with before, plus catches and yards. '
+                f'It gets sharper every week.</div>')
+    span = f'Week {trend["to"]}' if trend["from"] == trend["to"] else f'Weeks {trend["from"]}–{trend["to"]}'
+    return (f'<p class="in-note">Points per game in {span} compared with the rest of the season, in your scoring. '
+            f'Only games played count, so byes and injuries don\'t drag anyone down.</p>')
+
+
 def fantasy_page():
     lead = fantasy.leaders()
     rook = fantasy.rookies()
-    data = json.dumps({"leaders": [dict(r, slug=slug(r["n"])) for r in lead], "rookies": [
+    trend = fantasy.trends()
+    if trend["ready"]:
+        for r in trend["players"]:
+            r["slug"] = slug(r["n"])
+    data = json.dumps({"trends": trend, "leaders": [dict(r, slug=slug(r["n"])) for r in lead], "rookies": [
         dict(r, slug=by_name[r["n"]]["slug"] if r["n"] in by_name else "", short=short(r["team"])) for r in rook]},
         separators=(",", ":")).replace("</", "<\\/")
     fmt_btns = "".join(f'<button class="filter{" active" if k == "ppr" else ""}" data-fmt="{k}" aria-pressed="{"true" if k == "ppr" else "false"}">{label}</button>'
@@ -814,7 +829,7 @@ def fantasy_page():
     {FF_CTAS}
 
     <div class="ff-tabs" id="ff-tabs" role="tablist" aria-label="Show">
-      <a href="#leaders" role="tab" data-tab="leaders" class="active" aria-selected="true">2026 leaders</a><a href="#next-year" role="tab" data-tab="next-year" aria-selected="false">Rookies for next season</a><a href="#dynasty" role="tab" data-tab="dynasty" aria-selected="false">Dynasty rookies</a>
+      <a href="#leaders" role="tab" data-tab="leaders" class="active" aria-selected="true">2026 leaders</a><a href="#trending" role="tab" data-tab="trending" aria-selected="false">Trending</a><a href="#next-year" role="tab" data-tab="next-year" aria-selected="false">Rookies for next season</a><a href="#dynasty" role="tab" data-tab="dynasty" aria-selected="false">Dynasty rookies</a>
     </div>
 
     <div class="ff-bar">
@@ -839,6 +854,16 @@ def fantasy_page():
         </table>
       </div>
       <button class="secondary gm-wide ff-more" id="ff-more">Show all players</button>
+    </section>
+
+    <section class="pg-section ff-panel" id="trending" role="tabpanel">
+      <h2 class="home-h2">Who's trending</h2>
+      {trending_intro(trend)}
+      <div class="in-chips bb-chips" id="tr-pos" aria-label="Position">{pos_btns.replace('data-pos=', 'data-tpos=')}</div>
+      <div class="tr-cols">
+        <div><h3 class="tr-h up">Heating up</h3><ol class="tr-list" id="tr-up"></ol></div>
+        <div><h3 class="tr-h down">Cooling off</h3><ol class="tr-list" id="tr-down"></ol></div>
+      </div>
     </section>
 
     <section class="pg-section ff-panel" id="next-year" role="tabpanel">
@@ -874,7 +899,7 @@ def fantasy_page():
     desc = (f"2026 fantasy football leaders in Standard, Half PPR, PPR and TE Premium scoring, plus 2027 rookie rankings for next season and dynasty. "
             f"PPR leader: {top['ppr']['n']}. Top dynasty rookie: {r1['n']}.")
     return page("fantasy.html", "Fantasy Football Leaders 2026 and 2027 Dynasty Rookie Rankings · Big Head GM", desc,
-                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=6",))
+                body, crumbs=[("Fantasy", "fantasy.html")], nav="fantasy.html", scripts=("fantasy.js?v=7",))
 
 
 # ---------- games ----------

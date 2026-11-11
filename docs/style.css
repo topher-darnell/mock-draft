@@ -2629,3 +2629,22 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .ft-actions button { width: 100%; }
 @media (min-width: 760px) { .ft-actions { max-width: 480px; } }
 .fd-pos.pick { background: #B4BFCC; }
+
+/* ---------- Fantasy page: trending ---------- */
+.tr-soon { margin: 6px 0 0; padding: 16px; border: 1px dashed rgba(242,169,59,0.55); border-radius: 14px; background: rgba(242,169,59,0.06); color: #D5DCE4; font-size: 15px; line-height: 1.5; }
+.tr-soon b { color: var(--accent); }
+.tr-cols { display: grid; gap: 18px; margin-top: 8px; }
+@media (min-width: 900px) { .tr-cols { grid-template-columns: 1fr 1fr; gap: 28px; } }
+.tr-h { margin: 6px 0 8px; font-size: 16px; }
+.tr-h.up { color: #6CD39A; } .tr-h.down { color: #F2876B; }
+.tr-list { list-style: none; margin: 0; padding: 0; }
+.tr-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.tr-delta { flex: 0 0 58px; padding: 6px 0; border-radius: 10px; text-align: center; font-weight: 900; font-variant-numeric: tabular-nums; }
+.tr-item.up .tr-delta { background: rgba(108,211,154,0.14); color: #6CD39A; }
+.tr-item.down .tr-delta { background: rgba(242,135,107,0.14); color: #F2876B; }
+.tr-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tr-name { font-weight: 700; font-size: 15px; }
+.tr-name a { color: var(--text); text-decoration: none; }
+.tr-name a:hover { color: var(--accent); }
+.tr-tag { margin-left: 4px; padding: 1px 6px; border-radius: 6px; background: var(--accent); color: #1B1206; font-size: 10px; font-weight: 900; letter-spacing: 0.04em; vertical-align: 2px; }
+.tr-meta { color: var(--muted); font-size: 12px; line-height: 1.4; }

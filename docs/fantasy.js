@@ -56,6 +56,37 @@
     if (window.BHG) window.BHG.paintGMs(list);
   }
 
+  // Trending: last few weeks vs. before, per game
+  let tpos = "All";
+  function trending() {
+    const T = DATA.trends;
+    const up = document.getElementById("tr-up"), down = document.getElementById("tr-down");
+    if (!up) return;
+    if (!T || !T.ready) { up.closest(".tr-cols").hidden = true; document.getElementById("tr-pos").hidden = true; return; }
+    const span = T.from === T.to ? `Week ${T.to}` : `Weeks ${T.from}–${T.to}`;
+    const scale = { std: 0.75, half: 0.88, ppr: 1, tep: 1 }[fmt];        // thresholds are in PPR points
+    const pool = T.players.filter((r) => tpos === "All" || r.p === tpos);
+    const line = (r) => {
+      const bits = [`${num(r.now[fmt])} PPG in ${span}` + (r.g0 ? ` (was ${num(r.was[fmt])})` : " (first games)")];
+      if (r.p !== "QB" && (r.rec[1] >= 2 || r.rec[0] >= 2)) bits.push(`${num(r.rec[1])} catches a game (was ${num(r.rec[0])})`);
+      if (r.p !== "QB") bits.push(`${Math.round(r.yds[1])} yards a game (was ${Math.round(r.yds[0])})`);
+      return bits.join(" · ");
+    };
+    const item = (r, dir) => {
+      const d = r.now[fmt] - r.was[fmt];
+      const tag = !r.g0 || r.was[fmt] < 6 * scale ? '<span class="tr-tag">New role</span>' : "";
+      return `<li class="tr-item ${dir}"><span class="tr-delta">${dir === "up" ? "+" : "−"}${num(Math.abs(d))}</span>` +
+        `<span class="tr-text"><span class="tr-name"><a href="fantasy/${r.slug}.html">${esc(r.n)}</a> ${tag}</span>` +
+        `<span class="tr-meta">${r.p} · ${esc(TEAM[r.t] || r.t)}</span><span class="tr-meta">${line(r)}</span></span></li>`;
+    };
+    const risers = pool.filter((r) => r.now[fmt] >= 8 * scale && r.now[fmt] - r.was[fmt] >= 3 * scale)
+      .sort((a, b) => (b.now[fmt] - b.was[fmt]) - (a.now[fmt] - a.was[fmt])).slice(0, 15);
+    const fallers = pool.filter((r) => r.g0 >= 2 && r.was[fmt] >= 10 * scale && r.was[fmt] - r.now[fmt] >= 3 * scale)
+      .sort((a, b) => (a.now[fmt] - a.was[fmt]) - (b.now[fmt] - b.was[fmt])).slice(0, 10);
+    up.innerHTML = risers.map((r) => item(r, "up")).join("") || '<li class="ff-none">Nobody new is heating up at this position.</li>';
+    down.innerHTML = fallers.map((r) => item(r, "down")).join("") || '<li class="ff-none">Nobody is cooling off at this position.</li>';
+  }
+
   function mark(group, attr, value) {
     for (const b of document.querySelectorAll(`#${group} .filter`)) {
       const on = b.dataset[attr] === value;
@@ -70,6 +101,11 @@
     leaders();
     rookies("ff-y1", "y1");
     rookies("ff-dyn", "dyn");
+    mark("tr-pos", "tpos", tpos);
+    trending();
+  }
+  for (const b of document.querySelectorAll("#tr-pos .filter")) {
+    b.addEventListener("click", () => { tpos = b.dataset.tpos; render(); });
   }
 
   for (const b of document.querySelectorAll("#ff-fmt .filter")) {
@@ -86,7 +122,7 @@
   document.getElementById("ff-team").addEventListener("change", (e) => { team = e.target.value; leaders(); });
   document.getElementById("ff-search").addEventListener("input", (e) => { words = e.target.value.trim().toLowerCase(); leaders(); });
   // the three tabs: show one list at a time (without this script, all three show)
-  const TABS = ["leaders", "next-year", "dynasty"];
+  const TABS = ["leaders", "trending", "next-year", "dynasty"];
   function showTab(id, push) {
     if (!TABS.includes(id)) id = "leaders";
     for (const t of TABS) document.getElementById(t).hidden = t !== id;

@@ -38,6 +38,11 @@ List what you changed in the commit message.
    those players: Fantasle and the Fantasy page's search use the whole list. Use JAX for Jacksonville and WAS for Washington, and give
    traded players their new team.
 3. Change `STATS_AS_OF` in `fantasy.py` to the new week.
+   Then save a copy for Trending: `cp fantasy_stats.csv fantasy_history/2026-wNN.csv`, where NN is
+   the last week the stats count (two digits, e.g. `2026-w11.csv`). Never edit or delete old copies:
+   the Trending tab on the Fantasy page subtracts one week's copy from a later one to see who's
+   heating up and cooling off. If a week was missed, just save the current one; the math uses
+   games played, so it still works.
 4. Run `python3 fantasy.py`: it must say "0 to check".
 5. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
    espn.com/nfl/team/roster/_/name/buf). About once a month, refresh everyone's age so birthdays count. The TE table has no rushing columns, so a
@@ -76,6 +81,12 @@ Create a draft broadcast with the Kit connector (`create_broadcast`, template id
 - **Risers** and **Fallers**: 3 each from `weekly_summary.py`, each linked to
   `https://bigheadgm.com/players/<slug>.html` (slug: lowercase, apostrophes and dots removed,
   everything else non-alphanumeric becomes "-").
+- **Fantasy: heating up / cooling off** (once `fantasy_history/` has 2+ copies): run
+  `python3 -c "import fantasy, json; print(json.dumps(fantasy.trends()))"` and pick 3 players
+  heating up and 2 cooling off in PPR (biggest change in points per game, at least 8 PPG lately for
+  risers). One line each with the numbers ("18.4 PPG the last 3 weeks, was 9.1"), linked to
+  `https://bigheadgm.com/fantasy/<slug>.html`, then a link to https://bigheadgm.com/fantasy.html#trending
+  and one to the trade analyzer https://bigheadgm.com/fantasy-trade.html
 - **Who goes #1?**: our sims plus the market odds with their dates, linked to
   https://bigheadgm.com/odds.html
 - An orange button (`#F2A93B`, text `#1B1206`): "Run your own mock draft" →

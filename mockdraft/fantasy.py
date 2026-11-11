@@ -151,6 +151,54 @@ def rookie_line(x):
     return f"{yr}: {int(f(s['rec']))} catches, {int(f(s['rec_yds'])):,} yds, {int(f(s['rec_td']))} TD"
 
 
+# ---------- Trending: week-over-week changes ----------
+# Every Tuesday a copy of fantasy_stats.csv is saved as fantasy_history/2026-wNN.csv (NN = the
+# last week it counts). Subtracting one copy from a later one gives what each player did in the
+# weeks between, so we can see who's heating up and who's cooling off.
+
+HISTORY = os.path.join(HERE, "fantasy_history")
+TREND_WEEKS = 3          # compare the last 3 weeks to everything before them
+
+
+def snapshots():
+    out = []
+    if os.path.isdir(HISTORY):
+        for fn in sorted(os.listdir(HISTORY)):
+            if fn.endswith(".csv") and "-w" in fn:
+                week = int(fn.rsplit("-w", 1)[1][:-4])
+                with open(os.path.join(HISTORY, fn), newline="", encoding="utf-8") as fh:
+                    out.append((week, {r["name"]: r for r in csv.DictReader(fh)}))
+    return sorted(out)
+
+
+def trends():
+    """per player: points per game in the recent weeks vs. before, in every format"""
+    snaps = snapshots()
+    if len(snaps) < 2:
+        return {"ready": False, "since": snaps[-1][0] if snaps else None}
+    start_week, start = snaps[max(0, len(snaps) - 1 - TREND_WEEKS)]
+    end_week, end = snaps[-1]
+    keys = [k for k, _ in FORMATS]
+    zero = {c: 0 for c in ("games", "pass_yds", "pass_td", "int", "rush_yds", "rush_td", "rec", "rec_yds", "rec_td")}
+    players = []
+    for name, r in end.items():
+        s0 = start.get(name) or dict(zero, pos=r["pos"])
+        g0, g1 = f(s0["games"]), f(r["games"])
+        gw = g1 - g0                       # games he played in the window (byes and injuries don't count)
+        if gw < 1:
+            continue
+        per = lambda col, row, g: f(row[col]) / g if g else 0
+        yds = lambda row: f(row["rush_yds"]) + f(row["rec_yds"])
+        players.append({
+            "n": name, "t": r["team"], "p": r["pos"], "gw": int(gw), "g0": int(g0),
+            "now": {k: round((points(r, k) - points(s0, k)) / gw, 1) for k in keys},
+            "was": {k: round(points(s0, k) / g0, 1) if g0 else 0 for k in keys},
+            "rec": [round(per("rec", s0, g0), 1), round((f(r["rec"]) - f(s0["rec"])) / gw, 1)],
+            "yds": [round(yds(s0) / g0, 1) if g0 else 0, round((yds(r) - yds(s0)) / gw, 1)],
+        })
+    return {"ready": True, "from": start_week + 1, "to": end_week, "players": players}
+
+
 if __name__ == "__main__":
     bad = 0
     rows = read("fantasy_stats.csv")
