@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "36", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "37", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1104,7 +1104,7 @@ def prospectle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/prospectle.html", page("games/prospectle.html", "Prospectle: Guess the 2027 NFL Draft Prospect · Big Head GM",
           "Prospectle is a free daily NFL draft guessing game. Guess the mystery 2027 prospect in 8 tries using his school, conference, position, size, class and projected pick. Play daily or unlimited.",
-          body, nav="games/", scripts=("games/prospectle.js?v=5",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
+          body, nav="games/", scripts=("games/prospectle.js?v=6",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
 
 
 # ---------- NFL fantasy player profiles (docs/fantasy/<player>.html) ----------
@@ -1326,7 +1326,7 @@ def fantasle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/fantasle.html", page("games/fantasle.html", "Fantasle: Guess the NFL Fantasy Player · Big Head GM",
           "Fantasle is a free daily NFL fantasy football guessing game. Guess the mystery player in 8 tries from his team, division, position, PPR points per game, touchdowns, yards and catches.",
-          body, nav="games/", scripts=("games/fantasle.js?v=6",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
+          body, nav="games/", scripts=("games/fantasle.js?v=7",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
 
 
 # ---------- home page: today's games and fantasy leaders ----------

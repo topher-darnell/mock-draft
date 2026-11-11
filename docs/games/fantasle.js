@@ -186,7 +186,7 @@
       if (n.startsWith(q) || n.split(" ").some((w) => w.startsWith(q))) starts.push(p);
       else if (n.includes(q)) has.push(p);
     }
-    picks = starts.concat(has).slice(0, 8);
+    picks = starts.concat(has).slice(0, 5);
     active = 0;
     box.innerHTML = picks.length ? picks.map((p, i) =>
       `<li role="option" data-i="${i}" class="${i === 0 ? "on" : ""}"><b>${esc(p.name)}</b><span>${p.pos} · ${esc(p.school)}</span></li>`).join("")
@@ -194,6 +194,13 @@
     box.hidden = false;
   }
   $("pl-input").addEventListener("input", (e) => suggest(e.target.value));
+  // when you start typing, move the box near the top of the screen so the names below it aren't
+  // hidden by the keyboard (and don't cover your guesses)
+  function lift() { $("pl-input").scrollIntoView({ block: "start", behavior: "smooth" }); }
+  $("pl-input").addEventListener("focus", () => setTimeout(lift, 250));
+  $("pl-input").addEventListener("input", function once() {
+    if (this.value.length === 2) lift();
+  });
   $("pl-input").addEventListener("keydown", (e) => {
     if (e.key === "Enter" && picks[active]) { e.preventDefault(); guess(picks[active].name); }
     else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
