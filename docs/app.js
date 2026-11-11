@@ -55,6 +55,8 @@ let available = [];   // players not drafted yet, best first
 let needs = {};       // team name -> list of needs still open
 let results = [];     // every pick made so far: { pick, player }
 let nextPick = 0;     // index into draftOrder of the pick on the clock
+let callOpen = false;  // a team is on the phone, so the draft waits
+let upCallRounds = new Set();   // rounds where a team already offered you a move up
 let onClock = false;  // true while you're making a pick
 let paused = false;   // true while the trade panel is open
 let userPaused = false; // true after you tap Pause
@@ -737,6 +739,7 @@ function startDraft() {
   }
   results = [];
   hideIncomingCall();
+  upCallRounds = new Set();
   nextPick = 0;
   onClock = false;
   paused = false;
@@ -855,7 +858,7 @@ function scheduleNext(delay) {
 }
 
 function runDraft() {
-  if (paused || userPaused) return;   // trade panel is open, or you tapped Pause
+  if (paused || userPaused || callOpen) return;   // trade panel or a call is open, or you tapped Pause
   const pick = draftOrder[nextPick];
   const status = document.getElementById("status");
 
@@ -873,6 +876,7 @@ function runDraft() {
     return;   // wait for you to tap a Draft button
   }
 
+  if (maybeMoveUpCall(pick)) return;   // a team ahead of you offers its pick; wait for your answer
   statusWithGM(pick.team, "focused", `<b>Pick ${pick.pick} · ${pick.team}</b><span class="status-quote">On the clock…</span>`);
   const wanted = pick.wants && available.includes(pick.wants) ? pick.wants : null;
   makePick(pick, wanted || cpuPick(pick.team, pick));
@@ -943,6 +947,7 @@ function findIncomingCall(myPick) {
 }
 
 function hideIncomingCall() {
+  callOpen = false;
   const box = document.getElementById("incoming");
   if (box) { box.hidden = true; box.innerHTML = ""; }
 }
@@ -992,6 +997,84 @@ function maybeIncomingCall(myPick) {
     hideIncomingCall();
     acceptTrade(myPick, call);
   });
+}
+
+// A team on the clock just ahead of you offers to move back, when a player
+// you need is still there and probably won't last to your pick.
+function findMoveUpCall(pick) {
+  if (pick.offeredUp || upCallRounds.has(pick.round)) return null;
+  pick.offeredUp = true;               // one try per pick
+  const myNextIndex = draftOrder.findIndex((p, i) => i > nextPick && p.team === myTeam && p.round <= rounds);
+  if (myNextIndex === -1) return null;
+  const gap = myNextIndex - nextPick;
+  if (gap < 2 || gap > 10) return null;
+
+  const myNeeds = (needs[myTeam] || []).slice(0, 2);
+  const target = available.slice(0, Math.min(gap, 6)).find((p) => myNeeds.includes(p.position));
+  if (!target) return null;            // nobody you need is about to go
+
+  const chance = pick.round === 1 ? 0.45 : 0.35;
+  if (Math.random() > chance) return null;
+
+  const myPool = draftOrder.filter((p) => p.team === myTeam && p.pick > pick.pick && p.round <= rounds);
+  const cost = value(pick);            // they called you, so they ask a fair price
+  const { pkg, total } = buildPackage(myPool, cost);
+  if (total < cost || pkg.length > 3) return null;
+  return { pick, target, pkg, total, myNext: draftOrder[myNextIndex] };
+}
+
+function maybeMoveUpCall(pick) {
+  const call = findMoveUpCall(pick);
+  if (!call) return false;
+  upCallRounds.add(pick.round);
+  callOpen = true;
+  clearTimeout(draftTimer);
+
+  const team = pick.team;
+  const short = HAS_GM ? GM.short(team) : team;
+  const t = call.target;
+  const over = Math.round(call.total - value(pick));
+  const give = call.pkg.map((p) => `<span class="offer-pick give">R${p.round} #${p.pick}</span>`).join("");
+  statusWithGM(team, "trade", `<b>Pick ${pick.pick} · ${team}</b><span class="status-quote">Taking calls before we pick…</span>`);
+  const box = document.getElementById("incoming");
+  box.innerHTML = `
+    <div class="call-top">
+      ${avatar(team, "trade", 48)}
+      <div class="call-text">
+        <span class="call-label">📞 TRADE OFFER · MOVE UP</span>
+        <b class="call-team">${team}</b>
+        <span class="call-why">They're on the clock at #${pick.pick} and will move back. Jump up for <b>${t.name}</b> (${t.position}, ${t.college})? He might not last to #${call.myNext.pick}.</span>
+      </div>
+    </div>
+    <div class="call-deal">
+      <span class="call-side"><span class="meta">You give</span><span class="offer-picks">${give}</span></span>
+      <span class="call-arrow" aria-hidden="true">→</span>
+      <span class="call-side"><span class="meta">You get</span><span class="offer-pick">R${pick.round} #${pick.pick}</span></span>
+    </div>
+    <p class="call-worth meta${over > 0 ? " cost" : ""}">${over > 0 ? `You'd pay ${over.toLocaleString()} pts more than #${pick.pick} is worth on the trade chart.` : "Even trade on the trade chart."}</p>
+    <div class="call-buttons">
+      <button class="secondary" id="call-no">No thanks</button>
+      <button class="accept-button" id="call-yes">Move up</button>
+    </div>`;
+  box.hidden = false;
+  setMyGM("trade");
+  countEvent("trade-call-up", "Got a move-up call");
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  document.getElementById("call-no").addEventListener("click", () => {
+    hideIncomingCall();
+    setMyGM("neutral");
+    statusWithGM(team, "neutral", `<b>Pick ${pick.pick} · ${team}</b><span class="status-quote">No deal. The ${short} stay put.</span>`);
+    if (!paused && !userPaused) scheduleNext(900);
+  });
+  document.getElementById("call-yes").addEventListener("click", () => {
+    if (draftOrder[nextPick] !== pick || pick.team !== team) return hideIncomingCall();
+    countEvent("trade-call-up-accepted", "Took a move-up call");
+    hideIncomingCall();
+    pick.called = true;                // don't ring you again on the pick you just bought
+    acceptTradeUp(pick, call.pkg);
+  });
+  return true;
 }
 
 function statusQuoteAfterDecline(short) {
@@ -1083,6 +1166,7 @@ function makeTrade(myPick, offer) {
 }
 
 function openTradeSheet() {
+  if (callOpen) hideIncomingCall();   // opening trades hangs up the phone
   paused = true;               // stop the draft while you look at trades
   clearTimeout(draftTimer);
   setMyGM("trade");
@@ -1232,6 +1316,7 @@ function acceptTradeUp(target, pkg) {
   paused = false;
   userPaused = false;
   updatePauseButton();
+  renderMine();
   showTradeMessage(`Trade! You move up to #${target.pick}, sending ${pkg.map((p) => "#" + p.pick).join(", ")} to ${other}`);
   scheduleNext(1500);
 }

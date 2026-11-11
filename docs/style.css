@@ -2436,3 +2436,5 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   }
   #incoming { grid-area: call; }
 }
+.call-worth.cost { color: var(--accent); }
+.call-deal .offer-picks { display: flex; gap: 6px; flex-wrap: wrap; }
