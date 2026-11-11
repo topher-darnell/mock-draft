@@ -68,7 +68,11 @@ List what you changed in the commit message.
    above. Read the picks once: if one looks wrong (e.g. breaking news), or Topher sends his own takes, add
    rows to `fantasy_picks.csv` (week, name, call = start/sit, reason in one plain sentence). Those go first.
    Put 2 starts and 2 sits in the newsletter, linked to the page.
-10. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
+10. **Quick hits** (`news.csv`, shown on the home page, `news.html` and player profiles): add one row for
+   each fantasy-relevant item from this week's injury, trade and QB updates (date, kind = injury / return /
+   trade / qb / news, player, team, one plain sentence that names the player, source, url). Two sources for
+   anything big. Keep it short: no rumors, no opinions. Topher may also send items in chat.
+11. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
    espn.com/nfl/team/roster/_/name/buf). About once a month, refresh everyone's age so birthdays count. The TE table has no rushing columns, so a
    TE that is off by a few points ran the ball: put the missing rushing yards/TDs on his row.
 

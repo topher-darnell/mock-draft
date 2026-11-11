@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "48", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "49", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1268,6 +1268,8 @@ def nfl_profiles():
       <p class="in-note">Standard: 1 point per 10 rushing or receiving yards, 6 per touchdown, 1 per 25 passing yards, 4 per passing TD, minus 2 per interception. Half PPR and PPR add half or a full point per catch.{' TE Premium adds another half point per catch for tight ends.' if pos == 'TE' else ''}</p>
     </section>
 
+    {f'<section class="pg-section"><h2 class="home-h2">Latest news</h2>{player_news(n)}</section>' if player_news(n) else ""}
+
     <section class="pg-section">
       <h2 class="home-h2">2026 stats</h2>
       <p class="in-note">{esc(fantasy.STATS_AS_OF[0].upper() + fantasy.STATS_AS_OF[1:])}</p>
@@ -1730,6 +1732,63 @@ def startsit_when(week):
     d0, d1 = datetime.date.fromisoformat(days[0]), datetime.date.fromisoformat(days[-1])
     return f'{d0.strftime("%b")} {d0.day}–{d1.day}' if d0.month == d1.month else f'{d0.strftime("%b")} {d0.day}–{d1.strftime("%b")} {d1.day}'
 
+
+# ---------- Quick hits: short NFL news (mockdraft/news.csv) ----------
+NEWS_TAG = {"injury": "Injury", "return": "Return", "trade": "Trade", "qb": "New QB", "news": "Roster"}
+
+
+def news_items():
+    path = os.path.join(HERE, "news.csv")
+    if not os.path.exists(path):
+        return []
+    with open(path, newline="", encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    return sorted(rows, key=lambda r: r["date"], reverse=True)
+
+
+def news_li(r, depth=""):
+    d = datetime.date.fromisoformat(r["date"])
+    sl = slug(r["player"])
+    has = os.path.exists(os.path.join(DOCS, "fantasy", sl + ".html"))
+    text = esc(r["text"])
+    if has and r["player"] in r["text"]:                       # link the player's name to his fantasy page
+        text = text.replace(esc(r["player"]), f'<a href="{depth}fantasy/{sl}.html">{esc(r["player"])}</a>', 1)
+    return (f'<li class="nw-item"><span class="nw-tag {r["kind"]}">{NEWS_TAG.get(r["kind"], "News")}</span>'
+            f'<span class="nw-text">{text} <span class="nw-meta"><a class="nw-src" href="{esc(r["url"])}" rel="noopener nofollow" target="_blank">{esc(r["source"])}</a>'
+            f' · <time datetime="{r["date"]}">{d.strftime("%b")} {d.day}</time></span></span></li>')
+
+
+def home_news(n=8):
+    items = news_items()[:n]
+    if not items:
+        return ""
+    return f"""
+        <div class="home-h2-row hf-head nw-head">
+          <h2 class="home-h2">Quick hits</h2>
+          <a class="section-note nw-all" href="news.html">All news →</a>
+        </div>
+        <ol class="nw-list">{"".join(news_li(r) for r in items)}</ol>"""
+
+
+def news_page():
+    items = news_items()
+    body = f"""
+    <div class="nw-page">
+      <p class="eyebrow">NFL NEWS</p>
+      <h1 class="in-title">Quick hits</h1>
+      <p class="in-sub">Short NFL news that matters for fantasy and the draft: injuries, returns, trades and new starters. Each one links to the source.</p>
+      <ol class="nw-list">{"".join(news_li(r) for r in items)}</ol>
+      <div class="ff-ctas">{FF_SS_CTA}{FF_ROS_CTA}</div>
+    </div>"""
+    desc = "Quick NFL news for fantasy football: injuries, returns, trades and new starting quarterbacks, in one line each with the source."
+    return page("news.html", "NFL Quick Hits: Injuries, Trades and Fantasy News · Big Head GM", desc, body,
+                crumbs=[("News", "news.html")], nav="fantasy.html")
+
+
+def player_news(name, n=2, depth="../"):
+    items = [r for r in news_items() if r["player"] == name][:n]
+    return f'<ol class="nw-list nw-player">{"".join(news_li(r, depth) for r in items)}</ol>' if items else ""
+
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 
 DIVISION = {}
@@ -1867,6 +1926,8 @@ def home_blocks():
     block = f"""<!-- home-daily:start (written by build_pages.py) -->
     <section class="home-daily">
       <div class="wrap">
+        {home_news()}
+
         <div class="home-h2-row">
           <h2 class="home-h2">Today's daily games</h2>
           <span class="section-note">New player every day</span>
@@ -2084,7 +2145,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2100,6 +2161,7 @@ def main():
     write("fantasy-ros.html", fantasy_ros_page())
     write("fantasy-start-sit.html", fantasy_startsit_page())
     write("fantasy-start-em-sit-em.html", fantasy_startem_page())
+    write("news.html", news_page())
     games_pages()
     prospectle_page()
     fantasle_page()

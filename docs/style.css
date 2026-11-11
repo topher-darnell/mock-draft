@@ -2735,3 +2735,21 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .se-home + .pg-go { display: inline-block; margin-top: 12px; }
 .se-tool { margin: 24px 0 8px; }
 .ss-picks { margin-top: 28px; }
+
+/* ---------- Quick hits (news) ---------- */
+.nw-head { margin-top: 4px; }
+.nw-all { color: var(--accent); text-decoration: none; font-weight: 700; }
+.nw-list { list-style: none; margin: 0 0 28px; padding: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--card); overflow: hidden; }
+.nw-item { display: flex; align-items: baseline; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+.nw-item:last-child { border-bottom: 0; }
+.nw-tag { flex: 0 0 auto; padding: 2px 7px; border-radius: 6px; font-size: 10px; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; color: #10151C; background: #B4BFCC; }
+.nw-tag.injury { background: #F2876B; } .nw-tag.return { background: #6CD39A; } .nw-tag.trade { background: #5FB3F9; }
+.nw-tag.qb { background: var(--accent); } .nw-tag.news { background: #B4BFCC; }
+.nw-text { color: var(--text); font-size: 14px; line-height: 1.45; min-width: 0; }
+.nw-text a { color: var(--text); font-weight: 700; text-decoration: underline; text-decoration-color: rgba(242,169,59,0.6); text-underline-offset: 2px; }
+.nw-text a:hover { color: var(--accent); }
+.nw-meta { color: var(--muted); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.nw-meta::before { content: "· "; }
+.nw-text .nw-meta a { color: var(--muted); font-weight: 600; text-decoration: none; }
+@media (max-width: 600px) { .nw-text { font-size: 13.5px; } .nw-item { padding: 10px 12px; gap: 8px; } }
+.nw-player { margin-bottom: 0; }
