@@ -1027,7 +1027,7 @@ def prospectle_page():
         rows.append([p["name"], p["slug"], p["position"], p["college"], CONF.get(p["college"], "Other"),
                      int(ft) * 12 + int(inch), int(p.get("weight") or 0), p["year"],
                      round(a["avg"]) if a.get("avg") and a.get("pct", 0) >= 50 else 0,
-                     a.get("team", ""), 1 if p["rank"] <= PROSPECTLE_POOL else 0])
+                     a.get("team", ""), 1 if p["rank"] <= PROSPECTLE_POOL else 0, p["rank"]])
     missing = sorted({p["college"] for p in players if p["college"] not in CONF})
     assert not missing, f"add these schools to CONF: {missing}"
     data = json.dumps(rows, separators=(",", ":")).replace("</", "<\\/")
@@ -1048,9 +1048,9 @@ def prospectle_page():
         <p class="pg-text">Guess the mystery <b>2027 NFL Draft prospect</b> in <b>8 tries</b>. After each guess, every box tells you how close you are.</p>
         <ul class="gm-rules">
           <li><span class="pl-key g"></span> <b>Green</b>: exact match.</li>
-          <li><span class="pl-key y"></span> <b>Yellow</b>: close. Same position group, height within 2 inches, weight within 10 lbs, class one year off, projected pick within 10.</li>
+          <li><span class="pl-key y"></span> <b>Yellow</b>: close. Same position group, height within 2 inches, weight within 10 lbs, class one year off, big board rank within 10.</li>
           <li><b>↑</b> means the mystery player's number is higher. <b>↓</b> means it's lower.</li>
-          <li><b>Pick</b> is where he goes on average in our {SIMS} simulated drafts. UDFA means he usually goes undrafted.</li>
+          <li><b>Rank</b> is his spot on the 2027 big board (#1 is the top prospect). <b>↑</b> means the mystery player is ranked lower (a bigger number).</li>
         </ul>
         <p class="pg-text">The daily player is the same for everyone and changes at midnight Eastern. Unlimited gives you a new player every round.</p>
         <button class="start gm-wide" id="pl-help-close">Play</button>
@@ -1070,7 +1070,7 @@ def prospectle_page():
           <ul class="pl-suggest" id="pl-suggest" role="listbox" hidden></ul>
         </div>
         <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
-        <div class="pl-head" aria-hidden="true"><span>School</span><span>Conf</span><span>Pos</span><span>Ht</span><span>Wt</span><span>Class</span><span>Pick</span></div>
+        <div class="pl-head" aria-hidden="true"><span>School</span><span>Conf</span><span>Pos</span><span>Ht</span><span>Wt</span><span>Class</span><span>Rank</span></div>
         <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
         <div class="pl-done" id="pl-done" hidden>
           <div class="pl-reveal">
@@ -1092,7 +1092,7 @@ def prospectle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/prospectle.html", page("games/prospectle.html", "Prospectle: Guess the 2027 NFL Draft Prospect · Big Head GM",
           "Prospectle is a free daily NFL draft guessing game. Guess the mystery 2027 prospect in 8 tries using his school, conference, position, size, class and projected pick. Play daily or unlimited.",
-          body, nav="games/", scripts=("games/prospectle.js?v=1",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
+          body, nav="games/", scripts=("games/prospectle.js?v=2",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
 
 
 # ---------- NFL fantasy player profiles (docs/fantasy/<player>.html) ----------

@@ -1,5 +1,5 @@
 // Prospectle: guess the mystery 2027 NFL Draft prospect in 8 tries.
-// Every guess shows school, conference, position, height, weight, class and projected pick,
+// Every guess shows school, conference, position, height, weight, class and big board rank,
 // colored green (match), yellow (close) or gray, with arrows for higher/lower.
 // Daily: the same player for everyone, changes at midnight Eastern. Unlimited: a new player every round.
 
@@ -16,7 +16,7 @@
   const count = (path, title) => window.BHG && window.BHG.countEvent(path, title);
 
   const players = RAW.map((r) => ({ name: r[0], slug: r[1], pos: r[2], school: r[3], conf: r[4], ht: r[5], wt: r[6],
-    cls: r[7], pick: r[8], team: r[9], pool: r[10] === 1 }));
+    cls: r[7], pick: r[8], team: r[9], pool: r[10] === 1, rank: r[11] }));
   const byName = new Map(players.map((p) => [p.name, p]));
 
   // a fixed shuffle of the answer pool, so day N always gives the same player
@@ -80,7 +80,6 @@
       const d = av - gv;
       return { c: d === 0 ? "g" : Math.abs(d) <= near ? "y" : "x", arrow: d > 0 ? "↑" : d < 0 ? "↓" : "" };
     };
-    const pg = g.pick || 260, pa = a.pick || 260;
     const cg = CLASSES.indexOf(g.cls), ca = CLASSES.indexOf(a.cls);
     return [
       { v: g.school, c: g.school === a.school ? "g" : "x" },
@@ -89,7 +88,7 @@
       Object.assign({ v: g.ht ? `${Math.floor(g.ht / 12)}-${g.ht % 12}` : "?" }, num(g.ht, a.ht, 2)),
       Object.assign({ v: g.wt || "?" }, num(g.wt, a.wt, 10)),
       Object.assign({ v: CLASS_SHORT[g.cls] || g.cls }, num(cg, ca, 1)),
-      Object.assign({ v: g.pick ? `#${g.pick}` : "UDFA" }, num(pg, pa, 10)),
+      Object.assign({ v: `#${g.rank}` }, num(g.rank, a.rank, 10)),
     ];
   }
 
@@ -120,7 +119,7 @@
       : "The mystery prospect was";
     $("pl-answer").textContent = a.name;
     $("pl-answer").href = `../players/${a.slug}.html`;
-    $("pl-meta").textContent = `${a.pos} · ${a.school}` + (a.pick ? ` · projected #${a.pick}` : "") +
+    $("pl-meta").textContent = `${a.pos} · ${a.school} · #${a.rank} on the big board` + (a.pick ? ` · projected #${a.pick}` : "") +
       (a.team ? ` · most often to the ${a.team.split(" ").pop()}` : "");
     const gm = $("pl-gm");
     gm.innerHTML = "";
