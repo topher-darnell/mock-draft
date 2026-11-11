@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "39", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "40", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -750,6 +750,12 @@ def odds_page():
                 body, crumbs=[("#1 pick odds", "odds.html")], nav="odds.html")
 
 
+FF_CTA = ('<a class="ff-cta" href="fantasy-draft.html">'
+          '<span class="ff-cta-text"><span class="ff-cta-tag">NEW</span><b class="ff-cta-title">Fantasy mock draft</b>'
+          '<span class="ff-cta-sub">Set up your league and draft against the computer. Free, no sign-up.</span></span>'
+          '<span class="ff-cta-chips" aria-hidden="true"><i>4 to 16 teams</i><i>PPR</i><i>Superflex</i><i>Dynasty</i><i>Rookie drafts</i></span>'
+          '<span class="ff-cta-go">Draft now →</span></a>')
+
 # ---------- fantasy ----------
 
 FF_TEAM = {"ARI": "Cardinals", "ATL": "Falcons", "BAL": "Ravens", "BUF": "Bills", "CAR": "Panthers", "CHI": "Bears",
@@ -799,7 +805,7 @@ def fantasy_page():
     <p class="eyebrow">FANTASY FOOTBALL</p>
     <h1 class="in-title">Fantasy leaders and 2027 rookie rankings</h1>
     <p class="in-sub">Who's scoring the most fantasy points in 2026, and which 2027 rookies to target, for next season and for dynasty. Pick your league's scoring and everything on the page updates.</p>
-    <a class="ff-cta" href="fantasy-draft.html"><span><b>Fantasy mock draft</b><span>4 to 16 teams, PPR or Standard, Superflex, dynasty and rookie drafts.</span></span><i>Draft now →</i></a>
+    {FF_CTA}
 
     <div class="ff-tabs" id="ff-tabs" role="tablist" aria-label="Show">
       <a href="#leaders" role="tab" data-tab="leaders" class="active" aria-selected="true">2026 leaders</a><a href="#next-year" role="tab" data-tab="next-year" aria-selected="false">Rookies for next season</a><a href="#dynasty" role="tab" data-tab="dynasty" aria-selected="false">Dynasty rookies</a>
@@ -1316,6 +1322,10 @@ def fantasy_draft_page():
           <button class="secondary fd-quit" id="fd-quit">Settings</button>
         </div>
         <div class="fd-status" id="fd-status" role="status"></div>
+        <div class="fd-mine-wrap">
+          <div class="fd-mine-head"><h2 class="section-label">YOUR PICKS</h2><span class="fd-mine-count" id="fd-mine-count"></span></div>
+          <ol class="fd-mine" id="fd-mine"></ol>
+        </div>
         <div class="fd-cols">
           <div class="fd-main">
             <div class="in-chips fd-filters" id="fd-filters"></div>
@@ -1357,7 +1367,7 @@ def fantasy_draft_page():
             "Superflex or 2 QB, your own lineup, snake or linear, redraft, dynasty startup or rookie draft.")
     return page("fantasy-draft.html", "Fantasy Football Mock Draft 2027 · PPR, Superflex, Dynasty · Big Head GM", desc,
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Mock draft", "fantasy-draft.html")], nav="fantasy.html",
-                scripts=("fantasy-draft.js?v=1",))
+                scripts=("fantasy-draft.js?v=2",))
 
 
 # ---------- Fantasle (guess the NFL fantasy player) ----------
@@ -1571,7 +1581,7 @@ def home_blocks():
           <p class="hf-foot">Ranked by PPR points per game (PPG), {MIN_GP}+ games played. Scroll for more.</p>
           <a class="pg-go" href="fantasy.html">All {len(lead)} players, every scoring format →</a>
         </div>
-        <a class="ff-cta" href="fantasy-draft.html"><span><b>Fantasy mock draft</b><span>Set your league: 4 to 16 teams, PPR, Superflex, dynasty and more.</span></span><i>Draft now →</i></a>
+        {FF_CTA}
         <dialog class="pop" id="pop" aria-label="Player">
           <button class="pop-close" id="pop-close" aria-label="Close">✕</button>
           <div id="pop-body"></div>

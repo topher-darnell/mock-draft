@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png?v=4">
   <meta name="theme-color" content="#10151C">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=39">
+  <link rel="stylesheet" href="style.css?v=40">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Big Head GM", "item": "https://bigheadgm.com/"}, {"@type": "ListItem", "position": 2, "name": "Fantasy", "item": "https://bigheadgm.com/fantasy.html"}, {"@type": "ListItem", "position": 3, "name": "Mock draft", "item": "https://bigheadgm.com/fantasy-draft.html"}]}</script>
 </head>
 <body class="info-page">
@@ -77,6 +77,10 @@
           <button class="secondary fd-quit" id="fd-quit">Settings</button>
         </div>
         <div class="fd-status" id="fd-status" role="status"></div>
+        <div class="fd-mine-wrap">
+          <div class="fd-mine-head"><h2 class="section-label">YOUR PICKS</h2><span class="fd-mine-count" id="fd-mine-count"></span></div>
+          <ol class="fd-mine" id="fd-mine"></ol>
+        </div>
         <div class="fd-cols">
           <div class="fd-main">
             <div class="in-chips fd-filters" id="fd-filters"></div>
@@ -139,7 +143,7 @@
   <script src="gm.js?v=5"></script>
   <script src="site.js?v=1"></script>
   <script src="newsletter.js?v=1"></script>
-  <script src="fantasy-draft.js?v=1"></script>
+  <script src="fantasy-draft.js?v=2"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>

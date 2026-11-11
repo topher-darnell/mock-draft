@@ -177,6 +177,7 @@
   }
 
   function yourTurn(pk) {
+    renderMine();
     status(`<b class="fd-hot">You're on the clock</b> · Pick ${label(pk)} (${pk.overall} overall). Tap Draft on a player.`, true);
     renderBoard();
   }
@@ -222,12 +223,35 @@
 
   function rosterHTML(players, opts = {}) {
     const { slots, bench } = bestLineup(players);
-    const row = (lab, p, cls = "") => `<li class="fd-slot ${cls}"><span class="fd-slot-l">${lab}</span>${p
+    const row = (lab, p, cls = "") => `<li class="fd-slot ${cls}${p ? " " + p.pos.toLowerCase() : ""}"><span class="fd-slot-l">${lab}</span>${p
       ? `<span class="fd-who"><b>${opts.links ? `<a href="${p.rookie ? "players/" : "fantasy/"}${p.slug}.html">${p.name}</a>` : p.name}</b><span>${p.pos} · ${p.rookie ? "Rookie" : p.team} · ${valueText(p)}</span></span>`
       : '<span class="fd-who fd-muted">Empty</span>'}</li>`;
     return slots.map((s) => row(s.label, s.p)).join("") + bench.map((p) => row("BN", p, "bn")).join("");
   }
-  function renderRoster() { $("fd-roster").innerHTML = rosterHTML(teams[mySlot] || []); }
+  function renderRoster() {
+    $("fd-roster").innerHTML = rosterHTML(teams[mySlot] || []);
+    renderMine();
+  }
+
+  // Your picks in draft order, plus the ones still coming, in a strip that's always near the top
+  function renderMine() {
+    const list = $("fd-mine");
+    const made = order.filter((pk) => pk.team === mySlot && pk.player);
+    const coming = order.filter((pk, i) => i >= nextPick && pk.team === mySlot);
+    const onClock = order[nextPick] && order[nextPick].team === mySlot;
+    $("fd-mine-count").textContent = `${made.length} of ${made.length + coming.length}`;
+    list.innerHTML = made.map((pk, k) => `
+      <li class="fd-chip ${pk.player.pos.toLowerCase()}${k === made.length - 1 ? " new" : ""}">
+        <span class="fd-chip-pk">${label(pk)}</span>
+        <span class="fd-chip-who"><b>${pk.player.name}</b><span>${pk.player.pos} · ${pk.player.rookie ? "Rookie" : pk.player.team}</span></span>
+      </li>`).join("") + coming.slice(0, 3).map((pk, k) => `
+      <li class="fd-chip next${k === 0 && onClock ? " now" : ""}">
+        <span class="fd-chip-pk">${label(pk)}</span>
+        <span class="fd-chip-who"><b>${k === 0 && onClock ? "On the clock" : k === 0 ? "Up next" : "Coming up"}</b><span>${pk.overall} overall</span></span>
+      </li>`).join("");
+    const last = list.querySelector(".fd-chip.new");
+    if (last) list.scrollLeft = Math.max(0, last.offsetLeft - 16);
+  }
 
   function renderFeed(pk) {
     const feed = $("fd-feed");
