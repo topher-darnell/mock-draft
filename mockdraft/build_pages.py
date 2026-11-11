@@ -1749,7 +1749,7 @@ def news_items():
 def news_li(r, depth=""):
     d = datetime.date.fromisoformat(r["date"])
     sl = slug(r["player"])
-    has = os.path.exists(os.path.join(DOCS, "fantasy", sl + ".html"))
+    has = sl in {slug(x["n"]) for x in fantasy.leaders()}   # every player with stats gets a fantasy page
     text = esc(r["text"])
     if has and r["player"] in r["text"]:                       # link the player's name to his fantasy page
         text = text.replace(esc(r["player"]), f'<a href="{depth}fantasy/{sl}.html">{esc(r["player"])}</a>', 1)
