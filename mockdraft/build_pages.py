@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "35", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "36", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1076,14 +1076,14 @@ def prospectle_page():
       </section>
 
       <section class="gm-panel" id="pl-game">
+        <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
+        <div class="pl-head" aria-hidden="true"><span>School</span><span>Conf</span><span>Pos</span><span>Ht</span><span>Wt</span><span>Class</span><span>Rank</span></div>
+        <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
         <div class="pl-search">
           <label class="sr-only" for="pl-input">Guess a 2027 prospect</label>
           <input id="pl-input" type="search" placeholder="Type a prospect's name" autocomplete="off" autocapitalize="words" spellcheck="false">
           <ul class="pl-suggest" id="pl-suggest" role="listbox" hidden></ul>
         </div>
-        <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
-        <div class="pl-head" aria-hidden="true"><span>School</span><span>Conf</span><span>Pos</span><span>Ht</span><span>Wt</span><span>Class</span><span>Rank</span></div>
-        <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
         <div class="pl-done" id="pl-done" hidden>
           <div class="pl-reveal">
             <span class="pl-gm" id="pl-gm"></span>
@@ -1104,7 +1104,7 @@ def prospectle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/prospectle.html", page("games/prospectle.html", "Prospectle: Guess the 2027 NFL Draft Prospect · Big Head GM",
           "Prospectle is a free daily NFL draft guessing game. Guess the mystery 2027 prospect in 8 tries using his school, conference, position, size, class and projected pick. Play daily or unlimited.",
-          body, nav="games/", scripts=("games/prospectle.js?v=3",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
+          body, nav="games/", scripts=("games/prospectle.js?v=5",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
 
 
 # ---------- NFL fantasy player profiles (docs/fantasy/<player>.html) ----------
@@ -1295,14 +1295,14 @@ def fantasle_page():
       </section>
 
       <section class="gm-panel" id="pl-game">
+        <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
+        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPG</span><span>TD</span><span>Yds</span><span>Rec</span></div>
+        <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
         <div class="pl-search">
           <label class="sr-only" for="pl-input">Guess an NFL player</label>
           <input id="pl-input" type="search" placeholder="Type a player's name" autocomplete="off" autocapitalize="words" spellcheck="false">
           <ul class="pl-suggest" id="pl-suggest" role="listbox" hidden></ul>
         </div>
-        <p class="in-note pl-count" id="pl-count">Guess 1 of 8</p>
-        <div class="pl-head" aria-hidden="true"><span>Team</span><span>Div</span><span>Pos</span><span>PPG</span><span>TD</span><span>Yds</span><span>Rec</span></div>
-        <ol class="pl-board" id="pl-board" aria-live="polite"></ol>
         <div class="pl-done" id="pl-done" hidden>
           <div class="pl-reveal">
             <span class="pl-gm" id="pl-gm"></span>
@@ -1324,7 +1324,7 @@ def fantasle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/fantasle.html", page("games/fantasle.html", "Fantasle: Guess the NFL Fantasy Player · Big Head GM",
           "Fantasle is a free daily NFL fantasy football guessing game. Guess the mystery player in 8 tries from his team, division, position, PPR points per game, touchdowns, yards and catches.",
-          body, nav="games/", scripts=("games/fantasle.js?v=3",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
+          body, nav="games/", scripts=("games/fantasle.js?v=5",), body_class="info-page game-page", og_title="Fantasle: guess today's mystery NFL fantasy player"))
 
 
 # ---------- home page: today's games and fantasy leaders ----------

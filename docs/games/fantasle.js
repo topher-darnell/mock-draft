@@ -100,7 +100,9 @@
 
   function render(animateLast) {
     $("pl-eyebrow").textContent = mode === "daily" ? `DAILY #${game.day}` : "UNLIMITED";
-    $("pl-board").innerHTML = game.guesses.map((n, i) => rowHTML(n, animateLast && i === game.guesses.length - 1)).reverse().join("");
+    // oldest guess on top, newest at the bottom (like Wordle)
+    $("pl-board").innerHTML = game.guesses.map((n, i) => rowHTML(n, animateLast && i === game.guesses.length - 1)).join("");
+    if (animateLast && !game.done) $("pl-input").scrollIntoView({ block: "nearest", behavior: "smooth" });
     $("pl-count").textContent = game.done ? "" : `Guess ${game.guesses.length + 1} of ${MAX}`;
     $("pl-input").disabled = game.done;
     $("pl-input").closest(".pl-search").hidden = game.done;

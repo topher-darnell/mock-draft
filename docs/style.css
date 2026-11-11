@@ -2315,3 +2315,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .home-team-go { margin-top: 3px; font-size: 11px; font-weight: 700; color: var(--accent); white-space: nowrap; }
 @media (min-width: 600px) { .home-team-city { font-size: 10px; } }
+
+/* Prospectle/Fantasle: the search box sits under the guesses, so suggestions open upward */
+.pl-board + .pl-search { margin-top: 12px; }
+.pl-board + .pl-search .pl-suggest { top: auto; bottom: calc(100% + 6px); }
