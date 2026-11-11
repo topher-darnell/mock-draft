@@ -14,6 +14,7 @@ That prints every row whose points don't match FFToday's own Half-PPR total.
 """
 
 import csv
+import unicodedata
 import math
 import os
 
@@ -26,7 +27,28 @@ STATS_AS_OF = "through Week 9 of the 2026 season"
 
 def read(name):
     with open(os.path.join(HERE, name), newline="", encoding="utf-8") as f:
-        return list(csv.DictReader(f))
+        rows = list(csv.DictReader(f))
+    if name == "fantasy_stats.csv":
+        teams = current_teams()
+        for r in rows:
+            r["team"] = teams.get(_key(r["name"]), r["team"])
+    return rows
+
+
+def current_teams():
+    """
+    Each player's team right now: the official weekly roster (fantasy_status.csv, from nflverse), except
+    for moves newer than that feed, which are in fantasy_teams.csv (name, team, date, source). That file
+    wins. Players in neither keep the team in fantasy_stats.csv.
+    """
+    out = {}
+    for fn, col in (("fantasy_status.csv", "team"), ("fantasy_teams.csv", "team")):
+        path = os.path.join(HERE, fn)
+        if os.path.exists(path):
+            with open(path, newline="", encoding="utf-8") as f:
+                for r in csv.DictReader(f):
+                    out[_key(r["name"])] = r[col]
+    return out
 
 
 def f(v):
@@ -173,7 +195,8 @@ def snapshots():
 
 def _key(name):
     """match names across sources: 'A.J. Brown' = 'AJ Brown', 'Kenneth Walker III' = 'Kenneth Walker'"""
-    n = name.lower().replace(".", "").replace("'", "").replace("-", " ")
+    n = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()   # Estimé -> Estime
+    n = n.lower().replace(".", "").replace("'", "").replace("-", " ")
     parts = [x for x in n.split() if x not in ("jr", "sr", "ii", "iii", "iv", "v")]
     return " ".join(parts)
 

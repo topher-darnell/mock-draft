@@ -64,15 +64,18 @@ def main():
             return list(csv.DictReader(io.StringIO(r.read().decode("utf-8"))))
     roster = [r for r in get(ROSTERS) if r["position"] in ("QB", "RB", "WR", "TE")]
     wk = max(int(r["week"]) for r in roster)
+    latest = {}                                   # each player's most recent roster row (his current team)
+    for r in sorted(roster, key=lambda r: int(r["week"])):
+        latest[r["full_name"]] = r
     report = {r["full_name"]: r for r in get(INJURIES) if r["week"] == str(wk)}
     with open(os.path.join(HERE, "fantasy_status.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["week", "name", "team", "roster", "report", "injury"])
-        for r in roster:
-            if r["week"] != str(wk):
-                continue
-            rep = report.get(r["full_name"], {})
-            w.writerow([wk, r["full_name"], TEAM.get(r["team"], r["team"]), r["status"],
+        for r in latest.values():
+            if r["status"] == "CUT" or int(r["week"]) < wk - 2:
+                continue                          # released, or not on a roster lately
+            rep = report.get(r["full_name"], {}) if r["week"] == str(wk) else {}
+            w.writerow([r["week"], r["full_name"], TEAM.get(r["team"], r["team"]), r["status"],
                         rep.get("report_status", ""), rep.get("report_primary_injury", "") or rep.get("practice_primary_injury", "")])
     print(f"roster status for week {wk} saved")
 

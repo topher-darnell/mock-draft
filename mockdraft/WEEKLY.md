@@ -53,7 +53,11 @@ List what you changed in the commit message.
    as 4 weeks out), the injury, the source and the date. Remove players who are playing again.
    Check every injured player who's in the top 60 of the rest-of-season rankings with two sources.
    Never guess a return week.
-6. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
+6. **Teams:** every player's current team comes from the official roster in `fantasy_status.csv`
+   (refreshed by `fetch_weekly.py`). For moves newer than that feed (trades or signings in the last few
+   days), add a row to `fantasy_teams.csv` (name, team, date, source), confirmed with two sources.
+   Delete rows once the roster feed shows the new team.
+7. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
    espn.com/nfl/team/roster/_/name/buf). About once a month, refresh everyone's age so birthdays count. The TE table has no rushing columns, so a
    TE that is off by a few points ran the ball: put the missing rushing yards/TDs on his row.
 
