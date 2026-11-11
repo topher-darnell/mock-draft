@@ -799,6 +799,7 @@ def fantasy_page():
     <p class="eyebrow">FANTASY FOOTBALL</p>
     <h1 class="in-title">Fantasy leaders and 2027 rookie rankings</h1>
     <p class="in-sub">Who's scoring the most fantasy points in 2026, and which 2027 rookies to target, for next season and for dynasty. Pick your league's scoring and everything on the page updates.</p>
+    <a class="ff-cta" href="fantasy-draft.html"><span><b>Fantasy mock draft</b><span>4 to 16 teams, PPR or Standard, Superflex, dynasty and rookie drafts.</span></span><i>Draft now →</i></a>
 
     <div class="ff-tabs" id="ff-tabs" role="tablist" aria-label="Show">
       <a href="#leaders" role="tab" data-tab="leaders" class="active" aria-selected="true">2026 leaders</a><a href="#next-year" role="tab" data-tab="next-year" aria-selected="false">Rookies for next season</a><a href="#dynasty" role="tab" data-tab="dynasty" aria-selected="false">Dynasty rookies</a>
@@ -1235,6 +1236,130 @@ def nfl_profiles():
     return paths
 
 
+# ---------- Fantasy mock draft (docs/fantasy-draft.html + fantasy-draft.js) ----------
+
+ROOKIE_PPG = (3.0, 0.135)    # rookie PPR points per game = 3 + 0.135 x our rookie score (top rookie WR ~ 16)
+
+
+def fantasy_draft_data():
+    """every player the fantasy mock can draft, with points per game in each scoring format"""
+    lead = fantasy.leaders()
+    ages = {r["name"]: int(r["age"]) for r in fantasy.read("nfl_ages.csv") if r["age"]}
+    fmts = [k for k, _ in fantasy.FORMATS]
+    vets, ratio = [], {}
+    for pos in ("QB", "RB", "WR", "TE"):
+        group = sorted([r for r in lead if r["p"] == pos and r["g"] >= 4], key=lambda r: -r["s"]["ppr"] / r["g"])
+        base = {k: sorted(r["s"][k] / r["g"] for r in group[:40])[len(group[:40]) // 2] for k in fmts}
+        ratio[pos] = {k: (sum(r["s"][k] for r in group[:30]) / max(1, sum(r["s"]["ppr"] for r in group[:30]))) for k in fmts}
+        for r in group + [r for r in lead if r["p"] == pos and 2 <= r["g"] < 4]:
+            # few games? pull toward an average starter so one big week doesn't make a star (worth 3 games)
+            ppg = [round((r["s"][k] + 3 * base[k]) / (r["g"] + 3), 2) for k in fmts]
+            if ppg[2] < 4:
+                continue
+            vets.append([r["n"], r["t"], pos, r["g"], ppg, ages.get(r["n"], 0), slug(r["n"])])
+    rooks = []
+    for x in fantasy.rookies():
+        a, b = ROOKIE_PPG
+        y1 = a + b * x["y1"]["ppr"]
+        dyn = a + b * x["dyn"]["ppr"]
+        rooks.append([x["n"], x["p"], x["c"], [round(y1 * ratio[x["p"]][k], 2) for k in fmts],
+                      [round(dyn * ratio[x["p"]][k], 2) for k in fmts],
+                      round(x["age"], 1) if x["age"] else 0, short(x["team"]) if x["team"] else "", slug(x["n"])])
+    return {"v": vets, "r": rooks}
+
+
+def fantasy_draft_page():
+    data = json.dumps(fantasy_draft_data(), separators=(",", ":")).replace("</", "<\\/")
+    chips = lambda name, opts, on: "".join(
+        f'<button class="filter{" active" if v == on else ""}" data-set="{name}" data-v="{v}" aria-pressed="{"true" if v == on else "false"}">{label}</button>'
+        for v, label in opts)
+    step = lambda key, label, lo, hi, v: (
+        f'<div class="fd-step" data-key="{key}" data-lo="{lo}" data-hi="{hi}"><span class="fd-step-label">{label}</span>'
+        f'<button class="fd-step-btn" data-d="-1" aria-label="Fewer {label}">−</button><b class="fd-step-v">{v}</b>'
+        f'<button class="fd-step-btn" data-d="1" aria-label="More {label}">+</button></div>')
+    body = f"""
+    <div class="fd" id="fd">
+      <section id="fd-setup">
+        <p class="eyebrow">FANTASY FOOTBALL</p>
+        <h1 class="in-title">Fantasy mock draft</h1>
+        <p class="in-sub">Set up your league, then draft against 3 to 15 computer managers. Free, no sign-up.</p>
+
+        <div class="fd-group"><h2 class="fd-h">Teams in your league</h2>
+          <div class="in-chips">{chips("teams", [(n, str(n)) for n in (4, 6, 8, 10, 12, 14, 16)], 12)}</div></div>
+        <div class="fd-group"><h2 class="fd-h">Your draft spot</h2>
+          <div class="in-chips" id="fd-slots"></div></div>
+        <div class="fd-group"><h2 class="fd-h">Scoring</h2>
+          <div class="in-chips">{chips("fmt", [("ppr", "PPR"), ("half", "Half PPR"), ("std", "Standard"), ("tep", "TE Premium")], "ppr")}</div></div>
+        <div class="fd-group"><h2 class="fd-h">League type</h2>
+          <div class="in-chips">{chips("kind", [("redraft", "Redraft 2027"), ("dynasty", "Dynasty startup"), ("rookie", "Rookie draft")], "redraft")}</div>
+          <p class="in-note" id="fd-kind-note"></p></div>
+        <div class="fd-group" id="fd-qb-group"><h2 class="fd-h">Quarterbacks</h2>
+          <div class="in-chips">{chips("qb", [("1qb", "1 QB"), ("sf", "Superflex"), ("2qb", "2 QB")], "1qb")}</div></div>
+        <div class="fd-group" id="fd-lineup-group"><h2 class="fd-h">Starting lineup</h2>
+          <div class="fd-steps">{step("rb", "RB", 1, 3, 2)}{step("wr", "WR", 1, 4, 2)}{step("te", "TE", 0, 2, 1)}{step("flex", "FLEX", 0, 3, 1)}{step("bench", "Bench", 0, 10, 6)}</div>
+          <p class="in-note">FLEX can be a RB, WR or TE. Kickers and defenses aren't drafted.</p></div>
+        <div class="fd-group" id="fd-rounds-group" hidden><h2 class="fd-h">Rounds</h2>
+          <div class="in-chips">{chips("rrounds", [(n, str(n)) for n in (2, 3, 4, 5)], 4)}</div></div>
+        <div class="fd-group"><h2 class="fd-h">Draft order</h2>
+          <div class="in-chips">{chips("order", [("snake", "Snake"), ("linear", "Linear"), ("third", "3rd-round reversal")], "snake")}</div></div>
+        <div class="fd-group"><h2 class="fd-h">Pick speed</h2>
+          <div class="in-chips">{chips("speed", [("fast", "Fast"), ("normal", "Normal"), ("slow", "Slow")], "normal")}</div></div>
+
+        <p class="fd-summary" id="fd-summary"></p>
+        <button class="start gm-wide" id="fd-start">Start the draft</button>
+        <p class="in-note">Rankings use 2026 points per game ({esc(fantasy.STATS_AS_OF)}), adjusted for age, plus our 2027 rookie rankings. <a href="fantasy.html">See the fantasy leaders</a>.</p>
+      </section>
+
+      <section id="fd-draft" hidden>
+        <div class="fd-top">
+          <div><p class="eyebrow" id="fd-eyebrow"></p><h1 class="fd-title" id="fd-title">Draft room</h1></div>
+          <button class="secondary fd-quit" id="fd-quit">Settings</button>
+        </div>
+        <div class="fd-status" id="fd-status" role="status"></div>
+        <div class="fd-cols">
+          <div class="fd-main">
+            <div class="in-chips fd-filters" id="fd-filters"></div>
+            <input class="fd-search" id="fd-search" type="search" placeholder="Search players" autocomplete="off" spellcheck="false" aria-label="Search players">
+            <ol class="fd-board" id="fd-board"></ol>
+            <div class="fd-bar">
+              <button class="secondary" id="fd-pause">Pause</button>
+              <button class="secondary" id="fd-auto">Auto-pick for me</button>
+            </div>
+          </div>
+          <aside class="fd-side">
+            <h2 class="section-label">YOUR TEAM</h2>
+            <ol class="fd-roster" id="fd-roster"></ol>
+            <h2 class="section-label">LATEST PICKS</h2>
+            <ol class="fd-feed" id="fd-feed"></ol>
+          </aside>
+        </div>
+      </section>
+
+      <section id="fd-results" hidden>
+        <p class="eyebrow" id="fd-r-eyebrow">DRAFT COMPLETE</p>
+        <div class="fd-grade" id="fd-grade"></div>
+        <h2 class="home-h2" id="fd-r-head">Your starting lineup</h2>
+        <ol class="fd-roster" id="fd-r-lineup"></ol>
+        <h2 class="home-h2">League power rankings</h2>
+        <p class="in-note" id="fd-power-note"></p>
+        <ol class="fd-power" id="fd-power"></ol>
+        <h2 class="home-h2">Full draft board</h2>
+        <div class="fd-grid-wrap"><table class="fd-grid" id="fd-grid"></table></div>
+        <div class="fd-again">
+          <button class="secondary" id="fd-settings">Change settings</button>
+          <button class="start" id="fd-again">Draft again</button>
+        </div>
+      </section>
+    </div>
+    <script id="fd-data" type="application/json">{data}</script>
+    {signup("fantasy-draft")}"""
+    desc = ("Free fantasy football mock draft for 2027. Pick 4, 6, 8, 10, 12, 14 or 16 teams, PPR, Half PPR, Standard or TE Premium, "
+            "Superflex or 2 QB, your own lineup, snake or linear, redraft, dynasty startup or rookie draft.")
+    return page("fantasy-draft.html", "Fantasy Football Mock Draft 2027 · PPR, Superflex, Dynasty · Big Head GM", desc,
+                body, crumbs=[("Fantasy", "fantasy.html"), ("Mock draft", "fantasy-draft.html")], nav="fantasy.html",
+                scripts=("fantasy-draft.js?v=1",))
+
+
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 
 DIVISION = {}
@@ -1446,6 +1571,7 @@ def home_blocks():
           <p class="hf-foot">Ranked by PPR points per game (PPG), {MIN_GP}+ games played. Scroll for more.</p>
           <a class="pg-go" href="fantasy.html">All {len(lead)} players, every scoring format →</a>
         </div>
+        <a class="ff-cta" href="fantasy-draft.html"><span><b>Fantasy mock draft</b><span>Set your league: 4 to 16 teams, PPR, Superflex, dynasty and more.</span></span><i>Draft now →</i></a>
         <dialog class="pop" id="pop" aria-label="Player">
           <button class="pop-close" id="pop-close" aria-label="Close">✕</button>
           <div id="pop-body"></div>
@@ -1586,7 +1712,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -1597,6 +1723,7 @@ def main():
         paths.append(f"teams/{slug(team)}.html")
     write("odds.html", odds_page())
     write("fantasy.html", fantasy_page())
+    write("fantasy-draft.html", fantasy_draft_page())
     games_pages()
     prospectle_page()
     fantasle_page()
