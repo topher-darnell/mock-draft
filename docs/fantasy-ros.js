@@ -38,16 +38,17 @@
     const posRank = {};
     $("rs-body").innerHTML = rows.slice(0, limit).map((p, i) => {
       posRank[p.p] = (posRank[p.p] || 0) + 1;
-      const cells = p.sched.map(([w, opp, m, a]) => {
+      const cells = p.sched.map(([w, opp, m, a]) => {   // m = matchup only; the QB change is in the projection
         const po = D.playoffs.includes(w) ? " po" : "";
         if (opp && a === 0) return `<td class="rs-m inj${po}" title="Week ${w}: expected to miss (injury)">OUT</td>`;
         const g = grade(m);
         return `<td class="rs-m ${g}${po}" title="Week ${w}: ${opp ? "vs " + (TEAM[opp] || opp) + " · " + word[g] : "bye"}">${opp || "BYE"}</td>`;
       }).join("");
       const out = injLabel(p) ? `<span class="rs-out">${injLabel(p)}</span>` : p.out ? `<span class="rs-out">Hasn't played since Week ${p.out}</span>` : "";
+      const qb = p.qb ? `<span class="rs-qb ${p.qb.m > 1 ? "up" : "down"}">New QB: ${esc(p.qb.name)}${p.qb.status === "expected" ? " (expected)" : ""} ${p.qb.m > 1 ? "↑" : "↓"}</span>` : "";
       return `<tr><td class="rs-rk">${i + 1}</td>` +
         `<th scope="row" class="rs-pl"><a href="fantasy/${p.slug}.html">${esc(p.n)}</a>` +
-        `<span>${p.p}${pos === "All" ? "" : posRank[p.p]} · ${esc(TEAM[p.t] || p.t)}</span>${out}</th>` +
+        `<span>${p.p}${pos === "All" ? "" : posRank[p.p]} · ${esc(TEAM[p.t] || p.t)}</span>${out}${qb}</th>` +
         `<td class="rs-proj">${p.ros[fmt].toFixed(0)}</td><td class="rs-ppg">${p.ppg[fmt].toFixed(1)}</td>${cells}</tr>`;
     }).join("") || `<tr><td colspan="12" class="ff-none">No players match.</td></tr>`;
     $("rs-more").hidden = rows.length <= limit;

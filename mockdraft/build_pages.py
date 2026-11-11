@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "45", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "46", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1417,7 +1417,7 @@ def fantasy_trade_page():
     d["inj"] = {}
     for r in ros["players"]:
         if r.get("inj"):
-            games = [a for w, opp, m, a in r["sched"] if opp]
+            games = [a for w, opp, m, a, q in r["sched"] if opp]
             d["inj"][slug(r["n"])] = [round(sum(games) / max(1, len(games)), 2), r["inj"]["s"], r["inj"].get("back", 0)]
     data = json.dumps(d, separators=(",", ":")).replace("</", "<\\/")
     chips = lambda name, opts, on: "".join(
@@ -1521,6 +1521,7 @@ def fantasy_ros_page():
       <ul class="gm-rules">
         <li><b>Matchups:</b> for each defense, we add up the fantasy points it has allowed to each position per game this season and compare it with an average defense. "Easy" gives up about 10% or more above average, "very tough" about 10% or more below.</li>
         <li><b>Projection:</b> a player's points per game (mostly his season average, with extra weight on his last 3 games) times each week's matchup, with 0 on his bye week.</li>
+        <li><b>New quarterbacks:</b> when a team changes starters (trade, injury, benching), its receivers and tight ends move halfway toward the change in quarterback scoring, and running backs a little, up to 15% either way. Marked "New QB" in the list.</li>
         <li><b>Injuries:</b> players on injured reserve or out get 0 for the weeks they're expected to miss (marked OUT), from the official NFL roster and injury report plus the latest news. Players out for the season, or not playing with no injury news, are hidden unless you turn them on. Injury news changes fast, so double-check before kickoff.</li>
       </ul>
       <div class="ff-ctas">{FF_TRADE_CTA}{FF_CTA}</div>
@@ -1532,7 +1533,7 @@ def fantasy_ros_page():
             "PPR, Half PPR, Standard and TE Premium.")
     return page("fantasy-ros.html", f"Rest of Season Fantasy Rankings 2026 · Playoff Schedules · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
-                scripts=("fantasy-ros.js?v=2",))
+                scripts=("fantasy-ros.js?v=3",))
 
 
 def fantasy_startsit_page():
@@ -1546,10 +1547,10 @@ def fantasy_startsit_page():
         when = f'{d0.strftime("%b")} {d0.day}–{d1.day}' if d0.month == d1.month else f'{d0.strftime("%b")} {d0.day}–{d1.strftime("%b")} {d1.day}'
     rows = []
     for r in ros["players"]:
-        w, opp, m, avail = r["sched"][0]
+        w, opp, m, avail, qm = r["sched"][0]
         t = recent.get(r["n"])
         rows.append({"n": r["n"], "t": r["t"], "p": r["p"], "slug": slug(r["n"]), "ppg": r["ppg"], "opp": opp, "m": m,
-                     "sd": r["sd"], "out": r["out"], "a": avail, "inj": r.get("inj"),
+                     "sd": r["sd"], "out": r["out"], "a": avail, "q": qm, "inj": r.get("inj"), "qb": r.get("qb"),
                      "hot": [t["was"]["ppr"], t["now"]["ppr"]] if t and t["g0"] >= 2 and t["gw"] >= 2 else None,
                      "use": [round(t["tgt"][0] + (t["car"][0] if r["p"] == "RB" else 0), 1),
                              round(t["tgt"][1] + (t["car"][1] if r["p"] == "RB" else 0), 1)] if t and t["g0"] >= 2 and t["gw"] >= 2 and r["p"] != "QB" else None})
@@ -1588,6 +1589,7 @@ def fantasy_startsit_page():
         <li><b>Projection</b> = his points per game (season average with extra weight on his last 3 games) times this week's matchup: how many fantasy points his opponent gives up to his position compared with an average defense.</li>
         <li><b>Range</b> is a normal bad week to a normal good week, from how much his scoring has swung this season.</li>
         <li><b>Lately</b> compares his last 3 games with the rest of the season. <b>Touches</b> are targets, plus carries for running backs.</li>
+        <li><b>New quarterbacks</b> (trades, injuries, benchings) move receivers' projections up or down, up to 15%.</li>
         <li><b>Injuries</b> come from the official NFL injury report and the latest news: out means 0, doubtful counts a quarter, questionable a little less than normal. Weather and late news aren't counted, so check before kickoff.</li>
       </ul>
       <div class="ff-ctas">{FF_ROS_CTA}{FF_TRADE_CTA}{FF_CTA}</div>
@@ -1599,7 +1601,7 @@ def fantasy_startsit_page():
             "with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
     return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Fantasy Start/Sit Tool · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
-                scripts=("fantasy-start-sit.js?v=4",))
+                scripts=("fantasy-start-sit.js?v=5",))
 
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 

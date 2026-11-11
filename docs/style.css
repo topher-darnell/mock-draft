@@ -2713,3 +2713,7 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .ss-search { margin: 12px 0 0; }
 @media (min-width: 900px) { .ff-ctas:has(> :nth-child(4)) { grid-template-columns: repeat(2, 1fr); } }
 .rs-m.inj { background: #2A1A1A; color: #F2876B; border: 1px solid rgba(242,135,107,0.5); }
+.rs-qb { display: block; font-size: 11px; font-weight: 700; }
+.ss-meta .rs-qb { display: inline; }
+.rs-qb.up { color: #6CD39A; } .rs-qb.down { color: #F2876B; }
+.rs-table tbody .rs-pl .rs-qb.up { color: #6CD39A; } .rs-table tbody .rs-pl .rs-qb.down { color: #F2876B; }

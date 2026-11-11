@@ -57,7 +57,11 @@ List what you changed in the commit message.
    (refreshed by `fetch_weekly.py`). For moves newer than that feed (trades or signings in the last few
    days), add a row to `fantasy_teams.csv` (name, team, date, source), confirmed with two sources.
    Delete rows once the roster feed shows the new team.
-7. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
+7. **New quarterbacks** (`fantasy_qbs.csv`): list every team whose starting QB changed from the one
+   who started most of its games (trade, injury, benching): team, qb, from_week, status (`named` once
+   the team says so, `expected` if reported but not announced), source, date. Remove a row once that
+   QB has started 4+ games for the team (his numbers are then in the team's season). Two sources.
+8. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
    espn.com/nfl/team/roster/_/name/buf). About once a month, refresh everyone's age so birthdays count. The TE table has no rushing columns, so a
    TE that is off by a few points ran the ball: put the missing rushing yards/TDs on his row.
 

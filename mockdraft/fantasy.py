@@ -288,6 +288,46 @@ def availability(inj, week, first_week):
     return 1.0
 
 
+
+# ---------- Quarterback changes ----------
+# fantasy_qbs.csv lists teams with a new starting QB (trade, injury, benching): team, qb, from_week.
+# Receivers' points depend a lot on who throws to them. For those teams we compare the new QB's
+# points per game with what the team's QBs scored per game all season (the QB play behind everyone's
+# numbers so far) and move pass catchers halfway toward that change (running backs a fifth of the way).
+
+QB_PULL = {"WR": 0.5, "TE": 0.5, "RB": 0.2, "QB": 0.0}
+
+
+def qb_changes(weekly):
+    """{team: {"qb", "from", "status", "mult": share of normal}} (mult is for a WR/TE)"""
+    path = os.path.join(HERE, "fantasy_qbs.csv")
+    if not os.path.exists(path):
+        return {}
+    team_games, qb_games = {}, {}
+    for r in weekly:
+        if r["pos"] != "QB":
+            continue
+        key = (r["team"], r["week"])
+        team_games[key] = team_games.get(key, 0) + points(r, "ppr")
+        qb_games.setdefault(_key(r["name"]), []).append(points(r, "ppr"))
+    starters = sorted((v for v in (sum(g) / len(g) for g in qb_games.values() if len(g) >= 4)), reverse=True)
+    fill_in = starters[min(len(starters) - 1, 23)]          # a QB24-level starter, for QBs with few games
+    out = {}
+    for r in read("fantasy_qbs.csv"):
+        t = r["team"]
+        games = [v for (tm, w), v in team_games.items() if tm == t]
+        old = sum(games) / len(games) if games else fill_in
+        mine = qb_games.get(_key(r["qb"]), [])
+        new = sum(mine) / len(mine) if len(mine) >= 3 else fill_in
+        out[t] = {"qb": r["qb"], "from": int(r["from_week"]), "status": r["status"],
+                  "change": round(new / max(1, old) - 1, 3)}
+    return out
+
+
+def qb_mult(change, pos):
+    return round(max(0.85, min(1.15, 1 + QB_PULL.get(pos, 0) * change)), 3)
+
+
 # ---------- Rest of season: projections with matchups and playoff schedules ----------
 # Every defense gets a matchup number per position: fantasy points it allows per game compared
 # with an average defense (1.10 = gives up 10% more). A player's projection for each remaining
@@ -354,6 +394,10 @@ def rest_of_season():
         base[pos] = grp[min(len(grp) - 1, {"QB": 15, "RB": 30, "WR": 40, "TE": 15}[pos])]
 
     hurt = injuries(weeks[0])
+    for r in weekly:                                        # positions for the QB math
+        me = ours.get(_key(r["name"]))
+        r["pos"] = me["pos"] if me else r["pos"]
+    qbs = qb_changes(weekly)
     players = []
     for me in ours.values():
         g = f(me["games"])
@@ -373,9 +417,11 @@ def rest_of_season():
         sched = []
         for w in weeks:
             opp = games.get(team, {}).get(w, "")
-            sched.append([w, opp, fac[pos].get(opp, 1.0) if opp else 0, availability(inj, w, weeks[0])])
-        ros = {k: round(sum(ppg[k] * m * a for _, _, m, a in sched), 1) for k in keys}
-        po = [m for w, _, m, _a in sched if w in PLAYOFF_WEEKS]
+            qb = qbs.get(team)
+            qm = qb_mult(qb["change"], pos) if qb and w >= qb["from"] and me["name"] != qb["qb"] else 1.0
+            sched.append([w, opp, fac[pos].get(opp, 1.0) if opp else 0, availability(inj, w, weeks[0]), qm])
+        ros = {k: round(sum(ppg[k] * m * a * q for _, _, m, a, q in sched), 1) for k in keys}
+        po = [m for w, _, m, _a, _q in sched if w in PLAYOFF_WEEKS]
         played = sorted(int(x["week"]) for x in gs)
         wk = [points(x, "ppr") for x in gs]
         if len(wk) >= 3:                                    # how much his week-to-week scoring swings
@@ -391,6 +437,8 @@ def rest_of_season():
             "sd": round(sd / max(0.1, ppg["ppr"]), 2),             # swing as a share of his PPR average
             "out": played[-1] if gs and missed >= 2 else 0,            # last week played, if he's missed 2+ games since
             "inj": {k: inj[k] for k in ("s", "back", "inj") if k in inj} if inj else None,
+            "qb": {"name": qbs[team]["qb"], "status": qbs[team]["status"], "m": qb_mult(qbs[team]["change"], pos)}
+                  if team in qbs and pos != "QB" and qb_mult(qbs[team]["change"], pos) != 1 else None,
         })
     return {"from": weeks[0], "to": weeks[-1], "playoffs": list(PLAYOFF_WEEKS), "players": players,
             "fac": fac, "sched": {t: {str(w): o for w, o in v.items() if w in weeks} for t, v in games.items()}}

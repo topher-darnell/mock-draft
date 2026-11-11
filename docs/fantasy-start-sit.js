@@ -22,7 +22,7 @@
 
   const grade = (m) => (!m ? "bye" : m >= 1.1 ? "g2" : m >= 1.04 ? "g1" : m > 0.96 ? "n" : m > 0.9 ? "r1" : "r2");
   const word = { g2: "Easy matchup", g1: "Good matchup", n: "Average matchup", r1: "Tough matchup", r2: "Very tough matchup", bye: "On bye" };
-  const proj = (p) => (p.m ? p.ppg[fmt] * p.m * (p.a == null ? 1 : p.a) : 0);
+  const proj = (p) => (p.m ? p.ppg[fmt] * p.m * (p.a == null ? 1 : p.a) * (p.q || 1) : 0);
   function injLabel(p) {
     const i = p.inj;
     if (!i) return "";
@@ -43,6 +43,8 @@
     if (b.a === 0) return [`${b.n} is out this week: ${injLabel(b).toLowerCase()}.`];
     if (b.a < 1 && b.inj) out.push(`${b.n} is ${b.inj.s} this week${b.inj.inj ? " (" + b.inj.inj.split(" (")[0].toLowerCase() + ")" : ""}.`);
     if (b.out) out.push(`${b.n} hasn't played since Week ${b.out}.`);
+    if (a.qb && a.qb.m > 1 && !(b.qb && b.qb.m > 1)) out.push(`New quarterback: ${a.qb.name}${a.qb.status === "expected" ? " is expected to start" : " takes over"}, an upgrade for ${a.n}.`);
+    if (b.qb && b.qb.m < 1) out.push(`${b.n}'s team has a new quarterback (${b.qb.name}), a step down.`);
     if (a.m - b.m >= 0.06) out.push(`Easier matchup: ${a.n} faces the ${TEAM[a.opp] || a.opp} (${word[grade(a.m)].replace(" matchup", "").toLowerCase()}), ${b.n} faces the ${TEAM[b.opp] || b.opp} (${word[grade(b.m)].replace(" matchup", "").toLowerCase()}).`);
     if (a.hot && b.hot && (a.hot[1] - a.hot[0]) - (b.hot[1] - b.hot[0]) >= 3) out.push(`Hotter lately: ${a.hot[1].toFixed(1)} PPR points a game in ${span}, up from ${a.hot[0].toFixed(1)}.`);
     if (a.use && b.use && a.use[1] - b.use[1] >= 3) out.push(`More touches lately: ${a.use[1].toFixed(1)} a game vs ${b.use[1].toFixed(1)}.`);
@@ -67,7 +69,7 @@
           <span class="ss-proj"><b>${proj(p).toFixed(1)}</b><i>${!p.m ? "bye" : p.a === 0 ? "out" : `${lo.toFixed(0)}–${hi.toFixed(0)} range`}</i></span>
           <button class="ft-x" data-rm="${p.slug}" aria-label="Remove ${esc(p.n)}">✕</button></div>
         <div class="ss-meta"><span class="rs-m ${g}">${p.opp ? "vs " + p.opp : "BYE"}</span><span>${word[g]}${p.opp ? ` (${esc(TEAM[p.opp] || p.opp)})` : ""}</span></div>
-        <div class="ss-meta">${lately}${out}</div>
+        <div class="ss-meta">${lately}${out}${p.qb ? `<span class="rs-qb ${p.qb.m > 1 ? "up" : "down"}">New QB: ${esc(p.qb.name)}${p.qb.status === "expected" ? " (expected)" : ""} ${p.qb.m > 1 ? "↑" : "↓"}</span>` : ""}</div>
       </li>`;
     }).join("") || '<li class="ft-empty">Add at least two players.</li>';
     verdict(ps, start);
