@@ -2559,3 +2559,4 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 @media (min-width: 900px) {
   .fd-mine { flex-wrap: wrap; margin: 0; padding: 0; overflow: visible; }
 }
+.fd-note { margin: -4px 0 6px; font-size: 12px; }

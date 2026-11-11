@@ -1262,7 +1262,8 @@ def fantasy_draft_data():
             ppg = [round((r["s"][k] + 3 * base[k]) / (r["g"] + 3), 2) for k in fmts]
             if ppg[2] < 4:
                 continue
-            vets.append([r["n"], r["t"], pos, r["g"], ppg, ages.get(r["n"], 0), slug(r["n"])])
+            real = [round(r["s"][k] / r["g"], 1) for k in fmts]     # what he's actually averaging, shown on the page
+            vets.append([r["n"], r["t"], pos, r["g"], ppg, ages.get(r["n"], 0), slug(r["n"]), real])
     rooks = []
     for x in fantasy.rookies():
         a, b = ROOKIE_PPG
@@ -1330,6 +1331,7 @@ def fantasy_draft_page():
           <div class="fd-main">
             <div class="in-chips fd-filters" id="fd-filters"></div>
             <input class="fd-search" id="fd-search" type="search" placeholder="Search players" autocomplete="off" spellcheck="false" aria-label="Search players">
+            <p class="in-note fd-note">PPG is what each player is averaging in 2026 in your scoring. Rookies show our 2027 projection. Rankings also factor in age.</p>
             <ol class="fd-board" id="fd-board"></ol>
             <div class="fd-bar">
               <button class="secondary" id="fd-pause">Pause</button>
@@ -1367,7 +1369,7 @@ def fantasy_draft_page():
             "Superflex or 2 QB, your own lineup, snake or linear, redraft, dynasty startup or rookie draft.")
     return page("fantasy-draft.html", "Fantasy Football Mock Draft 2027 · PPR, Superflex, Dynasty · Big Head GM", desc,
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Mock draft", "fantasy-draft.html")], nav="fantasy.html",
-                scripts=("fantasy-draft.js?v=2",))
+                scripts=("fantasy-draft.js?v=3",))
 
 
 # ---------- Fantasle (guess the NFL fantasy player) ----------

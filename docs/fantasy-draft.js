@@ -10,8 +10,8 @@
   const count = (path, title) => { try { window.BHG && BHG.countEvent(path, title); } catch (e) { /* ignore */ } };
 
   const ALL = [
-    ...raw.v.map(([name, team, pos, games, ppg, age, slug]) =>
-      ({ name, team, pos, games, ppg, dyn: null, age, slug, rookie: false })),
+    ...raw.v.map(([name, team, pos, games, ppg, age, slug, real]) =>
+      ({ name, team, pos, games, ppg, real, dyn: null, age, slug, rookie: false })),
     ...raw.r.map(([name, pos, college, ppg, dyn, age, team, slug]) =>
       ({ name, team: team || college, college, pos, ppg, dyn, age, slug, rookie: true })),
   ];
@@ -32,9 +32,9 @@
   function redraftMult(pos, age) {
     if (!age) return 1;
     const a = age + 1;   // a year older next season
-    const start = { QB: 36, RB: 28, WR: 30, TE: 31 }[pos];
-    const drop = { QB: 0.05, RB: 0.06, WR: 0.045, TE: 0.04 }[pos];
-    return a < start ? 1 : Math.max(0.55, 1 - drop * (a - start + 1));
+    const start = { QB: 37, RB: 30, WR: 31, TE: 32 }[pos];
+    const drop = { QB: 0.04, RB: 0.05, WR: 0.04, TE: 0.04 }[pos];
+    return a < start ? 1 : Math.max(0.6, 1 - drop * (a - start + 1));
   }
   // Dynasty: years of good football left matter as much as points now.
   function dynastyMult(pos, age) {
@@ -194,7 +194,9 @@
     (S.kind === "dynasty" ? " · DYNASTY" : S.kind === "rookie" ? " · ROOKIES" : "");
 
   // ---------- rendering ----------
-  const valueText = (p) => S.kind === "redraft" ? `${p.v.toFixed(1)} PPG` : `${p.v.toFixed(1)} value`;
+  // The number you see is real: what a veteran is averaging in 2026 in your scoring.
+  // Rookies haven't played yet, so they show our projection for 2027.
+  const valueText = (p) => p.rookie ? `${p.ppg[FMT[S.fmt]].toFixed(1)} proj` : `${p.real[FMT[S.fmt]].toFixed(1)} PPG`;
   const sub = (p) => p.rookie
     ? `${p.pos}${p.posRank} · Rookie · ${p.college}${p.team && p.team !== p.college ? " → " + p.team : ""}`
     : `${p.pos}${p.posRank} · ${p.team}${p.age ? " · " + p.age : ""}`;
@@ -285,7 +287,7 @@
       <span>${S.kind === "rookie" ? "Your rookies add up to" : "Your starters project to"} ${me.points.toFixed(1)} ${unit}. ${myRank === 1 ? "Nice draft." : `The top team is at ${scores[0].points.toFixed(1)}.`}</span></span>`;
     $("fd-r-head").textContent = S.kind === "rookie" ? "Your rookies" : "Your starting lineup";
     $("fd-power-note").textContent = S.kind === "rookie" ? "Total dynasty value of each team's rookies." :
-      S.kind === "dynasty" ? "Dynasty value of each team's best starting lineup." : "Projected points per week from each team's best starting lineup.";
+      S.kind === "dynasty" ? "Dynasty value of each team's best starting lineup." : "Projected 2027 points per week from each team's best starting lineup (adjusted for age).";
     $("fd-r-lineup").innerHTML = rosterHTML(teams[mySlot], { links: true });
     $("fd-power").innerHTML = scores.map((s, k) => {
       const stars = [...teams[s.t]].sort((a, b) => b.v - a.v).slice(0, 2).map((p) => p.name).join(", ");
