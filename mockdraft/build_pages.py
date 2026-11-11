@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "29", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "30", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1356,8 +1356,15 @@ def home_blocks():
     for pos in FF_POS_NAME:          # the top 30 at each position by PPR points per game
         keep += sorted([r for r in lead if r["p"] == pos and r["g"] >= MIN_GP], key=lambda r: -ppg(r))[:30]
     keep.sort(key=lambda r: -ppg(r))
+    prank = {}
+    for pos in FF_POS_NAME:
+        for i, r in enumerate(sorted([x for x in lead if x["p"] == pos], key=lambda x: -x["s"]["ppr"]), 1):
+            prank[r["n"]] = i
+    full = {FF_TEAM[a]: next(t for t in team_names if t.endswith(FF_TEAM[a])) for a in FF_TEAM}
     rows = "".join(
-        f'<li data-pos="{r["p"]}"><span class="hf-rk">{i}</span><span class="hf-name"><a class="hf-link" href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a>'
+        f'<li data-pos="{r["p"]}" data-team="{esc(full.get(FF_TEAM.get(r["t"], ""), r["t"]))}" data-posrank="{prank[r["n"]]}" '
+        f'data-ppg="{ppg(r):.1f}" data-pts="{r["s"]["ppr"]:.1f}" data-gp="{r["g"]}" data-half="{r["s"]["half"]:.1f}" '
+        f'data-std="{r["s"]["std"]:.1f}" data-line="{esc(r["line"])}"><span class="hf-rk">{i}</span><span class="hf-name"><a class="hf-link" href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a>'
         f'<span>{r["p"]} · {esc(FF_TEAM.get(r["t"], r["t"]))} · {r["s"]["ppr"]:.1f} pts · {r["g"]} GP</span></span>'
         f'<span class="hf-ppg"><b>{ppg(r):.1f}</b><span>PPG</span></span></li>'
         for i, r in enumerate(keep, 1))
@@ -1425,6 +1432,11 @@ def home_blocks():
           <p class="hf-foot">Ranked by PPR points per game (PPG), {MIN_GP}+ games played. Scroll for more.</p>
           <a class="pg-go" href="fantasy.html">All {len(lead)} players, every scoring format →</a>
         </div>
+        <dialog class="pop" id="pop" aria-label="Player">
+          <button class="pop-close" id="pop-close" aria-label="Close">✕</button>
+          <div id="pop-body"></div>
+        </dialog>
+        <script src="home-pop.js?v=1" defer></script>
         <script>
           (function () {{
             var list = document.getElementById("hf-list"), chips = document.querySelectorAll("#hf-pos .filter");

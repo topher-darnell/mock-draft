@@ -2267,3 +2267,28 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 
 #hm-rounds { flex-wrap: nowrap; gap: 5px; }
 #hm-rounds .filter { flex: 1 1 0; min-width: 0; padding: 0 4px; }
+
+/* ---------- home: player popup ---------- */
+.pop { width: min(440px, calc(100% - 24px)); max-height: 85vh; margin: auto; padding: 18px; border: 1px solid var(--line);
+  border-radius: 22px; background: #151B24; color: var(--text); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6); }
+.pop::backdrop { background: rgba(5, 8, 12, 0.7); backdrop-filter: blur(2px); }
+.pop[open] { animation: pop-in 0.2s ease both; }
+@keyframes pop-in { from { transform: translateY(16px) scale(0.98); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (max-width: 560px) { .pop { margin: auto auto 0; width: 100%; max-width: none; border-radius: 22px 22px 0 0; } }
+.pop-close { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: 0; border-radius: 50%;
+  background: #222A35; color: var(--text); font-size: 16px; cursor: pointer; }
+.pop-head { display: flex; align-items: center; gap: 14px; padding-right: 40px; }
+.pop-gm { flex: 0 0 auto; width: 72px; height: 72px; border-radius: 18px; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; }
+.pop-gm .gm { width: 72px; height: 86px; }
+.pop-eyebrow { margin: 0; font: 700 11px "Space Grotesk", sans-serif; letter-spacing: 0.08em; color: var(--accent); }
+.pop-name { margin: 2px 0; font: italic 900 26px/1.05 Inter, sans-serif; text-transform: uppercase; }
+.pop-meta { margin: 0; font-size: 14px; color: var(--muted); }
+.pop-pick { margin: 14px 0 0; padding: 10px 12px; border-radius: 12px; background: rgba(242, 169, 59, 0.12); font-size: 14px; }
+.pop-pick b { color: var(--accent); }
+.pop-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 14px 0 0; }
+.pop-facts div { padding: 8px 10px; border-radius: 12px; background: var(--card); }
+.pop-facts dt { font: 700 10px "Space Grotesk", sans-serif; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+.pop-facts dd { margin: 2px 0 0; font: 700 16px "Space Grotesk", sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pop-stats { margin: 12px 0 0; font-size: 14px; line-height: 1.45; color: #C9D1DB; }
+.pop-go { display: flex; justify-content: center; margin-top: 16px; text-decoration: none; }
+@media (prefers-reduced-motion: reduce) { .pop[open] { animation: none; } }
