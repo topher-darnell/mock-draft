@@ -18,17 +18,33 @@
   const grade = (m) => (!m ? "bye" : m >= 1.1 ? "g2" : m >= 1.04 ? "g1" : m > 0.96 ? "n" : m > 0.9 ? "r1" : "r2");
   const word = { g2: "Easy", g1: "Good", n: "Average", r1: "Tough", r2: "Very tough", bye: "Bye" };
 
+  // plain-English injury tag
+  function injLabel(p) {
+    const i = p.inj;
+    if (!i) return "";
+    const what = i.inj ? ` (${i.inj.split(" (")[0].toLowerCase()})` : "";
+    if (i.s === "season") return `Out for the season${what}`;
+    if (i.s === "ir") return `On IR${what}` + (i.back && i.back < 99 ? `, back about Week ${i.back}` : "");
+    if (i.s === "out") return `Out${what}` + (i.back ? ` until Week ${i.back}` : "");
+    if (i.s === "doubtful") return `Doubtful this week${what}`;
+    return `Questionable this week${what}`;
+  }
+
   function rankings() {
-    const rows = D.players.filter((p) => (pos === "All" || p.p === pos) && (showOut || !p.out))
+    // hidden unless turned on: out for the season, or not playing lately with no injury news
+    const gone = (p) => (p.inj && p.inj.s === "season") || (p.out && !p.inj);
+    const rows = D.players.filter((p) => (pos === "All" || p.p === pos) && (showOut || !gone(p)))
       .sort((a, b) => b.ros[fmt] - a.ros[fmt]);
     const posRank = {};
     $("rs-body").innerHTML = rows.slice(0, limit).map((p, i) => {
       posRank[p.p] = (posRank[p.p] || 0) + 1;
-      const cells = p.sched.map(([w, opp, m]) => {
-        const g = grade(m), po = D.playoffs.includes(w) ? " po" : "";
+      const cells = p.sched.map(([w, opp, m, a]) => {
+        const po = D.playoffs.includes(w) ? " po" : "";
+        if (opp && a === 0) return `<td class="rs-m inj${po}" title="Week ${w}: expected to miss (injury)">OUT</td>`;
+        const g = grade(m);
         return `<td class="rs-m ${g}${po}" title="Week ${w}: ${opp ? "vs " + (TEAM[opp] || opp) + " · " + word[g] : "bye"}">${opp || "BYE"}</td>`;
       }).join("");
-      const out = p.out ? `<span class="rs-out">Hasn't played since Week ${p.out}</span>` : "";
+      const out = injLabel(p) ? `<span class="rs-out">${injLabel(p)}</span>` : p.out ? `<span class="rs-out">Hasn't played since Week ${p.out}</span>` : "";
       return `<tr><td class="rs-rk">${i + 1}</td>` +
         `<th scope="row" class="rs-pl"><a href="fantasy/${p.slug}.html">${esc(p.n)}</a>` +
         `<span>${p.p}${pos === "All" ? "" : posRank[p.p]} · ${esc(TEAM[p.t] || p.t)}</span>${out}</th>` +

@@ -8,6 +8,7 @@
   const POS = ["QB", "RB", "WR", "TE"];
   const count = (path, title) => { try { window.BHG && BHG.countEvent(path, title); } catch (e) { /* ignore */ } };
 
+  const INJ = raw.inj || {};      // slug -> [share of remaining games available, status, back week]
   const ALL = [
     ...raw.v.map(([name, team, pos, games, ppg, age, slug, real]) =>
       ({ id: slug, name, team, pos, games, ppg, real, age, slug, rookie: false })),
@@ -49,7 +50,9 @@
       const group = pool.filter((p) => p.pos === pos).sort((a, b) => b.b - a.b);
       const repl = group[Math.min(group.length - 1, Math.floor(demand[pos]))].b;
       const discount = pos === "QB" && S.qb === "1qb" ? 0.55 : 1;
-      group.forEach((p, k) => { p.vor = (p.b - repl) * (p.b > repl ? discount : 1); p.posRank = k + 1; });
+      // redraft: an injured player's edge over a waiver pickup only counts for the games he'll play
+      const avail = (p) => (S.kind === "redraft" && INJ[p.slug] ? INJ[p.slug][0] : 1);
+      group.forEach((p, k) => { p.vor = (p.b - repl) * (p.b > repl ? discount * avail(p) : 1); p.posRank = k + 1; });
     }
     // stars are worth more than two good players: value grows faster than points
     for (const p of pool) p.raw = Math.pow(Math.max(0, p.vor + 1.5), 1.6);
@@ -89,7 +92,9 @@
     if (p.pick) return p.note;
     const i = FMT[S.fmt];
     const now = p.rookie ? "Rookie" : `'26 ${p.real[i].toFixed(1)} PPG`;
-    return `${p.pos}${p.posRank} · ${p.rookie ? p.team || p.college : p.team}${p.age ? " · " + Math.floor(p.age) : ""} · ${now}`;
+    const hurt = INJ[p.slug];
+    const tag = !hurt ? "" : hurt[1] === "season" ? " · Out for season" : hurt[1] === "ir" ? ` · On IR${hurt[2] && hurt[2] < 99 ? ", back ~Wk " + hurt[2] : ""}` : hurt[1] === "out" ? " · Out" : ` · ${hurt[1][0].toUpperCase() + hurt[1].slice(1)}`;
+    return `${p.pos}${p.posRank} · ${p.rookie ? p.team || p.college : p.team}${p.age ? " · " + Math.floor(p.age) : ""} · ${now}${tag}`;
   }
 
   function renderSide(which) {

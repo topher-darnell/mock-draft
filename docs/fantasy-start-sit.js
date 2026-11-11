@@ -22,7 +22,17 @@
 
   const grade = (m) => (!m ? "bye" : m >= 1.1 ? "g2" : m >= 1.04 ? "g1" : m > 0.96 ? "n" : m > 0.9 ? "r1" : "r2");
   const word = { g2: "Easy matchup", g1: "Good matchup", n: "Average matchup", r1: "Tough matchup", r2: "Very tough matchup", bye: "On bye" };
-  const proj = (p) => (p.m ? p.ppg[fmt] * p.m : 0);
+  const proj = (p) => (p.m ? p.ppg[fmt] * p.m * (p.a == null ? 1 : p.a) : 0);
+  function injLabel(p) {
+    const i = p.inj;
+    if (!i) return "";
+    const what = i.inj ? ` (${i.inj.split(" (")[0].toLowerCase()})` : "";
+    if (i.s === "season") return `Out for the season${what}`;
+    if (p.a === 0) return (i.s === "ir" ? "On IR" : "Out") + what + (i.back && i.back < 99 ? `. Expected back about Week ${i.back}` : "");
+    if (i.s === "doubtful") return `Doubtful${what}`;
+    if (i.s === "questionable") return `Questionable${what}`;
+    return "";
+  }
   const range = (p) => { const x = proj(p), s = p.sd * 0.85; return [Math.max(0, x * (1 - s)), x * (1 + s)]; };
   const span = D.span[0] ? (D.span[0] === D.span[1] ? `Week ${D.span[1]}` : `Weeks ${D.span[0]}–${D.span[1]}`) : "";
 
@@ -30,6 +40,8 @@
   function reasons(a, b) {
     const out = [];
     if (!b.m) return [`${b.n} is on bye this week.`];
+    if (b.a === 0) return [`${b.n} is out this week: ${injLabel(b).toLowerCase()}.`];
+    if (b.a < 1 && b.inj) out.push(`${b.n} is ${b.inj.s} this week${b.inj.inj ? " (" + b.inj.inj.split(" (")[0].toLowerCase() + ")" : ""}.`);
     if (b.out) out.push(`${b.n} hasn't played since Week ${b.out}.`);
     if (a.m - b.m >= 0.06) out.push(`Easier matchup: ${a.n} faces the ${TEAM[a.opp] || a.opp} (${word[grade(a.m)].replace(" matchup", "").toLowerCase()}), ${b.n} faces the ${TEAM[b.opp] || b.opp} (${word[grade(b.m)].replace(" matchup", "").toLowerCase()}).`);
     if (a.hot && b.hot && (a.hot[1] - a.hot[0]) - (b.hot[1] - b.hot[0]) >= 3) out.push(`Hotter lately: ${a.hot[1].toFixed(1)} PPR points a game in ${span}, up from ${a.hot[0].toFixed(1)}.`);
@@ -48,11 +60,11 @@
       const g = grade(p.m), [lo, hi] = range(p);
       const tag = i < start ? '<span class="ss-tag ss-go">START</span>' : '<span class="ss-tag ss-no">SIT</span>';
       const lately = p.hot ? `<span>Lately: ${p.hot[1].toFixed(1)} PPR a game (was ${p.hot[0].toFixed(1)})${p.use ? ` · ${p.use[1].toFixed(1)} touches (was ${p.use[0].toFixed(1)})` : ""}</span>` : "";
-      const out = p.out ? `<span class="ss-warn">Hasn't played since Week ${p.out}. Check his status.</span>` : "";
+      const out = injLabel(p) ? `<span class="ss-warn">${injLabel(p)}.</span>` : p.out ? `<span class="ss-warn">Hasn't played since Week ${p.out}. Check his status.</span>` : "";
       return `<li class="ss-card ${i < start ? "is-start" : "is-sit"}">
         <div class="ss-top">${tag}<span class="fd-pos ${p.p.toLowerCase()}">${p.p}</span>
           <span class="fd-who"><b><a href="fantasy/${p.slug}.html">${esc(p.n)}</a></b><span>${esc(TEAM[p.t] || p.t)}</span></span>
-          <span class="ss-proj"><b>${proj(p).toFixed(1)}</b><i>${p.m ? `${lo.toFixed(0)}–${hi.toFixed(0)} range` : "bye"}</i></span>
+          <span class="ss-proj"><b>${proj(p).toFixed(1)}</b><i>${!p.m ? "bye" : p.a === 0 ? "out" : `${lo.toFixed(0)}–${hi.toFixed(0)} range`}</i></span>
           <button class="ft-x" data-rm="${p.slug}" aria-label="Remove ${esc(p.n)}">✕</button></div>
         <div class="ss-meta"><span class="rs-m ${g}">${p.opp ? "vs " + p.opp : "BYE"}</span><span>${word[g]}${p.opp ? ` (${esc(TEAM[p.opp] || p.opp)})` : ""}</span></div>
         <div class="ss-meta">${lately}${out}</div>
@@ -123,7 +135,7 @@
   picked = (params.get("p") || "").split(",").filter((s) => bySlug[s]);
   if (!picked.length) {
     // example: two receivers who are close this week, so it shows a real decision
-    const wrs = D.players.filter((p) => p.p === "WR" && p.m && !p.out).sort((a, b) => proj(b) - proj(a));
+    const wrs = D.players.filter((p) => p.p === "WR" && p.m && !p.out && !p.inj).sort((a, b) => proj(b) - proj(a));
     picked = [wrs[14].slug, wrs[16].slug];
     $("ss-example").hidden = false;
   }

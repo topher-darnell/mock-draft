@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "44", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "45", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1411,7 +1411,15 @@ def fantasy_draft_page():
 
 
 def fantasy_trade_page():
-    data = json.dumps(fantasy_draft_data(), separators=(",", ":")).replace("</", "<\\/")
+    d = fantasy_draft_data()
+    ros = fantasy.rest_of_season()
+    # redraft: share of the rest of the season each injured player should be available, and why
+    d["inj"] = {}
+    for r in ros["players"]:
+        if r.get("inj"):
+            games = [a for w, opp, m, a in r["sched"] if opp]
+            d["inj"][slug(r["n"])] = [round(sum(games) / max(1, len(games)), 2), r["inj"]["s"], r["inj"].get("back", 0)]
+    data = json.dumps(d, separators=(",", ":")).replace("</", "<\\/")
     chips = lambda name, opts, on: "".join(
         f'<button class="filter{" active" if v == on else ""}" data-set="{name}" data-v="{v}" aria-pressed="{"true" if v == on else "false"}">{label}</button>'
         for v, label in opts)
@@ -1470,7 +1478,7 @@ def fantasy_trade_page():
             "1 QB or Superflex, redraft or dynasty with 2027 rookie picks.")
     return page("fantasy-trade.html", "Fantasy Football Trade Analyzer 2026 · Who Wins the Trade · Big Head GM", desc,
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Trade analyzer", "fantasy-trade.html")], nav="fantasy.html",
-                scripts=("fantasy-trade.js?v=2",))
+                scripts=("fantasy-trade.js?v=4",))
 
 
 def fantasy_ros_page():
@@ -1492,7 +1500,7 @@ def fantasy_ros_page():
       <div class="ff-bar"><p class="ff-label">Your scoring</p><div class="in-chips" id="rs-fmt">{fmt_btns}</div></div>
       <div class="rs-tools">
         <div class="in-chips" id="rs-pos">{pos_btns}</div>
-        <label class="rs-check"><input type="checkbox" id="rs-out"> Show players who haven't played lately</label>
+        <label class="rs-check"><input type="checkbox" id="rs-out"> Show players out for the season or not playing</label>
       </div>
       <div class="rs-key" aria-hidden="true"><span class="rs-m g2">Easy</span><span class="rs-m g1">Good</span><span class="rs-m n">Average</span><span class="rs-m r1">Tough</span><span class="rs-m r2">Very tough</span><span class="rs-m bye">BYE</span></div>
 
@@ -1513,7 +1521,7 @@ def fantasy_ros_page():
       <ul class="gm-rules">
         <li><b>Matchups:</b> for each defense, we add up the fantasy points it has allowed to each position per game this season and compare it with an average defense. "Easy" gives up about 10% or more above average, "very tough" about 10% or more below.</li>
         <li><b>Projection:</b> a player's points per game (mostly his season average, with extra weight on his last 3 games) times each week's matchup, with 0 on his bye week.</li>
-        <li>Injuries and depth chart news aren't counted. Players who haven't played in 2+ of their team's games are hidden unless you turn them on.</li>
+        <li><b>Injuries:</b> players on injured reserve or out get 0 for the weeks they're expected to miss (marked OUT), from the official NFL roster and injury report plus the latest news. Players out for the season, or not playing with no injury news, are hidden unless you turn them on. Injury news changes fast, so double-check before kickoff.</li>
       </ul>
       <div class="ff-ctas">{FF_TRADE_CTA}{FF_CTA}</div>
       <p class="od-fine">Stats and schedule: <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a> and FFToday, {esc(fantasy.STATS_AS_OF)}. Updated every Tuesday.</p>
@@ -1524,7 +1532,7 @@ def fantasy_ros_page():
             "PPR, Half PPR, Standard and TE Premium.")
     return page("fantasy-ros.html", f"Rest of Season Fantasy Rankings 2026 · Playoff Schedules · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
-                scripts=("fantasy-ros.js?v=1",))
+                scripts=("fantasy-ros.js?v=2",))
 
 
 def fantasy_startsit_page():
@@ -1538,10 +1546,10 @@ def fantasy_startsit_page():
         when = f'{d0.strftime("%b")} {d0.day}–{d1.day}' if d0.month == d1.month else f'{d0.strftime("%b")} {d0.day}–{d1.strftime("%b")} {d1.day}'
     rows = []
     for r in ros["players"]:
-        w, opp, m = r["sched"][0]
+        w, opp, m, avail = r["sched"][0]
         t = recent.get(r["n"])
         rows.append({"n": r["n"], "t": r["t"], "p": r["p"], "slug": slug(r["n"]), "ppg": r["ppg"], "opp": opp, "m": m,
-                     "sd": r["sd"], "out": r["out"],
+                     "sd": r["sd"], "out": r["out"], "a": avail, "inj": r.get("inj"),
                      "hot": [t["was"]["ppr"], t["now"]["ppr"]] if t and t["g0"] >= 2 and t["gw"] >= 2 else None,
                      "use": [round(t["tgt"][0] + (t["car"][0] if r["p"] == "RB" else 0), 1),
                              round(t["tgt"][1] + (t["car"][1] if r["p"] == "RB" else 0), 1)] if t and t["g0"] >= 2 and t["gw"] >= 2 and r["p"] != "QB" else None})
@@ -1580,7 +1588,7 @@ def fantasy_startsit_page():
         <li><b>Projection</b> = his points per game (season average with extra weight on his last 3 games) times this week's matchup: how many fantasy points his opponent gives up to his position compared with an average defense.</li>
         <li><b>Range</b> is a normal bad week to a normal good week, from how much his scoring has swung this season.</li>
         <li><b>Lately</b> compares his last 3 games with the rest of the season. <b>Touches</b> are targets, plus carries for running backs.</li>
-        <li>Injuries, weather and late news aren't counted. Check them before kickoff.</li>
+        <li><b>Injuries</b> come from the official NFL injury report and the latest news: out means 0, doubtful counts a quarter, questionable a little less than normal. Weather and late news aren't counted, so check before kickoff.</li>
       </ul>
       <div class="ff-ctas">{FF_ROS_CTA}{FF_TRADE_CTA}{FF_CTA}</div>
       <p class="od-fine">Stats and schedule: <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a> and FFToday, {esc(fantasy.STATS_AS_OF)}. Updated every Tuesday.</p>
@@ -1591,7 +1599,7 @@ def fantasy_startsit_page():
             "with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
     return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Fantasy Start/Sit Tool · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
-                scripts=("fantasy-start-sit.js?v=3",))
+                scripts=("fantasy-start-sit.js?v=4",))
 
 # ---------- Fantasle (guess the NFL fantasy player) ----------
 

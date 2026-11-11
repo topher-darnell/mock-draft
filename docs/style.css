@@ -2712,3 +2712,4 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .ss-warn { color: #F2876B; font-weight: 700; }
 .ss-search { margin: 12px 0 0; }
 @media (min-width: 900px) { .ff-ctas:has(> :nth-child(4)) { grid-template-columns: repeat(2, 1fr); } }
+.rs-m.inj { background: #2A1A1A; color: #F2876B; border: 1px solid rgba(242,135,107,0.5); }

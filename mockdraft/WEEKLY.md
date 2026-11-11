@@ -45,7 +45,15 @@ List what you changed in the commit message.
    the last week the stats count (two digits, e.g. `2026-w11.csv`). Never edit or delete old copies:
    they're a week-by-week record of the season totals.
 4. Run `python3 fantasy.py`: it must say "0 to check".
-5. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
+5. **Injuries** (`fantasy_injuries.csv`): `fetch_weekly.py` already saves the official roster
+   (injured reserve) and injury report in `fantasy_status.csv`. On top of that, search the news for
+   this week's fantasy injury report (e.g. Yahoo's "NFL Injury Report, Week N" and team news) and
+   update `fantasy_injuries.csv`: status `out`, `ir`, `season`, `doubtful` or `questionable`,
+   `back_week` = the first week he's expected to play (leave blank if no date; IR with no date counts
+   as 4 weeks out), the injury, the source and the date. Remove players who are playing again.
+   Check every injured player who's in the top 60 of the rest-of-season rankings with two sources.
+   Never guess a return week.
+6. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
    espn.com/nfl/team/roster/_/name/buf). About once a month, refresh everyone's age so birthdays count. The TE table has no rushing columns, so a
    TE that is off by a few points ran the ball: put the missing rushing yards/TDs on his row.
 

@@ -218,6 +218,53 @@ def trends():
 
 
 
+# ---------- Injuries ----------
+# fantasy_injuries.csv is our news-based list (updated every Tuesday): status out / ir / season /
+# doubtful / questionable, and back_week = the first week he's expected to play again.
+# fantasy_status.csv is the official roster (RES = injured reserve) and injury report from nflverse.
+# The news list wins when both have a player.
+
+IR_WEEKS = 4             # IR with no return date yet: assume he misses at least the next 4 weeks
+
+
+def injuries(first_week):
+    """{our player name: {"s": status, "back": week (0 = unknown, 99 = season), "inj": injury}}"""
+    ours = {_key(r["name"]): r["name"] for r in read("fantasy_stats.csv")}
+    out = {}
+    if os.path.exists(os.path.join(HERE, "fantasy_status.csv")):
+        for r in read("fantasy_status.csv"):
+            name = ours.get(_key(r["name"]))
+            if not name:
+                continue
+            rep = (r["report"] or "").lower()
+            if r["roster"] == "RES":
+                out[name] = {"s": "ir", "back": first_week + IR_WEEKS, "inj": r["injury"]}
+            elif rep in ("out", "doubtful", "questionable"):
+                out[name] = {"s": rep, "back": first_week + 1 if rep == "out" else 0, "inj": r["injury"]}
+    if os.path.exists(os.path.join(HERE, "fantasy_injuries.csv")):
+        for r in read("fantasy_injuries.csv"):
+            name = ours.get(_key(r["name"]))
+            if not name:
+                continue
+            st = r["status"]
+            back = int(r["back_week"]) if r["back_week"] else (99 if st == "season" else first_week + IR_WEEKS if st == "ir" else first_week + 1 if st == "out" else 0)
+            out[name] = {"s": st, "back": back, "inj": r["injury"], "src": r["source"], "date": r["date"]}
+    return out
+
+
+def availability(inj, week, first_week):
+    """share of a normal game we expect from him that week: 0 if out, less if he's iffy this week"""
+    if not inj:
+        return 1.0
+    if inj["back"] and week < inj["back"]:
+        return 0.0
+    if week == first_week and inj["s"] == "doubtful":
+        return 0.25
+    if week == first_week and inj["s"] == "questionable":
+        return 0.85
+    return 1.0
+
+
 # ---------- Rest of season: projections with matchups and playoff schedules ----------
 # Every defense gets a matchup number per position: fantasy points it allows per game compared
 # with an average defense (1.10 = gives up 10% more). A player's projection for each remaining
@@ -283,11 +330,13 @@ def rest_of_season():
         grp = sorted((points(m, "ppr") / f(m["games"]) for m in ours.values() if m["pos"] == pos and f(m["games"]) >= 4), reverse=True)
         base[pos] = grp[min(len(grp) - 1, {"QB": 15, "RB": 30, "WR": 40, "TE": 15}[pos])]
 
+    hurt = injuries(weeks[0])
     players = []
     for me in ours.values():
         g = f(me["games"])
         if g < 2:
             continue
+        inj = hurt.get(me["name"])
         pos, team = me["pos"], me["team"]
         gs = by_player.get(me["name"], [])
         recent = [x for x in gs if int(x["week"]) > last - 3]
@@ -301,9 +350,9 @@ def rest_of_season():
         sched = []
         for w in weeks:
             opp = games.get(team, {}).get(w, "")
-            sched.append([w, opp, fac[pos].get(opp, 1.0) if opp else 0])
-        ros = {k: round(sum(ppg[k] * m for _, _, m in sched), 1) for k in keys}
-        po = [m for w, _, m in sched if w in PLAYOFF_WEEKS]
+            sched.append([w, opp, fac[pos].get(opp, 1.0) if opp else 0, availability(inj, w, weeks[0])])
+        ros = {k: round(sum(ppg[k] * m * a for _, _, m, a in sched), 1) for k in keys}
+        po = [m for w, _, m, _a in sched if w in PLAYOFF_WEEKS]
         played = sorted(int(x["week"]) for x in gs)
         wk = [points(x, "ppr") for x in gs]
         if len(wk) >= 3:                                    # how much his week-to-week scoring swings
@@ -318,6 +367,7 @@ def rest_of_season():
             "po": round(sum(po) / len(po), 3) if po and all(po) else round(sum(po) / max(1, len(po)), 3),
             "sd": round(sd / max(0.1, ppg["ppr"]), 2),             # swing as a share of his PPR average
             "out": played[-1] if gs and missed >= 2 else 0,            # last week played, if he's missed 2+ games since
+            "inj": {k: inj[k] for k in ("s", "back", "inj") if k in inj} if inj else None,
         })
     return {"from": weeks[0], "to": weeks[-1], "playoffs": list(PLAYOFF_WEEKS), "players": players,
             "fac": fac, "sched": {t: {str(w): o for w, o in v.items() if w in weeks} for t, v in games.items()}}
