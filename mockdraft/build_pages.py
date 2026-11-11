@@ -1331,7 +1331,7 @@ def fantasy_draft_page():
           <div class="fd-main">
             <div class="in-chips fd-filters" id="fd-filters"></div>
             <input class="fd-search" id="fd-search" type="search" placeholder="Search players" autocomplete="off" spellcheck="false" aria-label="Search players">
-            <p class="in-note fd-note">PPG is what each player is averaging in 2026 in your scoring. Rookies show our 2027 projection. Rankings also factor in age.</p>
+            <p class="in-note fd-note"><b>'26 PPG</b> is what each player is averaging this season in your scoring. <b>'27 proj</b> is our projection for next season, adjusted for age (rookies included).</p>
             <ol class="fd-board" id="fd-board"></ol>
             <div class="fd-bar">
               <button class="secondary" id="fd-pause">Pause</button>
@@ -1369,7 +1369,7 @@ def fantasy_draft_page():
             "Superflex or 2 QB, your own lineup, snake or linear, redraft, dynasty startup or rookie draft.")
     return page("fantasy-draft.html", "Fantasy Football Mock Draft 2027 · PPR, Superflex, Dynasty · Big Head GM", desc,
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Mock draft", "fantasy-draft.html")], nav="fantasy.html",
-                scripts=("fantasy-draft.js?v=3",))
+                scripts=("fantasy-draft.js?v=4",))
 
 
 # ---------- Fantasle (guess the NFL fantasy player) ----------

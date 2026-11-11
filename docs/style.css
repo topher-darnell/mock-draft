@@ -2560,3 +2560,12 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
   .fd-mine { flex-wrap: wrap; margin: 0; padding: 0; overflow: visible; }
 }
 .fd-note { margin: -4px 0 6px; font-size: 12px; }
+.fd-val { display: flex; gap: 12px; }
+.fd-num { display: flex; flex-direction: column; align-items: flex-end; min-width: 44px; line-height: 1.1; }
+.fd-num b { font-size: 15px; color: var(--text); }
+.fd-num i { font-style: normal; font-size: 10px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.fd-num.proj b { color: var(--accent); }
+@media (max-width: 420px) { .fd-val { gap: 8px; } .fd-num { min-width: 38px; } .fd-num b { font-size: 14px; } }
+@media (max-width: 600px) {
+  .fd-row .fd-who b { white-space: normal; line-height: 1.15; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+}

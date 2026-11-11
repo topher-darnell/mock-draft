@@ -196,7 +196,13 @@
   // ---------- rendering ----------
   // The number you see is real: what a veteran is averaging in 2026 in your scoring.
   // Rookies haven't played yet, so they show our projection for 2027.
-  const valueText = (p) => p.rookie ? `${p.ppg[FMT[S.fmt]].toFixed(1)} proj` : `${p.real[FMT[S.fmt]].toFixed(1)} PPG`;
+  // Two numbers: what he's averaging in 2026 (real) and what we project for 2027 (age-adjusted).
+  const now26 = (p) => (p.rookie ? null : p.real[FMT[S.fmt]]);
+  const proj27 = (p) => (p.rookie ? p.ppg[FMT[S.fmt]] : p.ppg[FMT[S.fmt]] * redraftMult(p.pos, p.age));
+  const valueText = (p) => `${now26(p) == null ? "Rookie" : "'26 " + now26(p).toFixed(1)} · '27 proj ${proj27(p).toFixed(1)}`;
+  const valueHTML = (p) => `
+    <span class="fd-num"><b>${now26(p) == null ? "—" : now26(p).toFixed(1)}</b><i>'26 PPG</i></span>
+    <span class="fd-num proj"><b>${proj27(p).toFixed(1)}</b><i>'27 proj</i></span>`;
   const sub = (p) => p.rookie
     ? `${p.pos}${p.posRank} · Rookie · ${p.college}${p.team && p.team !== p.college ? " → " + p.team : ""}`
     : `${p.pos}${p.posRank} · ${p.team}${p.age ? " · " + p.age : ""}`;
@@ -212,7 +218,7 @@
         <span class="fd-rk">${p.rank}</span>
         <span class="fd-pos ${p.pos.toLowerCase()}">${p.pos}</span>
         <span class="fd-who"><b>${p.name}</b><span>${sub(p)}</span></span>
-        <span class="fd-val">${valueText(p)}</span>
+        <span class="fd-val">${valueHTML(p)}</span>
         ${mine ? `<button class="fd-draft" data-i="${pool.indexOf(p)}">Draft</button>` : ""}
       </li>`).join("") || '<li class="fd-empty">No players match.</li>';
   }
@@ -226,7 +232,7 @@
   function rosterHTML(players, opts = {}) {
     const { slots, bench } = bestLineup(players);
     const row = (lab, p, cls = "") => `<li class="fd-slot ${cls}${p ? " " + p.pos.toLowerCase() : ""}"><span class="fd-slot-l">${lab}</span>${p
-      ? `<span class="fd-who"><b>${opts.links ? `<a href="${p.rookie ? "players/" : "fantasy/"}${p.slug}.html">${p.name}</a>` : p.name}</b><span>${p.pos} · ${p.rookie ? "Rookie" : p.team} · ${valueText(p)}</span></span>`
+      ? `<span class="fd-who"><b>${opts.links ? `<a href="${p.rookie ? "players/" : "fantasy/"}${p.slug}.html">${p.name}</a>` : p.name}</b><span>${p.pos} · ${p.rookie ? p.team || "Rookie" : p.team} · ${valueText(p)}</span></span>`
       : '<span class="fd-who fd-muted">Empty</span>'}</li>`;
     return slots.map((s) => row(s.label, s.p)).join("") + bench.map((p) => row("BN", p, "bn")).join("");
   }
