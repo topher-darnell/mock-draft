@@ -76,19 +76,20 @@
   }
 
   function compare(g, a) {
-    const num = (gv, av, near) => {
+    // up/down plus a word saying how the MYSTERY player compares to your guess
+    const num = (gv, av, near, up, down) => {
       const d = av - gv;
-      return { c: d === 0 ? "g" : Math.abs(d) <= near ? "y" : "x", arrow: d > 0 ? "↑" : d < 0 ? "↓" : "" };
+      return { c: d === 0 ? "g" : Math.abs(d) <= near ? "y" : "x", arrow: d > 0 ? "↑" : d < 0 ? "↓" : "", word: d > 0 ? up : d < 0 ? down : "" };
     };
     const cg = CLASSES.indexOf(g.cls), ca = CLASSES.indexOf(a.cls);
     return [
       { v: g.school, c: g.school === a.school ? "g" : "x" },
       { v: CONF_SHORT[g.conf] || g.conf, c: g.conf === a.conf ? "g" : "x" },
       { v: g.pos, c: g.pos === a.pos ? "g" : GROUP[g.pos] === GROUP[a.pos] ? "y" : "x" },
-      Object.assign({ v: g.ht ? `${Math.floor(g.ht / 12)}-${g.ht % 12}` : "?" }, num(g.ht, a.ht, 2)),
-      Object.assign({ v: g.wt || "?" }, num(g.wt, a.wt, 10)),
-      Object.assign({ v: CLASS_SHORT[g.cls] || g.cls }, num(cg, ca, 1)),
-      Object.assign({ v: `#${g.rank}` }, num(g.rank, a.rank, 10)),
+      Object.assign({ v: g.ht ? `${Math.floor(g.ht / 12)}-${g.ht % 12}` : "?" }, num(g.ht, a.ht, 2, "Taller", "Shorter")),
+      Object.assign({ v: g.wt || "?" }, num(g.wt, a.wt, 10, "Heavier", "Lighter")),
+      Object.assign({ v: CLASS_SHORT[g.cls] || g.cls }, num(cg, ca, 1, "Older", "Younger")),
+      Object.assign({ v: `#${g.rank}` }, num(-g.rank, -a.rank, 10, "Better", "Worse")),
     ];
   }
 
@@ -97,7 +98,7 @@
   function rowHTML(name, animate) {
     const g = byName.get(name), a = byName.get(game.answer);
     const cells = compare(g, a).map((x, i) =>
-      `<span class="pl-tile ${x.c}${animate ? " flip" : ""}" style="--i:${i}">${esc(x.v)}${x.arrow && x.c !== "g" ? `<b>${x.arrow}</b>` : ""}</span>`).join("");
+      `<span class="pl-tile ${x.c}${animate ? " flip" : ""}" style="--i:${i}">${esc(x.v)}${x.arrow && x.c !== "g" ? `<b>${x.arrow}<small>${x.word}</small></b>` : ""}</span>`).join("");
     return `<li class="pl-row${name === game.answer ? " win" : ""}"><span class="pl-guess">${esc(name)}</span><span class="pl-tiles">${cells}</span></li>`;
   }
 

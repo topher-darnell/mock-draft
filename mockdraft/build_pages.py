@@ -31,7 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "30", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "31", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1049,7 +1049,7 @@ def prospectle_page():
         <ul class="gm-rules">
           <li><span class="pl-key g"></span> <b>Green</b>: exact match.</li>
           <li><span class="pl-key y"></span> <b>Yellow</b>: close. Same position group, height within 2 inches, weight within 10 lbs, class one year off, big board rank within 10.</li>
-          <li><b>↑</b> means the mystery player's number is higher. <b>↓</b> means it's lower.</li>
+          <li>Arrows and words tell you about the <b>mystery player</b> compared with your guess: <b>↑ Taller / ↓ Shorter</b>, <b>↑ Heavier / ↓ Lighter</b>, <b>↑ Older / ↓ Younger</b> (class), and <b>↑ Better / ↓ Worse</b> for big board rank (better means closer to #1).</li>
           <li><b>Rank</b> is his spot on the 2027 big board (#1 is the top prospect). <b>↑</b> means the mystery player is ranked lower (a bigger number).</li>
         </ul>
         <p class="pg-text">The daily player is the same for everyone and changes at midnight Eastern. Unlimited gives you a new player every round.</p>
@@ -1092,7 +1092,7 @@ def prospectle_page():
     <script type="application/json" id="pl-data">{data}</script>"""
     write("games/prospectle.html", page("games/prospectle.html", "Prospectle: Guess the 2027 NFL Draft Prospect · Big Head GM",
           "Prospectle is a free daily NFL draft guessing game. Guess the mystery 2027 prospect in 8 tries using his school, conference, position, size, class and projected pick. Play daily or unlimited.",
-          body, nav="games/", scripts=("games/prospectle.js?v=2",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
+          body, nav="games/", scripts=("games/prospectle.js?v=3",), body_class="info-page game-page", og_title="Prospectle: guess today's mystery 2027 NFL Draft prospect"))
 
 
 # ---------- NFL fantasy player profiles (docs/fantasy/<player>.html) ----------

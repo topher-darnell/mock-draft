@@ -2292,3 +2292,6 @@ button:focus-visible, a:focus-visible, [role="button"]:focus-visible {
 .pop-stats { margin: 12px 0 0; font-size: 14px; line-height: 1.45; color: #C9D1DB; }
 .pop-go { display: flex; justify-content: center; margin-top: 16px; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) { .pop[open] { animation: none; } }
+
+.pl-tile b { display: flex; flex-direction: column; align-items: center; }
+.pl-tile b small { margin-top: 1px; font: 800 8px/1 Inter, sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
