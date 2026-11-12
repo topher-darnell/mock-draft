@@ -29,10 +29,49 @@ def read(name):
     with open(os.path.join(HERE, name), newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     if name == "fantasy_stats.csv":
+        rows += missing_players({_key(r["name"]) for r in rows})
         teams = current_teams()
         for r in rows:
             r["team"] = teams.get(_key(r["name"]), r["team"])
     return rows
+
+
+ADD_MIN_TOTAL = 15.0      # PPR points this season, or...
+ADD_MIN_LAST = 6.0        # ...PPR points in the latest week (a rookie's debut, a new starter)
+
+
+def missing_players(have):
+    """
+    fantasy_stats.csv is typed in from FFToday's leader pages, so it misses newer and smaller names
+    (a rookie back from injury, a backup who just took over). Add anyone in the weekly stats who has
+    scored enough to matter, with his season totals added up from those weeks.
+    """
+    path = os.path.join(HERE, "fantasy_weekly.csv")
+    if not os.path.exists(path):
+        return []
+    with open(path, newline="", encoding="utf-8") as fh:
+        weekly = list(csv.DictReader(fh))
+    last = max(int(r["week"]) for r in weekly)
+    sums = {}
+    for r in weekly:
+        k = _key(r["name"])
+        if k in have or r["pos"] not in ("QB", "RB", "WR", "TE"):
+            continue
+        t = sums.setdefault(k, {"name": r["name"], "team": r["team"], "pos": r["pos"], "games": 0, "last": 0.0,
+                                **{c: 0.0 for c in ("pass_yds", "pass_td", "int", "rush_yds", "rush_td", "rec", "rec_yds", "rec_td")}})
+        t["games"] += 1
+        t["team"] = r["team"]
+        for c in ("pass_yds", "pass_td", "int", "rush_yds", "rush_td", "rec", "rec_yds", "rec_td"):
+            t[c] += f(r[c])
+        if int(r["week"]) == last:
+            t["last"] = points(r, "ppr")
+    out = []
+    for t in sums.values():
+        if points(t, "ppr") >= ADD_MIN_TOTAL or t["last"] >= ADD_MIN_LAST:
+            row = {k: (str(int(v)) if isinstance(v, float) and v == int(v) else str(v)) for k, v in t.items() if k != "last"}
+            row["fftoday_half"] = ""
+            out.append(row)
+    return out
 
 
 def current_teams():
@@ -401,7 +440,7 @@ def rest_of_season():
     players = []
     for me in ours.values():
         g = f(me["games"])
-        if g < 2:
+        if g < 1:
             continue
         inj = hurt.get(me["name"])
         pos, team = me["pos"], me["team"]
