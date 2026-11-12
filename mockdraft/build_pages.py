@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "51", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "52", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1762,10 +1762,10 @@ def gameday_data():
         p = r["p"]
         start_cut, flex_cut = GD_CUT[p["p"]]
         inj = p.get("inj") or {}
-        if not r["opp"]:
-            call, why = "BYE", f"Bye in Week {wk}"
-        elif r["a"] == 0:
+        if r["a"] == 0:
             call, why = "OUT", INJ_WORD.get(inj.get("s"), "Out") + (f": {inj['inj']}" if inj.get("inj") else "")
+        elif not r["opp"]:
+            call, why = "BYE", ""
         elif p["n"] in called:
             call, why = called[p["n"]]
         elif (p.get("fill") or {}).get(wk) and r["rk"] <= flex_cut:
@@ -1774,13 +1774,14 @@ def gameday_data():
             why = f"More work with {names} out (projected {p['p']}{r['rk']})"
         else:
             call = "START" if r["rk"] <= start_cut else "FLEX" if r["rk"] <= flex_cut else "SIT"
-            why = f"Projected {p['p']}{r['rk']} this week" + {"START": "", "FLEX": ", fine as a flex", "SIT": ""}[call]
+            why = f"Projected {p['p']}{r['rk']} this week"
             if inj.get("s") in ("questionable", "doubtful"):
                 why = INJ_WORD[inj["s"]] + (f" ({inj['inj'].lower()})" if inj.get("inj") else "")
         n = news.get(p["n"])
-        out.append([p["n"], p["t"], p["p"], slug(p["n"]), round(r["proj"], 1), r["opp"], se_matchup(r["m"]) if r["opp"] else "",
+        k = (r["proj"] / p["ppg"]["ppr"]) if p["ppg"]["ppr"] else 0
+        out.append([p["n"], p["t"], p["p"], slug(p["n"]), [round(p["ppg"][f] * k, 1) for f in ("std", "half", "ppr")], r["opp"], se_matchup(r["m"]) if r["opp"] else "",
                     call, r["rk"], why, [n["kind"], n["text"], n["date"]] if n else None])
-    out.sort(key=lambda x: -x[4])
+    out.sort(key=lambda x: -x[4][2])
     return {"week": wk, "players": out}
 
 
@@ -1797,19 +1798,25 @@ def lineup_card():
             <p>Add your players and we'll tell you who to start every week, plus injuries and news on your guys.</p>
             <button class="hero-start gd-add" id="gd-add">Add your players</button>
           </div>
-          <ol class="gd-list" id="gd-list"></ol>
           <div class="gd-editor" id="gd-editor" hidden>
+            <div class="gd-set">
+              <p class="gd-sub">Your league</p>
+              <div class="gd-slots" id="gd-slots"></div>
+              <div class="in-chips gd-fmt" id="gd-fmt" aria-label="Scoring"></div>
+            </div>
+            <p class="gd-sub">Your players</p>
             <div class="ft-search gd-search">
               <label class="sr-only" for="gd-q">Add a player</label>
               <input id="gd-q" type="search" placeholder="+ Search for a player" autocomplete="off" spellcheck="false">
               <ul class="ft-sug" id="gd-sug" role="listbox" hidden></ul>
             </div>
-            <button class="hero-start gd-done" id="gd-done">Done</button>
           </div>
+          <ol class="gd-list" id="gd-list"></ol>
+          <button class="hero-start gd-done" id="gd-done" hidden>Done</button>
           <div class="gd-news" id="gd-news" hidden><h3 class="gd-sub">News on your players</h3><ol class="nw-list" id="gd-news-list"></ol></div>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=2" defer></script>
+          <script src="gameday.js?v=4" defer></script>
         </section>"""
 
 

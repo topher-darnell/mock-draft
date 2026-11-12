@@ -2827,8 +2827,33 @@ a.gd-tool:hover { border-color: #3A4656; }
   .gd-home .gd-empty { display: flex; align-items: center; gap: 24px; }
   .gd-home .gd-empty p { margin: 0; flex: 1 1 auto; }
   .gd-home .gd-add { width: auto; flex: 0 0 auto; }
-  .gd-home .gd-editor { flex-direction: row; align-items: center; }
   .gd-home .gd-search { flex: 1 1 auto; }
-  .gd-home .gd-done { width: auto; flex: 0 0 140px; }
+  .gd-home .gd-done { width: auto; align-self: flex-start; min-width: 160px; }
+  .gd-slots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 }
+
+/* lineup: starting spots, bench and league settings */
+.gd-slot { flex: 0 0 auto; width: 40px; font-size: 11px; font-weight: 800; letter-spacing: 0.04em; color: var(--muted); }
+.gd-p.gd-bench { opacity: 0.82; }
+.gd-open { border: 1px dashed #3A4656; background: transparent; }
+.gd-open .gd-pmain b { font-size: 14px; color: var(--muted); }
+.gd-sep { list-style: none; margin: 8px 0 0; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.gd-call.BENCH { background: #2A3442; color: var(--text); }
+.gd-set { display: flex; flex-direction: column; gap: 10px; }
+.gd-set .gd-sub, .gd-editor > .gd-sub { margin: 0; }
+.gd-slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.gd-step { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: var(--bg); border-radius: 12px; padding: 6px 6px 6px 12px; font-size: 13px; font-weight: 600; }
+.gd-stepper { display: flex; align-items: center; gap: 4px; }
+.gd-stepper b { min-width: 18px; text-align: center; font-size: 15px; }
+.gd-stepper button { width: 36px; height: 36px; border: 1px solid #3A4656; border-radius: 10px; background: transparent; color: var(--text); font: 700 18px Inter, sans-serif; cursor: pointer; }
+.gd-stepper button:disabled { opacity: 0.35; cursor: default; }
+.gd-fmt { flex-wrap: wrap; }
+@media (min-width: 900px) { .gd-home .gd-slots { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.gd-pos.gd-flex { min-width: 34px; }
+.gd-edit-row { padding: 6px 6px 6px 12px; }
+.gd-edit-row .gd-name { font-size: 15px; }
+.gd-edit-row .gd-x { width: 40px; height: 40px; }
+.gd-sep { grid-column: 1 / -1; }
+.gd-step { flex-direction: column; align-items: stretch; gap: 6px; padding: 8px; text-align: center; }
+.gd-stepper { justify-content: space-between; }
