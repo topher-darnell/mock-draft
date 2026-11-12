@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "50", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "51", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1779,84 +1779,63 @@ def gameday_data():
     return {"week": wk, "players": out}
 
 
-def home_preview_page():
-    d = gameday_data()
-    wk = d["week"]
-    tr = fantasy.trends()
+def lineup_card():
+    """the "Your lineup this week" card; gameday.js fills it from the player's saved team"""
+    data = json.dumps(gameday_data(), separators=(",", ":")).replace("</", "<\\/")
+    return f"""
+        <section class="gd-card gd-team" aria-labelledby="gd-team-h">
+          <div class="gd-row">
+            <h2 class="gd-h" id="gd-team-h">Your lineup this week</h2>
+            <button class="gd-link" id="gd-edit" hidden>Edit team</button>
+          </div>
+          <div id="gd-empty" class="gd-empty">
+            <p>Add your players and we'll tell you who to start every week, plus injuries and news on your guys.</p>
+            <button class="hero-start gd-add" id="gd-add">Add your players</button>
+          </div>
+          <ol class="gd-list" id="gd-list"></ol>
+          <div class="gd-editor" id="gd-editor" hidden>
+            <div class="ft-search gd-search">
+              <label class="sr-only" for="gd-q">Add a player</label>
+              <input id="gd-q" type="search" placeholder="+ Search for a player" autocomplete="off" spellcheck="false">
+              <ul class="ft-sug" id="gd-sug" role="listbox" hidden></ul>
+            </div>
+            <button class="hero-start gd-done" id="gd-done">Done</button>
+          </div>
+          <div class="gd-news" id="gd-news" hidden><h3 class="gd-sub">News on your players</h3><ol class="nw-list" id="gd-news-list"></ol></div>
+          <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
+          <script type="application/json" id="gd-data">{data}</script>
+          <script src="gameday.js?v=2" defer></script>
+        </section>"""
+
+
+def gd_tools():
     hot = ""
+    tr = fantasy.trends()
     if tr["ready"]:
         up = sorted([t for t in tr["players"] if t["g0"] >= 2 and t["gw"] >= 2], key=lambda t: t["was"]["ppr"] - t["now"]["ppr"])
         hot = f'{up[0]["n"].split()[-1]} is heating up' if up else ""
-    data = json.dumps(d, separators=(",", ":")).replace("</", "<\\/")
-    when = startsit_when(wk)
+    return f"""
+        <section class="gd-phone" aria-labelledby="gd-tools-h">
+          <h2 class="gd-h" id="gd-tools-h">Tools</h2>
+          <div class="gd-tools">
+            <a class="gd-card gd-tool" href="fantasy-trade.html"><b>Trade analyzer</b><span>Who wins the deal?</span></a>
+            <a class="gd-card gd-tool" href="fantasy-start-sit.html"><b>Start or sit</b><span>Pick between two</span></a>
+            <a class="gd-card gd-tool" href="fantasy-ros.html"><b>Rest of season</b><span>Playoff schedules</span></a>
+            <a class="gd-card gd-tool" href="fantasy.html#trending"><b>Trending</b><span>{esc(hot or "Who's hot and cold")}</span></a>
+            <a class="gd-card gd-tool" href="fantasy-draft.html"><b>Fantasy mock</b><span>Practice your draft</span></a>
+            <a class="gd-card gd-tool" href="?start=1"><b>2027 mock draft</b><span>You're on the clock</span></a>
+          </div>
+        </section>"""
+
+
+def gd_tabs():
     tab = lambda href, label, icon, on=False: (f'<a href="{href}"{" aria-current=\"page\"" if on else ""}>'
                                               f'<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">{icon}</svg>{label}</a>')
-    body = f"""
-    <div class="gd">
-      <p class="gd-preview">Test page: the new home page design. Not live yet.</p>
-      <div class="gd-top">
-        <p class="eyebrow">FANTASY FOOTBALL · WEEK {wk}{(" · " + when.upper()) if when else ""}</p>
-      </div>
-      <div class="gd-grid">
-        <div class="gd-col">
-          <section class="gd-card gd-team" aria-labelledby="gd-team-h">
-            <div class="gd-row">
-              <h1 class="gd-h" id="gd-team-h">Your lineup this week</h1>
-              <button class="gd-link" id="gd-edit" hidden>Edit team</button>
-            </div>
-            <div id="gd-empty" class="gd-empty">
-              <p>Add your players and we'll tell you who to start every week, plus injuries and news on your guys.</p>
-              <button class="hero-start gd-add" id="gd-add">Add your players</button>
-            </div>
-            <ol class="gd-list" id="gd-list"></ol>
-            <div class="gd-editor" id="gd-editor" hidden>
-              <div class="ft-search gd-search">
-                <label class="sr-only" for="gd-q">Add a player</label>
-                <input id="gd-q" type="search" placeholder="+ Search for a player" autocomplete="off" spellcheck="false">
-                <ul class="ft-sug" id="gd-sug" role="listbox" hidden></ul>
-              </div>
-              <button class="hero-start gd-done" id="gd-done">Done</button>
-            </div>
-            <div class="gd-news" id="gd-news" hidden><h2 class="gd-sub">News on your players</h2><ol class="nw-list" id="gd-news-list"></ol></div>
-            <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
-          </section>
-
-          <section aria-labelledby="gd-tools-h">
-            <h2 class="gd-h" id="gd-tools-h">Tools</h2>
-            <div class="gd-tools">
-              <a class="gd-card gd-tool" href="fantasy-trade.html"><b>Trade analyzer</b><span>Who wins the deal?</span></a>
-              <a class="gd-card gd-tool" href="fantasy-start-sit.html"><b>Start or sit</b><span>Pick between two</span></a>
-              <a class="gd-card gd-tool" href="fantasy-ros.html"><b>Rest of season</b><span>Playoff schedules</span></a>
-              <a class="gd-card gd-tool" href="fantasy.html#trending"><b>Trending</b><span>{esc(hot or "Who's hot and cold")}</span></a>
-              <a class="gd-card gd-tool" href="fantasy-draft.html"><b>Fantasy mock</b><span>Practice your draft</span></a>
-              <a class="gd-card gd-tool" href="./?start=1"><b>2027 mock draft</b><span>You're on the clock</span></a>
-            </div>
-          </section>
-        </div>
-
-        <div class="gd-col">
-          {home_news(5)}
-          <div class="home-h2-row"><h2 class="home-h2">Today's daily games</h2><a class="section-note" href="games/">All games →</a></div>
-          <div class="gd-tools">
-            <a class="gd-card gd-tool" href="games/prospectle.html"><b>Prospectle</b><span>Guess the draft prospect</span></a>
-            <a class="gd-card gd-tool" href="games/fantasle.html"><b>Fantasle</b><span>Guess the fantasy player</span></a>
-            <a class="gd-card gd-tool" href="games/blitz.html"><b>Draft Day Blitz</b><span>7 picks, 4 seconds each</span></a>
-            <a class="gd-card gd-tool" href="games/17-0.html"><b>17-0</b><span>Draft a team, go undefeated</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="gd-wide">{home_startem()}</div>
-    </div>
-    <nav class="gd-tabs" aria-label="Sections">
-      {tab("home-preview.html", "Fantasy", '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', True)}
-      {tab("./", "Draft", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>')}
-      {tab("games/", "Games", '<rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15 12h.01M18 14h.01"/>')}
-      {tab("news.html", "News", '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>')}
-    </nav>
-    <script type="application/json" id="gd-data">{data}</script>"""
-    html = page("home-preview.html", "Big Head GM · Game Day (test)", "Test page for the new Big Head GM home page.", body,
-                nav="none", scripts=("gameday.js?v=1",), body_class="info-page gd-page")
-    return re.sub(r'<link rel="canonical"[^>]*>', '<meta name="robots" content="noindex">', html, count=1)
+    return ('<nav class="gd-tabs" aria-label="Sections">'
+            + tab("./", "Fantasy", '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', True)
+            + tab("?start=1", "Draft", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>')
+            + tab("games/", "Games", '<rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15 12h.01M18 14h.01"/>')
+            + tab("news.html", "News", '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>') + "</nav>")
 
 
 def startsit_when(week):
@@ -2060,6 +2039,8 @@ def home_blocks():
     block = f"""<!-- home-daily:start (written by build_pages.py) -->
     <section class="home-daily">
       <div class="wrap">
+        <div class="gd-home">{lineup_card()}{gd_tools()}
+        </div>
         {home_news()}
 
         <div class="home-h2-row">
@@ -2162,6 +2143,7 @@ def home_blocks():
           }})();
         </script>
       </div>
+      {gd_tabs()}
     </section>
     <!-- home-daily:end -->"""
     path = os.path.join(DOCS, "index.html")
@@ -2301,7 +2283,6 @@ def main():
     fantasle_page()
     perfect_page()
     home_blocks()
-    write("home-preview.html", home_preview_page())
     paths += nfl_profiles()
     sitemap(paths)
     print(f"Built {len(players)} player pages, {len(team_names)} team pages, the odds page, the games pages and sitemap.xml ({len(paths)} pages)")
