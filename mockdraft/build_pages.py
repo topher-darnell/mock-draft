@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "52", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "53", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -200,6 +200,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
     </div>
   </footer>
 
+  {gd_tabs(root, TAB_OF.get(nav, ""))}
   <script src="{root}gm.js?v={GM_V}"></script>
   <script src="{root}site.js?v={SITE_JS_V}"></script>
   <script src="{root}newsletter.js?v=1"></script>{tags}
@@ -1840,14 +1841,18 @@ def gd_tools():
         </section>"""
 
 
-def gd_tabs():
-    tab = lambda href, label, icon, on=False: (f'<a href="{href}"{" aria-current=\"page\"" if on else ""}>'
-                                              f'<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">{icon}</svg>{label}</a>')
+TAB_OF = {"": "home", "games/": "games", "news.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft"}
+
+
+def gd_tabs(root="", current="home"):
+    """phone tab bar on every page: Home, Draft, Games, News"""
+    tab = lambda key, href, label, icon: (f'<a class="t-{key}" href="{href}"{" aria-current=\"page\"" if key == current else ""}>'
+                                         f'<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">{icon}</svg>{label}</a>')
     return ('<nav class="gd-tabs" aria-label="Sections">'
-            + tab("./", "Fantasy", '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', True)
-            + tab("?start=1", "Draft", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>')
-            + tab("games/", "Games", '<rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15 12h.01M18 14h.01"/>')
-            + tab("news.html", "News", '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>') + "</nav>")
+            + tab("home", root or "./", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>')
+            + tab("draft", f"{root}?start=1", "Draft", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>')
+            + tab("games", f"{root}games/", "Games", '<rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15 12h.01M18 14h.01"/>')
+            + tab("news", f"{root}news.html", "News", '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>') + "</nav>")
 
 
 def startsit_when(week):
@@ -2155,13 +2160,17 @@ def home_blocks():
           }})();
         </script>
       </div>
-      {gd_tabs()}
     </section>
     <!-- home-daily:end -->"""
     path = os.path.join(DOCS, "index.html")
     with open(path, encoding="utf-8") as fh:
         text = fh.read()
     text = re.sub(r"<!-- home-daily:start.*?<!-- home-daily:end -->", lambda m: block, text, flags=re.S)
+    tabs = f"<!-- tabs:start -->{gd_tabs()}<!-- tabs:end -->"
+    if "<!-- tabs:start -->" in text:
+        text = re.sub(r"<!-- tabs:start -->.*?<!-- tabs:end -->", lambda m: tabs, text, flags=re.S)
+    else:
+        text = text.replace('  <script src="gm.js', "  " + tabs + '\n  <script src="gm.js', 1)
     with open(path, "w", encoding="utf-8") as fh:
         fh.write(text)
 
