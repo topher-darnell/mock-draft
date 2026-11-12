@@ -533,6 +533,95 @@ def fill_ins(players):
                     p.setdefault("fill", {})[w] = {"for": names, "m": round(mult, 2)}
 
 
+# ---------- Waiver wire ----------
+# Players who are probably still on waivers in a 12-team league (not among the top scorers at their
+# position this season, and not a regular starter by points per game) whose next few weeks look good:
+# a bigger role, a teammate out, a hot streak, an easy schedule. Ranked by projected PPR points over
+# the next WAIVER_WEEKS weeks. Same projections as everything else on the site.
+
+WAIVER_WEEKS = 3
+WAIVER_WT = (0.5, 0.3, 0.2)                                 # this week, next week, the week after
+LIKELY_ROSTERED = {"QB": 16, "RB": 36, "WR": 48, "TE": 14}   # season PPR total rank at or above this: rostered
+STARTER_PPG = {"QB": 12, "RB": 24, "WR": 30, "TE": 10}       # ...and so is anyone this high in points per game
+ADD_NOW = {"QB": 16.0, "RB": 10.0, "WR": 10.0, "TE": 7.5}    # next-weeks average worth a claim right away
+WAIVER_SHOW = {"QB": 3, "RB": 8, "WR": 10, "TE": 4}
+
+
+def waiver_wire():
+    ros = rest_of_season()
+    if not ros:
+        return None
+    trend = trends()
+    hot = {r["n"]: r for r in trend["players"]} if trend["ready"] else {}
+    lead = {r["n"]: r for r in leaders()}
+    week = ros["from"]
+    soon = list(range(week, min(ros["to"], week + WAIVER_WEEKS - 1) + 1))
+    total_rank, ppg_rank = {}, {}
+    for pos in ("QB", "RB", "WR", "TE"):
+        grp = [r for r in lead.values() if r["p"] == pos]
+        for i, r in enumerate(sorted(grp, key=lambda r: -r["s"]["ppr"]), 1):
+            total_rank[r["n"]] = i
+        for i, r in enumerate(sorted([r for r in grp if r["g"] >= 2], key=lambda r: -r["s"]["ppr"] / r["g"]), 1):
+            ppg_rank[r["n"]] = i
+    # last season's starters are still on rosters even after a slow start
+    last_year = {}
+    if os.path.exists(os.path.join(HERE, "fantasy_seasons.csv")):
+        rows = read("fantasy_seasons.csv")
+        yr = max(int(r["season"]) for r in rows)
+        for pos in ("QB", "RB", "WR", "TE"):
+            grp = [r for r in rows if r["pos"] == pos and int(r["season"]) == yr and int(r["games"]) >= 8]
+            for i, r in enumerate(sorted(grp, key=lambda r: -f(r["ppr"]) / int(r["games"])), 1):
+                last_year[_key(r["name"])] = i
+    out = {pos: [] for pos in ("QB", "RB", "WR", "TE")}
+    for p in ros["players"]:
+        pos, n = p["p"], p["n"]
+        if (total_rank.get(n, 999) <= LIKELY_ROSTERED[pos] or ppg_rank.get(n, 999) <= STARTER_PPG[pos]
+                or last_year.get(_key(n), 999) <= STARTER_PPG[pos]):
+            continue
+        if p["out"] or (p.get("inj") and p["inj"]["s"] in ("ir", "season", "out")):
+            continue
+        weeks = [x for x in p["sched"] if x[0] in soon]
+        proj = [p["ppg"]["ppr"] * m * a * q for w, opp, m, a, q in weeks]
+        games = [(v, WAIVER_WT[i]) for i, ((w, opp, m, a, q), v) in enumerate(zip(weeks, proj)) if opp]
+        if not games:
+            continue
+        avg = sum(v * wt for v, wt in games) / sum(wt for v, wt in games)   # this week counts most
+        why = []
+        fill = p.get("fill") or {}
+        games_in = {x[0] for x in weeks if x[1]}
+        fw = sorted(w for w in fill if w in soon and w in games_in)
+        if fw:
+            names = " and ".join(fill[fw[0]]["for"])
+            span = f"Week {fw[0]}" if len(fw) == 1 else f"Weeks {fw[0]}–{fw[-1]}"
+            why.append(f"More work: {names} {'are' if len(fill[fw[0]]['for']) > 1 else 'is'} out ({span}).")
+        t = hot.get(n)
+        if t and t["gw"] >= 2 and t["g0"] >= 2:
+            d = t["now"]["ppr"] - t["was"]["ppr"]
+            if d >= 3:
+                why.append(f"Heating up: {t['now']['ppr']:.1f} PPR points a game over his last {t['gw']} games, up from {t['was']['ppr']:.1f}.")
+            touch = lambda i: t["tgt"][i] + (t["car"][i] if pos == "RB" else 0)
+            if pos != "QB" and touch(1) - touch(0) >= 2:
+                why.append(f"Bigger role: {touch(1):.1f} {'touches' if pos == 'RB' else 'targets'} a game lately, up from {touch(0):.1f}.")
+        if p["g"] <= 2:
+            why.append(f"Just getting started: {p['g']} game{'s' if p['g'] > 1 else ''} played so far.")
+        if p.get("qb") and p["qb"]["m"] > 1:
+            why.append(f"New quarterback: {p['qb']['name']} is an upgrade for him.")
+        ms = [m for w, opp, m, a, q in weeks if opp]
+        if ms and sum(ms) / len(ms) >= 1.05:
+            opps = ", ".join(TEAM_NAME.get(opp, opp) for w, opp, m, a, q in weeks if opp)
+            why.append(f"Soft schedule next: {opps}.")
+        if p["po"] >= 1.06:
+            why.append("Playoff schedule: easy matchups in Weeks 15–17.")
+        if not why:
+            why.append(f"Steady: {p['ppg']['ppr']:.1f} PPR points a game this season.")
+        out[pos].append({"n": n, "t": p["t"], "p": pos, "g": p["g"], "ppg": p["ppg"]["ppr"], "avg": round(avg, 1),
+                         "next": [[w, opp, round(v, 1)] for (w, opp, m, a, q), v in zip(weeks, proj)],
+                         "rank": total_rank.get(n), "add": avg >= ADD_NOW[pos], "why": why[:3]})
+    for pos in out:
+        out[pos] = sorted(out[pos], key=lambda r: -r["avg"])[:WAIVER_SHOW[pos]]
+    return {"week": week, "soon": soon, "pos": out}
+
+
 # ---------- Weekly Start 'Em / Sit 'Em ----------
 # Built every Tuesday from the same numbers as the start/sit tool (PPR). Starts: borderline players
 # whose projection this week beats their usual average. Sits: players people usually start who face a

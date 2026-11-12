@@ -68,6 +68,11 @@ List what you changed in the commit message.
    above. Read the picks once: if one looks wrong (e.g. breaking news), or Topher sends his own takes, add
    rows to `fantasy_picks.csv` (week, name, call = start/sit, reason in one plain sentence). Those go first.
    Put 2 starts and 2 sits in the newsletter, linked to the page.
+9b. **Waiver wire** (`fantasy-waiver-wire.html`, linked from the home page and Fantasy page) also rebuilds
+   itself: players probably still on waivers, ranked by projected points over the next 3 weeks. It only
+   knows about injuries in the steps above, so do those first (a backup's "More work" comes from them).
+   Skim it: if a name is obviously rostered everywhere, or a big pickup is missing, say so in the chat.
+   Put the top 3 adds in the newsletter and a Tuesday video, linked to the page.
 10. **Quick hits** (`news.csv`, shown on the home page, `news.html` and player profiles): add one row for
    each fantasy-relevant item from this week's injury, trade and QB updates (date, kind = injury / return /
    trade / qb / news, player, team, one plain sentence that names the player, source, url). Two sources for

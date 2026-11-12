@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "54", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "55", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -769,7 +769,11 @@ FF_SS_CTA = ('<a class="ff-cta" href="fantasy-start-sit.html">'
              '<span class="ff-cta-text"><span class="ff-cta-tag">NEW</span><b class="ff-cta-title">Start or sit?</b>'
              '<span class="ff-cta-sub">Stuck between two players? Get a call for this week.</span></span>'
              '<span class="ff-cta-go">Who do I start? →</span></a>')
-FF_CTAS = '<div class="ff-ctas">' + FF_SS_CTA + FF_TRADE_CTA + FF_ROS_CTA + FF_CTA + '</div>'
+FF_WW_CTA = ('<a class="ff-cta" href="fantasy-waiver-wire.html">'
+             '<span class="ff-cta-text"><span class="ff-cta-tag">NEW</span><b class="ff-cta-title">Waiver wire pickups</b>'
+             '<span class="ff-cta-sub">Who to grab this week, at every position, and why.</span></span>'
+             '<span class="ff-cta-go">See the pickups →</span></a>')
+FF_CTAS = '<div class="ff-ctas">' + FF_WW_CTA + FF_SS_CTA + FF_TRADE_CTA + FF_ROS_CTA + FF_CTA + '</div>'
 
 
 # ---------- fantasy ----------
@@ -1716,6 +1720,58 @@ def fantasy_startem_page():
                 crumbs=[("Fantasy", "fantasy.html"), (f"Week {p['week']} start 'em, sit 'em", "fantasy-start-em-sit-em.html")], nav="fantasy.html")
 
 
+def ww_card(r):
+    nxt = "".join(f'<li class="ww-wk{" bye" if not opp else ""}"><span>Wk {w}</span><b>{"BYE" if not opp else "vs " + esc(opp)}</b>'
+                  f'<i>{"" if not opp else f"{v:.1f}"}</i></li>' for w, opp, v in r["next"])
+    why = "".join(f"<li>{esc(x)}</li>" for x in r["why"])
+    tag = '<span class="ss-tag ss-go">ADD NOW</span>' if r["add"] else '<span class="ss-tag ww-look">WORTH A LOOK</span>'
+    return (f'<li class="se-card ww-card"><div class="se-top">{tag}<span class="gd-pos {r["p"]}">{r["p"]}</span>'
+            f'<span class="ww-name"><a href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a><span>{esc(FF_TEAM.get(r["t"], r["t"]))} · {r["ppg"]:.1f} PPG this season</span></span></div>'
+            f'<ol class="ww-next" aria-label="Projected PPR points">{nxt}</ol><ul class="ww-why">{why}</ul></li>')
+
+
+def fantasy_waiver_page():
+    w = fantasy.waiver_wire()
+    wk = w["week"]
+    when = startsit_when(wk)
+    best = w["pos"]["RB"][:2] + w["pos"]["WR"][:2] + w["pos"]["TE"][:1] + w["pos"]["QB"][:1]   # a mix of positions
+    top = "".join(f'<li><span class="gd-pos {r["p"]}">{r["p"]}</span><a href="#{slug(r["n"])}">{esc(r["n"])}</a>'
+                  f'<span class="ww-top-why">{esc(r["why"][0].split(":")[0])}</span></li>' for r in best)
+    sections = ""
+    for pos in ("RB", "WR", "TE", "QB"):
+        rows = w["pos"][pos]
+        if not rows:
+            continue
+        cards = "".join(ww_card(r).replace('<li class="se-card ww-card">', f'<li class="se-card ww-card" id="{slug(r["n"])}">', 1) for r in rows)
+        sections += f"""
+      <h2 class="home-h2">{POS_FULL[pos]}</h2>
+      <ol class="se-list ww-list">{cards}</ol>"""
+    soon = w["soon"]
+    body = f"""
+    <div class="se ww">
+      <p class="eyebrow">FANTASY FOOTBALL · WEEK {wk}{(" · " + when.upper()) if when else ""}</p>
+      <h1 class="in-title">Week {wk} waiver wire pickups</h1>
+      <p class="in-sub">Players who are probably still available in your league and have a good few weeks coming: a bigger role, a teammate out, a hot streak or an easy schedule. Every pickup says why. PPR scoring.</p>
+      <div class="ww-top"><h2 class="gd-sub">Top adds this week</h2><ol>{top}</ol></div>
+      {sections}
+      <a class="ff-cta se-tool" href="fantasy-start-sit.html"><span class="ff-cta-text"><b class="ff-cta-title">Picked someone up?</b>
+        <span class="ff-cta-sub">See if he should start over your current guys with the start/sit tool.</span></span><span class="ff-cta-go">Who do I start? →</span></a>
+      <h2 class="home-h2">How we pick</h2>
+      <ul class="gm-rules">
+        <li><b>Probably available:</b> not among this season's top scorers at his position (top {fantasy.LIKELY_ROSTERED["QB"]} QBs, {fantasy.LIKELY_ROSTERED["RB"]} RBs, {fantasy.LIKELY_ROSTERED["WR"]} WRs, {fantasy.LIKELY_ROSTERED["TE"]} TEs), not a regular starter by points per game, and not a starter last season. Your league may differ, so check your waiver list.</li>
+        <li><b>Ranked by</b> projected PPR points over Weeks {soon[0]}–{soon[-1]}, with this week counting most. Projections use season scoring with extra weight on recent games, matchups, injuries, new quarterbacks and extra work when a teammate is out.</li>
+        <li><b>Add now</b> means he projects like a usable starter right away. <b>Worth a look</b> means a bench stash or a deeper-league add.</li>
+        <li>New pickups every Tuesday, before waivers run.</li>
+      </ul>
+      <p class="od-fine">Stats and schedule: <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a> and FFToday, {esc(fantasy.STATS_AS_OF)}.</p>
+    </div>
+    {signup("fantasy-waivers")}"""
+    names = ", ".join(r["n"] for r in best[:3])
+    desc = f"Week {wk} fantasy football waiver wire pickups for 2026: {names} and more at RB, WR, TE and QB, with the reason for every add."
+    return page("fantasy-waiver-wire.html", f"Week {wk} Waiver Wire Pickups: Fantasy Football 2026 · Big Head GM", desc, body,
+                crumbs=[("Fantasy", "fantasy.html"), (f"Week {wk} waiver wire", "fantasy-waiver-wire.html")], nav="fantasy.html")
+
+
 def home_startem():
     """home page block: one start and one sit per position"""
     p = fantasy.weekly_picks(per_pos=1)
@@ -1834,7 +1890,7 @@ def gd_tools():
             <a class="gd-card gd-tool" href="fantasy-trade.html"><b>Trade analyzer</b><span>Who wins the deal?</span></a>
             <a class="gd-card gd-tool" href="fantasy-start-sit.html"><b>Start or sit</b><span>Pick between two</span></a>
             <a class="gd-card gd-tool" href="fantasy-ros.html"><b>Rest of season</b><span>Playoff schedules</span></a>
-            <a class="gd-card gd-tool" href="fantasy.html#trending"><b>Trending</b><span>{esc(hot or "Who's hot and cold")}</span></a>
+            <a class="gd-card gd-tool" href="fantasy-waiver-wire.html"><b>Waiver wire</b><span>Week {fantasy.waiver_wire()["week"]} pickups</span></a>
             <a class="gd-card gd-tool" href="fantasy-draft.html"><b>Fantasy mock</b><span>Practice your draft</span></a>
             <a class="gd-card gd-tool" href="?start=1"><b>2027 mock draft</b><span>You're on the clock</span></a>
           </div>
@@ -2282,7 +2338,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2298,6 +2354,7 @@ def main():
     write("fantasy-ros.html", fantasy_ros_page())
     write("fantasy-start-sit.html", fantasy_startsit_page())
     write("fantasy-start-em-sit-em.html", fantasy_startem_page())
+    write("fantasy-waiver-wire.html", fantasy_waiver_page())
     write("news.html", news_page())
     games_pages()
     prospectle_page()

@@ -2870,3 +2870,25 @@ a.gd-tool:hover { border-color: #3A4656; }
 .gd-sep { grid-column: 1 / -1; }
 .gd-step { flex-direction: column; align-items: stretch; gap: 6px; padding: 8px; text-align: center; }
 .gd-stepper { justify-content: space-between; }
+
+/* ---------- waiver wire ---------- */
+.ww-top { margin: 6px 0 26px; padding: 14px 16px; border-radius: 16px; background: var(--card); }
+.ww-top ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ww-top li { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.ww-top li a { color: var(--text); text-decoration: none; }
+.ww-top li a:hover { color: var(--accent); }
+.ww-top-why { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--muted); text-align: right; }
+.ww-list { margin-bottom: 26px; }
+.ww-look { background: #2A3442; color: var(--text); }
+.ww-name { display: flex; flex-direction: column; min-width: 0; }
+.ww-name a { color: var(--text); font-weight: 800; font-size: 16px; text-decoration: none; }
+.ww-name a:hover { color: var(--accent); }
+.ww-name span { font-size: 12px; color: var(--muted); }
+.ww-next { list-style: none; margin: 10px 0 8px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.ww-wk { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 6px 4px; border-radius: 10px; background: var(--bg); font-size: 11px; color: var(--muted); }
+.ww-wk b { font-size: 12px; color: var(--text); }
+.ww-wk i { font-style: normal; font-size: 15px; font-weight: 800; color: var(--accent); }
+.ww-wk.bye b { color: var(--muted); }
+.ww-why { margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 1.45; color: #C9D2DC; }
+.ww-card { scroll-margin-top: 80px; }
+@media (min-width: 900px) { .ww-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
