@@ -1577,6 +1577,7 @@ def fantasy_ros_page():
         <li><b>Rank by:</b> "Rest of season" adds up every week left. "Playoffs" counts only Weeks {po_w}, when most leagues crown a champ, so players with easy playoff matchups move up. "This week" is just Week {ros['from']}. "Points per game" ignores the schedule.</li>
         <li><b>Projection:</b> a player's points per game (mostly his season average, with extra weight on his last 3 games) times each week's matchup, with 0 on his bye week.</li>
         <li><b>New quarterbacks:</b> when a team changes starters (trade, injury, benching), its receivers and tight ends move halfway toward the change in quarterback scoring, and running backs a little, up to 15% either way. Marked "New QB" in the list.</li>
+        <li><b>Fill-ins:</b> when a player who's been part of his offense lately is out, most of his usual points go to healthy teammates: a running back's mostly to the other backs, a receiver's to receivers and tight ends, split by how much each has been scoring, at 75% (backups are usually less effective). Marked "More work."</li>
         <li><b>Injuries:</b> players on injured reserve or out get 0 for the weeks they're expected to miss (marked OUT), from the official NFL roster and injury report plus the latest news. Players out for the season, or not playing with no injury news, are hidden unless you turn them on. Injury news changes fast, so double-check before kickoff.</li>
       </ul>
       <div class="ff-ctas">{FF_TRADE_CTA}{FF_CTA}</div>
@@ -1588,7 +1589,7 @@ def fantasy_ros_page():
             "PPR, Half PPR, Standard and TE Premium.")
     return page("fantasy-ros.html", f"Rest of Season Fantasy Rankings 2026 · Playoff Schedules · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
-                scripts=("fantasy-ros.js?v=4",))
+                scripts=("fantasy-ros.js?v=5",))
 
 
 def fantasy_startsit_page():
@@ -1605,7 +1606,7 @@ def fantasy_startsit_page():
         w, opp, m, avail, qm = r["sched"][0]
         t = recent.get(r["n"])
         rows.append({"n": r["n"], "t": r["t"], "p": r["p"], "slug": slug(r["n"]), "ppg": r["ppg"], "opp": opp, "m": m,
-                     "sd": r["sd"], "out": r["out"], "a": avail, "q": qm, "inj": r.get("inj"), "qb": r.get("qb"),
+                     "sd": r["sd"], "out": r["out"], "a": avail, "q": qm, "inj": r.get("inj"), "qb": r.get("qb"), "fill": (r.get("fill") or {}).get(w),
                      "hot": [t["was"]["ppr"], t["now"]["ppr"]] if t and t["g0"] >= 2 and t["gw"] >= 2 else None,
                      "use": [round(t["tgt"][0] + (t["car"][0] if r["p"] == "RB" else 0), 1),
                              round(t["tgt"][1] + (t["car"][1] if r["p"] == "RB" else 0), 1)] if t and t["g0"] >= 2 and t["gw"] >= 2 and r["p"] != "QB" else None})
@@ -1657,7 +1658,7 @@ def fantasy_startsit_page():
             "Compare players and see who to start, with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
     return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Start/Sit Tool + Start 'Em Sit 'Em Picks · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
-                scripts=("fantasy-start-sit.js?v=5",))
+                scripts=("fantasy-start-sit.js?v=6",))
 
 
 POS_FULL = {"QB": "Quarterbacks", "RB": "Running backs", "WR": "Wide receivers", "TE": "Tight ends"}
@@ -1767,6 +1768,10 @@ def gameday_data():
             call, why = "OUT", INJ_WORD.get(inj.get("s"), "Out") + (f": {inj['inj']}" if inj.get("inj") else "")
         elif p["n"] in called:
             call, why = called[p["n"]]
+        elif (p.get("fill") or {}).get(wk) and r["rk"] <= flex_cut:
+            names = " and ".join((p["fill"][wk]["for"]))
+            call = "START" if r["rk"] <= start_cut else "FLEX"
+            why = f"More work with {names} out (projected {p['p']}{r['rk']})"
         else:
             call = "START" if r["rk"] <= start_cut else "FLEX" if r["rk"] <= flex_cut else "SIT"
             why = f"Projected {p['p']}{r['rk']} this week" + {"START": "", "FLEX": ", fine as a flex", "SIT": ""}[call]

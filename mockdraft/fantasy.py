@@ -420,7 +420,6 @@ def rest_of_season():
             qb = qbs.get(team)
             qm = qb_mult(qb["change"], pos) if qb and w >= qb["from"] and me["name"] != qb["qb"] else 1.0
             sched.append([w, opp, fac[pos].get(opp, 1.0) if opp else 0, availability(inj, w, weeks[0]), qm])
-        ros = {k: round(sum(ppg[k] * m * a * q for _, _, m, a, q in sched), 1) for k in keys}
         po = [m for w, _, m, _a, _q in sched if w in PLAYOFF_WEEKS]
         played = sorted(int(x["week"]) for x in gs)
         wk = [points(x, "ppr") for x in gs]
@@ -430,9 +429,10 @@ def rest_of_season():
         else:
             sd = 0.4 * ppg["ppr"]
         missed = len([w for w in team_weeks.get(team, set()) if not played or w > played[-1]])
+        rec = sum(points(x, "ppr") for x in recent) / len(recent) if recent else 0
         players.append({
-            "n": me["name"], "t": team, "p": pos, "g": int(g),
-            "ppg": {k: round(v, 1) for k, v in ppg.items()}, "ros": ros, "sched": sched,
+            "n": me["name"], "t": team, "p": pos, "g": int(g), "rec": rec, "_ppg": ppg,
+            "ppg": {k: round(v, 1) for k, v in ppg.items()}, "sched": sched,
             "po": round(sum(po) / len(po), 3) if po and all(po) else round(sum(po) / max(1, len(po)), 3),
             "sd": round(sd / max(0.1, ppg["ppr"]), 2),             # swing as a share of his PPR average
             "out": played[-1] if gs and missed >= 2 else 0,            # last week played, if he's missed 2+ games since
@@ -440,9 +440,58 @@ def rest_of_season():
             "qb": {"name": qbs[team]["qb"], "status": qbs[team]["status"], "m": qb_mult(qbs[team]["change"], pos)}
                   if team in qbs and pos != "QB" and qb_mult(qbs[team]["change"], pos) != 1 else None,
         })
+    fill_ins(players)
+    for p in players:
+        p["ros"] = {k: round(sum(p["_ppg"][k] * m * a * q for _, _, m, a, q in p["sched"]), 1) for k in keys}
+        del p["_ppg"], p["rec"]
     return {"from": weeks[0], "to": weeks[-1], "playoffs": list(PLAYOFF_WEEKS), "players": players,
             "fac": fac, "sched": {t: {str(w): o for w, o in v.items() if w in weeks} for t, v in games.items()}}
 
+
+
+# ---------- Fill-ins: more work when a teammate is hurt ----------
+# When a player who's been part of his offense lately (played in the last 3 weeks) is out, his usual
+# points don't vanish: most go to teammates. We hand them out to healthy teammates who've played lately,
+# by position (a running back's work mostly to the other backs, a receiver's to receivers and tight
+# ends), in proportion to what each has been scoring, at 75% efficiency (backups are usually less
+# effective). Players hurt before the last 3 weeks are skipped: their teammates' recent numbers
+# already show the bigger role. The boost rides in the same weekly multiplier as the QB change.
+
+FILL_TO = {"RB": {"RB": 0.85, "WR": 0.10, "TE": 0.05}, "WR": {"WR": 0.70, "TE": 0.20, "RB": 0.10},
+           "TE": {"TE": 0.55, "WR": 0.45}}
+FILL_EFF = 0.75
+FILL_FLOOR = 3.0           # everyone counts as at least this many points a game when splitting
+FILL_MAX = 2.5             # a fill-in can at most triple his usual projection
+
+
+def fill_ins(players):
+    by_team = {}
+    for p in players:
+        by_team.setdefault(p["t"], []).append(p)
+    for team, roster in by_team.items():
+        for i, w in enumerate(p0[0] for p0 in roster[0]["sched"]):
+            gone = [p for p in roster if p["p"] in FILL_TO and p["rec"] > 0 and p["sched"][i][3] < 1]
+            if not gone:
+                continue
+            add = {}
+            for g in gone:
+                vac = g["_ppg"]["ppr"] * g["sched"][i][4] * (1 - g["sched"][i][3]) * FILL_EFF
+                for pos, share in FILL_TO[g["p"]].items():
+                    mates = [p for p in roster if p["p"] == pos and p is not g and p["rec"] > 0 and p["sched"][i][3] >= 1]
+                    tot = sum(max(FILL_FLOOR, p["rec"]) for p in mates)
+                    for p in mates:
+                        add.setdefault(id(p), [p, 0, []])
+                        add[id(p)][1] += vac * share * max(FILL_FLOOR, p["rec"]) / tot
+                        if g["n"] not in add[id(p)][2] and pos == g["p"]:
+                            add[id(p)][2].append(g["n"])
+            for p, pts, names in add.values():
+                base = p["_ppg"]["ppr"] * p["sched"][i][4]
+                if base <= 0 or pts < 0.3:
+                    continue
+                mult = min(FILL_MAX, 1 + pts / base)
+                p["sched"][i][4] = round(p["sched"][i][4] * mult, 3)
+                if names and mult >= 1.08:
+                    p.setdefault("fill", {})[w] = {"for": names, "m": round(mult, 2)}
 
 
 # ---------- Weekly Start 'Em / Sit 'Em ----------
@@ -479,6 +528,10 @@ def weekly_picks(per_pos=2):
 
     def reasons(r, call):
         out = []
+        fl = (r.get("fill") or {}).get(week)
+        if call == "start" and fl:
+            names = " and ".join(fl["for"])
+            out.append(f"More work: {names} {'are' if len(fl['for']) > 1 else 'is'} out this week.")
         pct = round(abs(r["m"] - 1) * 100)
         foe = TEAM_NAME.get(r["opp"], r["opp"])
         if call == "start" and r["m"] >= 1.05:
