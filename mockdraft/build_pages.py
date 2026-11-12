@@ -1327,7 +1327,7 @@ def fantasy_draft_data():
         group = sorted([r for r in lead if r["p"] == pos and r["g"] >= 4], key=lambda r: -r["s"]["ppr"] / r["g"])
         base = {k: sorted(r["s"][k] / r["g"] for r in group[:40])[len(group[:40]) // 2] for k in fmts}
         ratio[pos] = {k: (sum(r["s"][k] for r in group[:30]) / max(1, sum(r["s"]["ppr"] for r in group[:30]))) for k in fmts}
-        for r in group + [r for r in lead if r["p"] == pos and 2 <= r["g"] < 4]:
+        for r in group + [r for r in lead if r["p"] == pos and 1 <= r["g"] < 4]:
             # few games? pull toward an average starter so one big week doesn't make a star (worth 3 games)
             ppg = [round((r["s"][k] + 3 * base[k]) / (r["g"] + 3), 2) for k in fmts]
             if ppg[2] < 4:
