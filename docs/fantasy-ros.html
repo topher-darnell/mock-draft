@@ -46,6 +46,7 @@
       <p class="in-sub">Every player ranked on what he should score from Week 10 through Week 17, using his points per game, his bye and who he plays. Green means an easy matchup, red a tough one. Fantasy playoffs are Weeks 15–17.</p>
 
       <div class="ff-bar"><p class="ff-label">Your scoring</p><div class="in-chips" id="rs-fmt"><button class="filter" data-fmt="std" aria-pressed="false">Standard</button><button class="filter" data-fmt="half" aria-pressed="false">Half PPR</button><button class="filter active" data-fmt="ppr" aria-pressed="true">PPR</button><button class="filter" data-fmt="tep" aria-pressed="false">TE Premium</button></div></div>
+      <div class="ff-bar"><p class="ff-label">Rank by</p><div class="in-chips" id="rs-sort"><button class="filter active" data-sort="ros" aria-pressed="true">Rest of season (Wk 10–17)</button><button class="filter" data-sort="po" aria-pressed="false">Playoffs (Wk 15–17)</button><button class="filter" data-sort="week" aria-pressed="false">This week (Wk 10)</button><button class="filter" data-sort="ppg" aria-pressed="false">Points per game</button></div></div>
       <div class="rs-tools">
         <div class="in-chips" id="rs-pos"><button class="filter active" data-pos="All" aria-pressed="true">All</button><button class="filter" data-pos="QB" aria-pressed="false">QB</button><button class="filter" data-pos="RB" aria-pressed="false">RB</button><button class="filter" data-pos="WR" aria-pressed="false">WR</button><button class="filter" data-pos="TE" aria-pressed="false">TE</button></div>
         <label class="rs-check"><input type="checkbox" id="rs-out"> Show players out for the season or not playing</label>
@@ -54,7 +55,7 @@
 
       <div class="rs-wrap">
         <table class="rs-table">
-          <thead><tr><th scope="col">#</th><th scope="col" class="rs-pl">Player</th><th scope="col" title="Projected fantasy points, Weeks 10–17">Proj</th><th scope="col">PPG</th>
+          <thead><tr><th scope="col">#</th><th scope="col" class="rs-pl">Player</th><th scope="col" id="rs-proj-h" title="Projected fantasy points, Weeks 10–17">Proj</th><th scope="col">PPG</th>
             <th scope="col" class="rs-w">10</th><th scope="col" class="rs-w">11</th><th scope="col" class="rs-w">12</th><th scope="col" class="rs-w">13</th><th scope="col" class="rs-w">14</th><th scope="col" class="rs-w po">15</th><th scope="col" class="rs-w po">16</th><th scope="col" class="rs-w po">17</th></tr></thead>
           <tbody id="rs-body"></tbody>
         </table>
@@ -68,6 +69,7 @@
       <h2 class="home-h2">How it works</h2>
       <ul class="gm-rules">
         <li><b>Matchups:</b> for each defense, we add up the fantasy points it has allowed to each position per game this season and compare it with an average defense. "Easy" gives up about 10% or more above average, "very tough" about 10% or more below.</li>
+        <li><b>Rank by:</b> "Rest of season" adds up every week left. "Playoffs" counts only Weeks 15–17, when most leagues crown a champ, so players with easy playoff matchups move up. "This week" is just Week 10. "Points per game" ignores the schedule.</li>
         <li><b>Projection:</b> a player's points per game (mostly his season average, with extra weight on his last 3 games) times each week's matchup, with 0 on his bye week.</li>
         <li><b>New quarterbacks:</b> when a team changes starters (trade, injury, benching), its receivers and tight ends move halfway toward the change in quarterback scoring, and running backs a little, up to 15% either way. Marked "New QB" in the list.</li>
         <li><b>Injuries:</b> players on injured reserve or out get 0 for the weeks they're expected to miss (marked OUT), from the official NFL roster and injury report plus the latest news. Players out for the season, or not playing with no injury news, are hidden unless you turn them on. Injury news changes fast, so double-check before kickoff.</li>
@@ -93,7 +95,7 @@
       <img class="footer-logo" src="icons/logo-banner-small.webp?v=4" alt="Big Head GM" width="400" height="225" loading="lazy">
       <div class="footer-text">
         <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="?start=1">Run your own mock</a></p>
-        <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com · Updated November 11, 2026</p>
+        <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com · Updated November 12, 2026</p>
         <p>Not affiliated with the NFL or any NFL team. Every GM is an original character.</p>
       </div>
     </div>
@@ -102,7 +104,7 @@
   <script src="gm.js?v=5"></script>
   <script src="site.js?v=1"></script>
   <script src="newsletter.js?v=1"></script>
-  <script src="fantasy-ros.js?v=3"></script>
+  <script src="fantasy-ros.js?v=4"></script>
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>

@@ -1539,6 +1539,11 @@ def fantasy_ros_page():
     pos_btns = "".join(f'<button class="filter{" active" if p == "All" else ""}" data-pos="{p}" aria-pressed="{"true" if p == "All" else "false"}">{p}</button>'
                        for p in ("All", "QB", "RB", "WR", "TE"))
     weeks = f'Weeks {ros["from"]}–{ros["to"]}'
+    po_w = f'{min(ros["playoffs"])}–{max(ros["playoffs"])}'
+    sort_opts = [("ros", f"Rest of season (Wk {ros['from']}–{ros['to']})"), ("po", f"Playoffs (Wk {po_w})"),
+                 ("week", f"This week (Wk {ros['from']})"), ("ppg", "Points per game")]
+    sort_btns = "".join(f'<button class="filter{" active" if k == "ros" else ""}" data-sort="{k}" aria-pressed="{"true" if k == "ros" else "false"}">{label}</button>'
+                        for k, label in sort_opts)
     body = f"""
     <div class="rs">
       <p class="eyebrow">FANTASY FOOTBALL · {weeks.upper()}</p>
@@ -1546,6 +1551,7 @@ def fantasy_ros_page():
       <p class="in-sub">Every player ranked on what he should score from Week {ros["from"]} through Week {ros["to"]}, using his points per game, his bye and who he plays. Green means an easy matchup, red a tough one. Fantasy playoffs are Weeks 15–17.</p>
 
       <div class="ff-bar"><p class="ff-label">Your scoring</p><div class="in-chips" id="rs-fmt">{fmt_btns}</div></div>
+      <div class="ff-bar"><p class="ff-label">Rank by</p><div class="in-chips" id="rs-sort">{sort_btns}</div></div>
       <div class="rs-tools">
         <div class="in-chips" id="rs-pos">{pos_btns}</div>
         <label class="rs-check"><input type="checkbox" id="rs-out"> Show players out for the season or not playing</label>
@@ -1554,7 +1560,7 @@ def fantasy_ros_page():
 
       <div class="rs-wrap">
         <table class="rs-table">
-          <thead><tr><th scope="col">#</th><th scope="col" class="rs-pl">Player</th><th scope="col" title="Projected fantasy points, Weeks {ros['from']}–{ros['to']}">Proj</th><th scope="col">PPG</th>
+          <thead><tr><th scope="col">#</th><th scope="col" class="rs-pl">Player</th><th scope="col" id="rs-proj-h" title="Projected fantasy points, Weeks {ros['from']}–{ros['to']}">Proj</th><th scope="col">PPG</th>
             {"".join(f'<th scope="col" class="rs-w{" po" if w in ros["playoffs"] else ""}">{w}</th>' for w in range(ros["from"], ros["to"] + 1))}</tr></thead>
           <tbody id="rs-body"></tbody>
         </table>
@@ -1568,6 +1574,7 @@ def fantasy_ros_page():
       <h2 class="home-h2">How it works</h2>
       <ul class="gm-rules">
         <li><b>Matchups:</b> for each defense, we add up the fantasy points it has allowed to each position per game this season and compare it with an average defense. "Easy" gives up about 10% or more above average, "very tough" about 10% or more below.</li>
+        <li><b>Rank by:</b> "Rest of season" adds up every week left. "Playoffs" counts only Weeks {po_w}, when most leagues crown a champ, so players with easy playoff matchups move up. "This week" is just Week {ros['from']}. "Points per game" ignores the schedule.</li>
         <li><b>Projection:</b> a player's points per game (mostly his season average, with extra weight on his last 3 games) times each week's matchup, with 0 on his bye week.</li>
         <li><b>New quarterbacks:</b> when a team changes starters (trade, injury, benching), its receivers and tight ends move halfway toward the change in quarterback scoring, and running backs a little, up to 15% either way. Marked "New QB" in the list.</li>
         <li><b>Injuries:</b> players on injured reserve or out get 0 for the weeks they're expected to miss (marked OUT), from the official NFL roster and injury report plus the latest news. Players out for the season, or not playing with no injury news, are hidden unless you turn them on. Injury news changes fast, so double-check before kickoff.</li>
@@ -1581,7 +1588,7 @@ def fantasy_ros_page():
             "PPR, Half PPR, Standard and TE Premium.")
     return page("fantasy-ros.html", f"Rest of Season Fantasy Rankings 2026 · Playoff Schedules · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
-                scripts=("fantasy-ros.js?v=3",))
+                scripts=("fantasy-ros.js?v=4",))
 
 
 def fantasy_startsit_page():

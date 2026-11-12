@@ -10,7 +10,7 @@
     MIN: "Vikings", NE: "Patriots", NO: "Saints", NYG: "Giants", NYJ: "Jets", PHI: "Eagles", PIT: "Steelers",
     SF: "49ers", SEA: "Seahawks", TB: "Buccaneers", TEN: "Titans", WAS: "Commanders" };
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  let fmt = "ppr", pos = "All", showOut = false, limit = 60;
+  let fmt = "ppr", pos = "All", by = "ros", showOut = false, limit = 60;
   try { fmt = localStorage.getItem("bhg-ff-format") || fmt; } catch (e) { /* private window */ }
   if (!["std", "half", "ppr", "tep"].includes(fmt)) fmt = "ppr";
 
@@ -30,11 +30,23 @@
     return `Questionable this week${what}`;
   }
 
+  // projected points over some weeks: points per game x matchup x chance he plays x QB change
+  const pts = (p, keep) => p.sched.reduce((s, [w, , m, a, q]) => s + (keep(w) ? p.ppg[fmt] * m * a * q : 0), 0);
+  const SORTS = {
+    ros: { head: "Proj", title: `Projected fantasy points, Weeks ${D.from}–${D.to}`, val: (p) => p.ros[fmt] },
+    po: { head: "Wk 15–17", title: `Projected fantasy points in the fantasy playoffs, Weeks ${D.playoffs.join(", ")}`, val: (p) => pts(p, (w) => D.playoffs.includes(w)) },
+    week: { head: `Wk ${D.from}`, title: `Projected fantasy points, Week ${D.from}`, val: (p) => pts(p, (w) => w === D.from), dec: 1 },
+    ppg: { head: "Proj", title: `Projected fantasy points, Weeks ${D.from}–${D.to}`, val: (p) => p.ros[fmt] },
+  };
+
   function rankings() {
     // hidden unless turned on: out for the season, or not playing lately with no injury news
     const gone = (p) => (p.inj && p.inj.s === "season") || (p.out && !p.inj);
     const rows = D.players.filter((p) => (pos === "All" || p.p === pos) && (showOut || !gone(p)))
-      .sort((a, b) => b.ros[fmt] - a.ros[fmt]);
+      .map((p) => ({ ...p, v: SORTS[by].val(p) }))
+      .sort((a, b) => by === "ppg" ? b.ppg[fmt] - a.ppg[fmt] || b.v - a.v : b.v - a.v || b.ppg[fmt] - a.ppg[fmt]);
+    const h = $("rs-proj-h");
+    h.textContent = SORTS[by].head; h.title = SORTS[by].title;
     const posRank = {};
     $("rs-body").innerHTML = rows.slice(0, limit).map((p, i) => {
       posRank[p.p] = (posRank[p.p] || 0) + 1;
@@ -49,7 +61,7 @@
       return `<tr><td class="rs-rk">${i + 1}</td>` +
         `<th scope="row" class="rs-pl"><a href="fantasy/${p.slug}.html">${esc(p.n)}</a>` +
         `<span>${p.p}${pos === "All" ? "" : posRank[p.p]} · ${esc(TEAM[p.t] || p.t)}</span>${out}${qb}</th>` +
-        `<td class="rs-proj">${p.ros[fmt].toFixed(0)}</td><td class="rs-ppg">${p.ppg[fmt].toFixed(1)}</td>${cells}</tr>`;
+        `<td class="rs-proj">${p.v.toFixed(SORTS[by].dec || 0)}</td><td class="rs-ppg">${p.ppg[fmt].toFixed(1)}</td>${cells}</tr>`;
     }).join("") || `<tr><td colspan="12" class="ff-none">No players match.</td></tr>`;
     $("rs-more").hidden = rows.length <= limit;
     $("rs-more").textContent = `Show all ${rows.length} players`;
@@ -79,7 +91,7 @@
       b.setAttribute("aria-pressed", on ? "true" : "false");
     }
   }
-  function render() { mark("rs-fmt", "fmt", fmt); mark("rs-pos", "pos", pos); rankings(); }
+  function render() { mark("rs-fmt", "fmt", fmt); mark("rs-pos", "pos", pos); mark("rs-sort", "sort", by); rankings(); }
 
   $("rs-fmt").addEventListener("click", (e) => {
     const b = e.target.closest("[data-fmt]"); if (!b) return;
@@ -90,6 +102,10 @@
   $("rs-pos").addEventListener("click", (e) => {
     const b = e.target.closest("[data-pos]"); if (!b) return;
     pos = b.dataset.pos; limit = 60; render();
+  });
+  $("rs-sort").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-sort]"); if (!b) return;
+    by = b.dataset.sort; limit = 60; render();
   });
   $("rs-out").addEventListener("change", (e) => { showOut = e.target.checked; render(); });
   $("rs-more").addEventListener("click", () => { limit = 1000; rankings(); });
