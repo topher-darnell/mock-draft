@@ -1,0 +1,60 @@
+/* Night Shift theme: 80s Miami neon on top of the normal look. Turned on by <html class="night">.
+   Orange stays the main brand color; pink and cyan are the neon extras. */
+html.night {
+  --bg: #0E0920;
+  --card: #1A1233;
+  --line: #2C1F4C;
+  --muted: #A99CC6;
+  --pink: #FF6EC7;
+  --magenta: #FF2E88;
+  --cyan: #4DE8FF;
+}
+
+html.night .site-header {
+  background: rgba(14, 9, 32, 0.9);
+  border-bottom: 1px solid rgba(255, 110, 199, 0.55);
+  box-shadow: 0 1px 14px rgba(255, 46, 136, 0.25);
+}
+html.night .site-nav { background: #120B28; }
+html.night .brand-tile { box-shadow: 0 0 12px rgba(255, 46, 136, 0.55); }
+
+/* hero: sunset, striped sun, palms and a glowing grid */
+html.night .hero {
+  background: #0B0620 url(icons/night-hero-tall.webp) center bottom / cover no-repeat;
+  border-bottom: 2px solid var(--pink);
+  box-shadow: 0 2px 22px rgba(255, 46, 136, 0.45);
+}
+html.night .hero .eyebrow {
+  color: var(--cyan);
+  text-shadow: 0 0 10px rgba(77, 232, 255, 0.7);
+}
+html.night .hero-title {
+  background: linear-gradient(180deg, #FFFFFF 0%, #CFE0FF 44%, #3E2A7C 51%, #FFB2E8 58%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 1px var(--magenta)) drop-shadow(0 0 12px rgba(255, 46, 136, 0.65));
+}
+html.night .hero-title span {
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+}
+html.night .hero-sub { color: #ECE3FA; text-shadow: 0 1px 8px rgba(11, 6, 32, 0.9); }
+html.night .hero-stats { color: #CFC2EA; text-shadow: 0 1px 8px rgba(11, 6, 32, 0.9); }
+html.night .hero-start,
+html.night .header-cta { box-shadow: 0 0 16px rgba(255, 46, 136, 0.55); }
+html.night .hero-how {
+  border-color: var(--pink);
+  background: rgba(14, 9, 32, 0.55);
+  box-shadow: 0 0 12px rgba(255, 110, 199, 0.35);
+}
+html.night .hero-art img {
+  box-shadow: 0 0 0 2px var(--pink), 0 0 28px rgba(255, 46, 136, 0.65), 0 14px 34px rgba(0, 0, 0, 0.5);
+}
+@media (min-width: 900px) {
+  html.night .hero { background-image: url(icons/night-hero-wide.webp); background-position: 70% bottom; }
+}
+
+/* section headings get a soft neon glow */
+html.night .home-h2 { text-shadow: 0 0 14px rgba(255, 46, 136, 0.45); }
