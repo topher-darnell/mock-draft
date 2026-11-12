@@ -586,7 +586,7 @@ function setUpHome() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
   document.getElementById("resume-button").addEventListener("click", () => enterApp(null));
-  document.getElementById("app-home").addEventListener("click", goHome);
+  document.querySelectorAll(".app-home, .app-leave").forEach((b) => b.addEventListener("click", goHome));
 
   // Back and Forward buttons
   window.addEventListener("popstate", (e) => {

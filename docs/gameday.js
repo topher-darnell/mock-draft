@@ -62,6 +62,7 @@
 
   function renderList() {
     const ps = team.map((s) => BY[s]);
+    if (!ps.length) { $("gd-list").innerHTML = ""; return; }
     if (editing) {
       $("gd-list").innerHTML = ps.slice().sort((a, b) => pts(b) - pts(a)).map((p) => row(p, null)).join("");
       return;

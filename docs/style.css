@@ -1029,6 +1029,11 @@ h1 {
   cursor: pointer;
 }
 
+.app-bar { justify-content: space-between; gap: 12px; }
+.app-leave { min-height: 40px; padding: 0 14px; border: 1px solid #3A4656; border-radius: 12px; background: transparent; color: var(--text); font: 700 14px Inter, sans-serif; cursor: pointer; }
+.app-leave:hover { border-color: var(--accent); }
+#setup-screen .app-leave { display: none; }
+
 /* small phones: shorter header button, both hero buttons on one row */
 @media (max-width: 380px) {
   .cta-long { display: none; }
@@ -2814,10 +2819,11 @@ a.gd-tool:hover { border-color: #3A4656; }
   body:has(.gd-tabs) .resume { bottom: calc(80px + env(safe-area-inset-bottom)); }
   body:has(.gd-tabs) #setup-screen .start { bottom: calc(80px + env(safe-area-inset-bottom)); }
   body:has(.gd-tabs) .fd-bar { bottom: calc(66px + env(safe-area-inset-bottom)); }
-  body:has(#draft-screen:not([hidden])) .gd-tabs, body:has(#results-screen:not([hidden])) .gd-tabs { display: none; }
-  body:has(#draft-screen:not([hidden])), body:has(#results-screen:not([hidden])) { padding-bottom: 0; }
+  body:has(#app:not([hidden]) #draft-screen:not([hidden])) .gd-tabs, body:has(#app:not([hidden]) #results-screen:not([hidden])) .gd-tabs { display: none; }
+  body:has(#app:not([hidden]) #draft-screen:not([hidden])), body:has(#app:not([hidden]) #results-screen:not([hidden])) { padding-bottom: 0; }
   body:has(#home-screen[hidden]) .gd-tabs a.t-home { color: var(--muted); }
-  body:has(#setup-screen:not([hidden])) .gd-tabs a.t-draft { color: var(--accent); }
+  body:has(.gd-tabs) .site-nav { display: none; }
+  body:has(#app:not([hidden]) #setup-screen:not([hidden])) .gd-tabs a.t-draft { color: var(--accent); }
   .gd-tabs {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 18;
     display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
