@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "49", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "50", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1769,8 +1769,7 @@ def gameday_data():
             call, why = called[p["n"]]
         else:
             call = "START" if r["rk"] <= start_cut else "FLEX" if r["rk"] <= flex_cut else "SIT"
-            why = {"START": f"A top-{start_cut} {p['p']} this week", "FLEX": "Fine as a flex",
-                   "SIT": f"Outside the top {flex_cut} {p['p']}s this week"}[call]
+            why = f"Projected {p['p']}{r['rk']} this week" + {"START": "", "FLEX": ", fine as a flex", "SIT": ""}[call]
             if inj.get("s") in ("questionable", "doubtful"):
                 why = INJ_WORD[inj["s"]] + (f" ({inj['inj'].lower()})" if inj.get("inj") else "")
         n = news.get(p["n"])
@@ -1837,7 +1836,6 @@ def home_preview_page():
 
         <div class="gd-col">
           {home_news(5)}
-          {home_startem()}
           <div class="home-h2-row"><h2 class="home-h2">Today's daily games</h2><a class="section-note" href="games/">All games →</a></div>
           <div class="gd-tools">
             <a class="gd-card gd-tool" href="games/prospectle.html"><b>Prospectle</b><span>Guess the draft prospect</span></a>
@@ -1847,6 +1845,7 @@ def home_preview_page():
           </div>
         </div>
       </div>
+      <div class="gd-wide">{home_startem()}</div>
     </div>
     <nav class="gd-tabs" aria-label="Sections">
       {tab("home-preview.html", "Fantasy", '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', True)}
@@ -1856,7 +1855,7 @@ def home_preview_page():
     </nav>
     <script type="application/json" id="gd-data">{data}</script>"""
     html = page("home-preview.html", "Big Head GM · Game Day (test)", "Test page for the new Big Head GM home page.", body,
-                scripts=("gameday.js?v=1",), body_class="info-page gd-page")
+                nav="none", scripts=("gameday.js?v=1",), body_class="info-page gd-page")
     return re.sub(r'<link rel="canonical"[^>]*>', '<meta name="robots" content="noindex">', html, count=1)
 
 
@@ -2302,6 +2301,7 @@ def main():
     fantasle_page()
     perfect_page()
     home_blocks()
+    write("home-preview.html", home_preview_page())
     paths += nfl_profiles()
     sitemap(paths)
     print(f"Built {len(players)} player pages, {len(team_names)} team pages, the odds page, the games pages and sitemap.xml ({len(paths)} pages)")
