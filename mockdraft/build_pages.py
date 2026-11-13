@@ -46,7 +46,7 @@ POS_ORDER = ["QB", "RB", "WR", "TE", "OT", "IOL", "EDGE", "IDL", "LB", "CB", "S"
 YEAR_NAME = {"RS Senior": "redshirt senior", "RS Junior": "redshirt junior", "RS Sophomore": "redshirt sophomore"}
 
 NAV = [("", "Mock draft"), ("players/", "Big board"), ("teams/", "Team mocks"), ("odds.html", "#1 pick odds"),
-       ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("games/", "Games")]
+       ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("games/", "Games"), ("scores.html", "Scores & News")]
 
 
 # ---------- small helpers ----------
@@ -1794,7 +1794,7 @@ def scores_page():
     lead = (f"{FF_TEAM.get(first['away'])} {first['score'][0]}, {FF_TEAM.get(first['home'])} {first['score'][1]}" if first else "")
     desc = f"NFL Week {wk} 2026 scores with fantasy stats for every game{': ' + lead if lead else ''}. Top fantasy scorers, stat lines and PPR points."
     return page("scores.html", f"NFL Week {wk} Scores, Fantasy Stats and News (2026) · Big Head GM", desc, body,
-                crumbs=[(f"Week {wk} scores", "scores.html")], nav="news.html")
+                crumbs=[(f"Week {wk} scores", "scores.html")], nav="scores.html")
 
 
 def home_scores():
@@ -2071,7 +2071,7 @@ def news_page():
     </div>"""
     desc = "Quick NFL news for fantasy football: injuries, returns, trades and new starting quarterbacks, in one line each with the source."
     return page("news.html", "NFL Quick Hits: Injuries, Trades and Fantasy News · Big Head GM", desc, body,
-                crumbs=[("News", "news.html")], nav="fantasy.html")
+                crumbs=[("News", "news.html")], nav="scores.html")
 
 
 def player_news(name, n=2, depth="../"):
