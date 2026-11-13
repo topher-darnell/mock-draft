@@ -579,12 +579,25 @@ def scores(week=None, per_team=3):
             game["score"] = [int(g["away_score"]), int(g["home_score"])]
             for side in ("away", "home"):
                 mine = [r for r in stats if r["team"] == g[side] and r["opp"] == g["home" if side == "away" else "away"]]
-                top = sorted(mine, key=lambda r: -points(r, "ppr"))[:per_team]
-                game[side + "_top"] = [{"n": r["name"], "p": r["pos"], "pts": round(points(r, "ppr"), 1), "line": _stat_line(r)}
-                                       for r in top if points(r, "ppr") > 0]
+                every = [{"n": r["name"], "p": r["pos"], "pts": round(points(r, "ppr"), 1), "line": _stat_line(r)}
+                         for r in sorted(mine, key=lambda r: -points(r, "ppr")) if points(r, "ppr") != 0]
+                game[side + "_top"] = [r for r in every if r["pts"] > 0][:per_team]
+                game[side + "_all"] = every
         games.append(game)
     games.sort(key=lambda g: (g["day"], g["time"]))
     return {"week": week, "games": games, "done": all(g["final"] for g in games)}
+
+
+def week_points(week):
+    """actual fantasy points for everyone who has played in `week` so far: {name: [std, half, ppr, stat line]},
+    plus the teams whose game is final (a player on one of those teams with no stats didn't play)"""
+    sched = read("fantasy_schedule.csv")
+    final = {g[side] for g in sched if int(g["week"]) == week and g.get("away_score", "") != "" for side in ("away", "home")}
+    rows = [r for r in read("fantasy_weekly.csv") if int(r["week"]) == week]
+    if not rows and os.path.exists(os.path.join(HERE, "fantasy_live.csv")):
+        rows = [r for r in read("fantasy_live.csv") if int(r["week"]) == week]
+    pts = {r["name"]: [round(points(r, k), 1) for k in ("std", "half", "ppr")] + [_stat_line(r)] for r in rows}
+    return pts, final
 
 
 # ---------- Waiver wire ----------

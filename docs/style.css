@@ -2924,3 +2924,11 @@ a.gd-tool:hover { border-color: #3A4656; }
   .sc-small { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sc-home { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+.gd-call.DONE { background: #2A3442; color: var(--text); min-width: 38px; text-align: center; }
+.gd-call.DONE.beat { background: #6CD39A; color: #10151C; }
+.gd-total { list-style: none; grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; background: #2A2213; color: #E8D6B4; font-size: 13px; font-weight: 600; }
+.gd-total b { color: var(--accent); font-size: 15px; }
+.sc-all { margin-top: 10px; }
+.sc-all summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 14px; font-weight: 700; color: var(--accent); }
+.sc-all .sc-tops { margin-top: 4px; }
+.sc .nw-list { margin-bottom: 26px; }

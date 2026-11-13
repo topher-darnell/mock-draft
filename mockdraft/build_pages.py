@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "57", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "58", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1752,6 +1752,13 @@ def sc_game(g, have, full=True):
             return out
         tops = (f'<div class="sc-tops"><div><h4>{name(a)}</h4><ol>{plist("away")}</ol></div>'
                 f'<div><h4>{name(h)}</h4><ol>{plist("home")}</ol></div></div>')
+        def alist(side):
+            return "".join(f'<li><span class="gd-pos {r["p"]}">{r["p"]}</span><span class="sc-pl">'
+                           f'{(f"<a href={chr(34)}fantasy/{slug(r[chr(110)])}.html{chr(34)}>{esc(r[chr(110)])}</a>") if r["n"] in have else esc(r["n"])}'
+                           f'<i>{esc(r["line"])}</i></span><b>{r["pts"]:.1f}</b></li>' for r in g[side + "_all"])
+        n_all = len(g["away_all"]) + len(g["home_all"])
+        tops += (f'<details class="sc-all"><summary>All {n_all} fantasy scorers</summary><div class="sc-tops">'
+                 f'<div><h4>{name(a)}</h4><ol>{alist("away")}</ol></div><div><h4>{name(h)}</h4><ol>{alist("home")}</ol></div></div></details>')
     return f'<li class="sc-game"><p class="sc-when">{sc_when(g)}</p>{rows}{tops}</li>'
 
 
@@ -1768,10 +1775,12 @@ def scores_page():
     <div class="se sc">
       <p class="eyebrow">NFL · 2026 SEASON · WEEK {wk}</p>
       <h1 class="in-title">Week {wk} scores and fantasy stats</h1>
-      <p class="in-sub">Final scores and each team's top fantasy scorers, in PPR points.</p>
+      <p class="in-sub">Final scores, every player's fantasy points (PPR) and the latest news.</p>
       {f'<h2 class="home-h2">Final</h2><ol class="sc-list">{"".join(sc_game(g, have) for g in done)}</ol>' if done else ""}
       {f'<h2 class="home-h2">Still to play</h2><ol class="sc-list sc-small">{"".join(sc_game(g, have) for g in up)}</ol>' if up else ""}
       {f'<h2 class="home-h2">Week {wk - 1}</h2><ol class="sc-list">{"".join(sc_game(g, have) for g in prev["games"][::-1])}</ol>' if prev else ""}
+      <div class="home-h2-row nw-head"><h2 class="home-h2">Quick hits</h2><a class="section-note nw-all" href="news.html">All news →</a></div>
+      <ol class="nw-list">{"".join(news_li(r) for r in news_items()[:8])}</ol>
       <a class="ff-cta se-tool" href="fantasy-waiver-wire.html"><span class="ff-cta-text"><b class="ff-cta-title">Someone come out of nowhere?</b>
         <span class="ff-cta-sub">See who's worth grabbing on waivers this week.</span></span><span class="ff-cta-go">Waiver wire →</span></a>
       <p class="od-fine">Scores and stats: <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a>. PPR: 1 point per catch, 0.1 per rushing or receiving yard, 6 per TD, 0.04 per passing yard, 4 per passing TD, −2 per interception.</p>
@@ -1779,7 +1788,7 @@ def scores_page():
     first = done[0] if done else None
     lead = (f"{FF_TEAM.get(first['away'])} {first['score'][0]}, {FF_TEAM.get(first['home'])} {first['score'][1]}" if first else "")
     desc = f"NFL Week {wk} 2026 scores with fantasy stats for every game{': ' + lead if lead else ''}. Top fantasy scorers, stat lines and PPR points."
-    return page("scores.html", f"NFL Week {wk} Scores and Fantasy Stats (2026) · Big Head GM", desc, body,
+    return page("scores.html", f"NFL Week {wk} Scores, Fantasy Stats and News (2026) · Big Head GM", desc, body,
                 crumbs=[(f"Week {wk} scores", "scores.html")], nav="news.html")
 
 
@@ -1887,6 +1896,7 @@ def gameday_data():
     picks = fantasy.weekly_picks(per_pos=3)
     called = {r["n"]: ("START", r["why"][0]) for pos in picks["start"] for r in picks["start"][pos]}
     called.update({r["n"]: ("SIT", r["why"][0]) for pos in picks["sit"] for r in picks["sit"][pos]})
+    done_pts, done_teams = fantasy.week_points(wk)
     news = {}
     for r in news_items():
         news.setdefault(r["player"], r)
@@ -1920,9 +1930,10 @@ def gameday_data():
             if inj.get("s") in ("questionable", "doubtful"):
                 why = INJ_WORD[inj["s"]] + (f" ({inj['inj'].lower()})" if inj.get("inj") else "")
         n = news.get(p["n"])
+        act = done_pts.get(p["n"]) or ([0, 0, 0, "Did not play"] if p["t"] in done_teams else None)
         k = (r["proj"] / p["ppg"]["ppr"]) if p["ppg"]["ppr"] else 0
         out.append([p["n"], p["t"], p["p"], slug(p["n"]), [round(p["ppg"][f] * k, 1) for f in ("std", "half", "ppr")], r["opp"], se_matchup(r["m"]) if r["opp"] else "",
-                    call, r["rk"], why, [n["kind"], n["text"], n["date"]] if n else None])
+                    call, r["rk"], why, [n["kind"], n["text"], n["date"]] if n else None, act])
     out.sort(key=lambda x: -x[4][2])
     return {"week": wk, "players": out}
 
@@ -1958,7 +1969,7 @@ def lineup_card():
           <div class="gd-news" id="gd-news" hidden><h3 class="gd-sub">News on your players</h3><ol class="nw-list" id="gd-news-list"></ol></div>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=6" defer></script>
+          <script src="gameday.js?v=7" defer></script>
         </section>"""
 
 
@@ -1982,7 +1993,7 @@ def gd_tools():
         </section>"""
 
 
-TAB_OF = {"": "home", "games/": "games", "news.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft"}
+TAB_OF = {"": "home", "games/": "games", "news.html": "news", "scores.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft"}
 
 
 def gd_tabs(root="", current="home"):
@@ -1993,7 +2004,7 @@ def gd_tabs(root="", current="home"):
             + tab("home", root or "./", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>')
             + tab("draft", f"{root}?start=1", "Draft", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>')
             + tab("games", f"{root}games/", "Games", '<rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15 12h.01M18 14h.01"/>')
-            + tab("news", f"{root}news.html", "News", '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>') + "</nav>")
+            + tab("news", f"{root}scores.html", "Scores &amp; News", '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>') + "</nav>")
 
 
 def startsit_when(week):

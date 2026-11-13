@@ -6,7 +6,8 @@
   const KEY = "bhg-myteam", SET_KEY = "bhg-myteam-league";
   const MAX = 25;
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  // [name, team, pos, slug, [std, half, ppr] projection, opp, matchup, call, posRank, why, news]
+  // [name, team, pos, slug, [std, half, ppr] projection, opp, matchup, call, posRank, why, news,
+  //  actual this week once his game is final: [std, half, ppr, stat line] or null]
   const BY = {};
   D.players.forEach((p) => { BY[p[3]] = p; });
   const MATCH = { g2: "very easy", g1: "easy", n: "average", r1: "tough", r2: "very tough" };
@@ -49,13 +50,16 @@
       return `<li class="gd-p gd-edit-row"><span class="gd-pos ${pos}">${pos}</span><span class="gd-pmain"><b class="gd-name">${esc(n)}</b>` +
         `<span class="gd-meta">${esc(t)}</span></span><button class="gd-x" data-del="${slug}" aria-label="Remove ${esc(n)}">✕</button></li>`;
     }
-    const sub = call === "OUT" ? "Not expected to play" : !opp ? "Bye this week"
+    const act = p[11];
+    const sub = act ? `· final vs ${esc(opp)} · <b>${act[fi()].toFixed(1)}</b> pts (proj ${pts(p).toFixed(1)})`
+      : call === "OUT" ? "Not expected to play" : !opp ? "Bye this week"
       : `vs ${esc(opp)} · ${MATCH[m] || "average"} · <b>${pts(p).toFixed(1)}</b> pts`;
-    const pill = slot ? `<span class="gd-call START">START</span>` : `<span class="gd-call ${out ? call : "BENCH"}">${out ? call : "BENCH"}</span>`;
+    const pill = act ? `<span class="gd-call DONE${act[fi()] >= pts(p) ? " beat" : ""}">${act[fi()].toFixed(1)}</span>`
+      : slot ? `<span class="gd-call START">START</span>` : `<span class="gd-call ${out ? call : "BENCH"}">${out ? call : "BENCH"}</span>`;
     const chip = slot && (slot === "FLEX" || slot === "SF") ? `<span class="gd-pos ${pos} gd-flex">${slot}</span>` : `<span class="gd-pos ${pos}">${pos}</span>`;
     return `<li class="gd-p${slot ? "" : " gd-bench"}">${chip}` +
       `<span class="gd-pmain"><a class="gd-name" href="fantasy/${slug}.html">${esc(n)}</a><span class="gd-meta">${esc(t)}${slot === "FLEX" || slot === "SF" ? " " + pos : ""} ${sub}</span>` +
-      `<span class="gd-why">${esc(note || why)}</span></span>${pill}</li>`;
+      `<span class="gd-why">${esc(act ? act[3] : (note || why))}</span></span>${pill}</li>`;
   }
 
   function lastName(p) { return p[0].split(" ").slice(-1)[0]; }
@@ -79,6 +83,14 @@
       return rival && pts(rival.p) - pts(b) <= 1 ? `Close call with ${lastName(rival.p)} (${pts(rival.p).toFixed(1)} pts)` : "";
     };
     if (bench.length) html.push(`<li class="gd-sep">Bench</li>`, ...bench.map((b) => row(b, null, close(b))));
+    const st = starters.filter((x) => x.p);
+    const played = st.filter((x) => x.p[11]);
+    if (played.length) {
+      const got = played.reduce((t, x) => t + x.p[11][fi()], 0);
+      const rest = st.filter((x) => !x.p[11]).reduce((t, x) => t + (plays(x.p) ? pts(x.p) : 0), 0);
+      html.unshift(`<li class="gd-total"><span><b>${got.toFixed(1)}</b> pts so far from ${played.length} starter${played.length > 1 ? "s" : ""}</span>` +
+        `<span>${played.length < st.length ? `On pace for <b>${(got + rest).toFixed(1)}</b>` : "Final"}</span></li>`);
+    }
     $("gd-list").innerHTML = html.join("");
   }
 
