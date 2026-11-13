@@ -2924,8 +2924,11 @@ a.gd-tool:hover { border-color: #3A4656; }
   .sc-small { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sc-home { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-.gd-call.DONE { background: #2A3442; color: var(--text); min-width: 38px; text-align: center; }
-.gd-call.DONE.beat { background: #6CD39A; color: #10151C; }
+.gd-call.DONE { display: flex; flex-direction: column; align-items: center; line-height: 1.1; min-width: 46px; padding: 4px 8px; border-radius: 10px; background: #2A3442; color: #C9D2DC; }
+.gd-call.DONE small { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; color: #8E9AA8; }
+.gd-played { background: #151A21; }
+.gd-played .gd-pos { opacity: 0.55; }
+.gd-played .gd-name, .gd-played .gd-meta b { color: #B4BECA; }
 .gd-total { list-style: none; grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; background: #2A2213; color: #E8D6B4; font-size: 13px; font-weight: 600; }
 .gd-total b { color: var(--accent); font-size: 15px; }
 .sc-all { margin-top: 10px; }

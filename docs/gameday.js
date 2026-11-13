@@ -54,10 +54,10 @@
     const sub = act ? `· final vs ${esc(opp)} · <b>${act[fi()].toFixed(1)}</b> pts (proj ${pts(p).toFixed(1)})`
       : call === "OUT" ? "Not expected to play" : !opp ? "Bye this week"
       : `vs ${esc(opp)} · ${MATCH[m] || "average"} · <b>${pts(p).toFixed(1)}</b> pts`;
-    const pill = act ? `<span class="gd-call DONE${act[fi()] >= pts(p) ? " beat" : ""}">${act[fi()].toFixed(1)}</span>`
+    const pill = act ? `<span class="gd-call DONE"><small>FINAL</small>${act[fi()].toFixed(1)}</span>`
       : slot ? `<span class="gd-call START">START</span>` : `<span class="gd-call ${out ? call : "BENCH"}">${out ? call : "BENCH"}</span>`;
     const chip = slot && (slot === "FLEX" || slot === "SF") ? `<span class="gd-pos ${pos} gd-flex">${slot}</span>` : `<span class="gd-pos ${pos}">${pos}</span>`;
-    return `<li class="gd-p${slot ? "" : " gd-bench"}">${chip}` +
+    return `<li class="gd-p${slot ? "" : " gd-bench"}${act ? " gd-played" : ""}">${chip}` +
       `<span class="gd-pmain"><a class="gd-name" href="fantasy/${slug}.html">${esc(n)}</a><span class="gd-meta">${esc(t)}${slot === "FLEX" || slot === "SF" ? " " + pos : ""} ${sub}</span>` +
       `<span class="gd-why">${esc(act ? act[3] : (note || why))}</span></span>${pill}</li>`;
   }
