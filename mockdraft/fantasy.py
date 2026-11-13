@@ -533,6 +533,60 @@ def fill_ins(players):
                     p.setdefault("fill", {})[w] = {"for": names, "m": round(mult, 2)}
 
 
+# ---------- Scores ----------
+# Final scores from the schedule, each team's top fantasy scorers from the weekly stats (or, for the week
+# still being played, fantasy_live.csv, which never feeds the projections).
+
+def _stat_line(r):
+    n = lambda c: int(f(r.get(c, 0)))
+    bits = []
+    if r["pos"] == "QB":
+        bits.append(f"{n('cmp')}/{n('att')}, {n('pass_yds')} yds")
+        if n("pass_td"):
+            bits.append(f"{n('pass_td')} TD")
+        if n("int"):
+            bits.append(f"{n('int')} INT")
+        if n("rush_yds") >= 15 or n("rush_td"):
+            bits.append(f"{n('rush_yds')} rush yds" + (f", {n('rush_td')} rush TD" if n("rush_td") else ""))
+        return ", ".join(bits)
+    if r["pos"] == "RB" and n("car"):
+        bits.append(f"{n('car')} carries, {n('rush_yds')} yds" + (f", {n('rush_td')} TD" if n("rush_td") else ""))
+    if n("rec") or (r["pos"] != "RB" and n("tgt")):
+        bits.append(f"{n('rec')} catch{'es' if n('rec') != 1 else ''}, {n('rec_yds')} yds" + (f", {n('rec_td')} TD" if n("rec_td") else ""))
+    if r["pos"] != "RB" and (n("rush_yds") >= 10 or n("rush_td")):
+        bits.append(f"{n('rush_yds')} rush yds" + (f", {n('rush_td')} TD" if n("rush_td") else ""))
+    return "; ".join(bits)
+
+
+def scores(week=None, per_team=3):
+    sched = read("fantasy_schedule.csv")
+    if not sched or "away_score" not in sched[0]:
+        return None
+    played = [g for g in sched if g["away_score"] != ""]
+    if week is None:
+        if not played:
+            return None
+        week = max(int(g["week"]) for g in played)
+    stats = [r for r in read("fantasy_weekly.csv") if int(r["week"]) == week]
+    if not stats and os.path.exists(os.path.join(HERE, "fantasy_live.csv")):
+        stats = [r for r in read("fantasy_live.csv") if int(r["week"]) == week]
+    games = []
+    for g in sched:
+        if int(g["week"]) != week:
+            continue
+        game = {"away": g["away"], "home": g["home"], "day": g["day"], "time": g.get("time", ""), "final": g["away_score"] != ""}
+        if game["final"]:
+            game["score"] = [int(g["away_score"]), int(g["home_score"])]
+            for side in ("away", "home"):
+                mine = [r for r in stats if r["team"] == g[side] and r["opp"] == g["home" if side == "away" else "away"]]
+                top = sorted(mine, key=lambda r: -points(r, "ppr"))[:per_team]
+                game[side + "_top"] = [{"n": r["name"], "p": r["pos"], "pts": round(points(r, "ppr"), 1), "line": _stat_line(r)}
+                                       for r in top if points(r, "ppr") > 0]
+        games.append(game)
+    games.sort(key=lambda g: (g["day"], g["time"]))
+    return {"week": week, "games": games, "done": all(g["final"] for g in games)}
+
+
 # ---------- Waiver wire ----------
 # Players who are probably still on waivers in a 12-team league (not among the top scorers at their
 # position this season, and not a regular starter by points per game) whose next few weeks look good:

@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "55", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "57", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1720,6 +1720,91 @@ def fantasy_startem_page():
                 crumbs=[("Fantasy", "fantasy.html"), (f"Week {p['week']} start 'em, sit 'em", "fantasy-start-em-sit-em.html")], nav="fantasy.html")
 
 
+def sc_when(g):
+    import datetime as _dt
+    d = _dt.date.fromisoformat(g["day"])
+    day = f"{d.strftime('%a')}, {d.strftime('%b')} {d.day}"
+    if g["final"]:
+        return f"{day} · Final"
+    if not g.get("time"):
+        return day
+    h, m = (int(x) for x in g["time"].split(":"))
+    return f"{day} · {(h - 1) % 12 + 1}:{m:02d} {'PM' if h >= 12 else 'AM'} ET"
+
+
+def sc_game(g, have, full=True):
+    a, h = g["away"], g["home"]
+    name = lambda t: esc(FF_TEAM.get(t, t))
+    if not g["final"]:
+        return (f'<li class="sc-game sc-up"><span class="sc-match">{name(a)} @ {name(h)}</span>'
+                f'<span class="sc-when">{sc_when(g)}</span></li>')
+    sa, sh = g["score"]
+    row = lambda t, pts, win, at="": f'<div class="sc-row{" win" if win else ""}"><span>{at}{name(t)}</span><b>{pts}</b></div>'
+    rows = row(a, sa, sa > sh) + row(h, sh, sh > sa, "@ ")
+    tops = ""
+    if full:
+        def plist(side):
+            out = ""
+            for r in g[side + "_top"]:
+                nm = (f'<a href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a>' if r["n"] in have else esc(r["n"]))
+                out += (f'<li><span class="gd-pos {r["p"]}">{r["p"]}</span><span class="sc-pl">{nm}<i>{esc(r["line"])}</i></span>'
+                        f'<b>{r["pts"]:.1f}</b></li>')
+            return out
+        tops = (f'<div class="sc-tops"><div><h4>{name(a)}</h4><ol>{plist("away")}</ol></div>'
+                f'<div><h4>{name(h)}</h4><ol>{plist("home")}</ol></div></div>')
+    return f'<li class="sc-game"><p class="sc-when">{sc_when(g)}</p>{rows}{tops}</li>'
+
+
+def scores_page():
+    cur = fantasy.scores()
+    if not cur:
+        return None
+    have = {r["n"] for r in fantasy.leaders()}
+    wk = cur["week"]
+    done = [g for g in cur["games"] if g["final"]][::-1]
+    up = [g for g in cur["games"] if not g["final"]]
+    prev = fantasy.scores(wk - 1) if wk > 1 and not cur["done"] else None
+    body = f"""
+    <div class="se sc">
+      <p class="eyebrow">NFL · 2026 SEASON · WEEK {wk}</p>
+      <h1 class="in-title">Week {wk} scores and fantasy stats</h1>
+      <p class="in-sub">Final scores and each team's top fantasy scorers, in PPR points.</p>
+      {f'<h2 class="home-h2">Final</h2><ol class="sc-list">{"".join(sc_game(g, have) for g in done)}</ol>' if done else ""}
+      {f'<h2 class="home-h2">Still to play</h2><ol class="sc-list sc-small">{"".join(sc_game(g, have) for g in up)}</ol>' if up else ""}
+      {f'<h2 class="home-h2">Week {wk - 1}</h2><ol class="sc-list">{"".join(sc_game(g, have) for g in prev["games"][::-1])}</ol>' if prev else ""}
+      <a class="ff-cta se-tool" href="fantasy-waiver-wire.html"><span class="ff-cta-text"><b class="ff-cta-title">Someone come out of nowhere?</b>
+        <span class="ff-cta-sub">See who's worth grabbing on waivers this week.</span></span><span class="ff-cta-go">Waiver wire →</span></a>
+      <p class="od-fine">Scores and stats: <a href="https://github.com/nflverse" rel="noopener nofollow">nflverse</a>. PPR: 1 point per catch, 0.1 per rushing or receiving yard, 6 per TD, 0.04 per passing yard, 4 per passing TD, −2 per interception.</p>
+    </div>"""
+    first = done[0] if done else None
+    lead = (f"{FF_TEAM.get(first['away'])} {first['score'][0]}, {FF_TEAM.get(first['home'])} {first['score'][1]}" if first else "")
+    desc = f"NFL Week {wk} 2026 scores with fantasy stats for every game{': ' + lead if lead else ''}. Top fantasy scorers, stat lines and PPR points."
+    return page("scores.html", f"NFL Week {wk} Scores and Fantasy Stats (2026) · Big Head GM", desc, body,
+                crumbs=[(f"Week {wk} scores", "scores.html")], nav="news.html")
+
+
+def home_scores():
+    cur = fantasy.scores()
+    if not cur:
+        return ""
+    games = [g for g in cur["games"] if g["final"]][::-1][:3]
+    if not games:
+        return ""
+    have = {r["n"] for r in fantasy.leaders()}
+    items = ""
+    for g in games:
+        a, h = g["away"], g["home"]
+        sa, sh = g["score"]
+        best = max(g["away_top"] + g["home_top"], key=lambda r: r["pts"], default=None)
+        star = (f'<p class="sc-star">Top: {esc(best["n"])} {best["pts"]:.1f} pts</p>' if best else "")
+        items += (f'<li class="sc-game"><p class="sc-when">{sc_when(g)}</p>'
+                  f'<div class="sc-row{" win" if sa > sh else ""}"><span>{esc(FF_TEAM.get(a, a))}</span><b>{sa}</b></div>'
+                  f'<div class="sc-row{" win" if sh > sa else ""}"><span>@ {esc(FF_TEAM.get(h, h))}</span><b>{sh}</b></div>{star}</li>')
+    return f"""
+        <div class="home-h2-row"><h2 class="home-h2">Scores</h2><a class="section-note nw-all" href="scores.html">All Week {cur["week"]} scores →</a></div>
+        <ol class="sc-list sc-home">{items}</ol>"""
+
+
 def ww_card(r):
     nxt = "".join(f'<li class="ww-wk{" bye" if not opp else ""}"><span>Wk {w}</span><b>{"BYE" if not opp else "vs " + esc(opp)}</b>'
                   f'<i>{"" if not opp else f"{v:.1f}"}</i></li>' for w, opp, v in r["next"])
@@ -1873,7 +1958,7 @@ def lineup_card():
           <div class="gd-news" id="gd-news" hidden><h3 class="gd-sub">News on your players</h3><ol class="nw-list" id="gd-news-list"></ol></div>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=5" defer></script>
+          <script src="gameday.js?v=6" defer></script>
         </section>"""
 
 
@@ -1920,7 +2005,7 @@ def startsit_when(week):
 
 
 # ---------- Quick hits: short NFL news (mockdraft/news.csv) ----------
-NEWS_TAG = {"injury": "Injury", "return": "Return", "trade": "Trade", "qb": "New QB", "news": "Roster"}
+NEWS_TAG = {"injury": "Injury", "return": "Return", "trade": "Trade", "qb": "New QB", "news": "Roster", "result": "Final"}
 
 
 def news_items():
@@ -1963,6 +2048,7 @@ def news_page():
       <p class="eyebrow">NFL NEWS</p>
       <h1 class="in-title">Quick hits</h1>
       <p class="in-sub">Short NFL news that matters for fantasy and the draft: injuries, returns, trades and new starters. Each one links to the source.</p>
+      <a class="sc-link" href="scores.html">This week's scores and fantasy stats →</a>
       <ol class="nw-list">{"".join(news_li(r) for r in items)}</ol>
       <div class="ff-ctas">{FF_SS_CTA}{FF_ROS_CTA}</div>
     </div>"""
@@ -2115,6 +2201,7 @@ def home_blocks():
         <div class="gd-home">{lineup_card()}{gd_tools()}
         </div>
         {home_news()}
+        {home_scores()}
 
         <div class="home-h2-row">
           <h2 class="home-h2">Today's daily games</h2>
@@ -2338,7 +2425,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2355,6 +2442,8 @@ def main():
     write("fantasy-start-sit.html", fantasy_startsit_page())
     write("fantasy-start-em-sit-em.html", fantasy_startem_page())
     write("fantasy-waiver-wire.html", fantasy_waiver_page())
+    if fantasy.scores():
+        write("scores.html", scores_page())
     write("news.html", news_page())
     games_pages()
     prospectle_page()

@@ -2,8 +2,10 @@
 Download week-by-week player stats and the schedule, for Trending and the rest-of-season rankings.
 
 Source: nflverse (free, public NFL data on GitHub):
-  stats_player_week_<season>.csv -> fantasy_weekly.csv (QBs, RBs, WRs and TEs, the columns we use)
-  schedules/games.csv            -> fantasy_schedule.csv (this season's regular-season games)
+  stats_player_week_<season>.csv -> fantasy_weekly.csv (QBs, RBs, WRs and TEs, the columns we use; only
+                                    weeks where every game is final, so projections don't shift mid-week)
+                                    + fantasy_live.csv (the week in progress, for the scores page)
+  schedules/games.csv            -> fantasy_schedule.csv (this season's regular-season games, kickoff, final scores)
   weekly_rosters + injuries      -> fantasy_status.csv (latest week: roster status, injury report)
 
     python3 fetch_weekly.py          # 2026 season
@@ -23,13 +25,27 @@ ROSTERS = f"https://github.com/nflverse/nflverse-data/releases/download/weekly_r
 INJURIES = f"https://github.com/nflverse/nflverse-data/releases/download/injuries/injuries_{SEASON}.csv"
 TEAM = {"LA": "LAR", "JAC": "JAX", "WSH": "WAS"}          # nflverse spellings -> ours
 KEEP = {"player_display_name": "name", "position": "pos", "team": "team", "opponent_team": "opp", "week": "week",
-        "passing_yards": "pass_yds", "passing_tds": "pass_td", "passing_interceptions": "int",
+        "completions": "cmp", "attempts": "att", "passing_yards": "pass_yds", "passing_tds": "pass_td", "passing_interceptions": "int",
         "carries": "car", "rushing_yards": "rush_yds", "rushing_tds": "rush_td",
         "targets": "tgt", "receptions": "rec", "receiving_yards": "rec_yds", "receiving_tds": "rec_td",
         "target_share": "tgt_share"}
 
 
 def main():
+    with urllib.request.urlopen(SCHEDULE, timeout=120) as r:
+        games = [g for g in csv.DictReader(io.StringIO(r.read().decode("utf-8")))
+                 if g["season"] == str(SEASON) and g["game_type"] == "REG"]
+    with open(os.path.join(HERE, "fantasy_schedule.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f, lineterminator="\n")
+        w.writerow(["week", "away", "home", "day", "time", "away_score", "home_score"])
+        for g in sorted(games, key=lambda g: (int(g["week"]), g["gameday"], g["gametime"])):
+            w.writerow([g["week"], TEAM.get(g["away_team"], g["away_team"]), TEAM.get(g["home_team"], g["home_team"]),
+                        g["gameday"], g["gametime"], g["away_score"], g["home_score"]])
+    print(f"{len(games)} games on the {SEASON} schedule")
+    # the first week with a game not yet final: its stats are "live" until the whole week is done
+    open_weeks = sorted({int(g["week"]) for g in games if g["away_score"] == ""})
+    live_week = open_weeks[0] if open_weeks else 99
+
     with urllib.request.urlopen(URL, timeout=120) as r:
         text = r.read().decode("utf-8")
     rows = []
@@ -41,22 +57,17 @@ def main():
         row["opp"] = TEAM.get(row["opp"], row["opp"])
         rows.append(row)
     rows.sort(key=lambda x: (int(x["week"]), x["name"]))
-    with open(os.path.join(HERE, "fantasy_weekly.csv"), "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=list(KEEP.values()))
-        w.writeheader()
-        w.writerows(rows)
-    weeks = sorted({int(x["week"]) for x in rows})
-    print(f"{len(rows)} player-games, weeks {weeks[0]}-{weeks[-1]} (last week played: {weeks[-1]})")
-
-    with urllib.request.urlopen(SCHEDULE, timeout=120) as r:
-        games = [g for g in csv.DictReader(io.StringIO(r.read().decode("utf-8")))
-                 if g["season"] == str(SEASON) and g["game_type"] == "REG"]
-    with open(os.path.join(HERE, "fantasy_schedule.csv"), "w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
-        w.writerow(["week", "away", "home", "day"])
-        for g in sorted(games, key=lambda g: (int(g["week"]), g["gameday"])):
-            w.writerow([g["week"], TEAM.get(g["away_team"], g["away_team"]), TEAM.get(g["home_team"], g["home_team"]), g["gameday"]])
-    print(f"{len(games)} games on the {SEASON} schedule")
+    done = [r for r in rows if int(r["week"]) < live_week]
+    live = [r for r in rows if int(r["week"]) == live_week]
+    for name, part in (("fantasy_weekly.csv", done), ("fantasy_live.csv", live)):
+        with open(os.path.join(HERE, name), "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=list(KEEP.values()), lineterminator="\n")
+            w.writeheader()
+            w.writerows(part)
+    weeks = sorted({int(x["week"]) for x in done})
+    print(f"{len(done)} player-games, weeks {weeks[0]}-{weeks[-1]} (last full week: {weeks[-1]})")
+    if live:
+        print(f"{len(live)} player-games so far in week {live_week} (saved for the scores page only)")
 
     # roster status (ACT = active, RES = injured reserve and similar) and the official injury report
     def get(url):

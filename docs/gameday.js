@@ -10,7 +10,7 @@
   const BY = {};
   D.players.forEach((p) => { BY[p[3]] = p; });
   const MATCH = { g2: "very easy", g1: "easy", n: "average", r1: "tough", r2: "very tough" };
-  const TAG = { injury: "Injury", trade: "Trade", qb: "New QB", return: "Return" };
+  const TAG = { injury: "Injury", trade: "Trade", qb: "New QB", return: "Return", result: "Final" };
   const FMT = [["ppr", "PPR", 2], ["half", "Half PPR", 1], ["std", "Standard", 0]];
   // starting spots: label, who can fill it, how many allowed
   const SLOTS = [

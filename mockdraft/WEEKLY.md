@@ -68,6 +68,10 @@ List what you changed in the commit message.
    above. Read the picks once: if one looks wrong (e.g. breaking news), or Topher sends his own takes, add
    rows to `fantasy_picks.csv` (week, name, call = start/sit, reason in one plain sentence). Those go first.
    Put 2 starts and 2 sits in the newsletter, linked to the page.
+9a. **Scores** (`scores.html` + the home page's Scores block) come from the same `fetch_weekly.py` run: final
+   scores land in `fantasy_schedule.csv`, and stats from a week that isn't finished go to `fantasy_live.csv`
+   (only the scores page reads it, so projections never shift mid-week). To post scores after Thursday,
+   Sunday or Monday games, just run `fetch_weekly.py` and rebuild.
 9b. **Waiver wire** (`fantasy-waiver-wire.html`, linked from the home page and Fantasy page) also rebuilds
    itself: players probably still on waivers, ranked by projected points over the next 3 weeks. It only
    knows about injuries in the steps above, so do those first (a backup's "More work" comes from them).
