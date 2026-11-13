@@ -5,6 +5,9 @@ Source: nflverse (free, public NFL data on GitHub):
   stats_player_week_<season>.csv -> fantasy_weekly.csv (QBs, RBs, WRs and TEs, the columns we use; only
                                     weeks where every game is final, so projections don't shift mid-week)
                                     + fantasy_live.csv (the week in progress, for the scores page)
+  same file, kickers              -> fantasy_k_weekly.csv (+ fantasy_k_live.csv)
+  stats_team_week_<season>.csv   -> fantasy_dst_weekly.csv (+ fantasy_dst_live.csv): each defense's sacks,
+                                    takeaways, scores and blocks, plus points allowed from the final score
   schedules/games.csv            -> fantasy_schedule.csv (this season's regular-season games, kickoff, final scores)
   weekly_rosters + injuries      -> fantasy_status.csv (latest week: roster status, injury report)
 
@@ -22,6 +25,7 @@ SEASON = int(sys.argv[1]) if len(sys.argv) > 1 else 2026
 URL = f"https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_{SEASON}.csv"
 SCHEDULE = "https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv"
 ROSTERS = f"https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_{SEASON}.csv"
+TEAM_STATS = f"https://github.com/nflverse/nflverse-data/releases/download/stats_team/stats_team_week_{SEASON}.csv"
 INJURIES = f"https://github.com/nflverse/nflverse-data/releases/download/injuries/injuries_{SEASON}.csv"
 TEAM = {"LA": "LAR", "JAC": "JAX", "WSH": "WAS"}          # nflverse spellings -> ours
 KEEP = {"player_display_name": "name", "position": "pos", "team": "team", "opponent_team": "opp", "week": "week",
@@ -64,6 +68,43 @@ def main():
             w = csv.DictWriter(f, fieldnames=list(KEEP.values()), lineterminator="\n")
             w.writeheader()
             w.writerows(part)
+    # kickers, from the same player file
+    kcols = ["name", "team", "opp", "week", "fg_0_39", "fg_40_49", "fg_50", "fg_missed", "pat_made", "pat_missed"]
+    krows = []
+    for r in csv.DictReader(io.StringIO(text)):
+        if r["season_type"] != "REG" or r["position"] != "K":
+            continue
+        n = lambda c: int(float(r[c] or 0))
+        krows.append([r["player_display_name"], TEAM.get(r["team"], r["team"]), TEAM.get(r["opponent_team"], r["opponent_team"]), r["week"],
+                      n("fg_made_0_19") + n("fg_made_20_29") + n("fg_made_30_39"), n("fg_made_40_49"),
+                      n("fg_made_50_59") + n("fg_made_60_"), n("fg_missed"), n("pat_made"), n("pat_missed")])
+    # defenses: team stats + points allowed from the final score
+    with urllib.request.urlopen(TEAM_STATS, timeout=120) as r:
+        team_text = r.read().decode("utf-8")
+    allowed = {}
+    for g in games:
+        if g["away_score"] != "":
+            a, h = TEAM.get(g["away_team"], g["away_team"]), TEAM.get(g["home_team"], g["home_team"])
+            allowed[(g["week"], a)] = g["home_score"]
+            allowed[(g["week"], h)] = g["away_score"]
+    dcols = ["team", "opp", "week", "sacks", "int", "fum_rec", "safety", "td", "blocks", "pts_allowed"]
+    drows = []
+    for r in csv.DictReader(io.StringIO(team_text)):
+        if r["season_type"] != "REG":
+            continue
+        t = TEAM.get(r["team"], r["team"])
+        n = lambda c: float(r.get(c) or 0)
+        drows.append([t, TEAM.get(r["opponent_team"], r["opponent_team"]), r["week"], n("def_sacks"), int(n("def_interceptions")),
+                      int(n("fumble_recovery_opp")), int(n("def_safeties")), int(n("def_tds") + n("special_teams_tds") + n("fumble_recovery_tds")),
+                      int(n("def_fg_blocks") + n("def_punt_blocks")), allowed.get((r["week"], t), "")])
+    for base, cols, part in (("fantasy_k", kcols, krows), ("fantasy_dst", dcols, drows)):
+        for suffix, keep in (("weekly", lambda w: int(w) < live_week), ("live", lambda w: int(w) == live_week)):
+            with open(os.path.join(HERE, f"{base}_{suffix}.csv"), "w", newline="", encoding="utf-8") as f:
+                w = csv.writer(f, lineterminator="\n")
+                w.writerow(cols)
+                w.writerows(sorted((x for x in part if keep(x[cols.index("week")])), key=lambda x: (int(x[cols.index("week")]), x[0])))
+    print(f"{len(krows)} kicker games and {len(drows)} defense games saved")
+
     weeks = sorted({int(x["week"]) for x in done})
     print(f"{len(done)} player-games, weeks {weeks[0]}-{weeks[-1]} (last full week: {weeks[-1]})")
     if live:

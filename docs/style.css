@@ -2935,3 +2935,6 @@ a.gd-tool:hover { border-color: #3A4656; }
 .sc-all summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 14px; font-weight: 700; color: var(--accent); }
 .sc-all .sc-tops { margin-top: 4px; }
 .sc .nw-list { margin-bottom: 26px; }
+.gd-pos.K { background: #C9B6F2; } .gd-pos.DEF { background: #9AA6B4; }
+.fd-pos.k { background: #C9B6F2; color: #10151C; } .fd-pos.def { background: #9AA6B4; color: #10151C; }
+.ww-name b { color: var(--text); font-weight: 800; font-size: 16px; }

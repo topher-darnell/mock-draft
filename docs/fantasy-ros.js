@@ -42,7 +42,8 @@
   function rankings() {
     // hidden unless turned on: out for the season, or not playing lately with no injury news
     const gone = (p) => (p.inj && p.inj.s === "season") || (p.out && !p.inj);
-    const rows = D.players.filter((p) => (pos === "All" || p.p === pos) && (showOut || !gone(p)))
+    const kd = (x) => x === "K" || x === "DEF";
+    const rows = D.players.filter((p) => (pos === "All" ? !kd(p.p) : p.p === pos) && (showOut || !gone(p)))
       .map((p) => ({ ...p, v: SORTS[by].val(p) }))
       .sort((a, b) => by === "ppg" ? b.ppg[fmt] - a.ppg[fmt] || b.v - a.v : b.v - a.v || b.ppg[fmt] - a.ppg[fmt]);
     const h = $("rs-proj-h");
@@ -61,8 +62,8 @@
       const fill = fw.length ? `<span class="rs-qb up" title="Projected for more work while a teammate is out">More work: ${esc(p.fill[fw[0]].for.map((n) => n.split(" ").slice(-1)[0]).join(", "))} out ${fw.length > 1 ? `(Wk ${fw[0]}–${fw[fw.length - 1]})` : `(Wk ${fw[0]})`} ↑</span>` : "";
       const qb = p.qb ? `<span class="rs-qb ${p.qb.m > 1 ? "up" : "down"}">New QB: ${esc(p.qb.name)}${p.qb.status === "expected" ? " (expected)" : ""} ${p.qb.m > 1 ? "↑" : "↓"}</span>` : "";
       return `<tr><td class="rs-rk">${i + 1}</td>` +
-        `<th scope="row" class="rs-pl"><a href="fantasy/${p.slug}.html">${esc(p.n)}</a>` +
-        `<span>${p.p}${pos === "All" ? "" : posRank[p.p]} · ${esc(TEAM[p.t] || p.t)}</span>${out}${qb}${fill}</th>` +
+        `<th scope="row" class="rs-pl">${kd(p.p) ? `<b>${esc(p.n)}</b>` : `<a href="fantasy/${p.slug}.html">${esc(p.n)}</a>`}` +
+        `<span>${p.p === "DEF" ? "D/ST" : p.p}${pos === "All" ? "" : posRank[p.p]} · ${esc(TEAM[p.t] || p.t)}</span>${out}${qb}${fill}</th>` +
         `<td class="rs-proj">${p.v.toFixed(SORTS[by].dec || 0)}</td><td class="rs-ppg">${p.ppg[fmt].toFixed(1)}</td>${cells}</tr>`;
     }).join("") || `<tr><td colspan="12" class="ff-none">No players match.</td></tr>`;
     $("rs-more").hidden = rows.length <= limit;

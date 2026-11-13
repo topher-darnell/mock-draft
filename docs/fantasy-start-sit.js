@@ -65,8 +65,8 @@
       const lately = p.hot ? `<span>Lately: ${p.hot[1].toFixed(1)} PPR a game (was ${p.hot[0].toFixed(1)})${p.use ? ` · ${p.use[1].toFixed(1)} touches (was ${p.use[0].toFixed(1)})` : ""}</span>` : "";
       const out = injLabel(p) ? `<span class="ss-warn">${injLabel(p)}.</span>` : p.out ? `<span class="ss-warn">Hasn't played since Week ${p.out}. Check his status.</span>` : "";
       return `<li class="ss-card ${i < start ? "is-start" : "is-sit"}">
-        <div class="ss-top">${tag}<span class="fd-pos ${p.p.toLowerCase()}">${p.p}</span>
-          <span class="fd-who"><b><a href="fantasy/${p.slug}.html">${esc(p.n)}</a></b><span>${esc(TEAM[p.t] || p.t)}</span></span>
+        <div class="ss-top">${tag}<span class="fd-pos ${p.p.toLowerCase()}">${p.p === "DEF" ? "D/ST" : p.p}</span>
+          <span class="fd-who"><b>${p.p === "K" || p.p === "DEF" ? esc(p.n) : `<a href="fantasy/${p.slug}.html">${esc(p.n)}</a>`}</b><span>${esc(TEAM[p.t] || p.t)}</span></span>
           <span class="ss-proj"><b>${proj(p).toFixed(1)}</b><i>${!p.m ? "bye" : p.a === 0 ? "out" : `${lo.toFixed(0)}–${hi.toFixed(0)} range`}</i></span>
           <button class="ft-x" data-rm="${p.slug}" aria-label="Remove ${esc(p.n)}">✕</button></div>
         <div class="ss-meta"><span class="rs-m ${g}">${p.opp ? "vs " + p.opp : "BYE"}</span><span>${word[g]}${p.opp ? ` (${esc(TEAM[p.opp] || p.opp)})` : ""}</span></div>
@@ -95,10 +95,11 @@
   function search() {
     const q = $("ss-q").value.trim().toLowerCase(), list = $("ss-sug");
     if (!q) { list.hidden = true; return; }
-    const hits = D.players.filter((p) => !picked.includes(p.slug) && p.n.toLowerCase().includes(q))
+    const hay = (p) => (p.n + (p.p === "DEF" ? " defense dst def" : p.p === "K" ? " kicker" : "")).toLowerCase();
+    const hits = D.players.filter((p) => !picked.includes(p.slug) && hay(p).includes(q))
       .sort((a, b) => proj(b) - proj(a)).slice(0, 8);
     list.innerHTML = hits.map((p) => `<li role="option"><button data-add="${p.slug}">
-      <span class="fd-pos ${p.p.toLowerCase()}">${p.p}</span><span class="fd-who"><b>${esc(p.n)}</b><span>${esc(TEAM[p.t] || p.t)} · ${p.opp ? "vs " + p.opp : "bye"}</span></span>
+      <span class="fd-pos ${p.p.toLowerCase()}">${p.p === "DEF" ? "D/ST" : p.p}</span><span class="fd-who"><b>${esc(p.n)}</b><span>${esc(TEAM[p.t] || p.t)} · ${p.opp ? "vs " + p.opp : "bye"}</span></span>
       <span class="ft-val">${proj(p).toFixed(1)}</span></button></li>`).join("") || '<li class="ft-none">No player by that name.</li>';
     list.hidden = false;
   }

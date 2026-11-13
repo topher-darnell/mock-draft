@@ -488,6 +488,133 @@ def rest_of_season():
 
 
 
+# ---------- Kickers and defenses (D/ST) ----------
+# Standard scoring, the same in PPR, half and standard leagues:
+#   K:    FG 0-39 yds 3, 40-49 yds 4, 50+ yds 5, extra point 1, missed FG or extra point -1
+#   D/ST: sack 1, interception 2, fumble recovery 2, safety 2, defensive or special-teams TD 6, blocked kick 2,
+#         points allowed 0: 10, 1-6: 7, 7-13: 4, 14-20: 1, 21-27: 0, 28-34: -1, 35+: -4
+# Projection: season points per game (steadied toward a typical starter) blended with the last 3 games, times
+# how many points the opponent gives up to kickers / lets defenses score (steadied toward 1.0), byes = 0.
+
+PA_POINTS = ((0, 10), (6, 7), (13, 4), (20, 1), (27, 0), (34, -1))
+KD_BASE_RANK = {"K": 16, "DEF": 16}                  # "typical starter" = the 16th best by points per game
+
+
+def k_points(r):
+    n = lambda c: f(r.get(c, 0))
+    return 3 * n("fg_0_39") + 4 * n("fg_40_49") + 5 * n("fg_50") + n("pat_made") - n("fg_missed") - n("pat_missed")
+
+
+def dst_points(r):
+    n = lambda c: f(r.get(c, 0))
+    pts = n("sacks") + 2 * (n("int") + n("fum_rec") + n("safety") + n("blocks")) + 6 * n("td")
+    if r.get("pts_allowed", "") != "":
+        pa = int(f(r["pts_allowed"]))
+        pts += next((v for top, v in PA_POINTS if pa <= top), -4)
+    return pts
+
+
+def k_line(r):
+    n = lambda c: int(f(r.get(c, 0)))
+    fg = n("fg_0_39") + n("fg_40_49") + n("fg_50")
+    bits = [f"{fg}/{fg + n('fg_missed')} FG" + (f" ({n('fg_50')} from 50+)" if n("fg_50") else ""), f"{n('pat_made')}/{n('pat_made') + n('pat_missed')} XP"]
+    return ", ".join(bits)
+
+
+def dst_line(r):
+    n = lambda c: f(r.get(c, 0))
+    bits = [f"{n('sacks'):g} sack{'s' if n('sacks') != 1 else ''}"]
+    take = int(n("int") + n("fum_rec"))
+    if take:
+        bits.append(f"{take} takeaway{'s' if take != 1 else ''}")
+    if n("td"):
+        bits.append(f"{int(n('td'))} TD")
+    if n("blocks"):
+        bits.append(f"{int(n('blocks'))} block{'s' if n('blocks') != 1 else ''}")
+    if n("safety"):
+        bits.append("safety")
+    if r.get("pts_allowed", "") != "":
+        bits.append(f"{int(f(r['pts_allowed']))} pts allowed")
+    return ", ".join(bits)
+
+
+def dst_name(team):
+    return f"{TEAM_NAME.get(team, team)} D/ST"
+
+
+def _kd_rows(kind, live=False):
+    name = f"fantasy_{'k' if kind == 'K' else 'dst'}_{'live' if live else 'weekly'}.csv"
+    if not os.path.exists(os.path.join(HERE, name)):
+        return []
+    rows = read(name)
+    for r in rows:
+        r["pts"] = k_points(r) if kind == "K" else dst_points(r)
+        r["n"] = r["name"] if kind == "K" else dst_name(r["team"])
+        r["line"] = k_line(r) if kind == "K" else dst_line(r)
+    return rows
+
+
+def kd_week_points(week):
+    """{name: [pts, pts, pts, line]} for kickers and D/STs who've played in `week` (same in every format)"""
+    out = {}
+    for kind in ("K", "DEF"):
+        rows = [r for r in _kd_rows(kind) if int(r["week"]) == week] or [r for r in _kd_rows(kind, live=True) if int(r["week"]) == week]
+        for r in rows:
+            out[r["n"]] = [round(r["pts"], 1)] * 3 + [r["line"]]
+    return out
+
+
+def kd_rest_of_season():
+    """kickers and D/STs in the same shape as rest_of_season() players (ppg the same in every format)"""
+    ros = rest_of_season()
+    if not ros:
+        return []
+    weeks = list(range(ros["from"], ros["to"] + 1))
+    games = schedule()
+    out = []
+    teams_now = {}
+    for r in read("fantasy_status.csv"):
+        teams_now[_key(r["name"])] = r["team"]
+    for kind in ("K", "DEF"):
+        rows = _kd_rows(kind)
+        if not rows:
+            continue
+        last = max(int(r["week"]) for r in rows)
+        # matchup: what each opponent gives up (K: to kickers it faces; DEF: to defenses that face its offense)
+        given = {}
+        for r in rows:
+            given.setdefault(r["opp"], []).append(r["pts"])
+        avg = sum(sum(v) / len(v) for v in given.values()) / len(given)
+        fac = {}
+        for t, v in given.items():
+            raw = (sum(v) / len(v)) / avg if avg else 1
+            fac[t] = round(max(0.75, min(1.3, 1 + (raw - 1) * len(v) / (len(v) + 3))), 3)
+        by = {}
+        for r in rows:
+            by.setdefault(r["n"], []).append(r)
+        if kind == "K":                                 # a kicker's current team; skip ones no longer kicking
+            by = {n: gs for n, gs in by.items() if max(int(g["week"]) for g in gs) >= last - 1}
+        per = sorted((sum(g["pts"] for g in gs) / len(gs) for gs in by.values() if len(gs) >= 4), reverse=True)
+        base = per[min(len(per) - 1, KD_BASE_RANK[kind])] if per else 6
+        for n, gs in by.items():
+            gs.sort(key=lambda g: int(g["week"]))
+            team = teams_now.get(_key(n), gs[-1]["team"]) if kind == "K" else gs[-1]["team"]
+            g = len(gs)
+            season = (sum(x["pts"] for x in gs) + 2 * base) / (g + 2)
+            recent = [x for x in gs if int(x["week"]) > last - 3]
+            ppg = 0.65 * season + 0.35 * sum(x["pts"] for x in recent) / len(recent) if len(recent) >= 2 else season
+            sched = []
+            for w in weeks:
+                opp = games.get(team, {}).get(w, "")
+                sched.append([w, opp, fac.get(opp, 1.0) if opp else 0, 1.0, 1.0])
+            ros_pts = round(sum(ppg * m for _, opp, m, a, q in sched if opp), 1)
+            po = [m for w, opp, m, a, q in sched if w in PLAYOFF_WEEKS and opp]
+            out.append({"n": n, "t": team, "p": kind, "g": g, "ppg": {k: round(ppg, 1) for k, _ in FORMATS},
+                        "ros": {k: ros_pts for k, _ in FORMATS}, "sched": sched, "po": round(sum(po) / len(po), 3) if po else 1.0,
+                        "out": False, "inj": None, "qb": None, "season_pts": round(sum(x["pts"] for x in gs), 1)})
+    return out
+
+
 # ---------- Fill-ins: more work when a teammate is hurt ----------
 # When a player who's been part of his offense lately (played in the last 3 weeks) is out, his usual
 # points don't vanish: most go to teammates. We hand them out to healthy teammates who've played lately,
@@ -570,6 +697,9 @@ def scores(week=None, per_team=3):
     stats = [r for r in read("fantasy_weekly.csv") if int(r["week"]) == week]
     if not stats and os.path.exists(os.path.join(HERE, "fantasy_live.csv")):
         stats = [r for r in read("fantasy_live.csv") if int(r["week"]) == week]
+    kd = []
+    for kind in ("K", "DEF"):
+        kd += [r for r in _kd_rows(kind) if int(r["week"]) == week] or [r for r in _kd_rows(kind, live=True) if int(r["week"]) == week]
     games = []
     for g in sched:
         if int(g["week"]) != week:
@@ -582,6 +712,9 @@ def scores(week=None, per_team=3):
                 every = [{"n": r["name"], "p": r["pos"], "pts": round(points(r, "ppr"), 1), "line": _stat_line(r)}
                          for r in sorted(mine, key=lambda r: -points(r, "ppr")) if points(r, "ppr") != 0]
                 game[side + "_top"] = [r for r in every if r["pts"] > 0][:per_team]
+                for kind in ("K", "DEF"):
+                    every += [{"n": r["n"], "p": kind, "pts": round(r["pts"], 1), "line": r["line"]} for r in kd
+                              if r["team"] == g[side] and ("name" in r) == (kind == "K") and (kind == "K" or r["n"].endswith("D/ST"))]
                 game[side + "_all"] = every
         games.append(game)
     games.sort(key=lambda g: (g["day"], g["time"]))
@@ -608,10 +741,10 @@ def week_points(week):
 
 WAIVER_WEEKS = 3
 WAIVER_WT = (0.5, 0.3, 0.2)                                 # this week, next week, the week after
-LIKELY_ROSTERED = {"QB": 16, "RB": 36, "WR": 48, "TE": 14}   # season PPR total rank at or above this: rostered
+LIKELY_ROSTERED = {"QB": 16, "RB": 36, "WR": 48, "TE": 14, "K": 12, "DEF": 12}   # season PPR total rank at or above this: rostered
 STARTER_PPG = {"QB": 12, "RB": 24, "WR": 30, "TE": 10}       # ...and so is anyone this high in points per game
-ADD_NOW = {"QB": 16.0, "RB": 10.0, "WR": 10.0, "TE": 7.5}    # next-weeks average worth a claim right away
-WAIVER_SHOW = {"QB": 3, "RB": 8, "WR": 10, "TE": 4}
+ADD_NOW = {"QB": 16.0, "RB": 10.0, "WR": 10.0, "TE": 7.5, "K": 8.0, "DEF": 7.0}    # next-weeks average worth a claim right away
+WAIVER_SHOW = {"QB": 3, "RB": 8, "WR": 10, "TE": 4, "K": 3, "DEF": 4}
 
 
 def waiver_wire():
@@ -684,6 +817,34 @@ def waiver_wire():
         out[pos].append({"n": n, "t": p["t"], "p": pos, "g": p["g"], "ppg": p["ppg"]["ppr"], "avg": round(avg, 1),
                          "next": [[w, opp, round(v, 1)] for (w, opp, m, a, q), v in zip(weeks, proj)],
                          "rank": total_rank.get(n), "add": avg >= ADD_NOW[pos], "why": why[:3]})
+    # streaming kickers and defenses: not a top scorer this season, best matchups coming up
+    kd = kd_rest_of_season()
+    played = week_points(week)[1]                            # teams whose game this week is already over
+    for pos in ("DEF", "K"):
+        grp = sorted([p for p in kd if p["p"] == pos], key=lambda p: -p["season_pts"])
+        out[pos] = []
+        for p in grp[LIKELY_ROSTERED[pos]:]:
+            weeks = [x for x in p["sched"] if x[0] in soon]
+            games = [(p["ppg"]["ppr"] * m, WAIVER_WT[i]) for i, (w, opp, m, a, q) in enumerate(weeks) if opp]
+            if not games or not weeks[0][1] or p["t"] in played:
+                continue                                     # streamers have to play this week, still to come
+            avg = sum(v * wt for v, wt in games) / sum(wt for v, wt in games)
+            w0, opp0, m0 = weeks[0][0], weeks[0][1], weeks[0][2]
+            why = []
+            if m0 >= 1.05:
+                what = "let defenses score the most" if pos == "DEF" else "give up the most points to kickers"
+                why.append(f"Good matchup this week: the {TEAM_NAME.get(opp0, opp0)} are among the teams that {what}.")
+            nxt = [x for x in weeks[1:] if x[1]]
+            if nxt and sum(x[2] for x in nxt) / len(nxt) >= 1.05:
+                why.append("Keep him after that: " + ", ".join(TEAM_NAME.get(x[1], x[1]) for x in nxt) + " are good matchups too." if pos == "K"
+                           else "Can keep them after that: " + ", ".join(TEAM_NAME.get(x[1], x[1]) for x in nxt) + " are good matchups too.")
+            if p["po"] >= 1.06:
+                why.append("Playoff schedule: easy matchups in Weeks 15–17.")
+            if not why:
+                why.append(f"Steady: {p['ppg']['ppr']:.1f} points a game this season.")
+            out[pos].append({"n": p["n"], "t": p["t"], "p": pos, "g": p["g"], "ppg": p["ppg"]["ppr"], "avg": round(avg, 1),
+                             "next": [[w, opp, round(p["ppg"]["ppr"] * m, 1) if opp else 0] for w, opp, m, a, q in weeks],
+                             "rank": grp.index(p) + 1, "add": m0 >= 1.05 and avg >= ADD_NOW[pos], "why": why[:3]})
     for pos in out:
         out[pos] = sorted(out[pos], key=lambda r: -r["avg"])[:WAIVER_SHOW[pos]]
     return {"week": week, "soon": soon, "pos": out}

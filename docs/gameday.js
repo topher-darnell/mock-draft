@@ -17,8 +17,11 @@
   const SLOTS = [
     ["QB", "QB", ["QB"], 1, 2], ["RB", "RB", ["RB"], 0, 4], ["WR", "WR", ["WR"], 0, 5], ["TE", "TE", ["TE"], 0, 3],
     ["FLEX", "Flex", ["RB", "WR", "TE"], 0, 4], ["SF", "Superflex", ["QB", "RB", "WR", "TE"], 0, 2],
+    ["K", "K", ["K"], 0, 2], ["DEF", "D/ST", ["DEF"], 0, 2],
   ];
-  const DEF = { QB: 1, RB: 2, WR: 2, TE: 1, FLEX: 1, SF: 0, fmt: "ppr" };
+  const DEF = { QB: 1, RB: 2, WR: 2, TE: 1, FLEX: 1, SF: 0, K: 1, DEF: 1, fmt: "ppr" };
+  const KD = (pos) => pos === "K" || pos === "DEF";
+  const posLabel = (pos) => (pos === "DEF" ? "D/ST" : pos);
 
   const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
   const store = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* private window */ } };
@@ -47,7 +50,7 @@
     const [n, t, pos, slug, , opp, m, call, , why] = p;
     const out = call === "OUT" || call === "BYE";
     if (editing) {
-      return `<li class="gd-p gd-edit-row"><span class="gd-pos ${pos}">${pos}</span><span class="gd-pmain"><b class="gd-name">${esc(n)}</b>` +
+      return `<li class="gd-p gd-edit-row"><span class="gd-pos ${pos}">${posLabel(pos)}</span><span class="gd-pmain"><b class="gd-name">${esc(n)}</b>` +
         `<span class="gd-meta">${esc(t)}</span></span><button class="gd-x" data-del="${slug}" aria-label="Remove ${esc(n)}">✕</button></li>`;
     }
     const act = p[11];
@@ -56,9 +59,10 @@
       : `vs ${esc(opp)} · ${MATCH[m] || "average"} · <b>${pts(p).toFixed(1)}</b> pts`;
     const pill = act ? `<span class="gd-call DONE"><small>FINAL</small>${act[fi()].toFixed(1)}</span>`
       : slot ? `<span class="gd-call START">START</span>` : `<span class="gd-call ${out ? call : "BENCH"}">${out ? call : "BENCH"}</span>`;
-    const chip = slot && (slot === "FLEX" || slot === "SF") ? `<span class="gd-pos ${pos} gd-flex">${slot}</span>` : `<span class="gd-pos ${pos}">${pos}</span>`;
+    const chip = slot && (slot === "FLEX" || slot === "SF") ? `<span class="gd-pos ${pos} gd-flex">${slot}</span>` : `<span class="gd-pos ${pos}">${posLabel(pos)}</span>`;
+    const nameHtml = KD(pos) ? `<b class="gd-name">${esc(n)}</b>` : `<a class="gd-name" href="fantasy/${slug}.html">${esc(n)}</a>`;
     return `<li class="gd-p${slot ? "" : " gd-bench"}${act ? " gd-played" : ""}">${chip}` +
-      `<span class="gd-pmain"><a class="gd-name" href="fantasy/${slug}.html">${esc(n)}</a><span class="gd-meta">${esc(t)}${slot === "FLEX" || slot === "SF" ? " " + pos : ""} ${sub}</span>` +
+      `<span class="gd-pmain">${nameHtml}<span class="gd-meta">${esc(t)}${slot === "FLEX" || slot === "SF" ? " " + pos : ""} ${sub}</span>` +
       `<span class="gd-why">${esc(act ? act[3] : (note || why))}</span></span>${pill}</li>`;
   }
 
@@ -73,8 +77,8 @@
     }
     const { starters, bench } = lineup(ps);
     const html = starters.map((s) => {
-      if (!s.p) return `<li class="gd-p gd-open"><span class="gd-pos">${s.slot}</span><span class="gd-pmain"><b>Empty ${s.slot === "SF" ? "Superflex" : s.slot === "FLEX" ? "Flex" : s.slot} spot</b>` +
-        `<span class="gd-meta">Add ${["QB", "TE", "WR"].includes(s.can[0]) ? "a" : "an"} ${s.can.length > 1 ? s.can.slice(0, -1).join(", ") + " or " + s.can[s.can.length - 1] : s.can[0]} to fill it</span></span></li>`;
+      if (!s.p) return `<li class="gd-p gd-open"><span class="gd-pos">${s.slot}</span><span class="gd-pmain"><b>Empty ${s.slot === "SF" ? "Superflex" : s.slot === "FLEX" ? "Flex" : posLabel(s.slot)} spot</b>` +
+        `<span class="gd-meta">Add ${s.can[0] === "K" ? "a kicker" : s.can[0] === "DEF" ? "a defense" : (["QB", "TE", "WR"].includes(s.can[0]) ? "a " : "an ") + (s.can.length > 1 ? s.can.slice(0, -1).join(", ") + " or " + s.can[s.can.length - 1] : s.can[0])} to fill it</span></span></li>`;
       return row(s.p, s.slot);
     });
     const close = (b) => {                       // a bench player within a point of someone he could replace
@@ -120,7 +124,7 @@
     });
     $("gd-news").hidden = editing || !news.length;
     $("gd-news-list").innerHTML = news.join("");
-    const spots = SLOTS.filter(([k]) => L[k]).map(([k]) => `${L[k]} ${k === "SF" ? "Superflex" : k === "FLEX" ? "Flex" : k}`).join(", ");
+    const spots = SLOTS.filter(([k]) => L[k]).map(([k]) => `${L[k]} ${k === "SF" ? "Superflex" : k === "FLEX" ? "Flex" : posLabel(k)}`).join(", ");
     const fmt = (FMT.find((f) => f[0] === L.fmt) || FMT[0])[1];
     $("gd-fine").textContent = editing ? `${team.length} of ${MAX} players · saved on this device`
       : `${fmt} · starts ${spots}. Saved on this device. No account needed.`;
@@ -130,9 +134,10 @@
     const q = $("gd-q").value.trim().toLowerCase();
     const box = $("gd-sug");
     if (q.length < 2) { box.hidden = true; box.innerHTML = ""; return; }
-    const hits = D.players.filter((p) => !team.includes(p[3]) && p[0].toLowerCase().includes(q)).slice(0, 8);
+    const hay = (p) => (p[0] + (p[2] === "DEF" ? " defense dst def" : p[2] === "K" ? " kicker" : "")).toLowerCase();
+    const hits = D.players.filter((p) => !team.includes(p[3]) && hay(p).includes(q)).slice(0, 8);
     box.innerHTML = hits.length ? hits.map((p) =>
-      `<li><button type="button" data-add="${p[3]}"><span class="gd-pos ${p[2]}">${p[2]}</span><span>${esc(p[0])} <span class="gd-meta">${esc(p[1])}</span></span></button></li>`).join("")
+      `<li><button type="button" data-add="${p[3]}"><span class="gd-pos ${p[2]}">${posLabel(p[2])}</span><span>${esc(p[0])} <span class="gd-meta">${esc(p[1])}</span></span></button></li>`).join("")
       : `<li class="gd-none">No player found</li>`;
     box.hidden = false;
   }

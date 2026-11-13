@@ -68,6 +68,9 @@ List what you changed in the commit message.
    above. Read the picks once: if one looks wrong (e.g. breaking news), or Topher sends his own takes, add
    rows to `fantasy_picks.csv` (week, name, call = start/sit, reason in one plain sentence). Those go first.
    Put 2 starts and 2 sits in the newsletter, linked to the page.
+9-K. **Kickers and defenses** come from the same `fetch_weekly.py` run (`fantasy_k_weekly.csv`,
+   `fantasy_dst_weekly.csv`, plus `_live` files for the week in progress). Nothing to enter by hand. If a
+   team changes kickers, the new one shows up after he kicks; until then his team's old kicker stays listed.
 9a. **Scores** (`scores.html` + the home page's Scores block) come from the same `fetch_weekly.py` run: final
    scores land in `fantasy_schedule.csv`, and stats from a week that isn't finished go to `fantasy_live.csv`
    (only the scores page reads it, so projections never shift mid-week). To post scores after Thursday,

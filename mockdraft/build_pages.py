@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "59", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "61", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1536,13 +1536,14 @@ def fantasy_trade_page():
 
 def fantasy_ros_page():
     ros = fantasy.rest_of_season()
+    ros["players"] = ros["players"] + fantasy.kd_rest_of_season()
     for r in ros["players"]:
         r["slug"] = slug(r["n"])
     data = json.dumps(ros, separators=(",", ":")).replace("</", "<\\/")
     fmt_btns = "".join(f'<button class="filter{" active" if k == "ppr" else ""}" data-fmt="{k}" aria-pressed="{"true" if k == "ppr" else "false"}">{label}</button>'
                        for k, label in fantasy.FORMATS)
-    pos_btns = "".join(f'<button class="filter{" active" if p == "All" else ""}" data-pos="{p}" aria-pressed="{"true" if p == "All" else "false"}">{p}</button>'
-                       for p in ("All", "QB", "RB", "WR", "TE"))
+    pos_btns = "".join(f'<button class="filter{" active" if p == "All" else ""}" data-pos="{p}" aria-pressed="{"true" if p == "All" else "false"}">{"D/ST" if p == "DEF" else p}</button>'
+                       for p in ("All", "QB", "RB", "WR", "TE", "K", "DEF"))
     weeks = f'Weeks {ros["from"]}–{ros["to"]}'
     po_w = f'{min(ros["playoffs"])}–{max(ros["playoffs"])}'
     sort_opts = [("ros", f"Rest of season (Wk {ros['from']}–{ros['to']})"), ("po", f"Playoffs (Wk {po_w})"),
@@ -1594,7 +1595,7 @@ def fantasy_ros_page():
             "PPR, Half PPR, Standard and TE Premium.")
     return page("fantasy-ros.html", f"Rest of Season Fantasy Rankings 2026 · Playoff Schedules · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
-                scripts=("fantasy-ros.js?v=5",))
+                scripts=("fantasy-ros.js?v=6",))
 
 
 def fantasy_startsit_page():
@@ -1615,6 +1616,10 @@ def fantasy_startsit_page():
                      "hot": [t["was"]["ppr"], t["now"]["ppr"]] if t and t["g0"] >= 2 and t["gw"] >= 2 else None,
                      "use": [round(t["tgt"][0] + (t["car"][0] if r["p"] == "RB" else 0), 1),
                              round(t["tgt"][1] + (t["car"][1] if r["p"] == "RB" else 0), 1)] if t and t["g0"] >= 2 and t["gw"] >= 2 and r["p"] != "QB" else None})
+    for r in fantasy.kd_rest_of_season():                  # kickers and defenses: no trends, a wider range
+        w, opp, m, avail, qm = r["sched"][0]
+        rows.append({"n": r["n"], "t": r["t"], "p": r["p"], "slug": slug(r["n"]), "ppg": r["ppg"], "opp": opp, "m": m,
+                     "sd": 0.55, "out": False, "a": 1.0, "q": 1.0, "inj": None, "qb": None, "fill": None, "hot": None, "use": None})
     data = json.dumps({"week": ros["from"], "when": when, "span": [trend.get("from"), trend.get("to")], "players": rows},
                       separators=(",", ":")).replace("</", "<\\/")
     fmt_btns = "".join(f'<button class="filter{" active" if k == "ppr" else ""}" data-fmt="{k}" aria-pressed="{"true" if k == "ppr" else "false"}">{label}</button>'
@@ -1663,10 +1668,10 @@ def fantasy_startsit_page():
             "Compare players and see who to start, with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
     return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Start/Sit Tool + Start 'Em Sit 'Em Picks · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
-                scripts=("fantasy-start-sit.js?v=6",))
+                scripts=("fantasy-start-sit.js?v=7",))
 
 
-POS_FULL = {"QB": "Quarterbacks", "RB": "Running backs", "WR": "Wide receivers", "TE": "Tight ends"}
+POS_FULL = {"QB": "Quarterbacks", "RB": "Running backs", "WR": "Wide receivers", "TE": "Tight ends", "DEF": "Defenses to stream", "K": "Kickers to stream"}
 
 
 def se_matchup(m):
@@ -1747,13 +1752,13 @@ def sc_game(g, have, full=True):
             out = ""
             for r in g[side + "_top"]:
                 nm = (f'<a href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a>' if r["n"] in have else esc(r["n"]))
-                out += (f'<li><span class="gd-pos {r["p"]}">{r["p"]}</span><span class="sc-pl">{nm}<i>{esc(r["line"])}</i></span>'
+                out += (f'<li><span class="gd-pos {r["p"]}">{"D/ST" if r["p"] == "DEF" else r["p"]}</span><span class="sc-pl">{nm}<i>{esc(r["line"])}</i></span>'
                         f'<b>{r["pts"]:.1f}</b></li>')
             return out
         tops = (f'<div class="sc-tops"><div><h4>{name(a)}</h4><ol>{plist("away")}</ol></div>'
                 f'<div><h4>{name(h)}</h4><ol>{plist("home")}</ol></div></div>')
         def alist(side):
-            return "".join(f'<li><span class="gd-pos {r["p"]}">{r["p"]}</span><span class="sc-pl">'
+            return "".join(f'<li><span class="gd-pos {r["p"]}">{"D/ST" if r["p"] == "DEF" else r["p"]}</span><span class="sc-pl">'
                            f'{(f"<a href={chr(34)}fantasy/{slug(r[chr(110)])}.html{chr(34)}>{esc(r[chr(110)])}</a>") if r["n"] in have else esc(r["n"])}'
                            f'<i>{esc(r["line"])}</i></span><b>{r["pts"]:.1f}</b></li>' for r in g[side + "_all"])
         n_all = len(g["away_all"]) + len(g["home_all"])
@@ -1819,8 +1824,8 @@ def ww_card(r):
                   f'<i>{"" if not opp else f"{v:.1f}"}</i></li>' for w, opp, v in r["next"])
     why = "".join(f"<li>{esc(x)}</li>" for x in r["why"])
     tag = '<span class="ss-tag ss-go">ADD NOW</span>' if r["add"] else '<span class="ss-tag ww-look">WORTH A LOOK</span>'
-    return (f'<li class="se-card ww-card"><div class="se-top">{tag}<span class="gd-pos {r["p"]}">{r["p"]}</span>'
-            f'<span class="ww-name"><a href="fantasy/{slug(r["n"])}.html">{esc(r["n"])}</a><span>{esc(FF_TEAM.get(r["t"], r["t"]))} · {r["ppg"]:.1f} PPG this season</span></span></div>'
+    return (f'<li class="se-card ww-card"><div class="se-top">{tag}<span class="gd-pos {r["p"]}">{"D/ST" if r["p"] == "DEF" else r["p"]}</span>'
+            f'<span class="ww-name">{"<b>" + esc(r["n"]) + "</b>" if r["p"] in ("K", "DEF") else f"<a href={chr(34)}fantasy/{slug(r[chr(110)])}.html{chr(34)}>{esc(r[chr(110)])}</a>"}<span>{esc(FF_TEAM.get(r["t"], r["t"]))} · {r["ppg"]:.1f} PPG this season</span></span></div>'
             f'<ol class="ww-next" aria-label="Projected PPR points">{nxt}</ol><ul class="ww-why">{why}</ul></li>')
 
 
@@ -1828,12 +1833,12 @@ def fantasy_waiver_page():
     w = fantasy.waiver_wire()
     wk = w["week"]
     when = startsit_when(wk)
-    best = w["pos"]["RB"][:2] + w["pos"]["WR"][:2] + w["pos"]["TE"][:1] + w["pos"]["QB"][:1]   # a mix of positions
-    top = "".join(f'<li><span class="gd-pos {r["p"]}">{r["p"]}</span><a href="#{slug(r["n"])}">{esc(r["n"])}</a>'
+    best = w["pos"]["RB"][:2] + w["pos"]["WR"][:2] + w["pos"]["TE"][:1] + w["pos"]["QB"][:1] + w["pos"]["DEF"][:1]   # a mix of positions
+    top = "".join(f'<li><span class="gd-pos {r["p"]}">{"D/ST" if r["p"] == "DEF" else r["p"]}</span><a href="#{slug(r["n"])}">{esc(r["n"])}</a>'
                   f'<span class="ww-top-why">{esc(r["why"][0].split(":")[0])}</span></li>' for r in best)
     sections = ""
-    for pos in ("RB", "WR", "TE", "QB"):
-        rows = w["pos"][pos]
+    for pos in ("RB", "WR", "TE", "QB", "DEF", "K"):
+        rows = w["pos"].get(pos, [])
         if not rows:
             continue
         cards = "".join(ww_card(r).replace('<li class="se-card ww-card">', f'<li class="se-card ww-card" id="{slug(r["n"])}">', 1) for r in rows)
@@ -1885,7 +1890,7 @@ def home_startem():
 
 
 # ---------- Game Day home (test page): My team + fantasy first ----------
-GD_CUT = {"QB": (12, 12), "RB": (24, 36), "WR": (30, 42), "TE": (12, 16)}   # (start if rank <=, flex if rank <=)
+GD_CUT = {"QB": (12, 12), "RB": (24, 36), "WR": (30, 42), "TE": (12, 16), "K": (12, 12), "DEF": (12, 12)}   # (start if rank <=, flex if rank <=)
 INJ_WORD = {"questionable": "Questionable", "doubtful": "Doubtful", "out": "Out", "ir": "On IR", "season": "Out for season"}
 
 
@@ -1897,11 +1902,12 @@ def gameday_data():
     called = {r["n"]: ("START", r["why"][0]) for pos in picks["start"] for r in picks["start"][pos]}
     called.update({r["n"]: ("SIT", r["why"][0]) for pos in picks["sit"] for r in picks["sit"][pos]})
     done_pts, done_teams = fantasy.week_points(wk)
+    done_pts.update(fantasy.kd_week_points(wk))
     news = {}
     for r in news_items():
         news.setdefault(r["player"], r)
     rows = []
-    for p in ros["players"]:
+    for p in ros["players"] + fantasy.kd_rest_of_season():
         w, opp, m, a, q = p["sched"][0]
         proj = p["ppg"]["ppr"] * m * a * q if w == wk else 0
         rows.append({"p": p, "opp": opp if w == wk else "", "m": m, "a": a, "proj": proj})
@@ -1926,11 +1932,11 @@ def gameday_data():
             why = f"More work with {names} out (projected {p['p']}{r['rk']})"
         else:
             call = "START" if r["rk"] <= start_cut else "FLEX" if r["rk"] <= flex_cut else "SIT"
-            why = f"Projected {p['p']}{r['rk']} this week"
+            why = f"Projected {'D/ST' if p['p'] == 'DEF' else p['p']}{r['rk']} this week"
             if inj.get("s") in ("questionable", "doubtful"):
                 why = INJ_WORD[inj["s"]] + (f" ({inj['inj'].lower()})" if inj.get("inj") else "")
         n = news.get(p["n"])
-        act = done_pts.get(p["n"]) or ([0, 0, 0, "Did not play"] if p["t"] in done_teams else None)
+        act = done_pts.get(p["n"]) or ([0, 0, 0, "Did not play"] if p["t"] in done_teams and p["p"] != "K" else None)
         k = (r["proj"] / p["ppg"]["ppr"]) if p["ppg"]["ppr"] else 0
         out.append([p["n"], p["t"], p["p"], slug(p["n"]), [round(p["ppg"][f] * k, 1) for f in ("std", "half", "ppr")], r["opp"], se_matchup(r["m"]) if r["opp"] else "",
                     call, r["rk"], why, [n["kind"], n["text"], n["date"]] if n else None, act])
@@ -1960,7 +1966,7 @@ def lineup_card():
             <p class="gd-sub">Your players</p>
             <div class="ft-search gd-search">
               <label class="sr-only" for="gd-q">Add a player</label>
-              <input id="gd-q" type="search" placeholder="+ Search for a player" autocomplete="off" spellcheck="false">
+              <input id="gd-q" type="search" placeholder="+ Add a player, kicker or defense" autocomplete="off" spellcheck="false">
               <ul class="ft-sug" id="gd-sug" role="listbox" hidden></ul>
             </div>
           </div>
@@ -1969,7 +1975,7 @@ def lineup_card():
           <div class="gd-news" id="gd-news" hidden><h3 class="gd-sub">News on your players</h3><ol class="nw-list" id="gd-news-list"></ol></div>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=8" defer></script>
+          <script src="gameday.js?v=9" defer></script>
         </section>"""
 
 
