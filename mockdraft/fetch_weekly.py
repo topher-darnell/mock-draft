@@ -119,16 +119,21 @@ def main():
     latest = {}                                   # each player's most recent roster row (his current team)
     for r in sorted(roster, key=lambda r: int(r["week"])):
         latest[r["full_name"]] = r
-    report = {r["full_name"]: r for r in get(INJURIES) if r["week"] == str(wk)}
+    inj_rows = [r for r in get(INJURIES) if r["week"] == str(wk)]
+    report = {r["full_name"]: r for r in inj_rows}
+    # a team's final game statuses (Out/Doubtful/Questionable) are published once anyone on it has one;
+    # from then on the official report beats week-only tags typed into fantasy_injuries.csv earlier in the week
+    final_teams = {TEAM.get(r["team"], r["team"]) for r in inj_rows if (r.get("report_status") or "").strip()}
     with open(os.path.join(HERE, "fantasy_status.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["week", "name", "team", "roster", "report", "injury"])
+        w.writerow(["week", "name", "team", "roster", "report", "injury", "final"])
         for r in latest.values():
             if r["status"] == "CUT" or int(r["week"]) < wk - 2:
                 continue                          # released, or not on a roster lately
             rep = report.get(r["full_name"], {}) if r["week"] == str(wk) else {}
             w.writerow([r["week"], r["full_name"], TEAM.get(r["team"], r["team"]), r["status"],
-                        rep.get("report_status", ""), rep.get("report_primary_injury", "") or rep.get("practice_primary_injury", "")])
+                        rep.get("report_status", ""), rep.get("report_primary_injury", "") or rep.get("practice_primary_injury", ""),
+                        "1" if TEAM.get(r["team"], r["team"]) in final_teams and r["week"] == str(wk) else ""])
     print(f"roster status for week {wk} saved")
 
 

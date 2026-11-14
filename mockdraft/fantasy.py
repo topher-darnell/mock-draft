@@ -293,11 +293,14 @@ def injuries(first_week):
     """{our player name: {"s": status, "back": week (0 = unknown, 99 = season), "inj": injury}}"""
     ours = {_key(r["name"]): r["name"] for r in read("fantasy_stats.csv")}
     out = {}
+    final = set()                  # players whose team has published its final game statuses for this week
     if os.path.exists(os.path.join(HERE, "fantasy_status.csv")):
         for r in read("fantasy_status.csv"):
             name = ours.get(_key(r["name"]))
             if not name:
                 continue
+            if r.get("final") == "1":
+                final.add(name)
             rep = (r["report"] or "").lower()
             if r["roster"] == "RES":
                 out[name] = {"s": "ir", "back": first_week + IR_WEEKS, "inj": r["injury"]}
@@ -309,6 +312,10 @@ def injuries(first_week):
             if not name:
                 continue
             st = r["status"]
+            if st in ("questionable", "doubtful") and name in final:
+                continue           # a week-only tag from earlier in the week: the official final report decides now
+            if st in ("questionable", "doubtful") and out.get(name, {}).get("s") in ("out", "ir"):
+                continue
             back = int(r["back_week"]) if r["back_week"] else (99 if st == "season" else first_week + IR_WEEKS if st == "ir" else first_week + 1 if st == "out" else 0)
             out[name] = {"s": st, "back": back, "inj": r["injury"], "src": r["source"], "date": r["date"]}
     return out
@@ -645,19 +652,36 @@ def fill_ins(players):
                 for pos, share in FILL_TO[g["p"]].items():
                     mates = [p for p in roster if p["p"] == pos and p is not g and p["rec"] > 0 and p["sched"][i][3] >= 1]
                     tot = sum(max(FILL_FLOOR, p["rec"]) for p in mates)
+                    iffy = (g.get("inj") or {}).get("s", "questionable") if g["sched"][i][3] > 0 else ""
                     for p in mates:
-                        add.setdefault(id(p), [p, 0, []])
+                        add.setdefault(id(p), [p, 0, [], []])
                         add[id(p)][1] += vac * share * max(FILL_FLOOR, p["rec"]) / tot
-                        if g["n"] not in add[id(p)][2] and pos == g["p"]:
-                            add[id(p)][2].append(g["n"])
-            for p, pts, names in add.values():
+                        if pos == g["p"]:
+                            lst = add[id(p)][3] if iffy else add[id(p)][2]
+                            item = (g["n"], iffy) if iffy else g["n"]
+                            if item not in lst:
+                                lst.append(item)
+            for p, pts, names, maybe in add.values():
                 base = p["_ppg"]["ppr"] * p["sched"][i][4]
                 if base <= 0 or pts < 0.3:
                     continue
                 mult = min(FILL_MAX, 1 + pts / base)
                 p["sched"][i][4] = round(p["sched"][i][4] * mult, 3)
-                if names and mult >= 1.08:
-                    p.setdefault("fill", {})[w] = {"for": names, "m": round(mult, 2)}
+                if (names or maybe) and mult >= 1.08:
+                    p.setdefault("fill", {})[w] = {"for": names, "maybe": [n for n, _ in maybe], "m": round(mult, 2),
+                                                   "t": _fill_text(names, maybe), "s": _fill_text(names, maybe, short=True)}
+
+
+def _fill_text(out, maybe, short=False):
+    """'A and B are out and C is questionable' (or short: 'A, B out, C questionable')"""
+    last = lambda n: next(w for w in reversed(n.split()) if w.rstrip(".") not in ("Jr", "Sr", "II", "III", "IV"))
+    join = lambda xs: xs[0] if len(xs) == 1 else ", ".join(xs[:-1]) + " and " + xs[-1]
+    bits = []
+    if out:
+        bits.append(", ".join(last(n) for n in out) + " out" if short else f"{join(out)} {'are' if len(out) > 1 else 'is'} out")
+    for n, st in maybe:
+        bits.append(f"{last(n)} {st}" if short else f"{n} is {st}")
+    return ", ".join(bits) if short else join(bits)
 
 
 # ---------- Scores ----------
@@ -791,9 +815,8 @@ def waiver_wire():
         games_in = {x[0] for x in weeks if x[1]}
         fw = sorted(w for w in fill if w in soon and w in games_in)
         if fw:
-            names = " and ".join(fill[fw[0]]["for"])
             span = f"Week {fw[0]}" if len(fw) == 1 else f"Weeks {fw[0]}–{fw[-1]}"
-            why.append(f"More work: {names} {'are' if len(fill[fw[0]]['for']) > 1 else 'is'} out ({span}).")
+            why.append(f"More work: {fill[fw[0]]['t']} ({span}).")
         t = hot.get(n)
         if t and t["gw"] >= 2 and t["g0"] >= 2:
             d = t["now"]["ppr"] - t["was"]["ppr"]
@@ -871,11 +894,12 @@ def weekly_picks(per_pos=2):
     trend = trends()
     hot = {r["n"]: r for r in trend["players"]} if trend["ready"] else {}
     week = ros["from"]
+    played = week_points(week)[1]                            # teams whose game this week is already over
     rows = []
     for r in ros["players"]:
         w, opp, m, a, q = r["sched"][0]
-        if not opp or a == 0 or r["out"] or r["g"] < 4:
-            continue                                         # bye, out, or not playing lately
+        if not opp or a == 0 or r["out"] or r["g"] < 4 or r["t"] in played:
+            continue                                         # bye, out, not playing lately, or already played
         t = hot.get(r["n"])
         rows.append(dict(r, opp=opp, m=m, a=a, q=q, proj=r["ppg"]["ppr"] * m * a * q, avg=r["ppg"]["ppr"], tr=t))
     for pos in POS_WORD:                                     # season PPG rank within position
@@ -886,8 +910,7 @@ def weekly_picks(per_pos=2):
         out = []
         fl = (r.get("fill") or {}).get(week)
         if call == "start" and fl:
-            names = " and ".join(fl["for"])
-            out.append(f"More work: {names} {'are' if len(fl['for']) > 1 else 'is'} out this week.")
+            out.append(f"More work: {fl['t']} this week.")
         pct = round(abs(r["m"] - 1) * 100)
         foe = TEAM_NAME.get(r["opp"], r["opp"])
         if call == "start" and r["m"] >= 1.05:

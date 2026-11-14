@@ -1677,7 +1677,7 @@ def fantasy_ros_page():
             "PPR, Half PPR, Standard and TE Premium.")
     return page("fantasy-ros.html", f"Rest of Season Fantasy Rankings 2026 · Playoff Schedules · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
-                scripts=("fantasy-ros.js?v=6",))
+                scripts=("fantasy-ros.js?v=7",))
 
 
 def fantasy_startsit_page():
@@ -1750,7 +1750,7 @@ def fantasy_startsit_page():
             "Compare players and see who to start, with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
     return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Start/Sit Tool + Start 'Em Sit 'Em Picks · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
-                scripts=("fantasy-start-sit.js?v=7",))
+                scripts=("fantasy-start-sit.js?v=8",))
 
 
 POS_FULL = {"QB": "Quarterbacks", "RB": "Running backs", "WR": "Wide receivers", "TE": "Tight ends", "DEF": "Defenses to stream", "K": "Kickers to stream"}
@@ -2009,9 +2009,8 @@ def gameday_data():
         elif p["n"] in called:
             call, why = called[p["n"]]
         elif (p.get("fill") or {}).get(wk) and r["rk"] <= flex_cut:
-            names = " and ".join((p["fill"][wk]["for"]))
             call = "START" if r["rk"] <= start_cut else "FLEX"
-            why = f"More work with {names} out (projected {p['p']}{r['rk']})"
+            why = f"More work: {p['fill'][wk]['t']} (projected {p['p']}{r['rk']})"
         else:
             call = "START" if r["rk"] <= start_cut else "FLEX" if r["rk"] <= flex_cut else "SIT"
             why = f"Projected {'D/ST' if p['p'] == 'DEF' else p['p']}{r['rk']} this week"

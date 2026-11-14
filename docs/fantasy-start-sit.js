@@ -43,7 +43,7 @@
     if (b.a === 0) return [`${b.n} is out this week: ${injLabel(b).toLowerCase()}.`];
     if (b.a < 1 && b.inj) out.push(`${b.n} is ${b.inj.s} this week${b.inj.inj ? " (" + b.inj.inj.split(" (")[0].toLowerCase() + ")" : ""}.`);
     if (b.out) out.push(`${b.n} hasn't played since Week ${b.out}.`);
-    if (a.fill && !b.fill) out.push(`More work: ${a.fill.for.join(" and ")} ${a.fill.for.length > 1 ? "are" : "is"} out, so ${a.n} should get more of the ball.`);
+    if (a.fill && !b.fill) out.push(`More work: ${a.fill.t}, so ${a.n} should get more of the ball.`);
     if (a.qb && a.qb.m > 1 && !(b.qb && b.qb.m > 1)) out.push(`New quarterback: ${a.qb.name}${a.qb.status === "expected" ? " is expected to start" : " takes over"}, an upgrade for ${a.n}.`);
     if (b.qb && b.qb.m < 1) out.push(`${b.n}'s team has a new quarterback (${b.qb.name}), a step down.`);
     if (a.m - b.m >= 0.06) out.push(`Easier matchup: ${a.n} faces the ${TEAM[a.opp] || a.opp} (${word[grade(a.m)].replace(" matchup", "").toLowerCase()}), ${b.n} faces the ${TEAM[b.opp] || b.opp} (${word[grade(b.m)].replace(" matchup", "").toLowerCase()}).`);
@@ -70,7 +70,7 @@
           <span class="ss-proj"><b>${proj(p).toFixed(1)}</b><i>${!p.m ? "bye" : p.a === 0 ? "out" : `${lo.toFixed(0)}–${hi.toFixed(0)} range`}</i></span>
           <button class="ft-x" data-rm="${p.slug}" aria-label="Remove ${esc(p.n)}">✕</button></div>
         <div class="ss-meta"><span class="rs-m ${g}">${p.opp ? "vs " + p.opp : "BYE"}</span><span>${word[g]}${p.opp ? ` (${esc(TEAM[p.opp] || p.opp)})` : ""}</span></div>
-        <div class="ss-meta">${lately}${out}${p.qb ? `<span class="rs-qb ${p.qb.m > 1 ? "up" : "down"}">New QB: ${esc(p.qb.name)}${p.qb.status === "expected" ? " (expected)" : ""} ${p.qb.m > 1 ? "↑" : "↓"}</span>` : ""}${p.fill ? `<span class="rs-qb up">More work: ${esc(p.fill.for.join(", "))} out ↑</span>` : ""}</div>
+        <div class="ss-meta">${lately}${out}${p.qb ? `<span class="rs-qb ${p.qb.m > 1 ? "up" : "down"}">New QB: ${esc(p.qb.name)}${p.qb.status === "expected" ? " (expected)" : ""} ${p.qb.m > 1 ? "↑" : "↓"}</span>` : ""}${p.fill ? `<span class="rs-qb up">More work: ${esc(p.fill.s)} ↑</span>` : ""}</div>
       </li>`;
     }).join("") || '<li class="ft-empty">Add at least two players.</li>';
     verdict(ps, start);
