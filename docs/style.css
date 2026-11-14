@@ -2938,3 +2938,21 @@ a.gd-tool:hover { border-color: #3A4656; }
 .gd-pos.K { background: #C9B6F2; } .gd-pos.DEF { background: #9AA6B4; }
 .fd-pos.k { background: #C9B6F2; color: #10151C; } .fd-pos.def { background: #9AA6B4; color: #10151C; }
 .ww-name b { color: var(--text); font-weight: 800; font-size: 16px; }
+
+/* ---------- player game log ---------- */
+.gl-wrap { overflow-x: auto; border-radius: 16px; background: var(--card); max-width: 760px; -webkit-overflow-scrolling: touch; }
+.gl-table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.gl-table th, .gl-table td { padding: 9px 6px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.gl-table thead th { font: 700 11px "Space Grotesk", sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.gl-table th[scope="row"] { text-align: left; color: var(--muted); font-weight: 700; padding-left: 12px; }
+.gl-table .gl-l { text-align: left; }
+.gl-table td.gl-l i { display: block; font-style: normal; font-size: 12px; font-weight: 600; }
+.gl-res.W { color: #6CD39A; } .gl-res.L { color: #F2876B; } .gl-res.T { color: var(--muted); }
+.gl-pts { padding-right: 12px !important; }
+.gl-pts b { color: var(--accent); font-size: 15px; }
+.gl-top { background: rgba(242, 169, 59, 0.12); }
+.gl-off td { color: var(--muted); font-style: italic; }
+.gl-off td.gl-l i { color: var(--muted); }
+.gl-tot th, .gl-tot td { border-bottom: 0; font-weight: 800; color: var(--text); }
+.gl-tot td.gl-l { color: var(--muted); font-weight: 600; }
+@media (max-width: 420px) { .gl-table { font-size: 13px; } .gl-table th, .gl-table td { padding: 8px 3px; } .gl-table th[scope="row"] { padding-left: 10px; } .gl-pts { padding-right: 10px !important; } }

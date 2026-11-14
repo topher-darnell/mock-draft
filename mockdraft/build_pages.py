@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "61", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "63", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1163,6 +1163,86 @@ FF_POS_NAME = {"QB": "quarterback", "RB": "running back", "WR": "wide receiver",
 FF_POS_PLURAL = {"QB": "quarterbacks", "RB": "running backs", "WR": "wide receivers", "TE": "tight ends"}
 
 
+_GL = {}
+
+
+def game_log(name, pos, team):
+    """one row per week of the season so far: opponent, result, the stats that matter for his position, PPR points.
+    Includes games from the week in progress once they're final, and marks byes and games he missed."""
+    if not _GL:
+        rows = fantasy.read("fantasy_weekly.csv")
+        if os.path.exists(os.path.join(fantasy.HERE, "fantasy_live.csv")):
+            rows += fantasy.read("fantasy_live.csv")
+        for r in rows:
+            _GL.setdefault(fantasy._key(r["name"]), []).append(r)
+        games = {}
+        for g in fantasy.read("fantasy_schedule.csv"):
+            w = int(g["week"])
+            done = g.get("away_score", "") != ""
+            for me, op, home in ((g["away"], g["home"], False), (g["home"], g["away"], True)):
+                sc = (int(g["away_score"]), int(g["home_score"])) if done else None
+                mine, theirs = (sc[1], sc[0]) if (sc and home) else (sc if sc else (None, None))
+                games[(me, w)] = {"opp": op, "home": home, "done": done, "us": mine, "them": theirs}
+        _GL["__games__"] = games
+    games = _GL["__games__"]
+    mine = sorted(_GL.get(fantasy._key(name), []), key=lambda r: int(r["week"]))
+    if not mine:
+        return ""
+    by_week = {int(r["week"]): r for r in mine}
+    last = max(w for (t, w), g in games.items() if g["done"])
+    first = min(by_week)
+    f = fantasy.f
+    n = lambda r, c: int(f(r.get(c, 0)))
+    if pos == "QB":
+        cols = ["Cmp/Att", "Yds", "TD", "INT", "Rush"]
+        cells = lambda r: [f"{n(r, 'cmp')}/{n(r, 'att')}", n(r, "pass_yds"), n(r, "pass_td"), n(r, "int"), n(r, "rush_yds")]
+    elif pos == "RB":
+        cols = ["Car", "Rush", "Rec", "Yds", "TD"]
+        cells = lambda r: [n(r, "car"), n(r, "rush_yds"), n(r, "rec"), n(r, "rec_yds"), n(r, "rush_td") + n(r, "rec_td")]
+    else:
+        cols = ["Tgt", "Rec", "Yds", "TD"]
+        cells = lambda r: [n(r, "tgt"), n(r, "rec"), n(r, "rec_yds"), n(r, "rec_td") + n(r, "rush_td")]
+    best = max((fantasy.points(r, "ppr") for r in mine), default=0)
+    out, tot, tot_pts = [], [0] * len(cols), 0.0
+    for w in range(1, last + 1):
+        r = by_week.get(w)
+        t = r["team"] if r else (mine[-1]["team"] if w > int(mine[-1]["week"]) else next((x["team"] for x in mine if int(x["week"]) >= w), team))
+        g = games.get((t, w))
+        if not g:
+            if w > first:
+                out.append(f'<tr class="gl-off"><th scope="row">{w}</th><td class="gl-l" colspan="{len(cols) + 2}">Bye</td></tr>')
+            continue
+        if not g["done"]:
+            continue
+        where = ("vs " if g["home"] else "@ ") + g["opp"]
+        res = ("W" if g["us"] > g["them"] else "L" if g["us"] < g["them"] else "T") + f' {g["us"]}-{g["them"]}'
+        if not r:
+            if w < first:
+                continue                                    # before his first game (not on the team yet, or a rookie)
+            out.append(f'<tr class="gl-off"><th scope="row">{w}</th><td class="gl-l">{where}<i>{res}</i></td>'
+                       f'<td class="gl-l" colspan="{len(cols) + 1}">Did not play</td></tr>')
+            continue
+        vals = cells(r)
+        pts = fantasy.points(r, "ppr")
+        tot_pts += pts
+        for i, v in enumerate(vals):
+            if isinstance(v, int):
+                tot[i] += v
+        cls = " gl-top" if pts == best and pts > 0 else ""
+        out.append(f'<tr class="gl-row{cls}"><th scope="row">{w}</th><td class="gl-l">{where}<i class="gl-res {res[0]}">{res}</i></td>'
+                   + "".join(f"<td>{esc(str(v))}</td>" for v in vals) + f'<td class="gl-pts"><b>{pts:.1f}</b></td></tr>')
+    if pos == "QB":
+        comp = sum(n(r, "cmp") for r in mine); att = sum(n(r, "att") for r in mine)
+        tot[0] = f"{comp}/{att}"
+    games_played = len(mine)
+    foot = (f'<tr class="gl-tot"><th scope="row">All</th><td class="gl-l">{games_played} game{"s" if games_played != 1 else ""}</td>'
+            + "".join(f"<td>{t_:,}</td>" if isinstance(t_, int) else f"<td>{t_}</td>" for t_ in tot)
+            + f'<td class="gl-pts"><b>{tot_pts:.1f}</b></td></tr>')
+    head = '<th scope="col">Wk</th><th scope="col" class="gl-l">Game</th>' + "".join(f'<th scope="col">{c}</th>' for c in cols + ["PPR"])
+    return (f'<div class="gl-wrap"><table class="gl-table"><thead><tr>{head}</tr></thead>'
+            f'<tbody>{"".join(out)}</tbody><tfoot>{foot}</tfoot></table></div>')
+
+
 def nfl_profiles():
     lead = fantasy.leaders()
     rosd = fantasy.rest_of_season()
@@ -1281,6 +1361,8 @@ def nfl_profiles():
       <dl class="pc-stats pg-stats">{tiles_html}</dl>
     </section>
 
+    {f'<section class="pg-section"><h2 class="home-h2">Game log</h2><p class="in-note">Every game this season, PPR points. His best game is highlighted.</p>{game_log(n, pos, r["t"])}</section>' if game_log(n, pos, r["t"]) else ""}
+
     <section class="pg-section">
       <h2 class="home-h2">{esc(short(team))} fantasy players</h2>
       {mates_html}
@@ -1303,7 +1385,7 @@ def nfl_profiles():
     </section>
     {signup("nfl-player")}"""
         desc = (f"{n} fantasy stats 2026: {ppr:.1f} PPR points ({ppg:.1f} per game), {pos}{prank[(n, 'ppr')]} in PPR. "
-                f"Standard, Half PPR and PPR points, ranks and season stats for the {team} {FF_POS_NAME[pos]}.")
+                f"Game log, Standard, Half PPR and PPR points, ranks and season stats for the {team} {FF_POS_NAME[pos]}.")
         write(f"fantasy/{sl}.html", page(f"fantasy/{sl}.html", f"{n} Fantasy Stats 2026 · {pos}, {short(team)} · Big Head GM",
                                           desc, body, crumbs=[("Fantasy", "fantasy.html"), (n, f"fantasy/{sl}.html")], nav="fantasy.html"))
         paths.append(f"fantasy/{sl}.html")
