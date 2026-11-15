@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "65", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "66", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -162,7 +162,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="manifest" href="{root}manifest.json?v=3">
+  <link rel="manifest" href="{root}manifest.json?v=4">
   <link rel="apple-touch-icon" href="{root}icons/apple-touch-icon.png?v={ICON_V}">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" sizes="32x32" href="{root}icons/favicon-32.png?v={ICON_V}">
@@ -193,7 +193,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
     <div class="wrap footer-row">
       <img class="footer-logo" src="{root}icons/logo-banner-small.webp?v={ICON_V}" alt="Big Head GM" width="400" height="225" loading="lazy">
       <div class="footer-text">
-        <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="{root}?start=1">Run your own mock</a></p>
+        <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="{root}?start=1">Run your own mock</a> · <a href="{root}app.html">Get the app</a></p>
         <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com · Updated {TODAY.strftime('%B')} {TODAY.day}, {TODAY.year}</p>
         <p>Not affiliated with the NFL or any NFL team. Every GM is an original character.</p>
       </div>
@@ -203,7 +203,8 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   {gd_tabs(root, TAB_OF.get(nav, ""))}
   <script src="{root}gm.js?v={GM_V}"></script>
   <script src="{root}site.js?v={SITE_JS_V}"></script>
-  <script src="{root}newsletter.js?v=1"></script>{tags}
+  <script src="{root}newsletter.js?v=1"></script>
+  <script src="{root}getapp.js?v=1"></script>{tags}
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
@@ -2272,6 +2273,55 @@ def home_mock():
 
 
 
+
+def app_page():
+    """bigheadgm.com/app: install it like an app (no App Store). getapp.js does the buttons."""
+    feats = [("Fantasle", "Guess the mystery fantasy player. New one daily.", "games/fantasle.html"),
+             ("Prospectle", "Guess the mystery 2027 draft prospect. Daily.", "games/prospectle.html"),
+             ("Trade analyzer", "Who wins the deal? Any scoring.", "fantasy-trade.html"),
+             ("Fantasy", "Start/sit, rankings, waiver wire, live scores.", "fantasy.html")]
+    tiles = "".join(f'<a class="app-feat" href="{h}"><b>{esc(n)}</b><span>{esc(d)}</span></a>' for n, d, h in feats)
+    body = f"""
+    <section class="app-page" id="app-page">
+      <div class="app-hero">
+        <img class="app-icon" src="icons/icon-512.png?v=4" alt="Big Head GM app icon" width="132" height="132">
+        <h1>Big Head GM is an <span>app</span>.</h1>
+        <p>Put it on your home screen in 10 seconds. Free, no App Store, no sign-up. It opens full screen,
+           updates itself and works offline.</p>
+        <button type="button" class="app-btn app-only-android" data-install>Install the app</button>
+        <a class="app-btn app-only-ios" href="#app-ios">Show me how (iPhone)</a>
+        <p class="app-done">You're using the app. You're all set 🫡</p>
+      </div>
+
+      <div class="app-how">
+        <div class="app-steps" id="app-ios">
+          <h2>On iPhone or iPad</h2>
+          <ol>
+            <li><b>Open bigheadgm.com in Safari.</b> <span>(Chrome on iPhone works too.)</span></li>
+            <li><b>Tap the Share button</b> <span class="app-share" aria-hidden="true"></span> <span>at the bottom of the screen (top right on iPad).</span></li>
+            <li><b>Scroll down and tap "Add to Home Screen"</b>, then <b>Add</b>.</li>
+          </ol>
+          <p class="app-note">The Big Head GM icon shows up next to your other apps.</p>
+        </div>
+        <div class="app-steps" id="app-android">
+          <h2>On Android</h2>
+          <ol>
+            <li><b>Tap "Install the app"</b> above. <span>That's it.</span></li>
+            <li><span>No button? In Chrome, tap the</span> <b>⋮ menu</b> <span>then</span> <b>"Install app"</b> <span>or</span> <b>"Add to Home screen"</b>.</li>
+          </ol>
+          <p class="app-note">On a computer: Chrome or Edge shows an install icon at the right of the address bar.</p>
+        </div>
+      </div>
+
+      <h2 class="app-h2">What's inside</h2>
+      <div class="app-feats">{tiles}</div>
+      <p class="app-tip"><b>Tip:</b> long-press the app icon to jump straight to Fantasle, Prospectle, the trade analyzer or your lineup.</p>
+    </section>"""
+    return page("app.html", "Get the Big Head GM App (Free, No App Store) · Big Head GM",
+                "Install Big Head GM on your phone's home screen: Fantasle, Prospectle, the trade analyzer and free fantasy start/sit. Free, no sign-up.",
+                body, crumbs=[("Get the app", "app.html")])
+
+
 def home_feature():
     """the best things on the site, first thing you see: the two daily games, fantasy, the trade analyzer and start/sit"""
     rows = gameday_data()
@@ -2631,7 +2681,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html"]
+    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2650,6 +2700,7 @@ def main():
     write("fantasy-waiver-wire.html", fantasy_waiver_page())
     if fantasy.scores():
         write("scores.html", scores_page())
+    write("app.html", app_page())
     write("news.html", news_page())
     games_pages()
     prospectle_page()

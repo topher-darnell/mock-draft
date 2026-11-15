@@ -3066,3 +3066,51 @@ a.gd-tool:hover { border-color: #3A4656; }
   .fx-pick b { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .fx-row i, .fx-lineup li, .fx-pick, .fx-swap, .fx-tug i { animation: none; } }
+
+/* ---------- Get the app: /app page + phone banner (getapp.js) ---------- */
+.app-banner { position: fixed; left: 10px; right: 10px; bottom: calc(env(safe-area-inset-bottom, 0px) + 74px); z-index: 60;
+  display: flex; align-items: center; gap: 10px; padding: 9px 10px 9px 10px; border-radius: 18px;
+  background: rgba(22, 28, 37, .96); border: 1.5px solid rgba(242,169,59,.55); box-shadow: 0 12px 34px rgba(0,0,0,.45);
+  backdrop-filter: blur(10px); animation: app-up .35s ease both; }
+.app-banner img { width: 40px; height: 40px; border-radius: 10px; flex: none; }
+.app-banner span { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+.app-banner b { font-size: 14px; } .app-banner small { font-size: 12px; color: #B9C3CF; }
+.app-banner-go { margin-left: auto; padding: 8px 14px; border: 0; border-radius: 12px; background: var(--accent); color: #1B1206; font: 800 14px Inter, sans-serif; cursor: pointer; }
+.app-banner-x { padding: 6px 8px; border: 0; background: none; color: #8C97A4; font-size: 16px; cursor: pointer; }
+@keyframes app-up { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (min-width: 900px) { .app-banner { display: none; } }
+body:has(#app:not([hidden]) #draft-screen:not([hidden])) .app-banner,
+body:has(#app:not([hidden]) #results-screen:not([hidden])) .app-banner { display: none; }
+
+.app-page { max-width: 760px; margin: 0 auto; padding-bottom: 30px; }
+.app-hero { text-align: center; padding: 18px 0 10px; }
+.app-icon { width: 132px; height: 132px; border-radius: 30px; box-shadow: 0 18px 50px rgba(242,169,59,.28), 0 0 0 1.5px rgba(255,255,255,.08); }
+.app-hero h1 { margin: 18px 0 8px; font: italic 900 clamp(34px, 9vw, 54px)/1 Inter, sans-serif; letter-spacing: -0.03em; text-transform: uppercase; }
+.app-hero h1 span { color: var(--accent); }
+.app-hero p { max-width: 520px; margin: 0 auto; color: #B9C3CF; font-size: 16px; line-height: 1.5; }
+.app-btn { display: inline-block; margin-top: 20px; padding: 15px 26px; border: 0; border-radius: 16px; background: var(--accent); color: #1B1206;
+  font: 900 18px Inter, sans-serif; text-decoration: none; cursor: pointer; box-shadow: 0 12px 30px rgba(242,169,59,.3); }
+.app-btn:active { transform: scale(.98); }
+.app-done { display: none; margin-top: 18px !important; font-weight: 700; color: #4BE07A !important; }
+.app-page .app-only-ios { display: none; }
+.app-page.is-ios .app-only-android { display: none; } .app-page.is-ios .app-only-ios { display: inline-block; }
+.app-page.is-installed .app-btn { display: none; } .app-page.is-installed .app-done { display: block; }
+.app-how { display: grid; gap: 14px; margin-top: 26px; }
+@media (min-width: 700px) { .app-how { grid-template-columns: 1fr 1fr; } }
+.app-page.is-ios #app-ios, .app-page.is-android #app-android { order: -1; border-color: rgba(242,169,59,.6); }
+.app-steps { padding: 18px 18px 16px; border-radius: 18px; background: #161C25; border: 1.5px solid #2A3340; transition: box-shadow .3s; }
+.app-steps h2 { margin: 0 0 10px; font: 800 18px "Space Grotesk", sans-serif; }
+.app-steps ol { margin: 0; padding-left: 22px; display: grid; gap: 10px; font-size: 15px; line-height: 1.45; }
+.app-steps ol span { color: #B9C3CF; }
+.app-note { margin: 12px 0 0; font-size: 13px; color: #8C97A4; }
+.app-flash { box-shadow: 0 0 0 3px var(--accent); }
+.app-share { display: inline-block; width: 18px; height: 20px; vertical-align: -4px; border: 2px solid currentColor; border-top: 0; border-radius: 3px; position: relative; margin: 0 2px; }
+.app-share::before { content: ""; position: absolute; left: 50%; top: -9px; width: 2px; height: 14px; margin-left: -1px; background: currentColor; }
+.app-share::after { content: ""; position: absolute; left: 50%; top: -10px; width: 8px; height: 8px; margin-left: -5px; border-left: 2px solid currentColor; border-top: 2px solid currentColor; transform: rotate(45deg); }
+.app-h2 { margin: 30px 0 12px; font: 800 20px "Space Grotesk", sans-serif; }
+.app-feats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.app-feat { display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 16px; background: #161C25; border: 1.5px solid #2A3340; color: var(--text); text-decoration: none; }
+.app-feat b { font-size: 16px; } .app-feat span { font-size: 13px; color: #B9C3CF; line-height: 1.35; }
+.app-tip { margin-top: 14px; font-size: 14px; color: #B9C3CF; }
+.app-page a.app-btn, .app-page a.app-btn:visited { color: #1B1206; text-decoration: none; }
+.app-page a.app-feat, .app-page a.app-feat:visited { color: var(--text); text-decoration: none; }
