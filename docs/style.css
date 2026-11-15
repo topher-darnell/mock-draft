@@ -2956,3 +2956,82 @@ a.gd-tool:hover { border-color: #3A4656; }
 .gl-tot th, .gl-tot td { border-bottom: 0; font-weight: 800; color: var(--text); }
 .gl-tot td.gl-l { color: var(--muted); font-weight: 600; }
 @media (max-width: 420px) { .gl-table { font-size: 13px; } .gl-table th, .gl-table td { padding: 8px 3px; } .gl-table th[scope="row"] { padding-left: 10px; } .gl-pts { padding-right: 10px !important; } }
+
+/* ---------- Start here: the four best things on the site, first on the home page ---------- */
+.fx { position: relative; padding: 26px 0 30px; overflow: hidden;
+  background: radial-gradient(900px 420px at 15% -10%, rgba(242,169,59,.16), transparent 60%),
+              radial-gradient(700px 400px at 95% 10%, rgba(120,90,240,.14), transparent 60%); }
+.fx-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-bottom: 16px; }
+.fx-title { margin: 0; font: italic 900 clamp(34px, 9vw, 56px)/1 Inter, sans-serif; letter-spacing: -0.02em; text-transform: uppercase; }
+.fx-title span { color: var(--accent); }
+.fx-sub { margin: 0; font-size: 15px; color: #B9C3CF; }
+.fx-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 1000px) { .fx-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
+.fx-card { --c: var(--accent); --c2: #1B1206;
+  position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0;
+  padding: 14px 14px 16px; border-radius: 20px; color: var(--text); text-decoration: none;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--c) 26%, #161C25) 0%, #161C25 62%);
+  border: 1.5px solid color-mix(in srgb, var(--c) 55%, transparent);
+  box-shadow: 0 10px 30px -14px color-mix(in srgb, var(--c) 70%, transparent);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease; }
+.fx-card:hover, .fx-card:focus-visible { transform: translateY(-3px); border-color: var(--c);
+  box-shadow: 0 16px 40px -14px color-mix(in srgb, var(--c) 90%, transparent); }
+.fx-card:active { transform: translateY(0) scale(.98); }
+.fx-fl { --c: #3DBE74; } .fx-pl { --c: #9B7BFF; } .fx-tr { --c: #F2A93B; } .fx-ff { --c: #4AA8FF; }
+.fx-eye { font: 700 11px "Space Grotesk", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.fx-eye b { color: var(--text); }
+.fx-name { font: italic 900 clamp(22px, 6vw, 30px)/1 Inter, sans-serif; letter-spacing: -0.02em; text-transform: uppercase; margin-top: 4px; }
+.fx-line { font-size: 13px; line-height: 1.35; color: #B9C3CF; }
+.fx-status { font-size: 12px; font-weight: 700; color: var(--c); }
+.fx-go { margin-top: auto; padding-top: 8px; font: 700 14px Inter, sans-serif; color: var(--c); }
+.fx-card.fx-done .fx-art { opacity: .55; }
+
+.fx-art { display: block; height: 118px; margin: 4px 0 2px; }
+.fx-board { display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+.fx-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.fx-row i { display: flex; align-items: center; justify-content: center; height: 34px; border-radius: 7px; background: #2A323D;
+  color: #fff; font: 700 11px Inter, sans-serif; font-style: normal; white-space: nowrap; overflow: hidden;
+  animation: fx-flip .5s ease both; }
+.fx-row i.g { background: #2E9E5B; } .fx-row i.y { background: #D6A82A; color: #1B1206; }
+.fx-row:nth-child(1) i { animation-delay: .05s; } .fx-row:nth-child(2) i { animation-delay: .25s; } .fx-row:nth-child(3) i { animation-delay: .45s; }
+.fx-row i:nth-child(2) { animation-delay: inherit; }
+@keyframes fx-flip { from { transform: rotateX(90deg); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.fx-trade { display: grid; grid-template-columns: 1fr auto 1fr; grid-template-rows: 1fr auto; align-items: center; gap: 6px 6px; }
+.fx-side { display: flex; flex-direction: column; gap: 4px; }
+.fx-side small { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.fx-side b { padding: 6px 8px; border-radius: 8px; background: #232B36; border: 1px solid #333E4C; font: 700 12px Inter, sans-serif; text-align: center; }
+.fx-swap { font-size: 22px; color: var(--c); animation: fx-swap 2.4s ease-in-out infinite; }
+@keyframes fx-swap { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(180deg); } }
+.fx-tug { grid-column: 1 / -1; position: relative; height: 10px; border-radius: 5px;
+  background: linear-gradient(90deg, #E5604B, #D6A82A 50%, #3DBE74); }
+.fx-tug i { position: absolute; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%;
+  background: #fff; border: 4px solid #10151C; animation: fx-tug 3.2s ease-in-out infinite; }
+@keyframes fx-tug { 0%, 100% { left: 30%; } 50% { left: 74%; } }
+
+.fx-lineup ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; justify-content: center; height: 100%; }
+.fx-lineup li { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: 6px;
+  padding: 6px 8px; border-radius: 9px; background: #1E2631; border: 1px solid #2C3644; animation: fx-flip .5s ease both; }
+.fx-lineup li:nth-child(2) { animation-delay: .15s; } .fx-lineup li:nth-child(3) { animation-delay: .3s; }
+.fx-lineup b { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fx-lineup em { font: 800 13px Inter, sans-serif; font-style: normal; color: var(--accent); }
+.fx-start { padding: 2px 5px; border-radius: 5px; background: #2E9E5B; color: #fff; font: 800 9px Inter, sans-serif; font-style: normal; }
+.fx-pos { padding: 2px 5px; border-radius: 5px; font: 800 9px Inter, sans-serif; color: #10151C; }
+.fx-qb { background: #F28B7C; } .fx-rb { background: #5FD49A; } .fx-wr { background: #6CB8FF; }
+
+@media (max-width: 899px) {
+  #home-screen > .fx { order: 1; }
+  .fx { padding: 18px 0 8px; }
+  .fx-head { margin-bottom: 12px; }
+  .fx-sub { font-size: 13px; }
+  .fx-card { padding: 12px 11px 13px; border-radius: 16px; }
+  .fx-art { height: 96px; }
+  .fx-row i { height: 27px; font-size: 9.5px; border-radius: 6px; }
+  .fx-row { gap: 3px; } .fx-board { gap: 3px; }
+  .fx-line { font-size: 12px; }
+  .fx-lineup li { grid-template-columns: auto minmax(0, 1fr) auto; padding: 5px 6px; gap: 5px; }
+  .fx-lineup .fx-start { display: none; }
+  .fx-lineup b { font-size: 11px; }
+  .fx-side b { padding: 5px 4px; font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .fx-row i, .fx-lineup li, .fx-swap, .fx-tug i { animation: none; } }

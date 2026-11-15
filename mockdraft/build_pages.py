@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "63", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "64", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -2271,6 +2271,97 @@ def home_mock():
     return out
 
 
+
+def home_feature():
+    """the four best things on the site, first thing you see: Fantasle, Prospectle, trade analyzer, fantasy"""
+    rows = gameday_data()
+    if isinstance(rows, dict):
+        rows = next(v for v in rows.values() if isinstance(v, list) and v and isinstance(v[0], list))
+    wk = fantasy.waiver_wire()["week"]
+    top = []
+    for pos in ("QB", "RB", "WR"):
+        r = min((r for r in rows if r[2] == pos and r[7] == "START" and not (len(r) > 11 and r[11])), key=lambda r: r[8], default=None)
+        if r:
+            top.append(r)
+    lineup = "".join(f'<li><i class="fx-start">START</i><span class="fx-pos fx-{r[2].lower()}">{r[2]}</span>'
+                     f'<b>{esc(r[0][0] + ". " + r[0].split(" ", 1)[1] if " " in r[0] else r[0])}</b><em>{r[4][2]:.1f}</em></li>' for r in top)
+    tiles = lambda rows_: "".join('<span class="fx-row">' + "".join(f'<i class="{c}">{t}</i>' for c, t in row) + "</span>" for row in rows_)
+    fl = tiles([[("", "QB"), ("y", "AFC"), ("", "18.2"), ("", "8")], [("g", "WR"), ("", "NFC"), ("y", "21.4"), ("y", "11")],
+                [("g", "WR"), ("g", "NFC W"), ("g", "25.7"), ("g", "9")]])
+    pl = tiles([[("", "B10"), ("y", "QB"), ("", "6-4"), ("", "#31")], [("g", "SEC"), ("", "EDGE"), ("y", "6-3"), ("y", "#12")],
+                [("g", "SEC"), ("g", "WR"), ("g", "6-2"), ("g", "#7")]])
+    return f"""<!-- home-feature:start (written by build_pages.py) -->
+    <section class="fx" aria-labelledby="fx-h">
+      <div class="wrap">
+        <div class="fx-head">
+          <h2 class="fx-title" id="fx-h">Start <span>here.</span></h2>
+          <p class="fx-sub">Two daily games and the fantasy tools that win leagues. Free, no sign-up.</p>
+        </div>
+        <div class="fx-grid">
+          <a class="fx-card fx-fl" href="games/fantasle.html" data-game="fl">
+            <span class="fx-eye">Daily game <b class="fx-num"></b></span>
+            <span class="fx-art fx-board" aria-hidden="true">{fl}</span>
+            <span class="fx-name">Fantasle</span>
+            <span class="fx-line">Guess the mystery NFL fantasy player in 8 tries.</span>
+            <span class="fx-status" hidden></span>
+            <span class="fx-go">Play today's →</span>
+          </a>
+          <a class="fx-card fx-pl" href="games/prospectle.html" data-game="pl">
+            <span class="fx-eye">Daily game <b class="fx-num"></b></span>
+            <span class="fx-art fx-board" aria-hidden="true">{pl}</span>
+            <span class="fx-name">Prospectle</span>
+            <span class="fx-line">Guess the mystery 2027 draft prospect in 8 tries.</span>
+            <span class="fx-status" hidden></span>
+            <span class="fx-go">Play today's →</span>
+          </a>
+          <a class="fx-card fx-tr" href="fantasy-trade.html">
+            <span class="fx-eye">Fantasy tool</span>
+            <span class="fx-art fx-trade" aria-hidden="true">
+              <span class="fx-side"><small>You give</small><b>WR1</b><b>RB2</b></span>
+              <span class="fx-swap">⇄</span>
+              <span class="fx-side"><small>You get</small><b>RB1</b><b>TE1</b></span>
+              <span class="fx-tug"><i></i></span>
+            </span>
+            <span class="fx-name">Trade analyzer</span>
+            <span class="fx-line">Who wins the deal? Any scoring, redraft or dynasty.</span>
+            <span class="fx-go">Check a trade →</span>
+          </a>
+          <a class="fx-card fx-ff" href="fantasy.html">
+            <span class="fx-eye">Week {wk} fantasy</span>
+            <span class="fx-art fx-lineup" aria-hidden="true"><ol>{lineup}</ol></span>
+            <span class="fx-name">Fantasy</span>
+            <span class="fx-line">Start/sit calls, rankings, waiver wire and your lineup.</span>
+            <span class="fx-go">Win this week →</span>
+          </a>
+        </div>
+      </div>
+      <script>
+        (function () {{
+          var parts = new Intl.DateTimeFormat("en-US", {{ timeZone: "America/New_York", year: "numeric", month: "numeric", day: "numeric" }}).formatToParts(new Date());
+          var g = {{}}; parts.forEach(function (x) {{ g[x.type] = +x.value; }});
+          var day = Math.floor((Date.UTC(g.year, g.month - 1, g.day) - Date.UTC(2026, 10, 10)) / 864e5) + 1;
+          document.querySelectorAll(".fx-card[data-game]").forEach(function (a) {{
+            var k = a.getAttribute("data-game"), num = a.querySelector(".fx-num"), st = a.querySelector(".fx-status"), go = a.querySelector(".fx-go");
+            num.textContent = "#" + day;
+            var d = null, s = null;
+            try {{ d = JSON.parse(localStorage.getItem("bhg-" + k + "-daily")); s = JSON.parse(localStorage.getItem("bhg-" + k + "-stats")); }} catch (e) {{}}
+            if (d && d.day === day && d.done) {{
+              st.hidden = false;
+              st.textContent = d.won ? "✓ Solved in " + d.guesses.length + (s && s.streak > 1 ? " · " + s.streak + "-day streak" : "") : "Missed today's. New one tomorrow.";
+              a.classList.add("fx-done");
+              go.textContent = "See your result →";
+            }} else if (d && d.day === day && d.guesses && d.guesses.length) {{
+              st.hidden = false; st.textContent = d.guesses.length + " of 8 guesses used";
+              go.textContent = "Keep going →";
+            }} else if (s && s.streak > 0) {{
+              st.hidden = false; st.textContent = "🔥 " + s.streak + "-day streak. Keep it alive.";
+            }}
+          }});
+        }})();
+      </script>
+    </section>
+    <!-- home-feature:end -->"""
+
 def home_blocks():
     lead = fantasy.leaders()
     MIN_GP = 4
@@ -2302,27 +2393,25 @@ def home_blocks():
         {home_scores()}
 
         <div class="home-h2-row">
-          <h2 class="home-h2">Today's daily games</h2>
-          <span class="section-note">New player every day</span>
+          <h2 class="home-h2">More free games</h2>
+          <a class="section-note nw-all" href="games/">All games →</a>
         </div>
         <div class="hd-grid">
-          <a class="hd-card" href="games/prospectle.html">
-            <span class="hd-tiles" aria-hidden="true"><i class="g">SEC</i><i class="y">WR</i><i>6-2</i><i class="g">#7</i></span>
-            <b>Prospectle</b>
-            <span>Guess the mystery 2027 draft prospect in 8 tries.</span>
-            <span class="pg-go">Play today's →</span>
-          </a>
-          <a class="hd-card" href="games/fantasle.html">
-            <span class="hd-tiles" aria-hidden="true"><i class="g">WR</i><i class="y">25.7</i><i>NFC W</i><i class="g">9</i></span>
-            <b>Fantasle</b>
-            <span>Guess the mystery NFL fantasy player from his PPR stats.</span>
-            <span class="pg-go">Play today's →</span>
-          </a>
           <a class="hd-card" href="games/17-0.html">
             <span class="hd-tiles hd-p17" aria-hidden="true">🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩</span>
             <b>17-0</b>
             <span>Draft a PPR lineup from random teams. Can it go undefeated?</span>
             <span class="pg-go">Play today's →</span>
+          </a>
+          <a class="hd-card" href="games/blitz.html">
+            <b>Draft Day Blitz</b>
+            <span>A daily swipe-to-draft challenge against the clock.</span>
+            <span class="pg-go">Play →</span>
+          </a>
+          <a class="hd-card" href="games/juke.html">
+            <b>Juke</b>
+            <span>An endless runner through 32 big-headed GMs.</span>
+            <span class="pg-go">Play →</span>
           </a>
         </div>
 
@@ -2377,7 +2466,6 @@ def home_blocks():
           <p class="hf-foot">Ranked by PPR points per game (PPG), {MIN_GP}+ games played. Scroll for more.</p>
           <a class="pg-go" href="fantasy.html">All {len(lead)} players, every scoring format →</a>
         </div>
-        {FF_CTAS}
         <dialog class="pop" id="pop" aria-label="Player">
           <button class="pop-close" id="pop-close" aria-label="Close">✕</button>
           <div id="pop-body"></div>
@@ -2407,6 +2495,11 @@ def home_blocks():
     with open(path, encoding="utf-8") as fh:
         text = fh.read()
     text = re.sub(r"<!-- home-daily:start.*?<!-- home-daily:end -->", lambda m: block, text, flags=re.S)
+    feat = home_feature()
+    if "<!-- home-feature:start" in text:
+        text = re.sub(r"<!-- home-feature:start.*?<!-- home-feature:end -->", lambda m: feat, text, flags=re.S)
+    else:
+        text = text.replace('    <section class="hero">', "    " + feat + '\n\n    <section class="hero">', 1)
     tabs = f"<!-- tabs:start -->{gd_tabs()}<!-- tabs:end -->"
     if "<!-- tabs:start -->" in text:
         text = re.sub(r"<!-- tabs:start -->.*?<!-- tabs:end -->", lambda m: tabs, text, flags=re.S)
