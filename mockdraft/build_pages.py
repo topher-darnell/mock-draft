@@ -32,7 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "64", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "65", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -2273,23 +2273,29 @@ def home_mock():
 
 
 def home_feature():
-    """the four best things on the site, first thing you see: Fantasle, Prospectle, trade analyzer, fantasy"""
+    """the best things on the site, first thing you see: the two daily games, fantasy, the trade analyzer and start/sit"""
     rows = gameday_data()
     if isinstance(rows, dict):
         rows = next(v for v in rows.values() if isinstance(v, list) and v and isinstance(v[0], list))
     wk = fantasy.waiver_wire()["week"]
+    short_nm = lambda n: n[0] + ". " + n.split(" ", 1)[1] if " " in n else n
+    open_ = [r for r in rows if not (len(r) > 11 and r[11])]          # games not played yet
     top = []
     for pos in ("QB", "RB", "WR"):
-        r = min((r for r in rows if r[2] == pos and r[7] == "START" and not (len(r) > 11 and r[11])), key=lambda r: r[8], default=None)
+        r = min((r for r in open_ if r[2] == pos and r[7] == "START"), key=lambda r: r[8], default=None)
         if r:
             top.append(r)
     lineup = "".join(f'<li><i class="fx-start">START</i><span class="fx-pos fx-{r[2].lower()}">{r[2]}</span>'
-                     f'<b>{esc(r[0][0] + ". " + r[0].split(" ", 1)[1] if " " in r[0] else r[0])}</b><em>{r[4][2]:.1f}</em></li>' for r in top)
+                     f'<b>{esc(short_nm(r[0]))}</b><em>{r[4][2]:.1f}</em></li>' for r in top)
+    # start/sit: the best WR to start against the best WR to sit
+    yes = min((r for r in open_ if r[2] == "WR" and r[7] == "START"), key=lambda r: r[8], default=None)
+    no = min((r for r in open_ if r[2] == "WR" and r[7] == "SIT"), key=lambda r: r[8], default=None)
+    ss = "".join(f'<span class="fx-pick fx-{k}"><span class="fx-pos fx-wr">WR</span><b>{esc(short_nm(r[0]))}</b>'
+                 f'<em>{r[4][1]:.1f}</em><i>{t}</i></span>' + ('<span class="fx-vs">or</span>' if k == "yes" else "")
+                 for k, t, r in (("yes", "START", yes), ("no", "SIT", no)) if r)
     tiles = lambda rows_: "".join('<span class="fx-row">' + "".join(f'<i class="{c}">{t}</i>' for c, t in row) + "</span>" for row in rows_)
-    fl = tiles([[("", "QB"), ("y", "AFC"), ("", "18.2"), ("", "8")], [("g", "WR"), ("", "NFC"), ("y", "21.4"), ("y", "11")],
-                [("g", "WR"), ("g", "NFC W"), ("g", "25.7"), ("g", "9")]])
-    pl = tiles([[("", "B10"), ("y", "QB"), ("", "6-4"), ("", "#31")], [("g", "SEC"), ("", "EDGE"), ("y", "6-3"), ("y", "#12")],
-                [("g", "SEC"), ("g", "WR"), ("g", "6-2"), ("g", "#7")]])
+    fl = tiles([[("g", "WR"), ("g", "SEA"), ("g", "25.7"), ("g", "9")]])
+    pl = tiles([[("g", "SEC"), ("g", "WR"), ("g", "6-2"), ("g", "#7")]])
     return f"""<!-- home-feature:start (written by build_pages.py) -->
     <section class="fx" aria-labelledby="fx-h">
       <div class="wrap">
@@ -2298,21 +2304,30 @@ def home_feature():
           <p class="fx-sub">Two daily games and the fantasy tools that win leagues. Free, no sign-up.</p>
         </div>
         <div class="fx-grid">
-          <a class="fx-card fx-fl" href="games/fantasle.html" data-game="fl">
-            <span class="fx-eye">Daily game <b class="fx-num"></b></span>
-            <span class="fx-art fx-board" aria-hidden="true">{fl}</span>
-            <span class="fx-name">Fantasle</span>
-            <span class="fx-line">Guess the mystery NFL fantasy player in 8 tries.</span>
-            <span class="fx-status" hidden></span>
-            <span class="fx-go">Play today's →</span>
-          </a>
-          <a class="fx-card fx-pl" href="games/prospectle.html" data-game="pl">
-            <span class="fx-eye">Daily game <b class="fx-num"></b></span>
-            <span class="fx-art fx-board" aria-hidden="true">{pl}</span>
-            <span class="fx-name">Prospectle</span>
-            <span class="fx-line">Guess the mystery 2027 draft prospect in 8 tries.</span>
-            <span class="fx-status" hidden></span>
-            <span class="fx-go">Play today's →</span>
+          <div class="fx-card fx-gm">
+            <span class="fx-eye">Daily games <b class="fx-num"></b></span>
+            <span class="fx-name">Fantasle &amp; Prospectle</span>
+            <a class="fx-mini fx-fl" href="games/fantasle.html" data-game="fl">
+              <span class="fx-board" aria-hidden="true">{fl}</span>
+              <span class="fx-mini-name">Fantasle</span>
+              <span class="fx-line">Guess the NFL fantasy player.</span>
+              <span class="fx-status" hidden></span>
+              <span class="fx-go">Play →</span>
+            </a>
+            <a class="fx-mini fx-pl" href="games/prospectle.html" data-game="pl">
+              <span class="fx-board" aria-hidden="true">{pl}</span>
+              <span class="fx-mini-name">Prospectle</span>
+              <span class="fx-line">Guess the 2027 draft prospect.</span>
+              <span class="fx-status" hidden></span>
+              <span class="fx-go">Play →</span>
+            </a>
+          </div>
+          <a class="fx-card fx-ff" href="fantasy.html">
+            <span class="fx-eye">Week {wk} fantasy</span>
+            <span class="fx-art fx-lineup" aria-hidden="true"><ol>{lineup}</ol></span>
+            <span class="fx-name">Fantasy</span>
+            <span class="fx-line">Rankings, waiver wire, scores and your lineup.</span>
+            <span class="fx-go">Win this week →</span>
           </a>
           <a class="fx-card fx-tr" href="fantasy-trade.html">
             <span class="fx-eye">Fantasy tool</span>
@@ -2326,12 +2341,12 @@ def home_feature():
             <span class="fx-line">Who wins the deal? Any scoring, redraft or dynasty.</span>
             <span class="fx-go">Check a trade →</span>
           </a>
-          <a class="fx-card fx-ff" href="fantasy.html">
-            <span class="fx-eye">Week {wk} fantasy</span>
-            <span class="fx-art fx-lineup" aria-hidden="true"><ol>{lineup}</ol></span>
-            <span class="fx-name">Fantasy</span>
-            <span class="fx-line">Start/sit calls, rankings, waiver wire and your lineup.</span>
-            <span class="fx-go">Win this week →</span>
+          <a class="fx-card fx-ss" href="fantasy-start-sit.html">
+            <span class="fx-eye">Week {wk} start/sit</span>
+            <span class="fx-art fx-duel" aria-hidden="true">{ss}</span>
+            <span class="fx-name">Start/sit</span>
+            <span class="fx-line">Who should I start? Compare any players.</span>
+            <span class="fx-go">Set my lineup →</span>
           </a>
         </div>
       </div>
@@ -2340,21 +2355,21 @@ def home_feature():
           var parts = new Intl.DateTimeFormat("en-US", {{ timeZone: "America/New_York", year: "numeric", month: "numeric", day: "numeric" }}).formatToParts(new Date());
           var g = {{}}; parts.forEach(function (x) {{ g[x.type] = +x.value; }});
           var day = Math.floor((Date.UTC(g.year, g.month - 1, g.day) - Date.UTC(2026, 10, 10)) / 864e5) + 1;
-          document.querySelectorAll(".fx-card[data-game]").forEach(function (a) {{
-            var k = a.getAttribute("data-game"), num = a.querySelector(".fx-num"), st = a.querySelector(".fx-status"), go = a.querySelector(".fx-go");
-            num.textContent = "#" + day;
+          document.querySelectorAll(".fx-num").forEach(function (n) {{ n.textContent = "#" + day; }});
+          document.querySelectorAll(".fx-mini[data-game]").forEach(function (a) {{
+            var k = a.getAttribute("data-game"), st = a.querySelector(".fx-status"), go = a.querySelector(".fx-go");
             var d = null, s = null;
             try {{ d = JSON.parse(localStorage.getItem("bhg-" + k + "-daily")); s = JSON.parse(localStorage.getItem("bhg-" + k + "-stats")); }} catch (e) {{}}
             if (d && d.day === day && d.done) {{
               st.hidden = false;
-              st.textContent = d.won ? "✓ Solved in " + d.guesses.length + (s && s.streak > 1 ? " · " + s.streak + "-day streak" : "") : "Missed today's. New one tomorrow.";
+              st.textContent = d.won ? "✓ Solved in " + d.guesses.length + (s && s.streak > 1 ? " · 🔥" + s.streak : "") : "Missed today's";
               a.classList.add("fx-done");
-              go.textContent = "See your result →";
+              go.textContent = "Result →";
             }} else if (d && d.day === day && d.guesses && d.guesses.length) {{
-              st.hidden = false; st.textContent = d.guesses.length + " of 8 guesses used";
+              st.hidden = false; st.textContent = d.guesses.length + " of 8 used";
               go.textContent = "Keep going →";
             }} else if (s && s.streak > 0) {{
-              st.hidden = false; st.textContent = "🔥 " + s.streak + "-day streak. Keep it alive.";
+              st.hidden = false; st.textContent = "🔥 " + s.streak + "-day streak";
             }}
           }});
         }})();
