@@ -635,6 +635,7 @@ FILL_TO = {"RB": {"RB": 0.85, "WR": 0.10, "TE": 0.05}, "WR": {"WR": 0.70, "TE": 
 FILL_EFF = 0.75
 FILL_FLOOR = 3.0           # everyone counts as at least this many points a game when splitting
 FILL_MAX = 2.5             # a fill-in can at most triple his usual projection
+FILL_ONE = 0.5             # one player picks up at most half of an absent teammate's points (teams add bodies, spread the work)
 
 
 def fill_ins(players):
@@ -655,7 +656,7 @@ def fill_ins(players):
                     iffy = (g.get("inj") or {}).get("s", "questionable") if g["sched"][i][3] > 0 else ""
                     for p in mates:
                         add.setdefault(id(p), [p, 0, [], []])
-                        add[id(p)][1] += vac * share * max(FILL_FLOOR, p["rec"]) / tot
+                        add[id(p)][1] += vac * min(share * max(FILL_FLOOR, p["rec"]) / tot, FILL_ONE)
                         if pos == g["p"]:
                             lst = add[id(p)][3] if iffy else add[id(p)][2]
                             item = (g["n"], iffy) if iffy else g["n"]
