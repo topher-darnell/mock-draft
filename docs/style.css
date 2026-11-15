@@ -2977,7 +2977,30 @@ a.gd-tool:hover { border-color: #3A4656; }
 .fx-card:hover, .fx-card:focus-visible { transform: translateY(-3px); border-color: var(--c);
   box-shadow: 0 16px 40px -14px color-mix(in srgb, var(--c) 90%, transparent); }
 .fx-card:active { transform: translateY(0) scale(.98); }
-.fx-fl { --c: #3DBE74; } .fx-pl { --c: #9B7BFF; } .fx-tr { --c: #F2A93B; } .fx-ff { --c: #4AA8FF; }
+.fx-fl, .fx-gm { --c: #3DBE74; } .fx-pl { --c: #9B7BFF; } .fx-tr { --c: #F2A93B; } .fx-ff { --c: #4AA8FF; } .fx-ss { --c: #34D1BF; }
+/* the two daily games share one card: each game is its own link inside it */
+.fx-gm:hover, .fx-gm:active { transform: none; }
+.fx-gm .fx-name { margin: 2px 0 2px; }
+.fx-mini { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px 8px; align-items: center; padding: 8px; border-radius: 12px;
+  color: var(--text); text-decoration: none; background: #18202A; border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  transition: border-color .15s ease, transform .15s ease; }
+.fx-mini:hover, .fx-mini:focus-visible { border-color: var(--c); transform: translateY(-2px); }
+.fx-mini:active { transform: scale(.98); }
+.fx-mini .fx-row i { height: 28px; }
+.fx-mini-name { font: italic 900 16px/1 Inter, sans-serif; letter-spacing: -0.01em; text-transform: uppercase; color: var(--c); }
+.fx-mini .fx-go { margin: 0; padding: 0; font-size: 13px; }
+.fx-mini.fx-done .fx-board { opacity: .55; }
+/* start/sit: one player to start against one to sit */
+.fx-duel { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+.fx-pick { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 6px; padding: 7px 8px; border-radius: 9px;
+  background: #1E2631; border: 1px solid #2C3644; animation: fx-flip .5s ease both; }
+.fx-pick.fx-no { animation-delay: .2s; }
+.fx-pick b { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fx-pick em { font: 800 13px Inter, sans-serif; font-style: normal; color: var(--accent); }
+.fx-pick i { padding: 2px 5px; border-radius: 5px; color: #fff; font: 800 9px Inter, sans-serif; font-style: normal; }
+.fx-yes { border-color: color-mix(in srgb, #2E9E5B 60%, transparent); } .fx-yes i { background: #2E9E5B; }
+.fx-no { border-color: color-mix(in srgb, #D9534F 60%, transparent); } .fx-no i { background: #D9534F; } .fx-no b, .fx-no em { opacity: .7; }
+.fx-vs { display: block; text-align: center; font: 800 10px Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .fx-eye { font: 700 11px "Space Grotesk", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
 .fx-eye b { color: var(--text); }
 .fx-name { font: italic 900 clamp(22px, 6vw, 30px)/1 Inter, sans-serif; letter-spacing: -0.02em; text-transform: uppercase; margin-top: 4px; }
@@ -3033,5 +3056,13 @@ a.gd-tool:hover { border-color: #3A4656; }
   .fx-lineup .fx-start { display: none; }
   .fx-lineup b { font-size: 11px; }
   .fx-side b { padding: 5px 4px; font-size: 11px; }
+  .fx-mini { padding: 7px; gap: 4px 6px; }
+  .fx-mini .fx-row i { height: 25px; }
+  .fx-mini .fx-line { display: none; }
+  .fx-mini-name { font-size: 14px; }
+  .fx-mini .fx-go { font-size: 12px; }
+  .fx-pick { grid-template-columns: auto minmax(0, 1fr) auto; padding: 6px; gap: 5px; }
+  .fx-pick em { display: none; }
+  .fx-pick b { font-size: 11px; }
 }
-@media (prefers-reduced-motion: reduce) { .fx-row i, .fx-lineup li, .fx-swap, .fx-tug i { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .fx-row i, .fx-lineup li, .fx-pick, .fx-swap, .fx-tug i { animation: none; } }

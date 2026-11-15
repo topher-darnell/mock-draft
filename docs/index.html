@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-title" content="Big Head GM">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,900;1,900&family=Space+Grotesk:wght@600;700&display=swap">
-  <link rel="stylesheet" href="style.css?v=64">
+  <link rel="stylesheet" href="style.css?v=65">
 </head>
 <body>
 
@@ -56,21 +56,30 @@
           <p class="fx-sub">Two daily games and the fantasy tools that win leagues. Free, no sign-up.</p>
         </div>
         <div class="fx-grid">
-          <a class="fx-card fx-fl" href="games/fantasle.html" data-game="fl">
-            <span class="fx-eye">Daily game <b class="fx-num"></b></span>
-            <span class="fx-art fx-board" aria-hidden="true"><span class="fx-row"><i class="">QB</i><i class="y">AFC</i><i class="">18.2</i><i class="">8</i></span><span class="fx-row"><i class="g">WR</i><i class="">NFC</i><i class="y">21.4</i><i class="y">11</i></span><span class="fx-row"><i class="g">WR</i><i class="g">NFC W</i><i class="g">25.7</i><i class="g">9</i></span></span>
-            <span class="fx-name">Fantasle</span>
-            <span class="fx-line">Guess the mystery NFL fantasy player in 8 tries.</span>
-            <span class="fx-status" hidden></span>
-            <span class="fx-go">Play today's →</span>
-          </a>
-          <a class="fx-card fx-pl" href="games/prospectle.html" data-game="pl">
-            <span class="fx-eye">Daily game <b class="fx-num"></b></span>
-            <span class="fx-art fx-board" aria-hidden="true"><span class="fx-row"><i class="">B10</i><i class="y">QB</i><i class="">6-4</i><i class="">#31</i></span><span class="fx-row"><i class="g">SEC</i><i class="">EDGE</i><i class="y">6-3</i><i class="y">#12</i></span><span class="fx-row"><i class="g">SEC</i><i class="g">WR</i><i class="g">6-2</i><i class="g">#7</i></span></span>
-            <span class="fx-name">Prospectle</span>
-            <span class="fx-line">Guess the mystery 2027 draft prospect in 8 tries.</span>
-            <span class="fx-status" hidden></span>
-            <span class="fx-go">Play today's →</span>
+          <div class="fx-card fx-gm">
+            <span class="fx-eye">Daily games <b class="fx-num"></b></span>
+            <span class="fx-name">Fantasle &amp; Prospectle</span>
+            <a class="fx-mini fx-fl" href="games/fantasle.html" data-game="fl">
+              <span class="fx-board" aria-hidden="true"><span class="fx-row"><i class="g">WR</i><i class="g">SEA</i><i class="g">25.7</i><i class="g">9</i></span></span>
+              <span class="fx-mini-name">Fantasle</span>
+              <span class="fx-line">Guess the NFL fantasy player.</span>
+              <span class="fx-status" hidden></span>
+              <span class="fx-go">Play →</span>
+            </a>
+            <a class="fx-mini fx-pl" href="games/prospectle.html" data-game="pl">
+              <span class="fx-board" aria-hidden="true"><span class="fx-row"><i class="g">SEC</i><i class="g">WR</i><i class="g">6-2</i><i class="g">#7</i></span></span>
+              <span class="fx-mini-name">Prospectle</span>
+              <span class="fx-line">Guess the 2027 draft prospect.</span>
+              <span class="fx-status" hidden></span>
+              <span class="fx-go">Play →</span>
+            </a>
+          </div>
+          <a class="fx-card fx-ff" href="fantasy.html">
+            <span class="fx-eye">Week 10 fantasy</span>
+            <span class="fx-art fx-lineup" aria-hidden="true"><ol><li><i class="fx-start">START</i><span class="fx-pos fx-qb">QB</span><b>D. Maye</b><em>25.7</em></li><li><i class="fx-start">START</i><span class="fx-pos fx-rb">RB</span><b>C. McCaffrey</b><em>23.1</em></li><li><i class="fx-start">START</i><span class="fx-pos fx-wr">WR</span><b>J. Smith-Njigba</b><em>23.9</em></li></ol></span>
+            <span class="fx-name">Fantasy</span>
+            <span class="fx-line">Rankings, waiver wire, scores and your lineup.</span>
+            <span class="fx-go">Win this week →</span>
           </a>
           <a class="fx-card fx-tr" href="fantasy-trade.html">
             <span class="fx-eye">Fantasy tool</span>
@@ -84,12 +93,12 @@
             <span class="fx-line">Who wins the deal? Any scoring, redraft or dynasty.</span>
             <span class="fx-go">Check a trade →</span>
           </a>
-          <a class="fx-card fx-ff" href="fantasy.html">
-            <span class="fx-eye">Week 10 fantasy</span>
-            <span class="fx-art fx-lineup" aria-hidden="true"><ol><li><i class="fx-start">START</i><span class="fx-pos fx-qb">QB</span><b>D. Maye</b><em>25.7</em></li><li><i class="fx-start">START</i><span class="fx-pos fx-rb">RB</span><b>C. McCaffrey</b><em>23.1</em></li><li><i class="fx-start">START</i><span class="fx-pos fx-wr">WR</span><b>J. Smith-Njigba</b><em>23.9</em></li></ol></span>
-            <span class="fx-name">Fantasy</span>
-            <span class="fx-line">Start/sit calls, rankings, waiver wire and your lineup.</span>
-            <span class="fx-go">Win this week →</span>
+          <a class="fx-card fx-ss" href="fantasy-start-sit.html">
+            <span class="fx-eye">Week 10 start/sit</span>
+            <span class="fx-art fx-duel" aria-hidden="true"><span class="fx-pick fx-yes"><span class="fx-pos fx-wr">WR</span><b>J. Smith-Njigba</b><em>20.1</em><i>START</i></span><span class="fx-vs">or</span><span class="fx-pick fx-no"><span class="fx-pos fx-wr">WR</span><b>D. London</b><em>8.9</em><i>SIT</i></span></span>
+            <span class="fx-name">Start/sit</span>
+            <span class="fx-line">Who should I start? Compare any players.</span>
+            <span class="fx-go">Set my lineup →</span>
           </a>
         </div>
       </div>
@@ -98,21 +107,21 @@
           var parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date());
           var g = {}; parts.forEach(function (x) { g[x.type] = +x.value; });
           var day = Math.floor((Date.UTC(g.year, g.month - 1, g.day) - Date.UTC(2026, 10, 10)) / 864e5) + 1;
-          document.querySelectorAll(".fx-card[data-game]").forEach(function (a) {
-            var k = a.getAttribute("data-game"), num = a.querySelector(".fx-num"), st = a.querySelector(".fx-status"), go = a.querySelector(".fx-go");
-            num.textContent = "#" + day;
+          document.querySelectorAll(".fx-num").forEach(function (n) { n.textContent = "#" + day; });
+          document.querySelectorAll(".fx-mini[data-game]").forEach(function (a) {
+            var k = a.getAttribute("data-game"), st = a.querySelector(".fx-status"), go = a.querySelector(".fx-go");
             var d = null, s = null;
             try { d = JSON.parse(localStorage.getItem("bhg-" + k + "-daily")); s = JSON.parse(localStorage.getItem("bhg-" + k + "-stats")); } catch (e) {}
             if (d && d.day === day && d.done) {
               st.hidden = false;
-              st.textContent = d.won ? "✓ Solved in " + d.guesses.length + (s && s.streak > 1 ? " · " + s.streak + "-day streak" : "") : "Missed today's. New one tomorrow.";
+              st.textContent = d.won ? "✓ Solved in " + d.guesses.length + (s && s.streak > 1 ? " · 🔥" + s.streak : "") : "Missed today's";
               a.classList.add("fx-done");
-              go.textContent = "See your result →";
+              go.textContent = "Result →";
             } else if (d && d.day === day && d.guesses && d.guesses.length) {
-              st.hidden = false; st.textContent = d.guesses.length + " of 8 guesses used";
+              st.hidden = false; st.textContent = d.guesses.length + " of 8 used";
               go.textContent = "Keep going →";
             } else if (s && s.streak > 0) {
-              st.hidden = false; st.textContent = "🔥 " + s.streak + "-day streak. Keep it alive.";
+              st.hidden = false; st.textContent = "🔥 " + s.streak + "-day streak";
             }
           });
         })();
