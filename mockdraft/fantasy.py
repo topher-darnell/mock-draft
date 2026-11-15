@@ -312,6 +312,9 @@ def injuries(first_week):
             if not name:
                 continue
             st = r["status"]
+            if st == "active":         # confirmed playing (inactives list, activated from IR): clears any tag
+                out.pop(name, None)
+                continue
             if st in ("questionable", "doubtful") and name in final:
                 continue           # a week-only tag from earlier in the week: the official final report decides now
             if st in ("questionable", "doubtful") and out.get(name, {}).get("s") in ("out", "ir"):
