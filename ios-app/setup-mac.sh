@@ -14,8 +14,25 @@ NODE_MAJOR=$(node -p "process.versions.node.split('.')[0]")
 [ "$NODE_MAJOR" -ge 20 ] || fail "Node $NODE_MAJOR is too old. Install the LTS version (20 or newer) from https://nodejs.org."
 xcode-select -p >/dev/null 2>&1 || fail "Xcode isn't set up. Install Xcode from the Mac App Store, open it once, then run this again."
 
+if ! command -v pod >/dev/null; then
+  say "Installing CocoaPods (one-time helper Xcode projects need)"
+  if ! command -v brew >/dev/null; then
+    say "First installing Homebrew. It may ask for your Mac password (typing won't show; press Return)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+    [ -x /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"
+  fi
+  brew install cocoapods
+fi
+
 say "Installing the app's parts (takes a minute)"
 npm install
+# Newer npm blocks install scripts until approved; the icon maker (sharp) needs its script.
+npm install-scripts approve sharp >/dev/null 2>&1 || true
+npm rebuild sharp >/dev/null 2>&1 || true
+
+# A half-made project from an earlier failed run: start it over.
+if [ -d ios ] && [ ! -d ios/App/App.xcodeproj ]; then rm -rf ios; fi
 
 if [ ! -d ios ]; then
   say "Making the Xcode project"
