@@ -8,11 +8,23 @@ cd "$(dirname "$0")"
 say() { printf "\n\033[1;33m▶ %s\033[0m\n" "$1"; }
 fail() { printf "\n\033[1;31m✖ %s\033[0m\n" "$1"; exit 1; }
 
+# Find Homebrew tools (brew, pod) even in a new Terminal window, now and later.
+for B in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+  if [ -x "$B" ]; then
+    eval "$("$B" shellenv)"
+    grep -q "brew shellenv" ~/.zprofile 2>/dev/null || echo "eval \"\$($B shellenv)\"" >> ~/.zprofile
+  fi
+done
+
 say "Checking your Mac"
 command -v node >/dev/null || fail "Node isn't installed. Get the LTS version from https://nodejs.org, then run this again."
 NODE_MAJOR=$(node -p "process.versions.node.split('.')[0]")
 [ "$NODE_MAJOR" -ge 20 ] || fail "Node $NODE_MAJOR is too old. Install the LTS version (20 or newer) from https://nodejs.org."
-xcode-select -p >/dev/null 2>&1 || fail "Xcode isn't set up. Install Xcode from the Mac App Store, open it once, then run this again."
+[ -d /Applications/Xcode.app ] || fail "Xcode isn't installed. Get it from the Mac App Store, open it once, then run this again."
+if ! xcode-select -p 2>/dev/null | grep -q "Xcode.app"; then
+  say "Pointing your Mac at Xcode (it may ask for your Mac password)"
+  sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+fi
 
 if ! command -v pod >/dev/null; then
   say "Installing CocoaPods (one-time helper Xcode projects need)"
@@ -32,11 +44,11 @@ npm install-scripts approve sharp >/dev/null 2>&1 || true
 npm rebuild sharp >/dev/null 2>&1 || true
 
 # A half-made project from an earlier failed run: start it over.
-if [ -d ios ] && [ ! -d ios/App/App.xcodeproj ]; then rm -rf ios; fi
+if [ -d ios ] && [ ! -f ios/App/Podfile ]; then rm -rf ios; fi
 
 if [ ! -d ios ]; then
   say "Making the Xcode project"
-  npx cap add ios --packagemanager SPM     # Swift Package Manager: no CocoaPods needed
+  npx cap add ios
 fi
 
 say "Adding the app icon and splash screen"
