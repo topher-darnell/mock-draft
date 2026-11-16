@@ -3115,3 +3115,33 @@ body:has(#app:not([hidden]) #results-screen:not([hidden])) .app-banner { display
 .app-tip { margin-top: 14px; font-size: 14px; color: #B9C3CF; }
 .app-page a.app-btn, .app-page a.app-btn:visited { color: #1B1206; text-decoration: none; }
 .app-page a.app-feat, .app-page a.app-feat:visited { color: var(--text); text-decoration: none; }
+
+
+/* ---------- award odds ---------- */
+.aw-jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 26px; }
+.aw-jump a { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: 700 13px "Space Grotesk", sans-serif; text-decoration: none; }
+.aw-jump a:hover { border-color: var(--accent); color: var(--accent); }
+.aw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin: 30px 0 10px; max-width: 1060px; }
+.aw-card { min-width: 0; padding: 18px 18px 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); scroll-margin-top: 80px; }
+.aw-tag { margin: 0; font: 700 11px "Space Grotesk", sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.aw-card h2 { margin: 4px 0 12px; font-size: 20px; line-height: 1.2; }
+.aw-list { list-style: none; margin: 0; padding: 0; }
+.aw-list li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; grid-template-areas: "rk who odds" "rk bar bar"; column-gap: 10px; row-gap: 6px; padding: 10px 0; border-top: 1px solid var(--line); }
+.aw-list li:first-child { border-top: 0; }
+.aw-rk { grid-area: rk; font: 700 13px "Space Grotesk", sans-serif; color: var(--muted); padding-top: 2px; }
+.aw-who { grid-area: who; min-width: 0; }
+.aw-who b { display: block; font-size: 15px; overflow-wrap: anywhere; }
+.aw-who b a { color: var(--text); text-decoration: none; }
+.aw-who b a:hover { color: var(--accent); }
+.aw-who > span { display: block; margin-top: 1px; font-size: 12px; color: var(--muted); }
+.aw-odds { grid-area: odds; text-align: right; }
+.aw-odds b { display: block; font-size: 15px; font-variant-numeric: tabular-nums; }
+.aw-odds span { display: block; font-size: 12px; color: var(--muted); }
+.aw-bar { grid-area: bar; height: 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
+.aw-bar i { display: block; height: 100%; border-radius: 6px; background: var(--accent); }
+.aw-list li:first-child .aw-odds b { color: var(--accent); }
+.aw-src { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+.aw-src a { color: var(--muted); }
+#mvp { scroll-margin-top: 80px; }
+.aw-mvp thead th { width: 96px; }
+.aw-mvp thead th:first-child { width: auto; }

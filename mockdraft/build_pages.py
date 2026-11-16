@@ -6,6 +6,7 @@ Builds the website's read-only pages from the data, so search engines can find t
   docs/teams/index.html          all 32 teams
   docs/teams/<team>.html         one mock draft page per team
   docs/odds.html                 who goes #1: our simulations next to the betting odds
+  docs/awards.html               2026 NFL award odds (MVP, OPOY, DPOY, rookies, coach), from award_odds.csv
   docs/games/*.html              the games hub and the two games (their code is games/*.js)
   docs/sitemap.xml, robots.txt   the list of pages for Google
 
@@ -32,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "67", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "68", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -45,7 +46,7 @@ POS_PLURAL = {"QB": "quarterbacks", "RB": "running backs", "WR": "wide receivers
 POS_ORDER = ["QB", "RB", "WR", "TE", "OT", "IOL", "EDGE", "IDL", "LB", "CB", "S"]
 YEAR_NAME = {"RS Senior": "redshirt senior", "RS Junior": "redshirt junior", "RS Sophomore": "redshirt sophomore"}
 
-NAV = [("", "Mock draft"), ("players/", "Big board"), ("teams/", "Team mocks"), ("odds.html", "#1 pick odds"),
+NAV = [("", "Mock draft"), ("players/", "Big board"), ("teams/", "Team mocks"), ("odds.html", "#1 pick odds"), ("awards.html", "Award odds"),
        ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("games/", "Games"), ("scores.html", "Scores & News")]
 
 
@@ -751,6 +752,90 @@ def odds_page():
     return page("odds.html", "2027 NFL Draft #1 Pick Odds: Who Goes First Overall? · Big Head GM",
                 f"Odds to be the #1 pick in the 2027 NFL Draft: {SIMS} simulated drafts compared with FanDuel and Kalshi. {summary}".strip(),
                 body, crumbs=[("#1 pick odds", "odds.html")], nav="odds.html")
+
+
+# ---------- 2026 NFL award odds ----------
+
+AWARDS = [("mvp", "MVP", "Most Valuable Player"), ("opoy", "OPOY", "Offensive Player of the Year"),
+          ("dpoy", "DPOY", "Defensive Player of the Year"), ("oroy", "OROY", "Offensive Rookie of the Year"),
+          ("droy", "DROY", "Defensive Rookie of the Year"), ("coy", "Coach", "Coach of the Year")]
+FF_ALIAS = {"Kenneth Walker III": "Kenneth Walker"}
+
+
+def awards_page():
+    rows = read_csv("award_odds.csv")
+    team_of = {r["name"]: r["team"] for r in read_csv("fantasy_stats.csv")}
+    have = {f[:-5] for f in os.listdir(os.path.join(DOCS, "fantasy")) if f.endswith(".html")}
+
+    def who(n):
+        ff = FF_ALIAS.get(n, n)
+        name = f'<a href="fantasy/{slug(ff)}.html">{esc(n)}</a>' if slug(ff) in have else esc(n)
+        t = team_of.get(ff)
+        return name, (esc(FF_TEAM.get(t, t)) if t else "")
+
+    def source(rs):
+        r = rs[0]
+        return f'{esc(r["book"])} as of {nice_date(r["as_of"])}, reported by <a href="{esc(r["url"])}" rel="noopener nofollow">{esc(r["reported_by"])}</a>'
+
+    by = {}
+    for r in rows:
+        by.setdefault(r["award"], {}).setdefault(r["book"], []).append(r)
+
+    # MVP: two books side by side
+    mvp = by.get("mvp", {})
+    dk = {r["name"]: r["odds"] for r in mvp.get("DraftKings", [])}
+    fd = {r["name"]: r["odds"] for r in mvp.get("FanDuel", [])}
+    names = sorted(set(dk) | set(fd), key=lambda n: -max(implied(dk[n]) if n in dk else 0, implied(fd[n]) if n in fd else 0))
+    mrows = ""
+    for n in names:
+        name, tm = who(n)
+        cell = lambda d: f'{esc(d[n])}<span>{pct(implied(d[n]))}</span>' if n in d else "—"
+        mrows += f'<tr><th scope="row">{name}<span>{tm}</span></th><td>{cell(dk)}</td><td>{cell(fd)}</td></tr>'
+    fav = names[0] if names else ""
+    mvp_src = " · ".join(source(v) for v in mvp.values())
+
+    cards = ""
+    for key, short_name, full in AWARDS[1:]:
+        books = by.get(key, {})
+        if not books:
+            continue
+        book, rs = next(iter(books.items()))
+        top = max(implied(r["odds"]) for r in rs)
+        items = ""
+        for i, r in enumerate(sorted(rs, key=lambda r: -implied(r["odds"])), 1):
+            name, tm = who(r["name"])
+            ch = implied(r["odds"])
+            items += (f'<li><span class="aw-rk">{i}</span><span class="aw-who"><b>{name}</b>{f"<span>{tm}</span>" if tm else ""}</span>'
+                      f'<span class="aw-odds"><b>{esc(r["odds"])}</b><span>{pct(ch)}</span></span>'
+                      f'<span class="aw-bar" aria-hidden="true"><i style="width:{max(4, round(100 * ch / top))}%"></i></span></li>')
+        cards += (f'<section class="aw-card" id="{key}"><p class="aw-tag">{esc(short_name)}</p><h2>{esc(full)}</h2>'
+                  f'<ol class="aw-list">{items}</ol><p class="aw-src">{source(rs)}</p></section>')
+
+    jump = "".join(f'<a href="#{k}">{esc(s)}</a>' for k, s, _ in AWARDS)
+    body = f"""
+    <p class="eyebrow">2026 NFL SEASON · AWARD ODDS</p>
+    <h1 class="in-title">NFL award odds</h1>
+    <p class="in-sub">Who's favored to win MVP, Offensive and Defensive Player of the Year, both Rookie of the Year awards and Coach of the Year, with the chance each price implies. Player names link to their fantasy pages.</p>
+    <nav class="aw-jump" aria-label="Awards">{jump}</nav>
+
+    <section class="pg-section" id="mvp">
+      <h2 class="home-h2">MVP</h2>
+      <p class="pg-text">{esc(fav)} is the favorite at both sportsbooks after Week 10.</p>
+      <div class="od-wrap">
+        <table class="od-table aw-mvp">
+          <thead><tr><th scope="col">Player</th><th scope="col">DraftKings</th><th scope="col">FanDuel</th></tr></thead>
+          <tbody>{mrows}</tbody>
+        </table>
+      </div>
+      <p class="in-note">Under each price is the chance it implies. {mvp_src}.</p>
+    </section>
+
+    <div class="aw-grid">{cards}</div>
+
+    <p class="od-fine">Big Head GM is not a sportsbook and does not take bets. Odds are shown for information only, change often, and may differ by sportsbook and state. Sports betting is for adults 21 and over where legal. If you or someone you know has a gambling problem, call 1-800-GAMBLER.</p>"""
+    return page("awards.html", "2026 NFL Award Odds: MVP, OPOY, DPOY, Rookie of the Year · Big Head GM",
+                f"2026 NFL award odds after Week 10: MVP from DraftKings and FanDuel, plus Offensive and Defensive Player of the Year, both Rookie of the Year awards and Coach of the Year. {fav} leads the MVP race.",
+                body, crumbs=[("Award odds", "awards.html")], nav="awards.html")
 
 
 FF_CTA = ('<a class="ff-cta" href="fantasy-draft.html">'
@@ -2077,11 +2162,12 @@ def gd_tools():
             <a class="gd-card gd-tool" href="fantasy-waiver-wire.html"><b>Waiver wire</b><span>Week {fantasy.waiver_wire()["week"]} pickups</span></a>
             <a class="gd-card gd-tool" href="fantasy-draft.html"><b>Fantasy mock</b><span>Practice your draft</span></a>
             <a class="gd-card gd-tool" href="?start=1"><b>2027 mock draft</b><span>You're on the clock</span></a>
+            <a class="gd-card gd-tool" href="awards.html"><b>Award odds</b><span>MVP, OPOY, rookies</span></a>
           </div>
         </section>"""
 
 
-TAB_OF = {"": "home", "games/": "games", "news.html": "news", "scores.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft"}
+TAB_OF = {"": "home", "games/": "games", "news.html": "news", "scores.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft", "awards.html": "news"}
 
 
 def gd_tabs(root="", current="home"):
@@ -2148,6 +2234,7 @@ def news_page():
       <h1 class="in-title">Quick hits</h1>
       <p class="in-sub">Short NFL news that matters for fantasy and the draft: injuries, returns, trades and new starters. Each one links to the source.</p>
       <a class="sc-link" href="scores.html">This week's scores and fantasy stats →</a>
+      <a class="sc-link" href="awards.html">2026 NFL award odds: MVP, OPOY, rookies →</a>
       <ol class="nw-list">{"".join(news_li(r) for r in items)}</ol>
       <div class="ff-ctas">{FF_SS_CTA}{FF_ROS_CTA}</div>
     </div>"""
@@ -2681,7 +2768,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html"]
+    paths = ["", "players/", "teams/", "odds.html", "awards.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2691,6 +2778,7 @@ def main():
         write(f"teams/{slug(team)}.html", team_page(team))
         paths.append(f"teams/{slug(team)}.html")
     write("odds.html", odds_page())
+    write("awards.html", awards_page())
     write("fantasy.html", fantasy_page())
     write("fantasy-draft.html", fantasy_draft_page())
     write("fantasy-trade.html", fantasy_trade_page())
