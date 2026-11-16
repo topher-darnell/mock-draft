@@ -2411,7 +2411,7 @@ def app_page():
 
 # ---------- privacy + support (needed for the App Store listing) ----------
 
-SUPPORT_EMAIL = ""       # public support address; set it once it exists (the pages show it everywhere it's needed)
+SUPPORT_EMAIL = "bigheadgm.support@gmail.com"       # public support address; set it once it exists (the pages show it everywhere it's needed)
 POLICY_DATE = "2026-11-16"
 
 

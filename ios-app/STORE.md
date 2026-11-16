@@ -77,7 +77,7 @@ fantasy,football,mock draft,start sit,trade analyzer,waiver wire,ppr,dynasty,roo
 ## App Review Information
 
 - Sign-in required: **No**
-- Contact: your name, phone and the support email
+- Contact: your name, phone and `bigheadgm.support@gmail.com`
 - **Notes** (paste this):
 
 ```
