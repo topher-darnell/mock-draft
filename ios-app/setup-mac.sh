@@ -51,6 +51,13 @@ if [ ! -d ios ]; then
   npx cap add ios
 fi
 
+# Newer Xcode won't build for iOS 14 (Capacitor's default). Use iOS 17 for the app and every part.
+IOS_MIN=17.0
+PODFILE="ios/App/Podfile"
+sed -i '' -E "s/platform :ios, '[0-9.]+'/platform :ios, '$IOS_MIN'/" "$PODFILE"
+grep -q "BHG_IOS_MIN" "$PODFILE" || perl -0pi -e "s/(post_install do \|installer\|\n)/\$1  installer.pods_project.targets.each { |t| t.build_configurations.each { |c| c.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '$IOS_MIN' } } # BHG_IOS_MIN\n/" "$PODFILE"
+sed -i '' -E "s/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]+;/IPHONEOS_DEPLOYMENT_TARGET = $IOS_MIN;/g" ios/App/App.xcodeproj/project.pbxproj
+
 say "Adding the app icon and splash screen"
 npm run assets
 
