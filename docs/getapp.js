@@ -5,7 +5,9 @@
 (function () {
   const ROOT = (document.currentScript && document.currentScript.src || "").replace(/getapp\.js.*$/, "");
   const KEY = "bhg-app-banner";
-  const standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  const cap = window.Capacitor;
+  const native = !!(cap && cap.isNativePlatform && cap.isNativePlatform());   // inside the App Store app
+  const standalone = native || window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
   const ua = navigator.userAgent || "";
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   const isPhone = window.matchMedia("(max-width: 899px)").matches;
@@ -15,7 +17,7 @@
   function count(path) { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path, title: path, event: true }); } catch (e) {} }
 
   // the service worker makes it installable (and offline) from any page, not just the home page
-  if ("serviceWorker" in navigator) {
+  if ("serviceWorker" in navigator && !native) {
     window.addEventListener("load", () => navigator.serviceWorker.register(ROOT + "sw.js").catch(() => {}));
   }
 
@@ -77,6 +79,62 @@
   }
 
   if (standalone) { store(KEY, "installed"); document.documentElement.classList.add("app-installed"); }
+  if (native) setUpNative();
+
+  // ---------- the iPhone app (Capacitor): native share, haptics, daily game reminders ----------
+  function setUpNative() {
+    const P = cap.Plugins || {};
+    document.documentElement.classList.add("is-native-app");
+    if (/app\.html/.test(location.pathname)) { location.replace(ROOT); return; }   // the "install it" page means nothing inside the app
+
+    // share sheet: the app's own, for text and links (photos still go through the browser's share)
+    const webShare = navigator.share && navigator.share.bind(navigator);
+    if (P.Share) {
+      navigator.share = (d) => (d && d.files && d.files.length && webShare) ? webShare(d)
+        : P.Share.share({ title: d && d.title, text: d && d.text, url: d && d.url, dialogTitle: "Share" });
+    }
+
+    // a light tap feel on buttons
+    if (P.Haptics) {
+      document.addEventListener("click", (e) => {
+        if (e.target.closest("button, .fx-go, .pg-button, .hero-start")) { try { P.Haptics.impact({ style: "LIGHT" }); } catch (er) {} }
+      }, true);
+    }
+
+    // daily reminder for the new Fantasle + Prospectle (scheduled on the phone, no server)
+    const LN = P.LocalNotifications, RKEY = "bhg-remind";
+    if (!LN) return;
+    LN.addListener && LN.addListener("localNotificationActionPerformed", () => { location.href = ROOT + "games/fantasle.html"; });
+    async function setRemind(on) {
+      try {
+        if (on) {
+          let perm = await LN.checkPermissions();
+          if (perm.display !== "granted") perm = await LN.requestPermissions();
+          if (perm.display !== "granted") { store(RKEY, "off"); return false; }
+          await LN.cancel({ notifications: [{ id: 1 }] }).catch(() => {});
+          await LN.schedule({ notifications: [{ id: 1, title: "New Fantasle + Prospectle 🟩",
+            body: "Today's puzzles are up. Keep your streak alive.", schedule: { on: { hour: 10, minute: 0 }, allowWhileIdle: true } }] });
+          store(RKEY, "on"); count("app-remind-on"); return true;
+        }
+        await LN.cancel({ notifications: [{ id: 1 }] });
+        store(RKEY, "off"); count("app-remind-off"); return false;
+      } catch (e) { return false; }
+    }
+    function remindCard() {
+      if (!/games\/(index\.html)?$/.test(location.pathname) || document.getElementById("app-remind")) return;
+      const main = document.querySelector("main") || document.body;
+      const on = store(RKEY) === "on";
+      const c = document.createElement("label");
+      c.id = "app-remind"; c.className = "app-remind";
+      c.innerHTML = `<span><b>Daily reminder</b><small>A nudge at 10 AM when the new Fantasle and Prospectle drop</small></span>
+        <input type="checkbox" role="switch"${on ? " checked" : ""} aria-label="Daily reminder"><i aria-hidden="true"></i>`;
+      const box = c.querySelector("input");
+      box.addEventListener("change", async () => { box.checked = await setRemind(box.checked); });
+      const first = main.querySelector("h1");
+      (first && first.parentNode === main ? first : main.firstElementChild || main).insertAdjacentElement("afterend", c);
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", remindCard); else remindCard();
+  }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => { setUpAppPage(); setTimeout(showBanner, 1200); });
   else { setUpAppPage(); setTimeout(showBanner, 1200); }
 })();

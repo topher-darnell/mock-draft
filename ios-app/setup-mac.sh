@@ -1,0 +1,48 @@
+#!/bin/bash
+# Big Head GM for iPhone: one-time setup on a Mac.
+# Run from this folder:   bash setup-mac.sh
+# It installs the app's parts, makes the Xcode project, adds the icon and splash screen, and opens Xcode.
+set -e
+cd "$(dirname "$0")"
+
+say() { printf "\n\033[1;33m▶ %s\033[0m\n" "$1"; }
+fail() { printf "\n\033[1;31m✖ %s\033[0m\n" "$1"; exit 1; }
+
+say "Checking your Mac"
+command -v node >/dev/null || fail "Node isn't installed. Get the LTS version from https://nodejs.org, then run this again."
+NODE_MAJOR=$(node -p "process.versions.node.split('.')[0]")
+[ "$NODE_MAJOR" -ge 20 ] || fail "Node $NODE_MAJOR is too old. Install the LTS version (20 or newer) from https://nodejs.org."
+xcode-select -p >/dev/null 2>&1 || fail "Xcode isn't set up. Install Xcode from the Mac App Store, open it once, then run this again."
+
+say "Installing the app's parts (takes a minute)"
+npm install
+
+if [ ! -d ios ]; then
+  say "Making the Xcode project"
+  npx cap add ios --packagemanager SPM     # Swift Package Manager: no CocoaPods needed
+fi
+
+say "Adding the app icon and splash screen"
+npm run assets
+
+say "Syncing"
+npx cap sync ios
+
+PLIST="ios/App/App/Info.plist"
+PBX="ios/App/App.xcodeproj/project.pbxproj"
+say "Setting iPhone-only, portrait, and the export-compliance answer"
+/usr/libexec/PlistBuddy -c "Delete :ITSAppUsesNonExemptEncryption" "$PLIST" 2>/dev/null || true
+/usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" "$PLIST"
+/usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName Big Head GM" "$PLIST" 2>/dev/null || /usr/libexec/PlistBuddy -c "Add :CFBundleDisplayName string Big Head GM" "$PLIST"
+/usr/libexec/PlistBuddy -c "Delete :UISupportedInterfaceOrientations" "$PLIST" 2>/dev/null || true
+/usr/libexec/PlistBuddy -c "Add :UISupportedInterfaceOrientations array" "$PLIST"
+/usr/libexec/PlistBuddy -c "Add :UISupportedInterfaceOrientations:0 string UIInterfaceOrientationPortrait" "$PLIST"
+/usr/libexec/PlistBuddy -c "Delete :UIStatusBarStyle" "$PLIST" 2>/dev/null || true
+/usr/libexec/PlistBuddy -c "Add :UIStatusBarStyle string UIStatusBarStyleLightContent" "$PLIST"
+# iPhone only, so App Store Connect doesn't ask for iPad screenshots
+sed -i '' 's/TARGETED_DEVICE_FAMILY = "1,2";/TARGETED_DEVICE_FAMILY = 1;/g' "$PBX"
+
+say "Opening Xcode"
+npx cap open ios
+
+printf "\n\033[1;32m✔ Done.\033[0m In Xcode: click App (left) → Signing & Capabilities → pick your Team. Then press ▶ to run it.\n\n"

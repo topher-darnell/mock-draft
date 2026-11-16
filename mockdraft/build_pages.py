@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "68", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "70", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -194,7 +194,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
     <div class="wrap footer-row">
       <img class="footer-logo" src="{root}icons/logo-banner-small.webp?v={ICON_V}" alt="Big Head GM" width="400" height="225" loading="lazy">
       <div class="footer-text">
-        <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="{root}?start=1">Run your own mock</a> · <a href="{root}app.html">Get the app</a></p>
+        <p><b>Big Head GM</b> · a free 2027 NFL mock draft simulator. <a href="{root}?start=1">Run your own mock</a><span class="app-link"> · <a href="{root}app.html">Get the app</a></span> · <a href="{root}privacy.html">Privacy</a> · <a href="{root}support.html">Support</a></p>
         <p>Big board: Pro Football Network consensus · Draft order: Tankathon · Team needs: NFL.com · Updated {TODAY.strftime('%B')} {TODAY.day}, {TODAY.year}</p>
         <p>Not affiliated with the NFL or any NFL team. Every GM is an original character.</p>
       </div>
@@ -205,7 +205,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <script src="{root}gm.js?v={GM_V}"></script>
   <script src="{root}site.js?v={SITE_JS_V}"></script>
   <script src="{root}newsletter.js?v=1"></script>
-  <script src="{root}getapp.js?v=1"></script>{tags}
+  <script src="{root}getapp.js?v=3"></script>{tags}
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
@@ -2409,6 +2409,84 @@ def app_page():
                 body, crumbs=[("Get the app", "app.html")])
 
 
+# ---------- privacy + support (needed for the App Store listing) ----------
+
+SUPPORT_EMAIL = ""       # public support address; set it once it exists (the pages show it everywhere it's needed)
+POLICY_DATE = "2026-11-16"
+
+
+def contact_html():
+    if SUPPORT_EMAIL:
+        return f'<a href="mailto:{esc(SUPPORT_EMAIL)}">{esc(SUPPORT_EMAIL)}</a>'
+    return "our support email (coming very soon)"
+
+
+def privacy_page():
+    body = f"""
+    <article class="lg-page">
+      <p class="eyebrow">BIG HEAD GM</p>
+      <h1 class="in-title">Privacy policy</h1>
+      <p class="in-sub">The short version: no accounts, no ads, no selling your data. Effective {nice_date(POLICY_DATE)}. This covers bigheadgm.com and the Big Head GM app for iPhone.</p>
+
+      <h2>What we collect</h2>
+      <ul>
+        <li><b>Visit counts.</b> We use GoatCounter to count page views. It records the page, the site that sent you, your browser and screen size, and your country. It does not use cookies, does not store your IP address, and does not follow you to other sites. We use it only to see which pages people like.</li>
+        <li><b>Your email, only if you sign up for the newsletter.</b> If you type your email into a newsletter box, it goes to Kit, the company that sends our weekly email. We use it only to send that email. Every email has an unsubscribe link, and you can ask us to delete your address at any time.</li>
+        <li><b>That's it.</b> There are no accounts, and we never ask for your name, phone number, contacts, photos or location.</li>
+      </ul>
+
+      <h2>What stays on your phone</h2>
+      <p>Your Fantasle and Prospectle streaks and stats, saved mock drafts, your fantasy lineup and settings are saved on your own device (in your browser's or the app's local storage). They are never sent to us. Deleting the app, or clearing your browser's site data, erases them.</p>
+
+      <h2>Notifications</h2>
+      <p>The iPhone app can remind you when a new daily Fantasle and Prospectle is ready. The reminder is scheduled on your phone itself, so we don't collect a device ID and there's no notification server. It's off until you turn it on, and you can turn it off anytime in the app or in iPhone Settings.</p>
+
+      <h2>What we never do</h2>
+      <ul>
+        <li>Sell or rent your information.</li>
+        <li>Show ads or use ad tracking. The app does not track you across other companies' apps and websites.</li>
+        <li>Knowingly collect information from children under 13. Big Head GM isn't made for kids.</li>
+      </ul>
+
+      <h2>Links and odds</h2>
+      <p>We link to news stories, stats sites and sportsbook odds reports. Those sites have their own privacy policies. Big Head GM is not a sportsbook and does not take bets.</p>
+
+      <h2>Changes and questions</h2>
+      <p>If this policy changes, we'll update it here and change the date at the top. Questions, or want your newsletter email deleted? Reach us at {contact_html()}.</p>
+    </article>"""
+    return page("privacy.html", "Privacy Policy · Big Head GM",
+                "Big Head GM privacy policy: no accounts, no ads, no selling data. What we count, what stays on your phone, and how to reach us.",
+                body, crumbs=[("Privacy", "privacy.html")])
+
+
+def support_page():
+    qa = [("How do I play Fantasle and Prospectle?",
+           "Guess the mystery player (Fantasle) or 2027 draft prospect (Prospectle) in 8 tries. Green means a match, yellow means close, and arrows tell you to go higher or lower. A new daily puzzle comes out at midnight Eastern, and Unlimited mode lets you keep playing."),
+          ("Where do the fantasy points come from?",
+           "Fantasy points are PPR unless you pick another scoring setting. Scores and stats come from nflverse and update after games finish, usually the same night or the next morning."),
+          ("Something looks wrong.",
+           f"Tell us the page and what looks off at {contact_html()} and we'll fix it, usually the same day."),
+          ("How do I turn daily reminders on or off?",
+           "In the app, open Games and use the reminder switch, or go to iPhone Settings → Notifications → Big Head GM."),
+          ("How do I delete my data?",
+           "Your streaks, stats and mock drafts live only on your phone. Deleting the app erases them. If you signed up for the newsletter, use the unsubscribe link in any email, or email us and we'll delete your address."),
+          ("Is Big Head GM free?",
+           "Yes. Everything is free, with no sign-up and no ads.")]
+    items = "".join(f"<details class=\"lg-q\"><summary>{esc(q)}</summary><p>{a}</p></details>" for q, a in qa)
+    body = f"""
+    <article class="lg-page">
+      <p class="eyebrow">BIG HEAD GM</p>
+      <h1 class="in-title">Support</h1>
+      <p class="in-sub">Questions, bugs or ideas? Email {contact_html()}. A real person reads every message.</p>
+      <h2>Common questions</h2>
+      {items}
+      <p class="pg-text">See also our <a href="privacy.html">privacy policy</a>.</p>
+    </article>"""
+    return page("support.html", "Support · Big Head GM",
+                "Get help with Big Head GM: Fantasle, Prospectle, fantasy points, reminders and your data. Contact us anytime.",
+                body, crumbs=[("Support", "support.html")])
+
+
 def home_feature():
     """the best things on the site, first thing you see: the two daily games, fantasy, the trade analyzer and start/sit"""
     rows = gameday_data()
@@ -2768,7 +2846,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "awards.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html"]
+    paths = ["", "players/", "teams/", "odds.html", "awards.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html", "privacy.html", "support.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2789,6 +2867,8 @@ def main():
     if fantasy.scores():
         write("scores.html", scores_page())
     write("app.html", app_page())
+    write("privacy.html", privacy_page())
+    write("support.html", support_page())
     write("news.html", news_page())
     games_pages()
     prospectle_page()

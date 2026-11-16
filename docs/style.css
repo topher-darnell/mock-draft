@@ -3145,3 +3145,27 @@ body:has(#app:not([hidden]) #results-screen:not([hidden])) .app-banner { display
 #mvp { scroll-margin-top: 80px; }
 .aw-mvp thead th { width: 96px; }
 .aw-mvp thead th:first-child { width: auto; }
+
+/* ---------- privacy / support ---------- */
+.lg-page { max-width: 720px; }
+.lg-page h2 { margin: 30px 0 10px; font-size: 20px; }
+.lg-page p, .lg-page li { font-size: 15px; line-height: 1.6; color: var(--text); }
+.lg-page ul { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
+.lg-page a { color: var(--accent); }
+.lg-q { margin: 0 0 10px; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); }
+.lg-q summary { cursor: pointer; font-weight: 700; font-size: 15px; }
+.lg-q p { margin: 10px 0 0; color: var(--muted); }
+
+/* ---------- inside the iPhone app ---------- */
+.is-native-app #app-banner, .is-native-app a[href$="app.html"], .is-native-app .app-how, .is-native-app .app-only-ios, .is-native-app .app-only-android { display: none !important; }
+.app-remind { display: flex; align-items: center; gap: 14px; margin: 14px 0 18px; padding: 14px 16px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); cursor: pointer; }
+.app-remind span { flex: 1; min-width: 0; }
+.app-remind b { display: block; font-size: 15px; }
+.app-remind small { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); }
+.app-remind input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.app-remind i { position: relative; flex: none; width: 50px; height: 30px; border-radius: 30px; background: rgba(255, 255, 255, 0.14); transition: background .2s; }
+.app-remind i::after { content: ""; position: absolute; left: 3px; top: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.app-remind input:checked + i { background: var(--accent); }
+.app-remind input:checked + i::after { transform: translateX(20px); }
+.app-remind input:focus-visible + i { outline: 2px solid var(--accent); outline-offset: 2px; }
+.is-native-app .app-link { display: none !important; }

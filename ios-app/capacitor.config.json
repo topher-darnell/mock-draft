@@ -1,0 +1,31 @@
+{
+  "appId": "com.bigheadgm.app",
+  "appName": "Big Head GM",
+  "webDir": "www",
+  "server": {
+    "url": "https://bigheadgm.com",
+    "errorPath": "offline.html"
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "backgroundColor": "#10151C",
+    "scrollEnabled": true,
+    "limitsNavigationsToAppBoundDomains": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 700,
+      "launchAutoHide": true,
+      "backgroundColor": "#10151C",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#10151C",
+      "overlaysWebView": false
+    },
+    "LocalNotifications": {
+      "iconColor": "#F2A93B"
+    }
+  }
+}

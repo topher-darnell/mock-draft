@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Big Head GM · Offline</title>
+<style>
+  html,body{margin:0;height:100%;background:#10151C;color:#E9EDF2;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;-webkit-font-smoothing:antialiased}
+  main{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;box-sizing:border-box}
+  .big{font-size:64px;margin-bottom:10px}
+  h1{margin:0 0 8px;font-size:26px;font-weight:800;letter-spacing:-.02em}
+  p{margin:0 0 26px;max-width:300px;font-size:16px;line-height:1.5;color:#9AA4B2}
+  button{border:0;border-radius:999px;padding:15px 30px;font-size:17px;font-weight:800;background:#F2A93B;color:#1B1206}
+</style></head>
+<body><main>
+  <div class="big" aria-hidden="true">📡</div>
+  <h1>You're offline</h1>
+  <p>Big Head GM needs a connection for live scores, odds and today's puzzles. Check your Wi-Fi or data and try again.</p>
+  <button type="button" onclick="location.href='https://bigheadgm.com/'">Try again</button>
+</main>
+<script>window.addEventListener("online", function () { location.href = "https://bigheadgm.com/"; });</script>
+</body></html>
