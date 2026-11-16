@@ -75,6 +75,40 @@ say "Setting iPhone-only, portrait, and the export-compliance answer"
 /usr/libexec/PlistBuddy -c "Add :UISupportedInterfaceOrientations:0 string UIInterfaceOrientationPortrait" "$PLIST"
 /usr/libexec/PlistBuddy -c "Delete :UIStatusBarStyle" "$PLIST" 2>/dev/null || true
 /usr/libexec/PlistBuddy -c "Add :UIStatusBarStyle string UIStatusBarStyleLightContent" "$PLIST"
+# iOS 27 apps must launch through a "scene" (Apple's newer startup). Capacitor's template doesn't yet, so add one.
+APPDEL="ios/App/App/AppDelegate.swift"
+if ! grep -q "class SceneDelegate" "$APPDEL"; then
+  cat >> "$APPDEL" <<'SWIFT'
+
+// Added by setup-mac.sh: iOS 27 requires the scene-based app lifecycle.
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        if let url = connectionOptions.urlContexts.first?.url {
+            _ = ApplicationDelegateProxy.shared.application(UIApplication.shared, open: url, options: [:])
+        }
+    }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            _ = ApplicationDelegateProxy.shared.application(UIApplication.shared, open: url, options: [:])
+        }
+    }
+}
+SWIFT
+fi
+/usr/libexec/PlistBuddy -c "Delete :UIApplicationSceneManifest" "$PLIST" 2>/dev/null || true
+/usr/libexec/PlistBuddy \
+  -c "Add :UIApplicationSceneManifest dict" \
+  -c "Add :UIApplicationSceneManifest:UIApplicationSupportsMultipleScenes bool false" \
+  -c "Add :UIApplicationSceneManifest:UISceneConfigurations dict" \
+  -c "Add :UIApplicationSceneManifest:UISceneConfigurations:UIWindowSceneSessionRoleApplication array" \
+  -c "Add :UIApplicationSceneManifest:UISceneConfigurations:UIWindowSceneSessionRoleApplication:0 dict" \
+  -c "Add :UIApplicationSceneManifest:UISceneConfigurations:UIWindowSceneSessionRoleApplication:0:UISceneConfigurationName string Default Configuration" \
+  -c "Add :UIApplicationSceneManifest:UISceneConfigurations:UIWindowSceneSessionRoleApplication:0:UISceneDelegateClassName string \$(PRODUCT_MODULE_NAME).SceneDelegate" \
+  -c "Add :UIApplicationSceneManifest:UISceneConfigurations:UIWindowSceneSessionRoleApplication:0:UISceneStoryboardFile string Main" \
+  "$PLIST"
 # iPhone only, so App Store Connect doesn't ask for iPad screenshots
 sed -i '' 's/TARGETED_DEVICE_FAMILY = "1,2";/TARGETED_DEVICE_FAMILY = 1;/g' "$PBX"
 
