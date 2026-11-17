@@ -8,6 +8,17 @@
   "weight": "222",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 2,
+   "rush_yds": 7,
+   "rush_td": 0,
+   "rec": 80,
+   "rec_yds": 1317,
+   "rec_td": 15,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "rec": 87,
@@ -116,6 +127,17 @@
   "weight": "208",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 53,
+   "rec_yds": 950,
+   "rec_td": 10,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 9,
    "rec": 26,
@@ -159,6 +181,17 @@
   "weight": "204",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 23,
+   "rec_yds": 409,
+   "rec_td": 7,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "rec": 56,
@@ -263,6 +296,22 @@
   "weight": "215",
   "year": "RS Sophomore",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 233,
+   "pass_att": 351,
+   "pass_yds": 3239,
+   "pass_td": 30,
+   "pass_int": 10,
+   "rush_att": 44,
+   "rush_yds": 169,
+   "rush_td": 4,
+   "rec": 1,
+   "rec_yds": 5,
+   "rec_td": 1,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 14,
    "pass_cmp": 319,
@@ -292,6 +341,17 @@
   "weight": "225",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 178,
+   "rush_yds": 905,
+   "rush_td": 15,
+   "rec": 11,
+   "rec_yds": 73,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "rush_att": 220,
@@ -318,6 +378,22 @@
   "weight": "220",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 192,
+   "pass_att": 308,
+   "pass_yds": 2379,
+   "pass_td": 21,
+   "pass_int": 3,
+   "rush_att": 27,
+   "rush_yds": 16,
+   "rush_td": 0,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 5,
    "pass_yds": 680,
@@ -344,6 +420,22 @@
   "weight": "205",
   "year": "RS Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 221,
+   "pass_att": 357,
+   "pass_yds": 2486,
+   "pass_td": 19,
+   "pass_int": 9,
+   "rush_att": 68,
+   "rush_yds": 271,
+   "rush_td": 7,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 15,
    "pass_cmp": 294,
@@ -398,6 +490,17 @@
   "weight": "255",
   "year": "RS Junior",
   "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 1,
+   "rush_yds": 2,
+   "rush_td": 1,
+   "rec": 32,
+   "rec_yds": 405,
+   "rec_td": 3,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 11,
    "rec": 23,
@@ -523,6 +626,17 @@
   "weight": "210",
   "year": "RS Sophomore",
   "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 1,
+   "rec_yds": 11,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 15,
    "tackles": 12,
@@ -596,6 +710,17 @@
   "weight": "210",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 42,
+   "rec_yds": 749,
+   "rec_td": 8,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "rec": 59,
@@ -768,6 +893,22 @@
   "weight": "215",
   "year": "RS Sophomore",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 197,
+   "pass_att": 290,
+   "pass_yds": 2385,
+   "pass_td": 23,
+   "pass_int": 2,
+   "rush_att": 29,
+   "rush_yds": 82,
+   "rush_td": 3,
+   "rec": 1,
+   "rec_yds": -5,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "pass_cmp": 195,
@@ -796,6 +937,22 @@
   "weight": "222",
   "year": "RS Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 187,
+   "pass_att": 289,
+   "pass_yds": 2198,
+   "pass_td": 19,
+   "pass_int": 10,
+   "rush_att": 88,
+   "rush_yds": 154,
+   "rush_td": 3,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "pass_cmp": 248,
@@ -862,6 +1019,22 @@
   "weight": "205",
   "year": "RS Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 242,
+   "pass_att": 317,
+   "pass_yds": 3076,
+   "pass_td": 29,
+   "pass_int": 2,
+   "rush_att": 39,
+   "rush_yds": 144,
+   "rush_td": 2,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 14,
    "pass_cmp": 334,
@@ -891,6 +1064,22 @@
   "weight": "220",
   "year": "RS Junior",
   "stats": {
+   "season": 2026,
+   "games": 4,
+   "pass_cmp": 69,
+   "pass_att": 99,
+   "pass_yds": 926,
+   "pass_td": 9,
+   "pass_int": 0,
+   "rush_att": 10,
+   "rush_yds": -7,
+   "rush_td": 0,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 15,
    "pass_cmp": 296,
@@ -945,6 +1134,17 @@
   "weight": "183",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 1,
+   "rush_yds": 11,
+   "rush_td": 0,
+   "rec": 1,
+   "rec_yds": -8,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "tackles": 47,
@@ -1035,6 +1235,17 @@
   "weight": "205",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 6,
+   "rush_att": 78,
+   "rush_yds": 388,
+   "rush_td": 5,
+   "rec": 10,
+   "rec_yds": 33,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "rush_att": 258,
@@ -1108,6 +1319,17 @@
   "weight": "220",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 1,
+   "rush_yds": 9,
+   "rush_td": 0,
+   "rec": 59,
+   "rec_yds": 987,
+   "rec_td": 9,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 11,
    "rec": 39,
@@ -1218,6 +1440,17 @@
   "weight": "190",
   "year": "RS Senior",
   "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 16,
+   "rush_yds": 78,
+   "rush_td": 0,
+   "rec": 5,
+   "rec_yds": 19,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 9,
    "tackles": 35,
@@ -1247,6 +1480,22 @@
   "weight": "199",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 1,
+   "pass_att": 1,
+   "pass_yds": 5,
+   "pass_td": 1,
+   "pass_int": 0,
+   "rush_att": 5,
+   "rush_yds": 13,
+   "rush_td": 0,
+   "rec": 50,
+   "rec_yds": 783,
+   "rec_td": 8,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 14,
    "rec": 70,
@@ -1272,6 +1521,17 @@
   "weight": "225",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 6,
+   "rush_att": 57,
+   "rush_yds": 412,
+   "rush_td": 4,
+   "rec": 6,
+   "rec_yds": 46,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "rush_att": 236,
@@ -1406,6 +1666,17 @@
   "weight": "237",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 6,
+   "rush_att": 2,
+   "rush_yds": 7,
+   "rush_td": 0,
+   "rec": 34,
+   "rec_yds": 406,
+   "rec_td": 2,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 7,
    "rec": 29,
@@ -1452,6 +1723,17 @@
   "weight": "265",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 1,
+   "rec_yds": 30,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 15,
    "tackles": 34,
@@ -1480,6 +1762,17 @@
   "weight": "210",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 3,
+   "rush_att": 10,
+   "rush_yds": 41,
+   "rush_td": 0,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "rush_att": 256,
@@ -1506,6 +1799,17 @@
   "weight": "180",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 5,
+   "rush_yds": 30,
+   "rush_td": 0,
+   "rec": 50,
+   "rec_yds": 687,
+   "rec_td": 5,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "rec": 34,
@@ -1580,6 +1884,17 @@
   "weight": "205",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 53,
+   "rec_yds": 764,
+   "rec_td": 9,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "rec": 67,
@@ -1633,6 +1948,17 @@
   "weight": "225",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 45,
+   "rec_yds": 774,
+   "rec_td": 9,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "rec": 60,
@@ -1838,6 +2164,17 @@
   "weight": "193",
   "year": "RS Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 2,
+   "rec_yds": 19,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "tackles": 28,
@@ -1889,6 +2226,22 @@
   "weight": "250",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 1,
+   "pass_att": 1,
+   "pass_yds": 8,
+   "pass_td": 0,
+   "pass_int": 0,
+   "rush_att": 2,
+   "rush_yds": 1,
+   "rush_td": 0,
+   "rec": 57,
+   "rec_yds": 585,
+   "rec_td": 6,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 9,
    "rec": 24,
@@ -1913,6 +2266,17 @@
   "weight": "200",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 39,
+   "rec_yds": 375,
+   "rec_td": 1,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "rec": 52,
@@ -2097,6 +2461,22 @@
   "weight": "195",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 1,
+   "pass_att": 1,
+   "pass_yds": 36,
+   "pass_td": 0,
+   "pass_int": 0,
+   "rush_att": 2,
+   "rush_yds": -3,
+   "rush_td": 0,
+   "rec": 47,
+   "rec_yds": 536,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 6,
    "rec": 31,
@@ -2123,6 +2503,17 @@
   "weight": "214",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 3,
+   "rush_yds": 5,
+   "rush_td": 0,
+   "rec": 48,
+   "rec_yds": 591,
+   "rec_td": 4,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "rec": 54,
@@ -2149,6 +2540,17 @@
   "weight": "180",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 3,
+   "rush_yds": 16,
+   "rush_td": 0,
+   "rec": 39,
+   "rec_yds": 360,
+   "rec_td": 3,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "rec": 59,
@@ -2259,6 +2661,17 @@
   "weight": "205",
   "year": "Junior",
   "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 77,
+   "rush_yds": 476,
+   "rush_td": 9,
+   "rec": 6,
+   "rec_yds": 46,
+   "rec_td": 0,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "rush_att": 158,
@@ -2359,6 +2772,17 @@
   "weight": "215",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 1,
+   "rush_yds": 5,
+   "rush_td": 0,
+   "rec": 49,
+   "rec_yds": 525,
+   "rec_td": 3,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 11,
    "rec": 45,
@@ -2386,6 +2810,17 @@
   "weight": "193",
   "year": "RS Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 124,
+   "rush_yds": 572,
+   "rush_td": 6,
+   "rec": 22,
+   "rec_yds": 110,
+   "rec_td": 3,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 12,
    "rush_att": 186,
@@ -2432,6 +2867,17 @@
   "weight": "195",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 45,
+   "rec_yds": 581,
+   "rec_td": 6,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 14,
    "rec": 72,
@@ -2509,6 +2955,17 @@
   "weight": "200",
   "year": "Senior",
   "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 2,
+   "rush_yds": 5,
+   "rush_td": 0,
+   "rec": 63,
+   "rec_yds": 847,
+   "rec_td": 4,
+   "note": "so far"
+  },
+  "stats_prev": {
    "season": 2025,
    "games": 13,
    "rec": 54,
@@ -2596,6 +3053,17 @@
   "height": "5-9",
   "weight": "190",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 111,
+   "rush_yds": 804,
+   "rush_td": 8,
+   "rec": 17,
+   "rec_yds": 144,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 102.4,
@@ -2613,6 +3081,17 @@
   "height": "5-11",
   "weight": "210",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 137,
+   "rush_yds": 751,
+   "rush_td": 5,
+   "rec": 15,
+   "rec_yds": 96,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 103.5,
@@ -2630,6 +3109,17 @@
   "height": "5-11",
   "weight": "205",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 162,
+   "rush_yds": 810,
+   "rush_td": 6,
+   "rec": 15,
+   "rec_yds": 181,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 104.4,
@@ -2647,6 +3137,17 @@
   "height": "6-5",
   "weight": "246",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 1,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 1,
+   "rec_yds": 11,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 107.2,
@@ -2749,6 +3250,17 @@
   "height": "6-4",
   "weight": "242",
   "year": "RS Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 34,
+   "rec_yds": 286,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 110.1,
@@ -2834,6 +3346,16 @@
   "height": "6-3",
   "weight": "263",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "pass_cmp": 1,
+   "pass_att": 1,
+   "pass_yds": 30,
+   "pass_td": 0,
+   "pass_int": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 117.8,
@@ -2868,6 +3390,22 @@
   "height": "6-4",
   "weight": "230",
   "year": "RS Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 224,
+   "pass_att": 338,
+   "pass_yds": 2835,
+   "pass_td": 21,
+   "pass_int": 8,
+   "rush_att": 26,
+   "rush_yds": -71,
+   "rush_td": 2,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 139.7,
@@ -2919,6 +3457,17 @@
   "height": "6-0",
   "weight": "216",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 228,
+   "rush_yds": 1133,
+   "rush_td": 9,
+   "rec": 17,
+   "rec_yds": 126,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 121.5,
@@ -2936,6 +3485,17 @@
   "height": "6-4",
   "weight": "241",
   "year": "RS Sophomore",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 3,
+   "rush_yds": 12,
+   "rush_td": 1,
+   "rec": 36,
+   "rec_yds": 343,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 121,
@@ -2987,6 +3547,17 @@
   "height": "6-2",
   "weight": "225",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 115,
+   "rush_yds": 537,
+   "rush_td": 10,
+   "rec": 10,
+   "rec_yds": 111,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 125.7,
@@ -3004,6 +3575,17 @@
   "height": "6-5",
   "weight": "239",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 24,
+   "rec_yds": 404,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 129,
@@ -3021,6 +3603,22 @@
   "height": "6-5",
   "weight": "230",
   "year": "RS Sophomore",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 196,
+   "pass_att": 326,
+   "pass_yds": 1982,
+   "pass_td": 13,
+   "pass_int": 7,
+   "rush_att": 29,
+   "rush_yds": -70,
+   "rush_td": 0,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 153.2,
@@ -3055,6 +3653,22 @@
   "height": "6-5",
   "weight": "215",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 5,
+   "pass_cmp": 72,
+   "pass_att": 116,
+   "pass_yds": 982,
+   "pass_td": 4,
+   "pass_int": 4,
+   "rush_att": 42,
+   "rush_yds": 144,
+   "rush_td": 1,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 154.4,
@@ -3140,6 +3754,17 @@
   "height": "6-5",
   "weight": "250",
   "year": "RS Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 20,
+   "rec_yds": 188,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 130.8,
@@ -3174,6 +3799,22 @@
   "height": "6-3",
   "weight": "238",
   "year": "RS Junior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "pass_cmp": 172,
+   "pass_att": 274,
+   "pass_yds": 2100,
+   "pass_td": 17,
+   "pass_int": 7,
+   "rush_att": 104,
+   "rush_yds": 637,
+   "rush_td": 7,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 161.8,
@@ -3208,6 +3849,17 @@
   "height": "6-7",
   "weight": "250",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 31,
+   "rec_yds": 323,
+   "rec_td": 5,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 134.9,
@@ -3242,6 +3894,17 @@
   "height": "6-6",
   "weight": "265",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 18,
+   "rec_yds": 273,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 137.3,
@@ -3259,6 +3922,17 @@
   "height": "6-2",
   "weight": "245",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 3,
+   "rush_yds": 3,
+   "rush_td": 1,
+   "rec": 27,
+   "rec_yds": 298,
+   "rec_td": 5,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 138.3,
@@ -3310,6 +3984,17 @@
   "height": "6-6",
   "weight": "230",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 0,
+   "rush_yds": -12,
+   "rush_td": 0,
+   "rec": 24,
+   "rec_yds": 438,
+   "rec_td": 4,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 147.1,
@@ -3463,6 +4148,17 @@
   "height": "5-10",
   "weight": "185",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 10,
+   "rush_yds": 48,
+   "rush_td": 0,
+   "rec": 50,
+   "rec_yds": 628,
+   "rec_td": 4,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 155,
@@ -3514,6 +4210,22 @@
   "height": "6-1",
   "weight": "214",
   "year": "RS Sophomore",
+  "stats": {
+   "season": 2026,
+   "games": 7,
+   "pass_cmp": 131,
+   "pass_att": 192,
+   "pass_yds": 2007,
+   "pass_td": 19,
+   "pass_int": 4,
+   "rush_att": 37,
+   "rush_yds": -9,
+   "rush_td": 2,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 179.8,
@@ -3531,6 +4243,17 @@
   "height": "5-10",
   "weight": "184",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 7,
+   "rush_yds": 10,
+   "rush_td": 0,
+   "rec": 15,
+   "rec_yds": 109,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 158.6,
@@ -3565,6 +4288,17 @@
   "height": "5-10",
   "weight": "215",
   "year": "RS Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 230,
+   "rush_yds": 1163,
+   "rush_td": 13,
+   "rec": 11,
+   "rec_yds": 61,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 156.7,
@@ -3650,6 +4384,17 @@
   "height": "6-4",
   "weight": "240",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 14,
+   "rec_yds": 234,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 159.8,
@@ -3667,6 +4412,22 @@
   "height": "6-3",
   "weight": "225",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 223,
+   "pass_att": 344,
+   "pass_yds": 2664,
+   "pass_td": 13,
+   "pass_int": 7,
+   "rush_att": 83,
+   "rush_yds": 117,
+   "rush_td": 4,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 186.3,
@@ -3752,6 +4513,17 @@
   "height": "6-6",
   "weight": "240",
   "year": "RS Sophomore",
+  "stats": {
+   "season": 2026,
+   "games": 6,
+   "rush_att": 1,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 24,
+   "rec_yds": 391,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 165.9,
@@ -3786,6 +4558,17 @@
   "height": "6-4",
   "weight": "215",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 35,
+   "rec_yds": 478,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 172.6,
@@ -3854,6 +4637,22 @@
   "height": "6-3",
   "weight": "210",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 196,
+   "pass_att": 299,
+   "pass_yds": 2552,
+   "pass_td": 25,
+   "pass_int": 3,
+   "rush_att": 79,
+   "rush_yds": 308,
+   "rush_td": 7,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 194.9,
@@ -3871,6 +4670,17 @@
   "height": "6-0",
   "weight": "210",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 7,
+   "rush_att": 28,
+   "rush_yds": 98,
+   "rush_td": 0,
+   "rec": 3,
+   "rec_yds": 19,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 173.2,
@@ -3922,6 +4732,22 @@
   "height": "6-6",
   "weight": "218",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 186,
+   "pass_att": 295,
+   "pass_yds": 2289,
+   "pass_td": 14,
+   "pass_int": 5,
+   "rush_att": 74,
+   "rush_yds": 228,
+   "rush_td": 3,
+   "rec": 1,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 197.3,
@@ -3973,6 +4799,22 @@
   "height": "6-2",
   "weight": "216",
   "year": "RS Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 242,
+   "pass_att": 340,
+   "pass_yds": 2797,
+   "pass_td": 19,
+   "pass_int": 12,
+   "rush_att": 98,
+   "rush_yds": 337,
+   "rush_td": 8,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 199.6,
@@ -3990,6 +4832,17 @@
   "height": "6-6",
   "weight": "255",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 14,
+   "rec_yds": 120,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 177.9,
@@ -4007,6 +4860,17 @@
   "height": "6-1",
   "weight": "212",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 25,
+   "rec_yds": 354,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 185.6,
@@ -4058,6 +4922,22 @@
   "height": "6-3",
   "weight": "235",
   "year": "RS Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 201,
+   "pass_att": 307,
+   "pass_yds": 1972,
+   "pass_td": 14,
+   "pass_int": 8,
+   "rush_att": 177,
+   "rush_yds": 644,
+   "rush_td": 9,
+   "rec": 1,
+   "rec_yds": 5,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 202.3,
@@ -4194,6 +5074,17 @@
   "height": "5-10",
   "weight": "175",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 11,
+   "rush_yds": 169,
+   "rush_td": 2,
+   "rec": 50,
+   "rec_yds": 708,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 200.1,
@@ -4228,6 +5119,17 @@
   "height": "6-0",
   "weight": "195",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 1,
+   "rush_yds": 1,
+   "rush_td": 0,
+   "rec": 30,
+   "rec_yds": 377,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99.9,
    "avg": 203.7,
@@ -4262,6 +5164,17 @@
   "height": "5-10",
   "weight": "215",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 78,
+   "rush_yds": 599,
+   "rush_td": 5,
+   "rec": 6,
+   "rec_yds": 41,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 100,
    "avg": 196.7,
@@ -4279,6 +5192,17 @@
   "height": "6-4",
   "weight": "200",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 3,
+   "rush_yds": 7,
+   "rush_td": 1,
+   "rec": 52,
+   "rec_yds": 716,
+   "rec_td": 4,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99.8,
    "avg": 207.1,
@@ -4296,6 +5220,17 @@
   "height": "6-3",
   "weight": "213",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 52,
+   "rec_yds": 761,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99.7,
    "avg": 208.4,
@@ -4330,6 +5265,17 @@
   "height": "6-6",
   "weight": "250",
   "year": "RS Junior",
+  "stats": {
+   "season": 2026,
+   "games": 7,
+   "rush_att": 9,
+   "rush_yds": 36,
+   "rush_td": 0,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99.8,
    "avg": 205.7,
@@ -4551,6 +5497,17 @@
   "height": "5-10",
   "weight": "210",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 88,
+   "rush_yds": 386,
+   "rush_td": 3,
+   "rec": 9,
+   "rec_yds": 65,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99.9,
    "avg": 214.3,
@@ -4704,6 +5661,17 @@
   "height": "6-4",
   "weight": "250",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 20,
+   "rec_yds": 235,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99.9,
    "avg": 221.7,
@@ -4738,6 +5706,17 @@
   "height": "5-10",
   "weight": "185",
   "year": "RS Sophomore",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 134,
+   "rush_yds": 752,
+   "rush_td": 5,
+   "rec": 21,
+   "rec_yds": 91,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99.7,
    "avg": 226.2,
@@ -4755,6 +5734,17 @@
   "height": "6-0",
   "weight": "215",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 110,
+   "rush_yds": 295,
+   "rush_td": 6,
+   "rec": 30,
+   "rec_yds": 270,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99.3,
    "avg": 227.5,
@@ -4857,6 +5847,17 @@
   "height": "5-7",
   "weight": "193",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 146,
+   "rush_yds": 845,
+   "rush_td": 13,
+   "rec": 18,
+   "rec_yds": 157,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 97.6,
    "avg": 232.6,
@@ -4908,6 +5909,17 @@
   "height": "6-3",
   "weight": "250",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 34,
+   "rec_yds": 356,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 99,
    "avg": 233.1,
@@ -5010,6 +6022,17 @@
   "height": "6-5",
   "weight": "240",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 1,
+   "rush_yds": 1,
+   "rush_td": 0,
+   "rec": 52,
+   "rec_yds": 614,
+   "rec_td": 8,
+   "note": "so far"
+  },
   "adp": {
    "pct": 96.8,
    "avg": 238.9,
@@ -5078,6 +6101,22 @@
   "height": "6-2",
   "weight": "205",
   "year": "RS Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "pass_cmp": 124,
+   "pass_att": 206,
+   "pass_yds": 1860,
+   "pass_td": 19,
+   "pass_int": 2,
+   "rush_att": 33,
+   "rush_yds": 54,
+   "rush_td": 2,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 66.7,
    "avg": 245.1,
@@ -5095,6 +6134,17 @@
   "height": "6-5",
   "weight": "249",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 26,
+   "rec_yds": 287,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 95.1,
    "avg": 243.5,
@@ -5197,6 +6247,17 @@
   "height": "6-1",
   "weight": "230",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 107,
+   "rush_yds": 562,
+   "rush_td": 8,
+   "rec": 13,
+   "rec_yds": 91,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 75.7,
    "avg": 248.8,
@@ -5248,6 +6309,17 @@
   "height": "6-0",
   "weight": "190",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 42,
+   "rec_yds": 579,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 44.4,
    "avg": 250.5,
@@ -5265,6 +6337,22 @@
   "height": "6-3",
   "weight": "228",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 158,
+   "pass_att": 248,
+   "pass_yds": 1807,
+   "pass_td": 14,
+   "pass_int": 8,
+   "rush_att": 56,
+   "rush_yds": 243,
+   "rush_td": 5,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 40.3,
    "avg": 250.3,
@@ -5282,6 +6370,17 @@
   "height": "6-4",
   "weight": "215",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 30,
+   "rec_yds": 397,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 37.9,
    "avg": 251.6,
@@ -5350,6 +6449,22 @@
   "height": "6-0",
   "weight": "178",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "pass_cmp": 0,
+   "pass_att": 1,
+   "pass_yds": 0,
+   "pass_td": 0,
+   "pass_int": 0,
+   "rush_att": 1,
+   "rush_yds": -2,
+   "rush_td": 0,
+   "rec": 36,
+   "rec_yds": 508,
+   "rec_td": 4,
+   "note": "so far"
+  },
   "adp": {
    "pct": 21.9,
    "avg": 254,
@@ -5367,6 +6482,22 @@
   "height": "6-4",
   "weight": "225",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "pass_cmp": 139,
+   "pass_att": 202,
+   "pass_yds": 1898,
+   "pass_td": 13,
+   "pass_int": 1,
+   "rush_att": 86,
+   "rush_yds": 274,
+   "rush_td": 10,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 20.9,
    "avg": 254.7,
@@ -5401,6 +6532,17 @@
   "height": "5-9",
   "weight": "203",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 218,
+   "rush_yds": 1084,
+   "rush_td": 8,
+   "rec": 14,
+   "rec_yds": 132,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 32.4,
    "avg": 255.5,
@@ -5435,6 +6577,22 @@
   "height": "6-6",
   "weight": "275",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 0,
+   "pass_att": 1,
+   "pass_yds": 0,
+   "pass_td": 0,
+   "pass_int": 0,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 17,
+   "rec_yds": 278,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 26.4,
    "avg": 256.6,
@@ -5469,6 +6627,17 @@
   "height": "6-2",
   "weight": "240",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 12,
+   "rec_yds": 89,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5481,6 +6650,22 @@
   "height": "6-1",
   "weight": "224",
   "year": "RS Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 193,
+   "pass_att": 299,
+   "pass_yds": 2153,
+   "pass_td": 15,
+   "pass_int": 7,
+   "rush_att": 116,
+   "rush_yds": 271,
+   "rush_td": 1,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5517,6 +6702,17 @@
   "height": "6-4",
   "weight": "208",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 20,
+   "rec_yds": 223,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5541,6 +6737,17 @@
   "height": "6-1",
   "weight": "198",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 4,
+   "rush_yds": 12,
+   "rush_td": 1,
+   "rec": 39,
+   "rec_yds": 608,
+   "rec_td": 4,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5565,6 +6772,17 @@
   "height": "6-0",
   "weight": "190",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 67,
+   "rec_yds": 1039,
+   "rec_td": 8,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5577,6 +6795,22 @@
   "height": "6-3",
   "weight": "237",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 8,
+   "pass_cmp": 166,
+   "pass_att": 307,
+   "pass_yds": 2059,
+   "pass_td": 16,
+   "pass_int": 5,
+   "rush_att": 61,
+   "rush_yds": 203,
+   "rush_td": 2,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5601,6 +6835,17 @@
   "height": "6-0",
   "weight": "210",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 144,
+   "rush_yds": 712,
+   "rush_td": 5,
+   "rec": 13,
+   "rec_yds": 119,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5625,6 +6870,17 @@
   "height": "6-2",
   "weight": "200",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 52,
+   "rec_yds": 843,
+   "rec_td": 5,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5637,6 +6893,17 @@
   "height": "5-10",
   "weight": "200",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 63,
+   "rush_yds": 290,
+   "rush_td": 0,
+   "rec": 6,
+   "rec_yds": 38,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5709,6 +6976,17 @@
   "height": "6-1",
   "weight": "220",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 6,
+   "rush_att": 14,
+   "rush_yds": 89,
+   "rush_td": 1,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5733,6 +7011,22 @@
   "height": "6-4",
   "weight": "234",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 5,
+   "pass_cmp": 29,
+   "pass_att": 43,
+   "pass_yds": 359,
+   "pass_td": 3,
+   "pass_int": 0,
+   "rush_att": 5,
+   "rush_yds": -14,
+   "rush_td": 0,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5853,6 +7147,22 @@
   "height": "6-2",
   "weight": "215",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "pass_cmp": 181,
+   "pass_att": 264,
+   "pass_yds": 2430,
+   "pass_td": 15,
+   "pass_int": 3,
+   "rush_att": 97,
+   "rush_yds": 408,
+   "rush_td": 11,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5913,6 +7223,17 @@
   "height": "6-1",
   "weight": "194",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 5,
+   "rush_yds": 54,
+   "rush_td": 0,
+   "rec": 32,
+   "rec_yds": 511,
+   "rec_td": 3,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5961,6 +7282,17 @@
   "height": "6-1",
   "weight": "200",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 43,
+   "rec_yds": 707,
+   "rec_td": 5,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -5985,6 +7317,17 @@
   "height": "6-0",
   "weight": "190",
   "year": "Sophomore",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 1,
+   "rush_yds": 9,
+   "rush_td": 0,
+   "rec": 40,
+   "rec_yds": 343,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6033,6 +7376,17 @@
   "height": "5-11",
   "weight": "175",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 5,
+   "rush_att": 1,
+   "rush_yds": 4,
+   "rush_td": 0,
+   "rec": 8,
+   "rec_yds": 89,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6105,6 +7459,17 @@
   "height": "6-2",
   "weight": "220",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 20,
+   "rec_yds": 233,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6165,6 +7530,17 @@
   "height": "5-10",
   "weight": "230",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "rush_att": 134,
+   "rush_yds": 649,
+   "rush_td": 3,
+   "rec": 20,
+   "rec_yds": 157,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6177,6 +7553,17 @@
   "height": "6-8",
   "weight": "270",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 8,
+   "rec_yds": 87,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6213,6 +7600,22 @@
   "height": "5-11",
   "weight": "190",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 9,
+   "pass_cmp": 164,
+   "pass_att": 253,
+   "pass_yds": 1955,
+   "pass_td": 13,
+   "pass_int": 4,
+   "rush_att": 81,
+   "rush_yds": 273,
+   "rush_td": 2,
+   "rec": 0,
+   "rec_yds": 0,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6237,6 +7640,17 @@
   "height": "6-6",
   "weight": "260",
   "year": "RS Senior",
+  "stats": {
+   "season": 2026,
+   "games": 10,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 3,
+   "rec_yds": 12,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6273,6 +7687,17 @@
   "height": "6-0",
   "weight": "200",
   "year": "Senior",
+  "stats": {
+   "season": 2026,
+   "games": 2,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 6,
+   "rec_yds": 104,
+   "rec_td": 1,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6489,6 +7914,17 @@
   "height": "6-4",
   "weight": "255",
   "year": "RS Junior",
+  "stats": {
+   "season": 2026,
+   "games": 6,
+   "rush_att": 1,
+   "rush_yds": 29,
+   "rush_td": 0,
+   "rec": 2,
+   "rec_yds": 14,
+   "rec_td": 0,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }
@@ -6537,6 +7973,17 @@
   "height": "6-5",
   "weight": "247",
   "year": "Junior",
+  "stats": {
+   "season": 2026,
+   "games": 2,
+   "rush_att": 0,
+   "rush_yds": 0,
+   "rush_td": 0,
+   "rec": 3,
+   "rec_yds": 43,
+   "rec_td": 2,
+   "note": "so far"
+  },
   "adp": {
    "pct": 0
   }

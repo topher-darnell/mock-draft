@@ -364,6 +364,8 @@ def stat_sentence(p):
         line = "had " + (", ".join(bits[:-1]) + " and " + bits[-1] if len(bits) > 1 else bits[0])
     else:
         return ""
+    if s.get("note") == "so far":
+        return f" This season ({season}), {first} has {re.sub(r'^(threw|ran|caught|had)', lambda m: {'threw': 'thrown', 'ran': 'run', 'caught': 'caught', 'had': 'had'}[m.group(1)], line)}{games}."
     return f" In {season}, {first} {line}{games}."
 
 
@@ -416,6 +418,15 @@ def player_page(p):
       <h2 class="home-h2">{s.get('season', 2025)} stats</h2>
       {f'<p class="in-note">{esc(" · ".join(bits))}</p>' if bits else ''}
       <dl class="pc-stats pg-stats">{''.join(f'<div><dt>{esc(k)}</dt><dd>{esc(num(v))}</dd></div>' for k, v in tiles)}</dl>
+    </section>"""
+        prev = p.get("stats_prev")
+        ptiles = stat_tiles({**p, "stats": prev}) if prev else []
+        if ptiles:
+            stats += f"""
+    <section class="pg-section">
+      <h2 class="home-h2">{prev.get('season', 2025)} stats</h2>
+      {f'<p class="in-note">{prev["games"]} games</p>' if prev.get("games") else ''}
+      <dl class="pc-stats pg-stats">{''.join(f'<div><dt>{esc(k)}</dt><dd>{esc(num(v))}</dd></div>' for k, v in ptiles)}</dl>
     </section>"""
     elif pos in ("OT", "IOL"):
         stats = """

@@ -154,3 +154,11 @@ signs/trades for one, update both lists before running the simulations.
 - No NFL or team logos, no real player photos, never identify people from faces.
 - Keep the site orange (#F2A93B).
 - Write in plain English.
+
+## College stats (2026 season)
+
+Topher exports the Sports Reference 2026 passing, rushing, receiving and defense tables
+(Share & Export → Get table as CSV) into `mockdraft/sr/2026-*.csv`. Then run
+`python3 college_2026.py` (writes `prospect_stats_2026.csv`), `export_json.py` and `build_pages.py`.
+Player pages show 2026 first ("so far") with 2025 under it. Sports Reference blocks automated
+downloads, so these files only change when he sends new ones.

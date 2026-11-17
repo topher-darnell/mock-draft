@@ -19,7 +19,8 @@ import os
 from config import TEAMS_FILE, PLAYERS_FILE, ORDER_FILE, CHART_FILE
 
 # extra details for the player cards (optional: the export still works without them)
-STATS_FILE = "prospect_stats.csv"
+STATS_FILE = "prospect_stats.csv"            # last season (2025)
+STATS_2026_FILE = "prospect_stats_2026.csv"  # this season so far (college_2026.py); shown first when a player has it
 AGES_FILE = "prospect_ages.csv"
 ADP_FILE = "adp.csv"
 SIM_PICKS_FILE = "sim_picks.csv"
@@ -61,19 +62,29 @@ def read_extra(path):
 def add_details(players):
     """put college stats and draft-day age on each player who has them"""
     stats = read_extra(STATS_FILE)
+    stats_now = read_extra(STATS_2026_FILE)
     ages = read_extra(AGES_FILE)
     adp = read_extra(ADP_FILE)
     with_stats = with_age = 0
     for p in players:
-        row = stats.get(p["name"])
-        if row:
-            numbers = {col: number(row.get(col)) for col in STAT_COLUMNS}
-            numbers = {col: v for col, v in numbers.items() if v is not None}
-            if numbers:
-                p["stats"] = {"season": int(row.get("season") or 2025), **numbers}
-                if row.get("note", "").strip():
-                    p["stats"]["note"] = row["note"].strip()
-                with_stats += 1
+        seasons = []
+        for table, default in ((stats_now, 2026), (stats, 2025)):
+            row = table.get(p["name"])
+            if row:
+                numbers = {col: number(row.get(col)) for col in STAT_COLUMNS}
+                numbers = {col: v for col, v in numbers.items() if v is not None}
+                if numbers:
+                    one = {"season": int(row.get("season") or default), **numbers}
+                    if row.get("note", "").strip():
+                        one["note"] = row["note"].strip()
+                    elif one["season"] == 2026:
+                        one["note"] = "so far"
+                    seasons.append(one)
+        if seasons:
+            p["stats"] = seasons[0]
+            if len(seasons) > 1:
+                p["stats_prev"] = seasons[1]
+            with_stats += 1
         row = adp.get(p["name"])
         if row:
             p["adp"] = {"pct": number(row["drafted_pct"])}
