@@ -18,9 +18,9 @@ round,pick,team,from
 1,17,Seattle Seahawks,
 1,18,Cleveland Browns,Los Angeles Rams
 1,19,Carolina Panthers,
-1,20,New York Giants,
-1,21,Cleveland Browns,
-1,22,Dallas Cowboys,Green Bay Packers
+1,20,Cleveland Browns,
+1,21,Dallas Cowboys,Green Bay Packers
+1,22,New York Giants,
 1,23,Pittsburgh Steelers,
 1,24,Cincinnati Bengals,
 1,25,Philadelphia Eagles,Jacksonville Jaguars
@@ -50,9 +50,9 @@ round,pick,team,from
 2,49,Los Angeles Rams,
 2,50,Seattle Seahawks,
 2,51,Carolina Panthers,
-2,52,New York Giants,
-2,53,Green Bay Packers,
-2,54,Cleveland Browns,
+2,52,Green Bay Packers,
+2,53,Cleveland Browns,
+2,54,New York Giants,
 2,55,Pittsburgh Steelers,
 2,56,Atlanta Falcons,Jacksonville Jaguars
 2,57,Kansas City Chiefs,
@@ -82,9 +82,9 @@ round,pick,team,from
 3,81,Indianapolis Colts,Seattle Seahawks
 3,82,Kansas City Chiefs,Los Angeles Rams
 3,83,Carolina Panthers,
-3,84,New York Giants,
-3,85,Cleveland Browns,
-3,86,Green Bay Packers,
+3,84,Cleveland Browns,
+3,85,Green Bay Packers,
+3,86,New York Giants,
 3,87,Pittsburgh Steelers,
 3,88,Kansas City Chiefs,
 3,89,Detroit Lions,
@@ -120,9 +120,9 @@ round,pick,team,from
 4,119,Los Angeles Rams,
 4,120,Cleveland Browns,Seattle Seahawks
 4,121,Carolina Panthers,
-4,122,Cleveland Browns,New York Giants
-4,123,Green Bay Packers,
-4,124,Cleveland Browns,
+4,122,Green Bay Packers,
+4,123,Cleveland Browns,
+4,124,Cleveland Browns,New York Giants
 4,125,Dallas Cowboys,Pittsburgh Steelers
 4,126,Detroit Lions,
 4,127,Los Angeles Chargers,Denver Broncos
@@ -157,9 +157,9 @@ round,pick,team,from
 5,156,Seattle Seahawks,
 5,157,Los Angeles Rams,
 5,158,Minnesota Vikings,Carolina Panthers
-5,159,Minnesota Vikings,New York Giants
-5,160,Cleveland Browns,
-5,161,Green Bay Packers,
+5,159,Cleveland Browns,
+5,160,Green Bay Packers,
+5,161,Minnesota Vikings,New York Giants
 5,162,Miami Dolphins,Pittsburgh Steelers
 5,163,Denver Broncos,
 5,164,Minnesota Vikings,
@@ -197,9 +197,9 @@ round,pick,team,from
 6,196,Los Angeles Rams,
 6,197,Los Angeles Chargers,Seattle Seahawks
 6,198,Carolina Panthers,
-6,199,New York Giants,
-6,200,Green Bay Packers,
-6,201,Houston Texans,Cleveland Browns
+6,199,Green Bay Packers,
+6,200,Houston Texans,Cleveland Browns
+6,201,New York Giants,
 6,202,Pittsburgh Steelers,
 6,203,New England Patriots,Minnesota Vikings
 6,204,Chicago Bears,
@@ -239,9 +239,9 @@ round,pick,team,from
 7,238,Seattle Seahawks,
 7,239,Los Angeles Chargers,Los Angeles Rams
 7,240,Carolina Panthers,
-7,241,Miami Dolphins,New York Giants
-7,242,Cleveland Browns,
-7,243,Green Bay Packers,
+7,241,Cleveland Browns,
+7,242,Green Bay Packers,
+7,243,Miami Dolphins,New York Giants
 7,244,Pittsburgh Steelers,
 7,245,Chicago Bears,
 7,246,Cincinnati Bengals,

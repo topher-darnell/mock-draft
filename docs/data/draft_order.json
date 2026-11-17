@@ -116,20 +116,20 @@
  {
   "round": 1,
   "pick": 20,
-  "team": "New York Giants",
-  "from": ""
- },
- {
-  "round": 1,
-  "pick": 21,
   "team": "Cleveland Browns",
   "from": ""
  },
  {
   "round": 1,
-  "pick": 22,
+  "pick": 21,
   "team": "Dallas Cowboys",
   "from": "Green Bay Packers"
+ },
+ {
+  "round": 1,
+  "pick": 22,
+  "team": "New York Giants",
+  "from": ""
  },
  {
   "round": 1,
@@ -308,19 +308,19 @@
  {
   "round": 2,
   "pick": 52,
-  "team": "New York Giants",
-  "from": ""
- },
- {
-  "round": 2,
-  "pick": 53,
   "team": "Green Bay Packers",
   "from": ""
  },
  {
   "round": 2,
-  "pick": 54,
+  "pick": 53,
   "team": "Cleveland Browns",
+  "from": ""
+ },
+ {
+  "round": 2,
+  "pick": 54,
+  "team": "New York Giants",
   "from": ""
  },
  {
@@ -500,19 +500,19 @@
  {
   "round": 3,
   "pick": 84,
-  "team": "New York Giants",
-  "from": ""
- },
- {
-  "round": 3,
-  "pick": 85,
   "team": "Cleveland Browns",
   "from": ""
  },
  {
   "round": 3,
-  "pick": 86,
+  "pick": 85,
   "team": "Green Bay Packers",
+  "from": ""
+ },
+ {
+  "round": 3,
+  "pick": 86,
+  "team": "New York Giants",
   "from": ""
  },
  {
@@ -728,20 +728,20 @@
  {
   "round": 4,
   "pick": 122,
-  "team": "Cleveland Browns",
-  "from": "New York Giants"
+  "team": "Green Bay Packers",
+  "from": ""
  },
  {
   "round": 4,
   "pick": 123,
-  "team": "Green Bay Packers",
+  "team": "Cleveland Browns",
   "from": ""
  },
  {
   "round": 4,
   "pick": 124,
   "team": "Cleveland Browns",
-  "from": ""
+  "from": "New York Giants"
  },
  {
   "round": 4,
@@ -950,20 +950,20 @@
  {
   "round": 5,
   "pick": 159,
-  "team": "Minnesota Vikings",
-  "from": "New York Giants"
- },
- {
-  "round": 5,
-  "pick": 160,
   "team": "Cleveland Browns",
   "from": ""
  },
  {
   "round": 5,
-  "pick": 161,
+  "pick": 160,
   "team": "Green Bay Packers",
   "from": ""
+ },
+ {
+  "round": 5,
+  "pick": 161,
+  "team": "Minnesota Vikings",
+  "from": "New York Giants"
  },
  {
   "round": 5,
@@ -1190,20 +1190,20 @@
  {
   "round": 6,
   "pick": 199,
-  "team": "New York Giants",
-  "from": ""
- },
- {
-  "round": 6,
-  "pick": 200,
   "team": "Green Bay Packers",
   "from": ""
  },
  {
   "round": 6,
-  "pick": 201,
+  "pick": 200,
   "team": "Houston Texans",
   "from": "Cleveland Browns"
+ },
+ {
+  "round": 6,
+  "pick": 201,
+  "team": "New York Giants",
+  "from": ""
  },
  {
   "round": 6,
@@ -1442,20 +1442,20 @@
  {
   "round": 7,
   "pick": 241,
-  "team": "Miami Dolphins",
-  "from": "New York Giants"
- },
- {
-  "round": 7,
-  "pick": 242,
   "team": "Cleveland Browns",
   "from": ""
  },
  {
   "round": 7,
-  "pick": 243,
+  "pick": 242,
   "team": "Green Bay Packers",
   "from": ""
+ },
+ {
+  "round": 7,
+  "pick": 243,
+  "team": "Miami Dolphins",
+  "from": "New York Giants"
  },
  {
   "round": 7,
