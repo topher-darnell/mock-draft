@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "70", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "71", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -205,7 +205,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <script src="{root}gm.js?v={GM_V}"></script>
   <script src="{root}site.js?v={SITE_JS_V}"></script>
   <script src="{root}newsletter.js?v=1"></script>
-  <script src="{root}getapp.js?v=3"></script>{tags}
+  <script src="{root}getapp.js?v=4"></script>{tags}
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
@@ -1915,7 +1915,9 @@ def sc_game(g, have, full=True):
     row = lambda t, pts, win, at="": f'<div class="sc-row{" win" if win else ""}"><span>{at}{name(t)}</span><b>{pts}</b></div>'
     rows = row(a, sa, sa > sh) + row(h, sh, sh > sa, "@ ")
     tops = ""
-    if full:
+    if full and not (g["away_all"] or g["home_all"]):    # final score is in, player stats aren't yet
+        tops = '<p class="sc-wait">Player stats and fantasy points post in a few hours.</p>'
+    elif full:
         def plist(side):
             out = ""
             for r in g[side + "_top"]:
@@ -2373,8 +2375,8 @@ def app_page():
       <div class="app-hero">
         <img class="app-icon" src="icons/icon-512.png?v=4" alt="Big Head GM app icon" width="132" height="132">
         <h1>Big Head GM is an <span>app</span>.</h1>
-        <p>Put it on your home screen in 10 seconds. Free, no App Store, no sign-up. It opens full screen,
-           updates itself and works offline.</p>
+        <p><b>App coming soon to the App Store.</b> For now, put it on your home screen in 10 seconds.
+           Free, no sign-up. It opens full screen, updates itself and works offline.</p>
         <button type="button" class="app-btn app-only-android" data-install>Install the app</button>
         <a class="app-btn app-only-ios" href="#app-ios">Show me how (iPhone)</a>
         <p class="app-done">You're using the app. You're all set 🫡</p>

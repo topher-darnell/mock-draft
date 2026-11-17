@@ -1,16 +1,16 @@
-# 2027 draft order after Week 9 (Nov 10, 2026). One line per group of teams with the same record.
-LAC
-TEN MIA
-IND PHI NYJ
+# 2027 draft order after Week 10 (Nov 16, 2026). One line per group of teams with the same record.
+TEN LAC MIA
+NYJ
+PHI
+IND ARI ATL
+HOU TB NO
 WAS
-TB ARI ATL
-HOU NO
 DAL BAL LV
-CLE SEA LAR
-CAR
 NE
-GB
+SEA LAR
+CAR
 NYG
-CIN JAX KC PIT DET MIN
-DEN CHI
+CLE GB
+PIT
+CIN JAX KC DET DEN MIN CHI
 SF BUF

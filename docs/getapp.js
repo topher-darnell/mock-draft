@@ -62,8 +62,8 @@
     b.id = "app-banner";
     b.className = "app-banner";
     b.innerHTML = `<img src="${ROOT}icons/icon-192.png?v=4" alt="" width="40" height="40">
-      <span><b>Get the Big Head GM app</b><small>Free · no App Store needed</small></span>
-      <button type="button" class="app-banner-go">Get it</button>
+      <span><b>App coming soon to the App Store</b><small>Add Big Head GM to your home screen for now</small></span>
+      <button type="button" class="app-banner-go">Add</button>
       <button type="button" class="app-banner-x" aria-label="Not now">✕</button>`;
     b.querySelector(".app-banner-go").addEventListener("click", () => window.bhgInstall());
     b.querySelector(".app-banner-x").addEventListener("click", () => { store(KEY, String(Date.now())); hideBanner(); count("app-banner-dismiss"); });
