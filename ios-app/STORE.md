@@ -72,7 +72,7 @@ fantasy,football,mock draft,start sit,trade analyzer,waiver wire,ppr,dynasty,roo
 | Copyright | `2026 Big Head GM` |
 | Version | `1.0` |
 
-**Screenshots:** upload the 7 files in `screenshots/` to the **6.9" Display** slot, in order (1 home, 2 Fantasle, 3 trade, 4 start/sit, 5 mock draft, 6 scores, 7 award odds). They're 1320 × 2868, the size Apple asks for. The app is iPhone-only, so no iPad screenshots are needed.
+**Screenshots:** upload the 7 files in `screenshots-6.3/` (1206 × 2622) to the **iPhone with Dynamic Island (medium display)** slot, in order (1 home, 2 Fantasle, 3 trade, 4 start/sit, 5 mock draft, 6 scores, 7 award odds). They're 1320 × 2868, the size Apple asks for. The app is iPhone-only, so no iPad screenshots are needed.
 
 ## App Review Information
 
