@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "72", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "73", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -2615,17 +2615,18 @@ def home_feature():
     tiles = lambda rows_: "".join('<span class="fx-row">' + "".join(f'<i class="{c}">{t}</i>' for c, t in row) + "</span>" for row in rows_)
     fl = tiles([[("g", "WR"), ("g", "SEA"), ("g", "25.7"), ("g", "9")]])
     pl = tiles([[("g", "SEC"), ("g", "WR"), ("g", "6-2"), ("g", "#7")]])
+    p17 = tiles([[("g", "W"), ("g", "W"), ("g", "W"), ("g", "17-0")]])
     return f"""<!-- home-feature:start (written by build_pages.py) -->
     <section class="fx" aria-labelledby="fx-h">
       <div class="wrap">
         <div class="fx-head">
           <h2 class="fx-title" id="fx-h">Start <span>here.</span></h2>
-          <p class="fx-sub">Two daily games and the fantasy tools that win leagues. Free, no sign-up.</p>
+          <p class="fx-sub">Three games and the fantasy tools that win leagues. Free, no sign-up.</p>
         </div>
         <div class="fx-grid">
           <div class="fx-card fx-gm">
             <span class="fx-eye">Daily games <b class="fx-num"></b></span>
-            <span class="fx-name">Fantasle &amp; Prospectle</span>
+            <span class="fx-name">Fantasle, Prospectle &amp; 17-0</span>
             <a class="fx-mini fx-fl" href="games/fantasle.html" data-game="fl">
               <span class="fx-board" aria-hidden="true">{fl}</span>
               <span class="fx-mini-name">Fantasle</span>
@@ -2638,6 +2639,12 @@ def home_feature():
               <span class="fx-mini-name">Prospectle</span>
               <span class="fx-line">Guess the 2027 draft prospect.</span>
               <span class="fx-status" hidden></span>
+              <span class="fx-go">Play →</span>
+            </a>
+            <a class="fx-mini fx-p17" href="games/17-0.html">
+              <span class="fx-board" aria-hidden="true">{p17}</span>
+              <span class="fx-mini-name">17-0</span>
+              <span class="fx-line">Draft a lineup. Go undefeated.</span>
               <span class="fx-go">Play →</span>
             </a>
           </div>

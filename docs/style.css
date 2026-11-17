@@ -2978,7 +2978,7 @@ a.gd-tool:hover { border-color: #3A4656; }
 .fx-card:hover, .fx-card:focus-visible { transform: translateY(-3px); border-color: var(--c);
   box-shadow: 0 16px 40px -14px color-mix(in srgb, var(--c) 90%, transparent); }
 .fx-card:active { transform: translateY(0) scale(.98); }
-.fx-fl, .fx-gm { --c: #3DBE74; } .fx-pl { --c: #9B7BFF; } .fx-tr { --c: #F2A93B; } .fx-ff { --c: #4AA8FF; } .fx-ss { --c: #34D1BF; }
+.fx-fl, .fx-gm { --c: #3DBE74; } .fx-pl { --c: #9B7BFF; } .fx-p17 { --c: #F2A93B; } .fx-tr { --c: #F2A93B; } .fx-ff { --c: #4AA8FF; } .fx-ss { --c: #34D1BF; }
 /* the two daily games share one card: each game is its own link inside it */
 .fx-gm:hover, .fx-gm:active { transform: none; }
 .fx-gm .fx-name { margin: 2px 0 2px; }
