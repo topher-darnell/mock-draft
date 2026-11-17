@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "71", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "72", "5", "1"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -47,7 +47,7 @@ POS_ORDER = ["QB", "RB", "WR", "TE", "OT", "IOL", "EDGE", "IDL", "LB", "CB", "S"
 YEAR_NAME = {"RS Senior": "redshirt senior", "RS Junior": "redshirt junior", "RS Sophomore": "redshirt sophomore"}
 
 NAV = [("", "Mock draft"), ("players/", "Big board"), ("teams/", "Team mocks"), ("odds.html", "#1 pick odds"), ("awards.html", "Award odds"),
-       ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("games/", "Games"), ("scores.html", "Scores & News")]
+       ("experts.html", "Expert mocks"), ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("games/", "Games"), ("scores.html", "Scores & News")]
 
 
 # ---------- small helpers ----------
@@ -771,6 +771,96 @@ AWARDS = [("mvp", "MVP", "Most Valuable Player"), ("opoy", "OPOY", "Offensive Pl
           ("dpoy", "DPOY", "Defensive Player of the Year"), ("oroy", "OROY", "Offensive Rookie of the Year"),
           ("droy", "DROY", "Defensive Rookie of the Year"), ("coy", "Coach", "Coach of the Year")]
 FF_ALIAS = {"Kenneth Walker III": "Kenneth Walker"}
+
+
+def experts_page():
+    """docs/experts.html: the latest 2027 mock drafts from well-known analysts (expert_mocks.csv), side by side with ours"""
+    rows = read_csv("expert_mocks.csv")
+    mocks = []
+    for r in rows:
+        if not mocks or mocks[-1]["analyst"] != r["analyst"]:
+            mocks.append({k: r[k] for k in ("analyst", "outlet", "date", "url")} | {"picks": []})
+        mocks[-1]["picks"].append(r)
+    mocks.sort(key=lambda m: m["date"], reverse=True)
+    have = {p["name"]: p for p in players}
+    nick = lambda t: t.split()[-1]
+
+    def who(name, pos, cls=""):
+        p = have.get(name)
+        nm = f'<a href="players/{p["slug"]}.html">{esc(name)}</a>' if p else esc(name)
+        return f'<b class="{cls}">{nm}</b><span>{esc(pos)}</span>'
+
+    # what the experts agree on: average pick for everyone taken in at least two mocks
+    seen = {}
+    for m in mocks:
+        for r in m["picks"]:
+            seen.setdefault(r["player"], []).append(int(r["pick"]))
+    ours = {p["name"]: s_["pick"] for s_, p in MOCK_LIST if s_["round"] == 1}
+    agree = sorted(((sum(v) / len(v), n, v) for n, v in seen.items() if len(v) >= 2), key=lambda x: (x[0], -len(x[2])))[:24]
+    arows = ""
+    for avg, n, v in agree:
+        pos = next(r["position"] for m in mocks for r in m["picks"] if r["player"] == n)
+        o = ours.get(n)
+        arows += (f'<tr><th scope="row">{who(n, pos)}</th><td>{avg:.1f}<span>{min(v)}–{max(v)}</span></td>'
+                  f'<td>{len(v)} of {len(mocks)}</td><td>{o if o else "—"}</td></tr>')
+
+    ones = [m["picks"][0]["player"] for m in mocks]
+    top = max(set(ones), key=ones.count)
+    our1 = MOCK_LIST[0][1]["name"]
+
+    # side by side, pick by pick
+    n_rows = max(len(m["picks"]) for m in mocks)
+    head = "".join(f'<th scope="col">{esc(m["analyst"])}<span>{esc(m["outlet"])} · {nice_date(m["date"]).rsplit(",", 1)[0]}</span></th>' for m in mocks)
+    grid = ""
+    for i in range(n_rows):
+        s_, p = MOCK_LIST[i]
+        cells = f'<td class="ex-ours"><i>{esc(nick(s_["team"]))}</i>{who(p["name"], p["position"])}</td>'
+        for m in mocks:
+            if i < len(m["picks"]):
+                r = m["picks"][i]
+                same = " ex-same" if r["player"] == p["name"] else ""
+                cells += f'<td class="{same.strip()}"><i>{esc(nick(r["team"]))}</i>{who(r["player"], r["position"])}</td>'
+            else:
+                cells += '<td class="ex-none">—</td>'
+        grid += f'<tr><th scope="row">{i + 1}</th>{cells}</tr>'
+
+    srcs = "".join(f'<li><b>{esc(m["analyst"])}</b>, {esc(m["outlet"])}, {nice_date(m["date"])}: '
+                   f'{"full first round" if len(m["picks"]) >= 32 else f"first {len(m['picks'])} picks"}. '
+                   f'<a href="{esc(m["url"])}" rel="noopener nofollow">Read it →</a></li>' for m in mocks)
+    body = f"""
+    <p class="eyebrow">2027 NFL DRAFT · EXPERT MOCKS</p>
+    <h1 class="in-title">Expert mock drafts</h1>
+    <p class="in-sub">The newest 2027 first-round mocks from well-known draft analysts, next to ours. Player names link to their scouting pages.</p>
+
+    <section class="pg-section">
+      <h2 class="home-h2">Who goes #1?</h2>
+      <p class="pg-text"><b>{esc(top)}</b> goes first in {ones.count(top)} of {len(mocks)} expert mocks. All of them came out before the Chargers beat the Ravens on Nov. 16, when the Chargers still held the top pick. With the Titans now on the clock, our mock has them taking <b>{esc(our1)}</b>.</p>
+    </section>
+
+    <section class="pg-section">
+      <h2 class="home-h2">Where the experts agree</h2>
+      <p class="in-note">Average pick for every player taken in at least two of these mocks. Range is earliest to latest.</p>
+      <div class="od-wrap"><table class="od-table ex-agree">
+        <thead><tr><th scope="col">Player</th><th scope="col">Avg pick</th><th scope="col">Mocks</th><th scope="col">Ours</th></tr></thead>
+        <tbody>{arows}</tbody></table></div>
+    </section>
+
+    <section class="pg-section">
+      <h2 class="home-h2">Pick by pick</h2>
+      <p class="in-note">Each mock uses the draft order from the day it came out, so teams can differ. <span class="ex-key">Highlighted</span> = same player as our mock at that pick. Swipe the table sideways on a phone.</p>
+      <div class="ex-scroll"><table class="ex-grid">
+        <thead><tr><th scope="col">#</th><th scope="col" class="ex-ours">Big Head GM<span>today</span></th>{head}</tr></thead>
+        <tbody>{grid}</tbody></table></div>
+    </section>
+
+    <section class="pg-section">
+      <h2 class="home-h2">The mocks</h2>
+      <ul class="ex-src">{srcs}</ul>
+      <p class="in-note">We list each analyst's picks with a link to the full article, where you'll find their reasoning. Mocks change every week, so we add new ones as they come out.</p>
+    </section>"""
+    return page("experts.html", "2027 NFL Expert Mock Drafts: Kiper, CBS, PFN, WalterFootball vs Big Head GM",
+                f"The latest 2027 NFL first-round mock drafts from {', '.join(m['analyst'] for m in mocks)}, side by side with the Big Head GM mock.",
+                body, crumbs=[("Expert mocks", "experts.html")], nav="experts.html")
 
 
 def awards_page():
@@ -2176,11 +2266,12 @@ def gd_tools():
             <a class="gd-card gd-tool" href="fantasy-draft.html"><b>Fantasy mock</b><span>Practice your draft</span></a>
             <a class="gd-card gd-tool" href="?start=1"><b>2027 mock draft</b><span>You're on the clock</span></a>
             <a class="gd-card gd-tool" href="awards.html"><b>Award odds</b><span>MVP, OPOY, rookies</span></a>
+            <a class="gd-card gd-tool" href="experts.html"><b>Expert mocks</b><span>Kiper, CBS &amp; more</span></a>
           </div>
         </section>"""
 
 
-TAB_OF = {"": "home", "games/": "games", "news.html": "news", "scores.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft", "awards.html": "news"}
+TAB_OF = {"": "home", "games/": "games", "news.html": "news", "scores.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft", "awards.html": "news", "experts.html": "draft"}
 
 
 def gd_tabs(root="", current="home"):
@@ -2859,7 +2950,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "awards.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html", "privacy.html", "support.html"]
+    paths = ["", "players/", "teams/", "odds.html", "awards.html", "experts.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html", "privacy.html", "support.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2870,6 +2961,7 @@ def main():
         paths.append(f"teams/{slug(team)}.html")
     write("odds.html", odds_page())
     write("awards.html", awards_page())
+    write("experts.html", experts_page())
     write("fantasy.html", fantasy_page())
     write("fantasy-draft.html", fantasy_draft_page())
     write("fantasy-trade.html", fantasy_trade_page())
