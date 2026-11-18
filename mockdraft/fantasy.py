@@ -14,6 +14,7 @@ That prints every row whose points don't match FFToday's own Half-PPR total.
 """
 
 import csv
+import datetime
 import unicodedata
 import math
 import os
@@ -317,8 +318,12 @@ def injuries(first_week):
                 continue
             if st in ("questionable", "doubtful") and name in final:
                 continue           # a week-only tag from earlier in the week: the official final report decides now
-            if st in ("questionable", "doubtful") and out.get(name, {}).get("s") in ("out", "ir"):
+            prior = out.get(name, {}).get("s")
+            fresh = r.get("date", "") >= (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
+            if st in ("questionable", "doubtful") and prior == "out":
                 continue
+            if st in ("questionable", "doubtful") and prior == "ir" and not fresh:
+                continue           # a recent hand note can say an IR player is back at practice (designated to return)
             back = int(r["back_week"]) if r["back_week"] else (99 if st == "season" else first_week + IR_WEEKS if st == "ir" else first_week + 1 if st == "out" else 0)
             out[name] = {"s": st, "back": back, "inj": r["injury"], "src": r["source"], "date": r["date"]}
     return out
