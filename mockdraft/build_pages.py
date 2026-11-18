@@ -807,6 +807,15 @@ def experts_page():
     ones = [m["picks"][0]["player"] for m in mocks]
     top = max(set(ones), key=ones.count)
     our1 = MOCK_LIST[0][1]["name"]
+    after = [m for m in mocks if m["date"] >= "2026-11-17"]     # after the Chargers' first win flipped #1 to the Titans
+    if not after:
+        after_txt = "All of them came out before the Chargers beat the Ravens on Nov. 16, when the Chargers still held the top pick."
+    else:
+        who_ = ", ".join(f'{m["analyst"]} ({m["outlet"]}, {nice_date(m["date"]).rsplit(",", 1)[0]})' for m in after)
+        firsts = "; ".join(f'{m["analyst"].split()[-1]} has the {nick(m["picks"][0]["team"])} taking {m["picks"][0]["player"]}' for m in after)
+        before = len(mocks) - len(after)
+        after_txt = (f"{esc(who_)} came out after the Chargers beat the Ravens on Nov. 16 and the Titans took over #1: {esc(firsts)}. "
+                     f"The other {before} were done when the Chargers still held the top pick.")
 
     # side by side, pick by pick
     n_rows = max(len(m["picks"]) for m in mocks)
@@ -834,7 +843,7 @@ def experts_page():
 
     <section class="pg-section">
       <h2 class="home-h2">Who goes #1?</h2>
-      <p class="pg-text"><b>{esc(top)}</b> goes first in {ones.count(top)} of {len(mocks)} expert mocks. All of them came out before the Chargers beat the Ravens on Nov. 16, when the Chargers still held the top pick. With the Titans now on the clock, our mock has them taking <b>{esc(our1)}</b>.</p>
+      <p class="pg-text"><b>{esc(top)}</b> goes first in {ones.count(top)} of {len(mocks)} expert mocks. {after_txt} Our mock has the {esc(nick(MOCK_LIST[0][0]["team"]))} taking <b>{esc(our1)}</b>.</p>
     </section>
 
     <section class="pg-section">
