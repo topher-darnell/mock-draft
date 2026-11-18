@@ -11,7 +11,7 @@ const QB_PENALTY = { 1: 1000, 2: 1000, 3: 1000, 4: 60, 5: 60, 6: 25, 7: 25 };
 function stackPenalty(position, already, pickNumber) {
   return already ? (10 + 0.3 * pickNumber) * already * (position === "QB" ? 4 : 1) : 0;
 }
-const RANDOMNESS = 7;                // random swing for the top players
+const RANDOMNESS = 5;                // random swing for the top players
 const DEEP_RANDOMNESS = 0.4;         // deeper players swing more: rank x this
 const LOOK_AHEAD = 15;               // computer only considers this many best-available players
 const PICK_DELAY = 350;              // milliseconds between computer picks at Normal speed
@@ -767,13 +767,28 @@ function startDraft() {
 
 // ---------- The draft ----------
 
+// What expert mocks say (expert_signal.py): blend board rank with the player's average expert pick,
+// and a round-1 bonus when experts keep sending him to this team
+function expertValue(p) {
+  const e = p.expert;
+  if (!e) return p.rank;
+  const w = Math.min(0.5, 0.15 * e.n);
+  return p.rank * (1 - w) + e.avg * w;
+}
+function expertFit(p, teamName) {
+  const e = p.expert;
+  return e && e.teams[teamName] ? Math.min(7.5, 2.5 * e.teams[teamName]) : 0;
+}
+
 // Same idea as cpu_pick in draft_logic.py: lowest score wins
 function cpuPick(teamName, pick) {
   const mult = chaosMult();
   const mine = results.filter((r) => r.team === teamName).map((r) => r.player.position);
   const round = pick ? pick.round : 1, number = pick ? (pick.number || pick.pick || 1) : 1;
-  const candidates = available.slice(0, Math.round(LOOK_AHEAD * Math.max(1, mult)));
+  const candidates = available.slice().sort((a, b) => expertValue(a) - expertValue(b)).slice(0, Math.round(LOOK_AHEAD * Math.max(1, mult)));
   const teamNeeds = needs[teamName];
+  const locked = available.find((p) => p.lock === number);   // our call for this pick (mock_locks.csv)
+  if (locked) return locked;
   let best = null;
   let bestScore = Infinity;
 
@@ -786,7 +801,8 @@ function cpuPick(teamName, pick) {
     const swing = Math.max(RANDOMNESS, p.rank * DEEP_RANDOMNESS) * mult;
     let extra = stackPenalty(p.position, mine.filter((x) => x === p.position).length, number);
     if (p.position === "QB" && FRANCHISE_QB.has(teamName)) extra += QB_PENALTY[round] || 25;
-    const score = p.rank - bonus + extra + (Math.random() * 2 - 1) * swing;
+    if (round === 1) bonus += expertFit(p, teamName);
+    const score = expertValue(p) - bonus + extra + (Math.random() * 2 - 1) * swing;
     if (score < bestScore) {
       bestScore = score;
       best = p;

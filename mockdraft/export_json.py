@@ -151,6 +151,18 @@ def main():
     ]
     players.sort(key=lambda p: p["rank"])
     add_details(players)
+    import expert_signal
+    for p in players:                                  # what the expert mocks say (expert_signal.py), for the web simulator
+        e = expert_signal.EXPERT.get(p["name"])
+        if e:
+            p["expert"] = e
+    locks = {}
+    if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mock_locks.csv")):
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mock_locks.csv"), newline="", encoding="utf-8") as f:
+            locks = {r["player"].strip(): int(r["pick"]) for r in csv.DictReader(f) if r.get("pick")}
+    for p in players:                                  # picks we set by hand (mock_locks.csv): the simulator makes them too
+        if p["name"] in locks:
+            p["lock"] = locks[p["name"]]
     save("players.json", players)
 
     teams = [

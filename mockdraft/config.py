@@ -9,7 +9,7 @@ RESULTS_FOLDER = "mocks"
 
 # How the computer drafts
 NEED_BONUS = [8, 6, 4, 3, 2]   # bonus (in "rank spots") for top need, 2nd need, ...
-RANDOMNESS = 7                  # max random swing in rank spots; higher = wilder drafts
+RANDOMNESS = 5                  # max random swing in rank spots; higher = wilder drafts
 LOOK_AHEAD = 15                 # CPU only considers this many best-available players
 
 # Teams with an established starting QB: no QB in rounds 1-3, and rarely a backup later.
