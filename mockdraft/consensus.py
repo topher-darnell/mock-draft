@@ -44,6 +44,7 @@ def build():
     pool = sorted(players, key=where)
     taken, took = set(), {}
     out = []
+    locks = {int(r["pick"]): r["player"].strip() for r in _read_csv("mock_locks.csv")} if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), "mock_locks.csv")) else {}
     for s in sims["slots"]:
         team, pick = s["team"], s["pick"]
         scale = max(1.0, pick / 32)
@@ -65,6 +66,8 @@ def build():
             return sc
 
         best = min(cands, key=score)
+        if pick in locks:
+            best = next((p for p in pool if p["name"] == locks[pick] and p["name"] not in taken), best)
         taken.add(best["name"])
         mine.append(best)
         if best["position"] in want:

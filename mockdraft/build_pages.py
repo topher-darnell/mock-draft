@@ -712,6 +712,9 @@ def odds_page():
                    f"so no quarterback goes first in any of our {SIMS} drafts. The betting markets are pricing in something our "
                    f"simulations don't: the draft order isn't final, and a team that needs a quarterback could end up with the pick or trade up for it.")
     summary = f"In our simulations, {our_top} goes first most often ({pct(ours[our_top])})." if our_top else ""
+    lock1 = next((r["player"] for r in read_csv("mock_locks.csv") if r["pick"] == "1"), None) if os.path.exists(os.path.join(HERE, "mock_locks.csv")) else None
+    if lock1 and lock1 != our_top:
+        summary += f" Our own mock takes {lock1} at #1: that's our call, so the numbers below are what the simulations do on their own."
     if fd_top:
         summary += f" FanDuel's favorite is {fd_top} ({fd[fd_top]})."
     if ka_top:

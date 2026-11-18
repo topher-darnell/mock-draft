@@ -162,3 +162,10 @@ Topher exports the Sports Reference 2026 passing, rushing, receiving and defense
 `python3 college_2026.py` (writes `prospect_stats_2026.csv`), `export_json.py` and `build_pages.py`.
 Player pages show 2026 first ("so far") with 2025 under it. Sports Reference blocks automated
 downloads, so these files only change when he sends new ones.
+
+## Locked picks (mock_locks.csv)
+
+`mockdraft/mock_locks.csv` holds picks Topher sets by hand (pick,player,why). Every simulated draft makes
+those picks and the rest of the draft follows from them; our mock on the site shows them too. The #1 pick
+odds on odds.html still come from unlocked simulations. Delete a row to let the simulations decide again.
+Currently: pick 1, Jeremiah Smith (set Nov 18).

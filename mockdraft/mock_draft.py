@@ -74,7 +74,9 @@ def user_pick(team, available, pick, order, chart, user_teams):
             show_board(available, count=50, position=choice)
 
 
-def run_draft(teams, players, order, rounds, user_teams, chart):
+def run_draft(teams, players, order, rounds, user_teams, chart, locks=None):
+    """locks: pick number -> player name; that pick is made for the team (our editorial calls, mock_locks.csv)"""
+    locks = locks or {}
     by_name = {t.name: t for t in teams}
     available = list(players)
     results = []
@@ -99,6 +101,8 @@ def run_draft(teams, players, order, rounds, user_teams, chart):
         if team.name in user_teams:
             player = user_pick(team, available, pick, order, chart, user_teams)
             team = by_name[pick.team]        # changes if you traded the pick away
+        if player is None and pick.number in locks:
+            player = next((p for p in available if p.name == locks[pick.number]), None)
         if player is None:
             player = cpu_pick(team, available, pick.round, pick.number)
 

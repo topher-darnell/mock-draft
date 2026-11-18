@@ -19,13 +19,24 @@ Run:  python3 auto_mocks.py              (10 drafts, 7 rounds)
 
 import contextlib
 import csv
+import os
 import io
 import sys
 from collections import Counter, defaultdict
 
 from config import TEAMS_FILE, PLAYERS_FILE, ORDER_FILE, CHART_FILE
 from data import load_teams, load_players, load_draft_order, load_trade_chart
-from mock_draft import run_draft
+from mock_draft import run_draft, cpu_pick
+
+
+LOCKS_FILE = "mock_locks.csv"   # pick,player: picks we set by hand (every simulated draft makes them)
+
+
+def load_locks():
+    if not os.path.exists(LOCKS_FILE):
+        return {}
+    with open(LOCKS_FILE, newline="", encoding="utf-8") as f:
+        return {int(r["pick"]): r["player"].strip() for r in csv.DictReader(f) if r.get("pick") and r.get("player")}
 
 
 def one_draft(rounds):
@@ -35,7 +46,7 @@ def one_draft(rounds):
     order = load_draft_order(ORDER_FILE, teams)
     chart = load_trade_chart(CHART_FILE)
     with contextlib.redirect_stdout(io.StringIO()):   # hide the pick-by-pick output
-        return run_draft(teams, players, order, rounds, set(), chart)
+        return run_draft(teams, players, order, rounds, set(), chart, load_locks())
 
 
 ADP_FILE = "adp.csv"
@@ -70,8 +81,17 @@ def save_slots(sims, slots):
 
 
 def save_first(sims, slots):
-    """everyone taken with the first pick, most often first"""
+    """everyone taken with the first pick, most often first. If we've locked #1 (mock_locks.csv),
+    the odds page still shows what the simulations would do on their own, so draft #1 again unlocked."""
     rnd, team, counts = slots[1]
+    if 1 in load_locks():
+        counts = Counter()
+        for _ in range(sims):
+            teams = load_teams(TEAMS_FILE)
+            order = load_draft_order(ORDER_FILE, teams)
+            p = order[0]
+            pick = cpu_pick({t.name: t for t in teams}[p.team], load_players(PLAYERS_FILE), p.round, p.number)
+            counts[(pick.name, pick.position)] += 1
     rows = [{"team": team, "name": name, "position": pos, "pct": round(100 * n / sims, 1)}
             for (name, pos), n in counts.most_common()]
     write_csv(FIRST_FILE, rows)
