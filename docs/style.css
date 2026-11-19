@@ -3216,3 +3216,34 @@ body:has(#app:not([hidden]) #results-screen:not([hidden])) .app-banner { display
 .mt-page .gd-team { margin: 18px 0 8px; }
 .mt-page .mt-tools { margin-bottom: 8px; }
 @media (min-width: 900px) { .mt-page .mt-tools { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* App feel: page fades, pull to refresh, crisp taps */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.18s; }
+@media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
+.gd-tabs { view-transition-name: tabs; }
+.site-header { view-transition-name: header; }
+html { -webkit-tap-highlight-color: transparent; }
+a, button, .filter, label { touch-action: manipulation; }
+.in-app button, .in-app .gd-tabs a, .in-app .filter { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.gd-card.gd-tool, .hd-card, .ff-cta, .mt-chip, .gd-tabs a, .filter, .pg-button, .hero-start, .start, .secondary { transition: transform 0.12s ease, opacity 0.12s ease; }
+.gd-card.gd-tool:active, .hd-card:active, .ff-cta:active, .pg-button:active, .hero-start:active, .start:active, .secondary:active, .filter:active { transform: scale(0.97); }
+.gd-tabs a:active { opacity: 0.6; }
+.ptr { position: fixed; top: calc(env(safe-area-inset-top) + 8px); left: 50%; z-index: 40; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--card); color: var(--muted); border: 1px solid var(--line); box-shadow: 0 6px 18px rgba(0,0,0,0.4); transform: translate(-50%, -50px); opacity: 0; pointer-events: none; }
+.ptr.ready { color: var(--accent); border-color: var(--accent); }
+.ptr.back { transition: transform 0.25s ease, opacity 0.25s ease; }
+.ptr.spin { transform: translate(-50%, 60px) !important; opacity: 1 !important; color: var(--accent); }
+.ptr.spin svg { animation: ptr-spin 0.7s linear infinite; }
+@keyframes ptr-spin { to { transform: rotate(360deg); } }
+
+/* Small phones (iPhone SE and narrower) */
+@media (max-width: 360px) {
+  .aw-grid { grid-template-columns: minmax(0, 1fr); }
+  .ss-card { padding: 10px; }
+  .ss-top { gap: 6px; flex-wrap: wrap; }
+  .ss-top .fd-who { min-width: 0; flex: 1 1 0; }
+  .ss-proj b { font-size: 19px; }
+  .gd-tabs a { font-size: 10px; }
+  .in-title { font-size: 30px; }
+}
