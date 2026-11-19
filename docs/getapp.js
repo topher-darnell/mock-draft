@@ -266,8 +266,31 @@
         return on;
       } catch (e) { api.error = (e && (e.message || e.code)) || String(e); return false; }
     }
-    const api = { on: () => store(PKEY) === "on", set, sync, error: "" };
+    // my-team.html?pushcheck=1 shows what this phone knows about alerts (for fixing problems)
+    async function check() {
+      const out = { switch: store(PKEY) || "off", topics: synced() };
+      try { out.permission = (await FM.checkPermissions()).receive; } catch (e) { out.permission = "error: " + (e.message || e); }
+      try { out.token = (await FM.getToken()).token || ""; } catch (e) { out.token = ""; out.tokenError = e.message || String(e); }
+      try { await FM.subscribeToTopic({ topic: "all" }); out.subscribeAll = "ok"; } catch (e) { out.subscribeAll = "error: " + (e.message || e); }
+      return out;
+    }
+    const api = { on: () => store(PKEY) === "on", set, sync, check, error: "" };
     window.BHGPush = api;
+    if (/[?&]pushcheck=1/.test(location.search)) {
+      const box = document.createElement("div");
+      box.className = "push-check";
+      box.innerHTML = "<b>Alert check</b><pre>Checking…</pre>";
+      (document.querySelector("main") || document.body).prepend(box);
+      check().then((r) => {
+        box.querySelector("pre").textContent = JSON.stringify(Object.assign({}, r, { token: r.token ? r.token.slice(0, 12) + "… (" + r.token.length + " chars)" : "none" }), null, 1);
+        if (r.token) {
+          const b = document.createElement("button");
+          b.className = "mt-btn"; b.textContent = "Copy full token";
+          b.onclick = () => { navigator.clipboard.writeText(r.token).then(() => { b.textContent = "Copied ✓"; }, () => { box.querySelector("pre").textContent += "\n\n" + r.token; }); };
+          box.appendChild(b);
+        }
+      });
+    }
     sync();
   }
 

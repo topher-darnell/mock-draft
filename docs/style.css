@@ -3255,3 +3255,5 @@ a, button, .filter, label { touch-action: manipulation; }
 .push-banner.show { transform: none; }
 .push-banner b { color: var(--accent); font-size: 15px; }
 .push-banner span { font-size: 14px; line-height: 1.35; }
+.push-check { margin: 12px 16px; padding: 12px; border: 1px dashed var(--accent); border-radius: 12px; }
+.push-check pre { white-space: pre-wrap; word-break: break-all; font-size: 12px; margin: 8px 0; }
