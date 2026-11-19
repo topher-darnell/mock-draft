@@ -104,7 +104,7 @@
       }, true);
     }
 
-    setUpPush(P.FirebaseMessaging);
+    setUpPush(P.FirebaseMessaging, P);
 
     // daily reminder for the new Fantasle + Prospectle (scheduled on the phone, no server)
     const LN = P.LocalNotifications, RKEY = "bhg-remind";
@@ -210,7 +210,7 @@
   // ---------- breaking news on your players (Firebase push, app 1.1 and later) ----------
   // The phone follows one topic per My Team player ("p-<slug>") plus "all". When news.csv gets a row about
   // a player, GitHub Actions sends an alert to that player's topic (mockdraft/send_push.py).
-  function setUpPush(FM) {
+  function setUpPush(FM, P) {
     if (!FM) return;
     const PKEY = "bhg-push", SYNCED = "bhg-push-topics";
     const slugs = () => { try { const t = JSON.parse(localStorage.getItem("bhg-myteam")); return Array.isArray(t) ? t : []; } catch (e) { return []; } };
@@ -218,6 +218,21 @@
     FM.addListener && FM.addListener("notificationActionPerformed", (a) => {
       const to = a && a.notification && a.notification.data && a.notification.data.url;
       location.href = ROOT + (to || "my-team.html");
+    });
+    // an alert that arrives while the app is open: iPhone won't show it, so show our own banner
+    FM.addListener && FM.addListener("notificationReceived", (e) => {
+      const n = (e && e.notification) || {};
+      const to = n.data && n.data.url;
+      const b = document.createElement("a");
+      b.className = "push-banner";
+      b.href = ROOT + (to || "my-team.html");
+      b.innerHTML = `<b></b><span></span>`;
+      b.querySelector("b").textContent = n.title || "Big Head GM";
+      b.querySelector("span").textContent = n.body || "";
+      document.body.appendChild(b);
+      try { P.Haptics && P.Haptics.notification({ type: "SUCCESS" }); } catch (err) { /* ignore */ }
+      requestAnimationFrame(() => b.classList.add("show"));
+      setTimeout(() => { b.classList.remove("show"); setTimeout(() => b.remove(), 400); }, 6000);
     });
     let syncing = false;
     async function sync() {

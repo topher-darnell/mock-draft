@@ -3249,3 +3249,9 @@ a, button, .filter, label { touch-action: manipulation; }
 }
 .gd-team .gd-alerts { margin: 0; background: var(--bg); border-color: transparent; }
 .gd-push-err { display: block; margin: -4px 4px 4px; font-size: 13px; line-height: 1.4; color: #ff8a7a; }
+.push-banner { position: fixed; left: 12px; right: 12px; top: calc(env(safe-area-inset-top) + 8px); z-index: 60; display: flex; flex-direction: column; gap: 2px;
+  padding: 12px 16px; border-radius: 16px; background: rgba(30, 30, 34, 0.96); border: 1px solid var(--accent); color: var(--text); text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(-140%); transition: transform 0.35s ease; }
+.push-banner.show { transform: none; }
+.push-banner b { color: var(--accent); font-size: 15px; }
+.push-banner span { font-size: 14px; line-height: 1.35; }
