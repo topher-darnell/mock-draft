@@ -2827,8 +2827,8 @@ a.gd-tool:hover { border-color: #3A4656; }
   body:has(#app:not([hidden]) #setup-screen:not([hidden])) .gd-tabs a.t-draft { color: var(--accent); }
   .gd-tabs {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 18;
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-    padding: 6px 6px max(10px, env(safe-area-inset-bottom));
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding: 6px 4px max(10px, env(safe-area-inset-bottom));
     background: rgba(12, 16, 22, 0.96); border-top: 1px solid var(--line);
     -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   }
@@ -3190,3 +3190,29 @@ body:has(#app:not([hidden]) #results-screen:not([hidden])) .app-banner { display
 .ex-grid tbody tr:last-child th, .ex-grid tbody tr:last-child td { border-bottom: 0; }
 .ex-src { margin: 0; padding-left: 20px; display: grid; gap: 8px; line-height: 1.45; }
 .app-ios-alt { display: block; margin-top: 12px; font-size: 14px; color: var(--muted); }
+
+/* My Team: saved roster used across the fantasy tools */
+.mt-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; margin: 4px 0 14px; }
+.mt-btn { min-height: 44px; padding: 0 18px; border-radius: 999px; border: 2px solid var(--accent); background: var(--accent); color: #1B1206; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.mt-btn.on { background: transparent; color: var(--accent); }
+.mt-note { font-size: 14px; color: var(--muted); }
+.mt-mine { margin: 12px 0 4px; }
+.mt-mine .fd-h { display: block; margin-bottom: 6px; }
+.mt-chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.mt-chips::-webkit-scrollbar { display: none; }
+.mt-chip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 12px 0 6px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.mt-chip:active { transform: scale(0.97); }
+.mt-chip .fd-pos { margin: 0; }
+.mt-none { font-size: 13px; color: var(--muted); padding: 8px 0; }
+.mt-dot { margin-left: 6px; padding: 1px 6px; border-radius: 5px; font-size: 9px; font-weight: 900; letter-spacing: 0.06em; color: #1B1206; background: var(--accent); vertical-align: 1px; }
+.mt-filter { border-color: var(--accent) !important; }
+.gd-alert { display: flex; align-items: flex-start; gap: 10px; margin: 0; padding: 10px 12px; border-radius: 12px; background: rgba(242, 169, 59, 0.12); border: 1px solid rgba(242, 169, 59, 0.4); font-size: 14px; line-height: 1.4; }
+.gd-alert-i { flex: 0 0 auto; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #1B1206; font-weight: 900; font-size: 13px; }
+.gd-ups .gd-list { margin: 0; }
+.gd-call.ADD { background: var(--accent); color: #1B1206; }
+.gd-more { display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 700; color: var(--accent); }
+.nw-tag.nw-you { margin-left: -4px; background: var(--accent); color: #1B1206; }
+.nw-item.nw-mine { background: rgba(242, 169, 59, 0.07); }
+.mt-page .gd-team { margin: 18px 0 8px; }
+.mt-page .mt-tools { margin-bottom: 8px; }
+@media (min-width: 900px) { .mt-page .mt-tools { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

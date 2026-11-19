@@ -13,6 +13,7 @@
   const count = (path, title) => { try { window.BHG && BHG.countEvent(path, title); } catch (e) { /* ignore */ } };
   const bySlug = Object.fromEntries(D.players.map((p) => [p.slug, p]));
   const params = new URLSearchParams(location.search);
+  const mine = () => (window.BHG && BHG.team ? BHG.team() : []).filter((s) => bySlug[s]);
 
   let fmt = "ppr", n = 1, picked = [];
   try { fmt = localStorage.getItem("bhg-ff-format") || fmt; } catch (e) { /* private window */ }
@@ -74,6 +75,7 @@
       </li>`;
     }).join("") || '<li class="ft-empty">Add at least two players.</li>';
     verdict(ps, start);
+    renderMine();
     const q = new URLSearchParams({ p: picked.join(","), fmt, n });
     history.replaceState(null, "", `${location.pathname}?${q}`);
   }
@@ -89,6 +91,17 @@
     box.className = `ss-verdict ${pct < 0.05 ? "close" : "clear"}`;
     box.innerHTML = `<p class="ss-v-eyebrow">WEEK ${D.week}${D.when ? " · " + D.when.toUpperCase() : ""}</p><p class="ft-v-title">${esc(title)}</p>
       <ul class="ss-why">${reasons(a, next).map((r) => `<li>${esc(r)}</li>`).join("")}</ul>`;
+  }
+
+  // your saved team (My Team), one tap to add
+  function renderMine() {
+    const box = $("ss-mine"), t = mine();
+    if (!box) return;
+    box.hidden = !t.length;
+    const left = t.filter((s) => !picked.includes(s)).map((s) => bySlug[s]).sort((a, b) => proj(b) - proj(a));
+    box.innerHTML = `<span class="fd-h">Your team</span><div class="mt-chips">` + (left.map((p) =>
+      `<button class="mt-chip" data-add="${p.slug}"><span class="fd-pos ${p.p.toLowerCase()}">${p.p === "DEF" ? "D/ST" : p.p}</span>${esc(p.n)}</button>`).join("")
+      || `<span class="mt-none">All your players are in.</span>`) + `</div>`;
   }
 
   // ---------- search ----------
@@ -137,7 +150,7 @@
 
   // ---------- start ----------
   picked = (params.get("p") || "").split(",").filter((s) => bySlug[s]);
-  if (!picked.length) {
+  if (!picked.length && mine().length < 2) {
     // example: two receivers who are close this week, so it shows a real decision
     const wrs = D.players.filter((p) => p.p === "WR" && p.m && !p.out && !p.inj).sort((a, b) => proj(b) - proj(a));
     picked = [wrs[14].slug, wrs[16].slug];

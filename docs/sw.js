@@ -2,7 +2,7 @@
 // Online: always gets the newest files (and saves a copy).
 // Offline: uses the saved copy, so the home-screen app still runs a full mock.
 // Bump VERSION if you ever need every phone to throw away its saved copy.
-const VERSION = "bhg-v36";
+const VERSION = "bhg-v37";
 
 // the GM photos: same number as PHOTO_V in gm.js
 const PHOTO_V = "1";
@@ -15,6 +15,8 @@ const CORE = [
   "insights.js",
   "fantasy.html",
   "fantasy.js",
+  "my-team.html",
+  "gameday.js",
   "site.js",
   "newsletter.js",
   "getapp.js",

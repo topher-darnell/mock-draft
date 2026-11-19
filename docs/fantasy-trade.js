@@ -117,6 +117,7 @@
     renderSide("give");
     renderSide("get");
     renderVerdict();
+    renderMine();
     renderSettings();
     const q = new URLSearchParams({ give: give.join(","), get: get.join(","), fmt: S.fmt, teams: S.teams, qb: S.qb, kind: S.kind });
     history.replaceState(null, "", `${location.pathname}?${q}`);
@@ -192,6 +193,17 @@
         <span class="ft-val">${fmtVal(p.val)}</span></button></li>`).join("") || '<li class="ft-none">No player by that name.</li>';
     list.hidden = false;
   }
+  // your saved team (My Team): one tap puts a player on the "You give" side
+  function renderMine() {
+    const box = $("ft-mine");
+    if (!box) return;
+    const t = (window.BHG && BHG.team ? BHG.team() : []).filter(find);
+    box.hidden = !t.length;
+    const left = t.filter((id) => !give.includes(id) && !get.includes(id)).map(find).sort((a, b) => b.val - a.val);
+    box.innerHTML = `<span class="fd-h">Your team</span><div class="mt-chips">` + (left.map((p) =>
+      `<button class="mt-chip" data-side="give" data-id="${p.id}"><span class="fd-pos ${p.pos.toLowerCase()}">${p.pos}</span>${p.name}</button>`).join("")
+      || `<span class="mt-none">All your players are in the deal.</span>`) + `</div>`;
+  }
   function add(side, id) {
     if (!find(id) || give.includes(id) || get.includes(id)) return;
     (side === "give" ? give : get).push(id);
@@ -254,7 +266,8 @@
   rank();
   give = (params.get("give") || "").split(",").filter(find);
   get = (params.get("get") || "").split(",").filter(find);
-  if (!give.length && !get.length) {
+  const hasTeam = (window.BHG && BHG.team ? BHG.team() : []).filter(find).length > 0;
+  if (!give.length && !get.length && !hasTeam) {
     // an example so the page shows what it does: one top-25 player for two good starters
     const vets = pool.filter((p) => !p.rookie);
     give = [vets[17].id];

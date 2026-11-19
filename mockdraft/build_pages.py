@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "74", "5", "1"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "75", "5", "2"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -47,7 +47,7 @@ POS_ORDER = ["QB", "RB", "WR", "TE", "OT", "IOL", "EDGE", "IDL", "LB", "CB", "S"
 YEAR_NAME = {"RS Senior": "redshirt senior", "RS Junior": "redshirt junior", "RS Sophomore": "redshirt sophomore"}
 
 NAV = [("", "Mock draft"), ("players/", "Big board"), ("teams/", "Team mocks"), ("odds.html", "#1 pick odds"), ("awards.html", "Award odds"),
-       ("experts.html", "Expert mocks"), ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("games/", "Games"), ("scores.html", "Scores & News")]
+       ("experts.html", "Expert mocks"), ("insights.html", "1,000 drafts"), ("fantasy.html", "Fantasy"), ("my-team.html", "My Team"), ("games/", "Games"), ("scores.html", "Scores & News")]
 
 
 # ---------- small helpers ----------
@@ -1539,6 +1539,8 @@ def nfl_profiles():
         <p class="pg-meta">{pos} · {esc(team)} · {pos}{prank[(n, 'ppr')]} in PPR</p>
       </div>
     </div>
+    <div class="mt-row"><button class="mt-btn" data-mt="{sl}" aria-pressed="false">+ Add to My Team</button>
+      <span class="mt-note" hidden>Saved. <a href="../my-team.html">See your lineup →</a></span></div>
     <p class="pg-text">{esc(intro)}</p>
 
     <section class="pg-section">
@@ -1781,6 +1783,7 @@ def fantasy_trade_page():
       <p class="in-note" id="ft-kind-note"></p>
 
       <p class="ft-example" id="ft-example" hidden>This is an example trade. Remove players or tap <b>Clear</b> to start your own.</p>
+      <div class="mt-mine" id="ft-mine" hidden></div>
       <div class="ft-sides">{side("give", "You give")}
         <button class="ft-swap" id="ft-swap" aria-label="Swap sides">⇄</button>{side("get", "You get")}
       </div>
@@ -1812,7 +1815,7 @@ def fantasy_trade_page():
             "1 QB or Superflex, redraft or dynasty with 2027 rookie picks.")
     return page("fantasy-trade.html", "Fantasy Football Trade Analyzer 2026 · Who Wins the Trade · Big Head GM", desc,
                 body, crumbs=[("Fantasy", "fantasy.html"), ("Trade analyzer", "fantasy-trade.html")], nav="fantasy.html",
-                scripts=("fantasy-trade.js?v=6",))
+                scripts=("fantasy-trade.js?v=7",))
 
 
 def fantasy_ros_page():
@@ -1824,7 +1827,7 @@ def fantasy_ros_page():
     fmt_btns = "".join(f'<button class="filter{" active" if k == "ppr" else ""}" data-fmt="{k}" aria-pressed="{"true" if k == "ppr" else "false"}">{label}</button>'
                        for k, label in fantasy.FORMATS)
     pos_btns = "".join(f'<button class="filter{" active" if p == "All" else ""}" data-pos="{p}" aria-pressed="{"true" if p == "All" else "false"}">{"D/ST" if p == "DEF" else p}</button>'
-                       for p in ("All", "QB", "RB", "WR", "TE", "K", "DEF"))
+                       for p in ("All", "QB", "RB", "WR", "TE", "K", "DEF")) + '<button class="filter mt-filter" data-pos="MINE" aria-pressed="false" hidden>My Team</button>'
     weeks = f'Weeks {ros["from"]}–{ros["to"]}'
     po_w = f'{min(ros["playoffs"])}–{max(ros["playoffs"])}'
     sort_opts = [("ros", f"Rest of season (Wk {ros['from']}–{ros['to']})"), ("po", f"Playoffs (Wk {po_w})"),
@@ -1876,7 +1879,7 @@ def fantasy_ros_page():
             "PPR, Half PPR, Standard and TE Premium.")
     return page("fantasy-ros.html", f"Rest of Season Fantasy Rankings 2026 · Playoff Schedules · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Rest of season", "fantasy-ros.html")], nav="fantasy.html",
-                scripts=("fantasy-ros.js?v=7",))
+                scripts=("fantasy-ros.js?v=8",))
 
 
 def fantasy_startsit_page():
@@ -1920,6 +1923,7 @@ def fantasy_startsit_page():
       <p class="ft-example" id="ss-example" hidden>This is an example. Remove players or tap <b>Clear</b> to check your own.</p>
       <div class="ss-verdict" id="ss-verdict" aria-live="polite"></div>
       <ol class="ss-cards" id="ss-cards"></ol>
+      <div class="mt-mine" id="ss-mine" hidden></div>
       <div class="ft-search ss-search">
         <label class="sr-only" for="ss-q">Add a player</label>
         <input id="ss-q" type="search" placeholder="+ Add a player (up to 6)" autocomplete="off" spellcheck="false">
@@ -1949,7 +1953,7 @@ def fantasy_startsit_page():
             "Compare players and see who to start, with projections, matchups and recent form in PPR, Half PPR, Standard or TE Premium.")
     return page("fantasy-start-sit.html", f"Who Should I Start? Week {ros['from']} Start/Sit Tool + Start 'Em Sit 'Em Picks · Big Head GM", desc, body,
                 crumbs=[("Fantasy", "fantasy.html"), ("Start/sit", "fantasy-start-sit.html")], nav="fantasy.html",
-                scripts=("fantasy-start-sit.js?v=8",))
+                scripts=("fantasy-start-sit.js?v=9",))
 
 
 POS_FULL = {"QB": "Quarterbacks", "RB": "Running backs", "WR": "Wide receivers", "TE": "Tight ends", "DEF": "Defenses to stream", "K": "Kickers to stream"}
@@ -2223,18 +2227,29 @@ def gameday_data():
         out.append([p["n"], p["t"], p["p"], slug(p["n"]), [round(p["ppg"][f] * k, 1) for f in ("std", "half", "ppr")], r["opp"], se_matchup(r["m"]) if r["opp"] else "",
                     call, r["rk"], why, [n["kind"], n["text"], n["date"]] if n else None, act])
     out.sort(key=lambda x: -x[4][2])
-    return {"week": wk, "players": out}
+    # the next few weeks (this week counts most), PPR, so My Team can compare its players with waiver pickups
+    soon = list(range(wk, min(ros["to"], wk + fantasy.WAIVER_WEEKS - 1) + 1))
+    def soon_avg(p):
+        games = [(p["ppg"]["ppr"] * m * a * q, fantasy.WAIVER_WT[i]) for i, (w, opp, m, a, q) in enumerate(x for x in p["sched"] if x[0] in soon) if opp]
+        return round(sum(v * wt for v, wt in games) / sum(wt for v, wt in games), 1) if games else 0
+    avg = {slug(p["n"]): soon_avg(p) for p in ros["players"] + fantasy.kd_rest_of_season()}
+    for x in out:
+        x.append(avg.get(x[3], 0))
+    ww = fantasy.waiver_wire()
+    wire = [[slug(r["n"]), r["avg"], r["why"][0]] for pos in ww["pos"] for r in ww["pos"][pos]]
+    return {"week": wk, "soon": [soon[0], soon[-1]], "players": out, "ww": wire}
 
 
-def lineup_card():
+def lineup_card(ups=2, title="Your lineup this week"):
     """the "Your lineup this week" card; gameday.js fills it from the player's saved team"""
     data = json.dumps(gameday_data(), separators=(",", ":")).replace("</", "<\\/")
     return f"""
         <section class="gd-card gd-team" aria-labelledby="gd-team-h">
           <div class="gd-row">
-            <h2 class="gd-h" id="gd-team-h">Your lineup this week</h2>
+            <h2 class="gd-h" id="gd-team-h">{title}</h2>
             <button class="gd-link" id="gd-edit" hidden>Edit team</button>
           </div>
+          <p class="gd-alert" id="gd-alert" role="status" hidden></p>
           <div id="gd-empty" class="gd-empty">
             <p>Add your players and we'll tell you who to start every week, plus injuries and news on your guys.</p>
             <button class="hero-start gd-add" id="gd-add">Add your players</button>
@@ -2254,10 +2269,12 @@ def lineup_card():
           </div>
           <ol class="gd-list" id="gd-list"></ol>
           <button class="hero-start gd-done" id="gd-done" hidden>Done</button>
+          <div class="gd-ups" id="gd-ups" data-max="{ups}" hidden><h3 class="gd-sub">Waiver pickups for your team</h3><ol class="gd-list" id="gd-ups-list"></ol>
+            <a class="gd-more" href="fantasy-waiver-wire.html">All waiver pickups →</a></div>
           <div class="gd-news" id="gd-news" hidden><h3 class="gd-sub">News on your players</h3><ol class="nw-list" id="gd-news-list"></ol></div>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=9" defer></script>
+          <script src="gameday.js?v=10" defer></script>
         </section>"""
 
 
@@ -2283,7 +2300,33 @@ def gd_tools():
         </section>"""
 
 
-TAB_OF = {"": "home", "games/": "games", "news.html": "news", "scores.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft", "awards.html": "news", "experts.html": "draft"}
+def my_team_page():
+    body = f"""
+    <div class="mt-page">
+      <p class="eyebrow">FANTASY FOOTBALL · WEEK {fantasy.rest_of_season()["from"]}</p>
+      <h1 class="in-title">My Team</h1>
+      <p class="in-sub">Add your fantasy players once. We set your best lineup every week, flag injuries, and find waiver pickups that beat the guys you have. Saved on this phone, no account.</p>
+      {lineup_card(ups=4, title="Your lineup this week")}
+      <h2 class="home-h2">Your team in every tool</h2>
+      <div class="gd-tools mt-tools">
+        <a class="gd-card gd-tool" href="fantasy-start-sit.html"><b>Start or sit</b><span>Tap your players to compare</span></a>
+        <a class="gd-card gd-tool" href="fantasy-trade.html"><b>Trade analyzer</b><span>Your players one tap away</span></a>
+        <a class="gd-card gd-tool" href="fantasy-ros.html#mine"><b>Rest of season</b><span>Your players' schedules</span></a>
+        <a class="gd-card gd-tool" href="news.html"><b>News</b><span>Your players are marked</span></a>
+      </div>
+      <h2 class="home-h2">How it works</h2>
+      <ul class="gm-rules">
+        <li><b>Your lineup</b> fills your league's starting spots with the best projections this week. Hurt players and byes go to the bench. Set your spots and scoring with <b>Edit team</b>.</li>
+        <li><b>Waiver pickups</b> are players who are probably free in your league and project more PPR points a game over the next 3 weeks than your weakest player at the same spot.</li>
+        <li><b>Saved on this device.</b> Nothing is sent anywhere. On a new phone or browser, add your players again.</li>
+      </ul>
+    </div>"""
+    desc = "Save your fantasy football team for free, no account: your best lineup every week, injury alerts and waiver pickups that beat your players."
+    return page("my-team.html", "My Team: Free Fantasy Lineup Helper · Big Head GM", desc, body,
+                crumbs=[("Fantasy", "fantasy.html"), ("My Team", "my-team.html")], nav="my-team.html")
+
+
+TAB_OF = {"my-team.html": "team", "": "home", "games/": "games", "news.html": "news", "scores.html": "news", "players/": "draft", "teams/": "draft", "odds.html": "draft", "insights.html": "draft", "awards.html": "news", "experts.html": "draft"}
 
 
 def gd_tabs(root="", current="home"):
@@ -2292,9 +2335,10 @@ def gd_tabs(root="", current="home"):
                                          f'<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">{icon}</svg>{label}</a>')
     return ('<nav class="gd-tabs" aria-label="Sections">'
             + tab("home", root or "./", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>')
+            + tab("team", f"{root}my-team.html", "My Team", '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>')
             + tab("draft", f"{root}?start=1", "Draft", '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>')
             + tab("games", f"{root}games/", "Games", '<rect x="2" y="7" width="20" height="12" rx="4"/><path d="M7 11v4M5 13h4M15 12h.01M18 14h.01"/>')
-            + tab("news", f"{root}scores.html", "Scores &amp; News", '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>') + "</nav>")
+            + tab("news", f"{root}scores.html", "Scores", '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>') + "</nav>")
 
 
 def startsit_when(week):
@@ -2325,7 +2369,7 @@ def news_li(r, depth=""):
     text = esc(r["text"])
     if has and r["player"] in r["text"]:                       # link the player's name to his fantasy page
         text = text.replace(esc(r["player"]), f'<a href="{depth}fantasy/{sl}.html">{esc(r["player"])}</a>', 1)
-    return (f'<li class="nw-item"><span class="nw-tag {r["kind"]}">{NEWS_TAG.get(r["kind"], "News")}</span>'
+    return (f'<li class="nw-item" data-slug="{sl}"><span class="nw-tag {r["kind"]}">{NEWS_TAG.get(r["kind"], "News")}</span>'
             f'<span class="nw-text">{text} <span class="nw-meta"><a class="nw-src" href="{esc(r["url"])}" rel="noopener nofollow" target="_blank">{esc(r["source"])}</a>'
             f' · <time datetime="{r["date"]}">{d.strftime("%b")} {d.day}</time></span></span></li>')
 
@@ -2970,7 +3014,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "awards.html", "experts.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html", "privacy.html", "support.html"]
+    paths = ["", "players/", "teams/", "odds.html", "awards.html", "experts.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "my-team.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html", "privacy.html", "support.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
@@ -2995,6 +3039,7 @@ def main():
     write("privacy.html", privacy_page())
     write("support.html", support_page())
     write("news.html", news_page())
+    write("my-team.html", my_team_page())
     games_pages()
     prospectle_page()
     fantasle_page()

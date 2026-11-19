@@ -43,7 +43,8 @@
     // hidden unless turned on: out for the season, or not playing lately with no injury news
     const gone = (p) => (p.inj && p.inj.s === "season") || (p.out && !p.inj);
     const kd = (x) => x === "K" || x === "DEF";
-    const rows = D.players.filter((p) => (pos === "All" ? !kd(p.p) : p.p === pos) && (showOut || !gone(p)))
+    const mine = pos === "MINE" ? myTeam() : null;
+    const rows = D.players.filter((p) => mine ? mine.includes(p.slug) : (pos === "All" ? !kd(p.p) : p.p === pos) && (showOut || !gone(p)))
       .map((p) => ({ ...p, v: SORTS[by].val(p) }))
       .sort((a, b) => by === "ppg" ? b.ppg[fmt] - a.ppg[fmt] || b.v - a.v : b.v - a.v || b.ppg[fmt] - a.ppg[fmt]);
     const h = $("rs-proj-h");
@@ -51,6 +52,7 @@
     const posRank = {};
     $("rs-body").innerHTML = rows.slice(0, limit).map((p, i) => {
       posRank[p.p] = (posRank[p.p] || 0) + 1;
+      const me = !mine && myTeam().includes(p.slug) ? ' <span class="mt-dot" title="On My Team">MY TEAM</span>' : "";
       const cells = p.sched.map(([w, opp, m, a]) => {   // m = matchup only; the QB change is in the projection
         const po = D.playoffs.includes(w) ? " po" : "";
         if (opp && a === 0) return `<td class="rs-m inj${po}" title="Week ${w}: expected to miss (injury)">OUT</td>`;
@@ -63,9 +65,9 @@
       const qb = p.qb ? `<span class="rs-qb ${p.qb.m > 1 ? "up" : "down"}">New QB: ${esc(p.qb.name)}${p.qb.status === "expected" ? " (expected)" : ""} ${p.qb.m > 1 ? "↑" : "↓"}</span>` : "";
       return `<tr><td class="rs-rk">${i + 1}</td>` +
         `<th scope="row" class="rs-pl">${kd(p.p) ? `<b>${esc(p.n)}</b>` : `<a href="fantasy/${p.slug}.html">${esc(p.n)}</a>`}` +
-        `<span>${p.p === "DEF" ? "D/ST" : p.p}${pos === "All" ? "" : posRank[p.p]} · ${esc(TEAM[p.t] || p.t)}</span>${out}${qb}${fill}</th>` +
+        `<span>${p.p === "DEF" ? "D/ST" : p.p}${pos === "All" || mine ? "" : posRank[p.p]} · ${esc(TEAM[p.t] || p.t)}${me}</span>${out}${qb}${fill}</th>` +
         `<td class="rs-proj">${p.v.toFixed(SORTS[by].dec || 0)}</td><td class="rs-ppg">${p.ppg[fmt].toFixed(1)}</td>${cells}</tr>`;
-    }).join("") || `<tr><td colspan="12" class="ff-none">No players match.</td></tr>`;
+    }).join("") || `<tr><td colspan="12" class="ff-none">${mine ? 'None of your players yet. <a href="my-team.html">Add them on My Team →</a>' : "No players match."}</td></tr>`;
     $("rs-more").hidden = rows.length <= limit;
     $("rs-more").textContent = `Show all ${rows.length} players`;
   }
@@ -85,6 +87,14 @@
           `<span class="rs-m ${grade(x.ms[k])}">${o || "BYE"}</span>`).join("")}</span></li>`).join("")}</ol></div>`);
     }
     $("rs-po").innerHTML = out.join("");
+  }
+
+  // My Team (saved on this device by site.js)
+  const myTeam = () => (window.BHG && BHG.team ? BHG.team() : []);
+  const mineBtn = document.querySelector('#rs-pos [data-pos="MINE"]');
+  if (mineBtn && myTeam().some((s) => D.players.some((p) => p.slug === s))) {
+    mineBtn.hidden = false;
+    if (location.hash === "#mine") pos = "MINE";
   }
 
   function mark(group, attr, value) {

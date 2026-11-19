@@ -7,7 +7,8 @@
   const MAX = 25;
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   // [name, team, pos, slug, [std, half, ppr] projection, opp, matchup, call, posRank, why, news,
-  //  actual this week once his game is final: [std, half, ppr, stat line] or null]
+  //  actual this week once his game is final: [std, half, ppr, stat line] or null,
+  //  PPR points a game over the next few weeks (this week counts most)]
   const BY = {};
   D.players.forEach((p) => { BY[p[3]] = p; });
   const MATCH = { g2: "very easy", g1: "easy", n: "average", r1: "tough", r2: "very tough" };
@@ -126,8 +127,61 @@
     $("gd-news-list").innerHTML = news.join("");
     const spots = SLOTS.filter(([k]) => L[k]).map(([k]) => `${L[k]} ${k === "SF" ? "Superflex" : k === "FLEX" ? "Flex" : posLabel(k)}`).join(", ");
     const fmt = (FMT.find((f) => f[0] === L.fmt) || FMT[0])[1];
+    renderExtras();
     $("gd-fine").textContent = editing ? `${team.length} of ${MAX} players · saved on this device`
       : `${fmt} · starts ${spots}. Saved on this device. No account needed.`;
+  }
+
+  // starters to double-check before kickoff (questionable or doubtful, still in the lineup)
+  function alerts(starters) {
+    const risky = starters.filter((s) => s.p && !s.p[11] && /^(Questionable|Doubtful)/.test(s.p[9]));
+    return risky.map((s) => `<b>${esc(s.p[0])}</b> is ${esc(s.p[9].charAt(0).toLowerCase() + s.p[9].slice(1))}`);
+  }
+
+  // waiver pickups who project better over the next few weeks than your weakest player at his position
+  function upgrades(ps, starters) {
+    if (!D.ww) return [];
+    const out = [];
+    for (const [slug, avg, why] of D.ww) {
+      const w = BY[slug];
+      if (!w || team.includes(slug)) continue;
+      const pos = w[2];
+      const mine = ps.filter((p) => p[2] === pos).sort((a, b) => (a[12] || 0) - (b[12] || 0));
+      const openSpot = starters.some((s) => !s.p && s.can.includes(pos) && s.can.length === 1);
+      if (openSpot) { out.push({ w, avg, why, over: null, gain: avg }); continue; }
+      if (!mine.length || KD(pos) && mine.length > 1) continue;
+      const worst = mine[0];
+      if (avg - (worst[12] || 0) >= 1.5) out.push({ w, avg, why, over: worst, gain: avg - (worst[12] || 0) });
+    }
+    const seen = new Set();                         // one pickup per player you'd replace
+    return out.sort((a, b) => b.gain - a.gain).filter((u) => {
+      const k = u.over ? u.over[3] : "open-" + u.w[2];
+      if (seen.has(k)) return false;
+      seen.add(k); return true;
+    });
+  }
+
+  function renderExtras() {
+    const ps = team.map((s) => BY[s]);
+    const box = $("gd-ups"), al = $("gd-alert");
+    if (!box || !al) return;
+    if (editing || !ps.length) { box.hidden = true; al.hidden = true; return; }
+    const { starters } = lineup(ps);
+    const warn = alerts(starters);
+    al.hidden = !warn.length;
+    al.innerHTML = warn.length ? `<span class="gd-alert-i" aria-hidden="true">!</span><span>Check before kickoff: ${warn.join("; ")}.</span>` : "";
+    const max = Number(box.dataset.max) || 2;
+    const ups = upgrades(ps, starters).slice(0, max);
+    box.hidden = !ups.length;
+    const wk = D.soon && D.soon[0] !== D.soon[1] ? `Weeks ${D.soon[0]}–${D.soon[1]}` : `Week ${D.week}`;
+    $("gd-ups-list").innerHTML = ups.map(({ w, avg, why, over }) => {
+      const nm = KD(w[2]) ? `<b class="gd-name">${esc(w[0])}</b>` : `<a class="gd-name" href="fantasy/${w[3]}.html">${esc(w[0])}</a>`;
+      const vs = over ? `Projects ${avg.toFixed(1)} PPR a game (${wk}), vs ${(over[12] || 0).toFixed(1)} for ${esc(over[0])}.`
+        : `You have no ${posLabel(w[2])}. He projects ${avg.toFixed(1)} a game (${wk}).`;
+      return `<li class="gd-p gd-up"><span class="gd-pos ${w[2]}">${posLabel(w[2])}</span><span class="gd-pmain">${nm}` +
+        `<span class="gd-meta">${esc(w[1])} · ${vs}</span><span class="gd-why">${esc(why)}</span></span>` +
+        `<span class="gd-call ADD">ADD</span></li>`;
+    }).join("");
   }
 
   function suggest() {
