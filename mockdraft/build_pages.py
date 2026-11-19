@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "80", "5", "2"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "81", "5", "2"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -2279,7 +2279,7 @@ def lineup_card(ups=2, title="Your lineup this week"):
             <input type="checkbox" role="switch" aria-label="Game-day alerts"><i aria-hidden="true"></i></label>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=13" defer></script>
+          <script src="gameday.js?v=14" defer></script>
         </section>"""
 
 
