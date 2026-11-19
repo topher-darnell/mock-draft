@@ -4,7 +4,8 @@
 // - Phones that haven't installed yet get a small banner above the tab bar; tap X and it stays away for 2 weeks.
 (function () {
   const ROOT = (document.currentScript && document.currentScript.src || "").replace(/getapp\.js.*$/, "");
-  const KEY = "bhg-app-banner";
+  const KEY = "bhg-app-banner2";   // new key at App Store launch, so everyone sees the banner once more
+  const STORE = "https://apps.apple.com/app/big-head-gm/id6835944276";
   const cap = window.Capacitor;
   const native = !!(cap && cap.isNativePlatform && cap.isNativePlatform());   // inside the App Store app
   const standalone = native || window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
@@ -62,10 +63,12 @@
     b.id = "app-banner";
     b.className = "app-banner";
     b.innerHTML = `<img src="${ROOT}icons/icon-192.png?v=4" alt="" width="40" height="40">
-      <span><b>App coming soon to the App Store</b><small>Add Big Head GM to your home screen for now</small></span>
-      <button type="button" class="app-banner-go">Add</button>
+      <span>${isIOS ? "<b>Big Head GM is on the App Store</b><small>Free · fantasy football + mock draft</small>" : "<b>Get the Big Head GM app</b><small>Free · add it to your home screen</small>"}</span>
+      <button type="button" class="app-banner-go">${isIOS ? "Get" : "Add"}</button>
       <button type="button" class="app-banner-x" aria-label="Not now">✕</button>`;
-    b.querySelector(".app-banner-go").addEventListener("click", () => window.bhgInstall());
+    b.querySelector(".app-banner-go").addEventListener("click", () => {
+      if (isIOS) { count("app-store-tap"); location.href = STORE; } else window.bhgInstall();
+    });
     b.querySelector(".app-banner-x").addEventListener("click", () => { store(KEY, String(Date.now())); hideBanner(); count("app-banner-dismiss"); });
     document.body.appendChild(b);
     document.documentElement.classList.add("has-app-banner");
