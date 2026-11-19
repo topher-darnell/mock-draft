@@ -161,15 +161,36 @@
     });
   }
 
+  // in the iPhone app: the game-day alerts switch, and this week's lineup for Sunday's alert
+  function appAlerts(starters) {
+    const sw = $("gd-alerts"), A = window.BHGApp;
+    if (!sw || !A) return;
+    sw.hidden = false;
+    const box = sw.querySelector("input");
+    box.checked = A.teamAlertsOn();
+    if (!box.dataset.on) {
+      box.dataset.on = "1";
+      box.addEventListener("change", async () => { box.checked = await A.setTeamAlerts(box.checked); });
+    }
+    const st = starters.filter((s) => s.p);
+    A.teamBrief({
+      week: D.week,
+      risky: st.filter((s) => !s.p[11] && /^(Questionable|Doubtful)/.test(s.p[9])).map((s) => `${lastName(s.p)} (${s.p[9].split(/[ (:]/)[0].toLowerCase()})`),
+      empty: starters.length - st.length,
+      total: st.reduce((t, s) => t + pts(s.p), 0).toFixed(1),
+    });
+  }
+
   function renderExtras() {
     const ps = team.map((s) => BY[s]);
     const box = $("gd-ups"), al = $("gd-alert");
     if (!box || !al) return;
-    if (editing || !ps.length) { box.hidden = true; al.hidden = true; return; }
+    if (editing || !ps.length) { box.hidden = true; al.hidden = true; if ($("gd-alerts")) $("gd-alerts").hidden = true; return; }
     const { starters } = lineup(ps);
     const warn = alerts(starters);
     al.hidden = !warn.length;
     al.innerHTML = warn.length ? `<span class="gd-alert-i" aria-hidden="true">!</span><span>Check before kickoff: ${warn.join("; ")}.</span>` : "";
+    appAlerts(starters);
     const max = Number(box.dataset.max) || 2;
     const ups = upgrades(ps, starters).slice(0, max);
     box.hidden = !ups.length;

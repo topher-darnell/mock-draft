@@ -3247,3 +3247,4 @@ a, button, .filter, label { touch-action: manipulation; }
   .gd-tabs a { font-size: 10px; }
   .in-title { font-size: 30px; }
 }
+.gd-team .gd-alerts { margin: 0; background: var(--bg); border-color: transparent; }

@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "76", "5", "2"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "77", "5", "2"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -205,7 +205,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <script src="{root}gm.js?v={GM_V}"></script>
   <script src="{root}site.js?v={SITE_JS_V}"></script>
   <script src="{root}newsletter.js?v=1"></script>
-  <script src="{root}getapp.js?v=5"></script>
+  <script src="{root}getapp.js?v=6"></script>
   <script src="{root}appfeel.js?v=1"></script>{tags}
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -2273,9 +2273,11 @@ def lineup_card(ups=2, title="Your lineup this week"):
           <div class="gd-ups" id="gd-ups" data-max="{ups}" hidden><h3 class="gd-sub">Waiver pickups for your team</h3><ol class="gd-list" id="gd-ups-list"></ol>
             <a class="gd-more" href="fantasy-waiver-wire.html">All waiver pickups →</a></div>
           <div class="gd-news" id="gd-news" hidden><h3 class="gd-sub">News on your players</h3><ol class="nw-list" id="gd-news-list"></ol></div>
+          <label class="app-remind gd-alerts" id="gd-alerts" hidden><span><b>Game-day alerts</b><small>Sunday at 11 AM ET: check your lineup (we name anyone hurt). Tuesday night: new waiver pickups.</small></span>
+            <input type="checkbox" role="switch" aria-label="Game-day alerts"><i aria-hidden="true"></i></label>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=10" defer></script>
+          <script src="gameday.js?v=11" defer></script>
         </section>"""
 
 

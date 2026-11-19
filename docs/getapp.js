@@ -100,14 +100,18 @@
     // a light tap feel on buttons
     if (P.Haptics) {
       document.addEventListener("click", (e) => {
-        if (e.target.closest("button, .fx-go, .pg-button, .hero-start")) { try { P.Haptics.impact({ style: "LIGHT" }); } catch (er) {} }
+        if (e.target.closest("button, .fx-go, .pg-button, .hero-start, .gd-tabs a")) { try { P.Haptics.impact({ style: "LIGHT" }); } catch (er) {} }
       }, true);
     }
 
     // daily reminder for the new Fantasle + Prospectle (scheduled on the phone, no server)
     const LN = P.LocalNotifications, RKEY = "bhg-remind";
     if (!LN) return;
-    LN.addListener && LN.addListener("localNotificationActionPerformed", () => { location.href = ROOT + "games/fantasle.html"; });
+    LN.addListener && LN.addListener("localNotificationActionPerformed", (a) => {
+      const to = a && a.notification && a.notification.extra && a.notification.extra.url;
+      location.href = ROOT + (to || "games/fantasle.html");
+    });
+    setUpTeamAlerts(LN);
     async function setRemind(on) {
       try {
         if (on) {
@@ -138,6 +142,69 @@
     }
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", remindCard); else remindCard();
   }
+  // ---------- My Team game-day alerts (scheduled on the phone, no server) ----------
+  // Sunday 11 AM ET: check your lineup before the 1 PM games. Tuesday 7 PM ET: new waiver pickups.
+  // gameday.js calls BHGApp.teamBrief() with this week's lineup so Sunday's alert can name hurt starters.
+  function setUpTeamAlerts(LN) {
+    const AKEY = "bhg-team-alerts", LAST_SUNDAY = "2026-12-27";      // Week 17, the end of most fantasy seasons
+    const SUN = [11, 12, 13, 14], TUE = [21, 22, 23, 24];
+    const et = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", hourCycle: "h23", weekday: "short" });
+    const parts = (d) => Object.fromEntries(et.formatToParts(d).map((x) => [x.type, x.value]));
+    // the next few times it's <weekday> at h:00 in New York, as real dates
+    function next(weekday, h, n) {
+      const now = new Date(), p = parts(now), out = [];
+      const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      let ahead = (weekday - days.indexOf(p.weekday) + 7) % 7;
+      for (let i = 0; out.length < n && i < 8; i++, ahead += 7) {
+        let d = new Date(Date.UTC(+p.year, +p.month - 1, +p.day + ahead, h + 5, 0));
+        if (+parts(d).hour !== h) d = new Date(d.getTime() - 3600e3);   // daylight time: 4 hours behind UTC
+        if (d > now) out.push(d);
+      }
+      return out;
+    }
+    const iso = (d) => { const p = parts(d); return `${p.year}-${String(p.month).padStart(2, "0")}-${String(p.day).padStart(2, "0")}`; };
+    let brief = null;
+    async function schedule() {
+      await LN.cancel({ notifications: [...SUN, ...TUE].map((id) => ({ id })) }).catch(() => {});
+      if (store(AKEY) !== "on") return;
+      const list = [];
+      const today = parts(new Date()).weekday, fresh = !["Mon", "Tue"].includes(today);   // after Tuesday's update the week is right
+      next(0, 11, 4).filter((d) => iso(d) <= LAST_SUNDAY).forEach((d, i) => {
+        let title = "Set your lineup", body = "The 1 PM ET games kick off soon. Your best lineup is ready on My Team.";
+        if (i === 0 && fresh && brief) {
+          title = `Week ${brief.week}: set your lineup`;
+          body = brief.risky.length ? `Check before 1 PM ET: ${brief.risky.join(", ")}. Your best lineup is on My Team.`
+            : brief.empty ? `You have ${brief.empty} empty starting spot${brief.empty > 1 ? "s" : ""}. Fill ${brief.empty > 1 ? "them" : "it"} before 1 PM ET.`
+            : `Your lineup projects ${brief.total} points. Kickoff at 1 PM ET.`;
+        }
+        list.push({ id: SUN[i], title, body, schedule: { at: d, allowWhileIdle: true }, extra: { url: "my-team.html" } });
+      });
+      next(2, 19, 4).filter((d) => iso(d) <= LAST_SUNDAY).forEach((d, i) => {
+        list.push({ id: TUE[i], title: "Waiver pickups for your team", body: "This week's pickups are in. See who beats the players you have.",
+          schedule: { at: d, allowWhileIdle: true }, extra: { url: "my-team.html" } });
+      });
+      if (list.length) await LN.schedule({ notifications: list }).catch(() => {});
+    }
+    async function set(on) {
+      try {
+        if (on) {
+          let perm = await LN.checkPermissions();
+          if (perm.display !== "granted") perm = await LN.requestPermissions();
+          if (perm.display !== "granted") { store(AKEY, "off"); await schedule(); return false; }
+        }
+        store(AKEY, on ? "on" : "off");
+        count(on ? "team-alerts-on" : "team-alerts-off");
+        await schedule();
+        return on;
+      } catch (e) { return false; }
+    }
+    window.BHGApp = {
+      teamAlertsOn: () => store(AKEY) === "on",
+      setTeamAlerts: set,
+      teamBrief: (b) => { brief = b; if (store(AKEY) === "on") schedule(); },
+    };
+  }
+
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => { setUpAppPage(); setTimeout(showBanner, 1200); });
   else { setUpAppPage(); setTimeout(showBanner, 1200); }
 })();
