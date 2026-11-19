@@ -205,7 +205,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <script src="{root}gm.js?v={GM_V}"></script>
   <script src="{root}site.js?v={SITE_JS_V}"></script>
   <script src="{root}newsletter.js?v=1"></script>
-  <script src="{root}getapp.js?v=6"></script>
+  <script src="{root}getapp.js?v=7"></script>
   <script src="{root}appfeel.js?v=1"></script>{tags}
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -2273,11 +2273,13 @@ def lineup_card(ups=2, title="Your lineup this week"):
           <div class="gd-ups" id="gd-ups" data-max="{ups}" hidden><h3 class="gd-sub">Waiver pickups for your team</h3><ol class="gd-list" id="gd-ups-list"></ol>
             <a class="gd-more" href="fantasy-waiver-wire.html">All waiver pickups →</a></div>
           <div class="gd-news" id="gd-news" hidden><h3 class="gd-sub">News on your players</h3><ol class="nw-list" id="gd-news-list"></ol></div>
+          <label class="app-remind gd-alerts" id="gd-push" hidden><span><b>Breaking news on your players</b><small>An alert when one of your players is hurt, traded or back. Only your players.</small></span>
+            <input type="checkbox" role="switch" aria-label="Breaking news on your players"><i aria-hidden="true"></i></label>
           <label class="app-remind gd-alerts" id="gd-alerts" hidden><span><b>Game-day alerts</b><small>Sunday at 11 AM ET: check your lineup (we name anyone hurt). Tuesday night: new waiver pickups.</small></span>
             <input type="checkbox" role="switch" aria-label="Game-day alerts"><i aria-hidden="true"></i></label>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=11" defer></script>
+          <script src="gameday.js?v=12" defer></script>
         </section>"""
 
 
@@ -2604,6 +2606,8 @@ def privacy_page():
 
       <h2>Notifications</h2>
       <p>The iPhone app can remind you when a new daily Fantasle and Prospectle is ready. The reminder is scheduled on your phone itself, so we don't collect a device ID and there's no notification server. It's off until you turn it on, and you can turn it off anytime in the app or in iPhone Settings.</p>
+      <p>Game-day alerts on My Team (a Sunday lineup check and a Tuesday waiver reminder) work the same way: scheduled on your phone, no server.</p>
+      <p><b>Breaking news on your players</b> (app version 1.1 and later) is also off until you turn it on. When you do, your phone gets an alert ID from Apple and Google's Firebase Cloud Messaging, and follows the players on your My Team, so an alert about a player goes only to people who have him. Firebase sees that alert ID and the player names you follow; it doesn't get your name, email or location, and we don't keep a list of who you are. Turn it off in the app or in iPhone Settings anytime. <a href="https://firebase.google.com/support/privacy" rel="noopener nofollow">Firebase privacy</a>.</p>
 
       <h2>What we never do</h2>
       <ul>

@@ -115,3 +115,29 @@ Click **Get Started** and answer:
 ## Export compliance
 
 The setup script already answers it in the app (`ITSAppUsesNonExemptEncryption = NO`), so App Store Connect won't ask. The app only uses standard HTTPS.
+
+## Version 1.1 (breaking-news alerts)
+
+**What's New in This Version [4000]**
+
+```
+• Breaking news on your players: turn it on in My Team and get an alert when one of your players is hurt, traded or back. Only your players, nothing else.
+• My Team tab: your best lineup every week, injury warnings and waiver pickups that beat the players you have.
+• Game-day alerts: a Sunday lineup check before kickoff and a Tuesday waiver reminder.
+• Pull down to refresh, faster pages and smoother taps.
+```
+
+**App Privacy: add one data type** (App Privacy → Edit → Data types)
+
+- **Identifiers → Device ID**
+  - Purpose: **App Functionality** (sending the alerts you turned on)
+  - Linked to the user's identity: **No**
+  - Used for tracking: **No**
+
+Keep the two from version 1.0 (email, product interaction). Then **Publish**.
+
+**Review notes [4000]**
+
+```
+Version 1.1 adds optional push notifications. They are off by default. To see them: open the My Team tab, add any players (tap "Add your players" and search, e.g. "Mahomes"), then turn on "Breaking news on your players" and allow notifications. Alerts are sent only when there is news about a player on the user's team, through Firebase Cloud Messaging. No account or sign-in is needed.
+```

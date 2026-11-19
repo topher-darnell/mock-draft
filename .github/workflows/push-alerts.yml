@@ -1,0 +1,47 @@
+# Phone alerts for the Big Head GM app.
+# 1) Automatic: when news.csv changes on main, fans who have that player on My Team get an alert.
+# 2) By hand: Actions tab → "Phone alerts" → Run workflow → type a title and message for everyone.
+# Needs the repository secret FIREBASE_SERVICE_ACCOUNT (see ios-app/PUSH.md). Without it, it only prints.
+name: Phone alerts
+
+on:
+  push:
+    branches: [main]
+    paths: [mockdraft/news.csv]
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Alert title (short)"
+        required: true
+      message:
+        description: "Alert message"
+        required: true
+      page:
+        description: "Page to open when tapped (e.g. my-team.html)"
+        required: false
+        default: "my-team.html"
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install google-auth requests
+      - name: Send alerts for new news
+        if: github.event_name == 'push'
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: python3 mockdraft/send_push.py --before "${{ github.event.before }}"
+      - name: Send an alert to everyone
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          TITLE: ${{ inputs.title }}
+          MESSAGE: ${{ inputs.message }}
+          PAGE: ${{ inputs.page }}
+        run: python3 mockdraft/send_push.py --all "$TITLE" "$MESSAGE" "$PAGE"

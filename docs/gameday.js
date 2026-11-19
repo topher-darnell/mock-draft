@@ -163,6 +163,17 @@
 
   // in the iPhone app: the game-day alerts switch, and this week's lineup for Sunday's alert
   function appAlerts(starters) {
+    const ps = $("gd-push"), B = window.BHGPush;
+    if (ps && B) {
+      ps.hidden = false;
+      const pb = ps.querySelector("input");
+      pb.checked = B.on();
+      if (!pb.dataset.on) {
+        pb.dataset.on = "1";
+        pb.addEventListener("change", async () => { pb.checked = await B.set(pb.checked); });
+      }
+      B.sync();                                   // follow players just added, drop ones removed
+    }
     const sw = $("gd-alerts"), A = window.BHGApp;
     if (!sw || !A) return;
     sw.hidden = false;
@@ -185,7 +196,12 @@
     const ps = team.map((s) => BY[s]);
     const box = $("gd-ups"), al = $("gd-alert");
     if (!box || !al) return;
-    if (editing || !ps.length) { box.hidden = true; al.hidden = true; if ($("gd-alerts")) $("gd-alerts").hidden = true; return; }
+    if (editing || !ps.length) {
+      box.hidden = true; al.hidden = true;
+      for (const id of ["gd-alerts", "gd-push"]) if ($(id)) $(id).hidden = true;
+      if (!editing && window.BHGPush) window.BHGPush.sync();
+      return;
+    }
     const { starters } = lineup(ps);
     const warn = alerts(starters);
     al.hidden = !warn.length;

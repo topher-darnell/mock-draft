@@ -84,6 +84,9 @@ List what you changed in the commit message.
    each fantasy-relevant item from this week's injury, trade and QB updates (date, kind = injury / return /
    trade / qb / news, player, team, one plain sentence that names the player, source, url). Two sources for
    anything big. Keep it short: no rumors, no opinions. Topher may also send items in chat.
+   **Each new row sends a phone alert** (GitHub Actions, `send_push.py`) to app users who have that player on
+   My Team, so the `player` column must be the player's exact name, the text must be confirmed, and big rows
+   only (at most 8 alerts go out per push). Final scores (`result`) never alert.
 11. Ages for Fantasle live in `nfl_ages.csv`. Add any new player (ESPN team roster pages list ages:
    espn.com/nfl/team/roster/_/name/buf). About once a month, refresh everyone's age so birthdays count. The TE table has no rushing columns, so a
    TE that is off by a few points ran the ball: put the missing rushing yards/TDs on his row.

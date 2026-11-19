@@ -104,6 +104,8 @@
       }, true);
     }
 
+    setUpPush(P.FirebaseMessaging);
+
     // daily reminder for the new Fantasle + Prospectle (scheduled on the phone, no server)
     const LN = P.LocalNotifications, RKEY = "bhg-remind";
     if (!LN) return;
@@ -203,6 +205,49 @@
       setTeamAlerts: set,
       teamBrief: (b) => { brief = b; if (store(AKEY) === "on") schedule(); },
     };
+  }
+
+  // ---------- breaking news on your players (Firebase push, app 1.1 and later) ----------
+  // The phone follows one topic per My Team player ("p-<slug>") plus "all". When news.csv gets a row about
+  // a player, GitHub Actions sends an alert to that player's topic (mockdraft/send_push.py).
+  function setUpPush(FM) {
+    if (!FM) return;
+    const PKEY = "bhg-push", SYNCED = "bhg-push-topics";
+    const slugs = () => { try { const t = JSON.parse(localStorage.getItem("bhg-myteam")); return Array.isArray(t) ? t : []; } catch (e) { return []; } };
+    const synced = () => { try { return JSON.parse(store(SYNCED) || "[]"); } catch (e) { return []; } };
+    FM.addListener && FM.addListener("notificationActionPerformed", (a) => {
+      const to = a && a.notification && a.notification.data && a.notification.data.url;
+      location.href = ROOT + (to || "my-team.html");
+    });
+    let syncing = false;
+    async function sync() {
+      if (syncing) return;
+      syncing = true;
+      try {
+        const want = store(PKEY) === "on" ? ["all", ...slugs().map((x) => "p-" + x)] : [];
+        const have = synced();
+        for (const t of have.filter((t) => !want.includes(t))) await FM.unsubscribeFromTopic({ topic: t }).catch(() => {});
+        for (const t of want.filter((t) => !have.includes(t))) await FM.subscribeToTopic({ topic: t });
+        store(SYNCED, JSON.stringify(want));
+      } catch (e) { /* try again on the next page */ }
+      syncing = false;
+    }
+    async function set(on) {
+      try {
+        if (on) {
+          let perm = await FM.checkPermissions();
+          if (perm.receive !== "granted") perm = await FM.requestPermissions();
+          if (perm.receive !== "granted") { store(PKEY, "off"); await sync(); return false; }
+          await FM.getToken();                       // registers this phone with Firebase
+        }
+        store(PKEY, on ? "on" : "off");
+        count(on ? "push-on" : "push-off");
+        await sync();
+        return on;
+      } catch (e) { return false; }
+    }
+    window.BHGPush = { on: () => store(PKEY) === "on", set, sync };
+    sync();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => { setUpAppPage(); setTimeout(showBanner, 1200); });
