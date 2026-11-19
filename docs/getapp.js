@@ -237,16 +237,22 @@
         if (on) {
           let perm = await FM.checkPermissions();
           if (perm.receive !== "granted") perm = await FM.requestPermissions();
-          if (perm.receive !== "granted") { store(PKEY, "off"); await sync(); return false; }
+          if (perm.receive !== "granted") {
+            store(PKEY, "off"); await sync();
+            api.error = perm.receive === "denied" ? "Notifications are off for Big Head GM. Turn them on in iPhone Settings → Notifications → Big Head GM." : "Permission: " + perm.receive;
+            return false;
+          }
           await FM.getToken();                       // registers this phone with Firebase
         }
         store(PKEY, on ? "on" : "off");
         count(on ? "push-on" : "push-off");
         await sync();
+        api.error = "";
         return on;
-      } catch (e) { return false; }
+      } catch (e) { api.error = (e && (e.message || e.code)) || String(e); return false; }
     }
-    window.BHGPush = { on: () => store(PKEY) === "on", set, sync };
+    const api = { on: () => store(PKEY) === "on", set, sync, error: "" };
+    window.BHGPush = api;
     sync();
   }
 

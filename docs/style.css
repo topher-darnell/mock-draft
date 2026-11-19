@@ -3248,3 +3248,4 @@ a, button, .filter, label { touch-action: manipulation; }
   .in-title { font-size: 30px; }
 }
 .gd-team .gd-alerts { margin: 0; background: var(--bg); border-color: transparent; }
+.gd-push-err { display: block; margin: -4px 4px 4px; font-size: 13px; line-height: 1.4; color: #ff8a7a; }

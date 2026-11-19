@@ -170,7 +170,13 @@
       pb.checked = B.on();
       if (!pb.dataset.on) {
         pb.dataset.on = "1";
-        pb.addEventListener("change", async () => { pb.checked = await B.set(pb.checked); });
+        pb.addEventListener("change", async () => {
+          pb.checked = await B.set(pb.checked);
+          let msg = ps.querySelector(".gd-push-err");
+          if (!msg) { msg = document.createElement("small"); msg.className = "gd-push-err"; ps.after(msg); }
+          msg.textContent = B.error ? "Couldn't turn on alerts: " + B.error : "";
+          msg.hidden = !B.error;
+        });
       }
       B.sync();                                   // follow players just added, drop ones removed
     }
