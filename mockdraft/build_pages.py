@@ -2429,12 +2429,16 @@ def fantasle_page():
     ranked = sorted([r for r in lead if r["g"] >= 5], key=lambda r: -r["s"]["ppr"] / r["g"])[:FANTASLE_POOL]
     pool = {r["n"] for r in ranked}
     stats = {r["name"]: r for r in fantasy.read("fantasy_stats.csv")}
+    with open(os.path.join(HERE, "fantasy_stats.csv"), newline="", encoding="utf-8") as fh:
+        raw_team = {r["name"]: r["team"] for r in csv.DictReader(fh)}   # team before any release/move
     ages = {r["name"]: int(r["age"]) for r in fantasy.read("nfl_ages.csv") if r["age"]}
     rows = []
     for r in lead:
         s_ = stats[r["n"]]
         if r["t"] not in DIVISION:            # released (free agent): keep his last team so the puzzle doesn't change
-            r = dict(r, t=s_["team"])
+            r = dict(r, t=raw_team.get(r["n"], "FA"))
+            if r["t"] not in DIVISION:
+                continue
         team = full.get(FF_TEAM.get(r["t"], ""), r["t"])
         rows.append([r["n"], r["t"], team, DIVISION[r["t"]].replace("North", "N").replace("South", "S").replace("East", "E").replace("West", "W"),
                      r["p"], round(r["s"]["ppr"] / r["g"], 1),
