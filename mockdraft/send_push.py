@@ -6,6 +6,7 @@ David Montgomery only goes to fans who have him. Everyone with alerts on also fo
 
     python3 send_push.py --before <old commit>           # new news rows since that commit
     python3 send_push.py --all "Title" "Message" [url]   # one alert to everyone with alerts on
+    python3 send_push.py --token <phone token>           # a test straight to one phone (shows Apple's exact error)
     add --dry-run to print instead of sending
 
 Needs the FIREBASE_SERVICE_ACCOUNT secret (the service account JSON from Firebase). Without it,
@@ -75,13 +76,13 @@ def sender():
 
     def send(m):
         body = {"message": {
-            "topic": m["topic"],
+            **({"token": m["token"]} if m.get("token") else {"topic": m["topic"]}),
             "notification": {"title": m["title"], "body": m["body"]},
             "data": {"url": m["url"]},
             "apns": {"payload": {"aps": {"sound": "default"}}},
         }}
         r = session.post(url, json=body, timeout=20)
-        print(("sent" if r.ok else f"FAILED {r.status_code} {r.text[:200]}"), m["topic"], "·", m["title"])
+        print(("sent" if r.ok else f"FAILED {r.status_code} {r.text[:600]}"), m["topic"], "·", m["title"])
         return r.ok
     return send
 
@@ -90,7 +91,11 @@ def main():
     args = sys.argv[1:]
     dry = "--dry-run" in args
     args = [a for a in args if a != "--dry-run"]
-    if args[:1] == ["--all"]:
+    if args[:1] == ["--token"]:
+        if len(args) < 2:
+            sys.exit("usage: send_push.py --token <phone token>")
+        msgs = [{"token": args[1].strip(), "topic": "one phone", "title": "Big Head GM", "body": "Test alert straight to this phone.", "url": "my-team.html"}]
+    elif args[:1] == ["--all"]:
         if len(args) < 3:
             sys.exit('usage: send_push.py --all "Title" "Message" [url]')
         msgs = [{"topic": "all", "title": args[1], "body": args[2], "url": args[3] if len(args) > 3 else "my-team.html"}]

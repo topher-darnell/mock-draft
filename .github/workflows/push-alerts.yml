@@ -20,6 +20,10 @@ on:
         description: "Page to open when tapped (e.g. my-team.html)"
         required: false
         default: "my-team.html"
+      token:
+        description: "Optional: one phone's token, to test that phone only"
+        required: false
+        default: ""
 
 jobs:
   send:
@@ -44,4 +48,7 @@ jobs:
           TITLE: ${{ inputs.title }}
           MESSAGE: ${{ inputs.message }}
           PAGE: ${{ inputs.page }}
-        run: python3 mockdraft/send_push.py --all "$TITLE" "$MESSAGE" "$PAGE"
+          TOKEN: ${{ inputs.token }}
+        run: |
+          if [ -n "$TOKEN" ]; then python3 mockdraft/send_push.py --token "$TOKEN"
+          else python3 mockdraft/send_push.py --all "$TITLE" "$MESSAGE" "$PAGE"; fi
