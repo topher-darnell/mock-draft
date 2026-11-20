@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "82", "5", "2"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "83", "5", "2"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -1466,7 +1466,8 @@ def nfl_profiles():
         team = full.get(FF_TEAM.get(r["t"], ""), r["t"])
         sl = slug(n)
         ppr, ppg = r["s"]["ppr"], r["s"]["ppr"] / g
-        intro = (f"{n} is a {FF_POS_NAME[pos]} for the {team}. {fantasy.STATS_AS_OF[0].upper() + fantasy.STATS_AS_OF[1:]}, "
+        who = f"a free agent {FF_POS_NAME[pos]}" if r["t"] == "FA" else f"a {FF_POS_NAME[pos]} for the {team}"
+        intro = (f"{n} is {who}. {fantasy.STATS_AS_OF[0].upper() + fantasy.STATS_AS_OF[1:]}, "
                  f"he has {ppr:.1f} PPR fantasy points in {g} game{'s' if g != 1 else ''}, an average of {ppg:.1f} points per game (PPG). That ranks "
                  f"{ordinal(prank[(n, 'ppr')])} among {count[pos]} {FF_POS_PLURAL[pos]} and {ordinal(rank[(n, 'ppr')])} among all "
                  f"{len(lead)} players in PPR scoring.")
@@ -1587,7 +1588,8 @@ def nfl_profiles():
     </section>
     {signup("nfl-player")}"""
         desc = (f"{n} fantasy stats 2026: {ppr:.1f} PPR points ({ppg:.1f} per game), {pos}{prank[(n, 'ppr')]} in PPR. "
-                f"Game log, Standard, Half PPR and PPR points, ranks and season stats for the {team} {FF_POS_NAME[pos]}.")
+                f"Game log, Standard, Half PPR and PPR points, ranks and season stats for the "
+                f"{'free agent' if r['t'] == 'FA' else team} {FF_POS_NAME[pos]}.")
         write(f"fantasy/{sl}.html", page(f"fantasy/{sl}.html", f"{n} Fantasy Stats 2026 · {pos}, {short(team)} · Big Head GM",
                                           desc, body, crumbs=[("Fantasy", "fantasy.html"), (n, f"fantasy/{sl}.html")], nav="fantasy.html"))
         paths.append(f"fantasy/{sl}.html")
