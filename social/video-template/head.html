@@ -1,0 +1,62 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #050506; font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; color: #fff; background: #050506; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(130px); }
+  .g1 { width: 800px; height: 800px; left: -300px; top: 100px; background: #F2A93B; opacity: .26; }
+  .g2 { width: 760px; height: 760px; right: -320px; top: 1100px; background: #5E5CE6; opacity: .30; }
+  .grain { position: absolute; inset: 0; opacity: .06; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 6px 6px; }
+  .siren { position: absolute; left: 0; right: 0; top: 330px; text-align: center; }
+  .siren span { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border-radius: 40px; background: rgba(255,69,58,.14);
+                border: 1.5px solid rgba(255,69,58,.5); font-size: 26px; font-weight: 800; letter-spacing: .08em; color: #FF6B5E; }
+  .siren i { width: 16px; height: 16px; border-radius: 50%; background: #FF453A; box-shadow: 0 0 18px #FF453A; }
+  .hook { position: absolute; left: 70px; right: 70px; top: 520px; text-align: center; }
+  .hook b { display: block; font-size: 150px; font-weight: 900; letter-spacing: -0.05em; line-height: .92; }
+  .hook b em { font-style: normal; color: #FF453A; }
+  .hook span { display: block; margin-top: 30px; font-size: 44px; font-weight: 700; color: rgba(255,255,255,.7); }
+  .ttl { position: absolute; left: 70px; right: 70px; top: 330px; text-align: center; font-size: 60px; font-weight: 900; letter-spacing: -0.035em; }
+  .ttl em { font-style: normal; color: #FF6B5E; }
+  .count { position: absolute; left: 0; right: 0; top: 420px; text-align: center; font-size: 26px; font-weight: 800; color: rgba(255,255,255,.4); letter-spacing: .1em; }
+  .card { position: absolute; left: 110px; right: 110px; top: 520px; border-radius: 44px; padding: 40px 40px 36px;
+          background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03)); border: 2px solid rgba(255,255,255,.13);
+          box-shadow: 0 40px 100px rgba(0,0,0,.55); }
+  .pos { display: inline-block; font-size: 26px; font-weight: 900; color: #0B0B0C; padding: 8px 16px; border-radius: 12px; margin-bottom: 18px; }
+  .QB { background: #FF8A7A; } .RB { background: #5FD49A; } .WR { background: #6CB8FF; } .TE { background: #F6C45C; } .DE { background: #B9A6FF; } .OT { background: #F6C45C; } .CB { background: #FF8A7A; } .EDGE { background: #B9A6FF; } .IDL { background: #5FD49A; }
+  .team { margin-left: 14px; font-size: 28px; font-weight: 700; color: rgba(255,255,255,.55); }
+  .name { font-size: 88px; font-weight: 900; letter-spacing: -0.04em; line-height: .95; }
+  .inj { margin-top: 14px; font-size: 34px; font-weight: 700; color: rgba(255,255,255,.65); }
+  .stamp { display: inline-block; margin-top: 30px; padding: 16px 26px; border-radius: 20px; font-size: 54px; font-weight: 900; letter-spacing: -0.02em; }
+  .out { background: rgba(255,69,58,.18); color: #FF6B5E; border: 3px solid #FF453A; }
+  .ok { background: rgba(48,209,88,.16); color: #4BE07A; border: 3px solid #30D158; }
+  .impact { margin-top: 34px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.12); }
+  .impact small { display: block; font-size: 22px; font-weight: 800; letter-spacing: .12em; color: rgba(255,255,255,.4); margin-bottom: 10px; }
+  .impact p { font-size: 38px; font-weight: 700; line-height: 1.28; }
+  .impact p em { font-style: normal; color: #F2A93B; }
+  .list { margin-top: 10px; display: flex; flex-direction: column; gap: 14px; }
+  .li { display: flex; align-items: center; gap: 16px; font-size: 40px; font-weight: 800; }
+  .li i { font-style: normal; font-size: 24px; font-weight: 700; color: rgba(255,255,255,.5); margin-left: auto; }
+  .wm { position: absolute; left: 0; right: 0; top: 1436px; text-align: center; font-size: 26px; font-weight: 800; color: rgba(255,255,255,.45); }
+  .wm b { color: #F2A93B; }
+  .cta { position: absolute; left: 150px; right: 150px; top: 1130px; height: 100px; border-radius: 60px; display: grid; place-items: center;
+         background: linear-gradient(90deg, #F2A93B, #FF7A3D); color: #120A02; font-size: 36px; font-weight: 900; letter-spacing: -0.02em; box-shadow: 0 20px 60px rgba(242,169,59,.35); }
+  .sub { position: absolute; left: 100px; right: 100px; top: 1262px; text-align: center; font-size: 30px; font-weight: 700; color: rgba(255,255,255,.6); }
+  .logo { position: absolute; left: 50%; top: 520px; width: 300px; margin-left: -150px; border-radius: 60px; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  .endcap { position: absolute; left: 100px; right: 100px; top: 880px; text-align: center; font-size: 72px; font-weight: 900; letter-spacing: -0.04em; line-height: 1.02; }
+  .endcap em { font-style: normal; color: #F2A93B; }
+
+  .sc { position: absolute; left: 110px; right: 110px; top: 520px; border-radius: 44px; padding: 36px 40px;
+        background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03)); border: 2px solid rgba(255,255,255,.13); box-shadow: 0 40px 100px rgba(0,0,0,.55); }
+  .row { display: flex; align-items: center; gap: 22px; padding: 18px 0; }
+  .row + .row { border-top: 1px solid rgba(255,255,255,.1); }
+  .tm { width: 26px; height: 90px; border-radius: 10px; flex: none; }
+  .tn { font-size: 66px; font-weight: 900; letter-spacing: -0.04em; }
+  .tn small { display: block; font-size: 24px; font-weight: 700; color: rgba(255,255,255,.45); letter-spacing: .04em; }
+  .pts { margin-left: auto; font-size: 120px; font-weight: 900; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+  .lose { opacity: .42; }
+  .note { margin-top: 26px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12); font-size: 36px; font-weight: 700; line-height: 1.28; }
+  .note em { font-style: normal; color: #F2A93B; }
+  .final { display: inline-block; margin-bottom: 10px; font-size: 22px; font-weight: 900; letter-spacing: .12em; color: rgba(255,255,255,.45); }
+</style></head>
+<body><div id="stage"><div class="glow g1"></div><div class="glow g2"></div><div class="grain"></div><div id="layer"></div></div>
