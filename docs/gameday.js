@@ -198,9 +198,6 @@
           if (await B.granted()) { pb.checked = await B.set(true); update(); }
         });
       }
-      if (!ps.nextElementSibling || !ps.nextElementSibling.classList.contains("gd-push-chk")) {
-        ps.insertAdjacentHTML("afterend", '<a class="gd-push-chk" href="my-team.html?pushcheck=1">Not getting alerts? Run a check</a>');
-      }
       B.sync();                                   // follow players just added, drop ones removed
     }
     const sw = $("gd-alerts"), A = window.BHGApp;
