@@ -2279,7 +2279,7 @@ def lineup_card(ups=2, title="Your lineup this week"):
             <input type="checkbox" role="switch" aria-label="Game-day alerts"><i aria-hidden="true"></i></label>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=14" defer></script>
+          <script src="gameday.js?v=15" defer></script>
         </section>"""
 
 
