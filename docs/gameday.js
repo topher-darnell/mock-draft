@@ -170,12 +170,32 @@
       pb.checked = B.on();
       if (!pb.dataset.on) {
         pb.dataset.on = "1";
+        // notifications were turned off for the app before: iPhone won't ask again, so offer Settings
+        const note = () => {
+          let n = ps.parentElement.querySelector(".gd-push-note");
+          if (!n) {
+            n = document.createElement("div");
+            n.className = "gd-push-note";
+            n.innerHTML = '<span>Notifications are off for Big Head GM on this phone. Turn on <b>Allow Notifications</b>, then come back.</span>' +
+              '<a class="mt-btn" href="app-settings:">Open Settings</a>';
+            ps.after(n);
+          }
+          return n;
+        };
+        const update = () => {
+          const n = ps.parentElement.querySelector(".gd-push-note");
+          if (B.error === "denied") note().hidden = false;
+          else if (n) n.hidden = true;
+        };
         pb.addEventListener("change", async () => {
           pb.checked = await B.set(pb.checked);
-          let msg = ps.parentElement.querySelector(".gd-push-err");
-          if (!msg) { msg = document.createElement("small"); msg.className = "gd-push-err"; ps.after(msg); }
-          msg.textContent = B.error ? "Couldn't turn on alerts: " + B.error : "";
-          msg.hidden = !B.error;
+          update();
+        });
+        // back from Settings with notifications on: finish turning alerts on
+        document.addEventListener("visibilitychange", async () => {
+          const n = ps.parentElement.querySelector(".gd-push-note");
+          if (document.visibilityState !== "visible" || !n || n.hidden) return;
+          if (await B.granted()) { pb.checked = await B.set(true); update(); }
         });
       }
       if (!ps.nextElementSibling || !ps.nextElementSibling.classList.contains("gd-push-chk")) {

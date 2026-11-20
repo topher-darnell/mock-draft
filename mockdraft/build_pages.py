@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "81", "5", "2"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "82", "5", "2"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -205,7 +205,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <script src="{root}gm.js?v={GM_V}"></script>
   <script src="{root}site.js?v={SITE_JS_V}"></script>
   <script src="{root}newsletter.js?v=1"></script>
-  <script src="{root}getapp.js?v=10"></script>
+  <script src="{root}getapp.js?v=11"></script>
   <script src="{root}appfeel.js?v=1"></script>{tags}
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -2279,7 +2279,7 @@ def lineup_card(ups=2, title="Your lineup this week"):
             <input type="checkbox" role="switch" aria-label="Game-day alerts"><i aria-hidden="true"></i></label>
           <p class="gd-fine" id="gd-fine">Saved on this phone. No account needed. PPR.</p>
           <script type="application/json" id="gd-data">{data}</script>
-          <script src="gameday.js?v=15" defer></script>
+          <script src="gameday.js?v=16" defer></script>
         </section>"""
 
 

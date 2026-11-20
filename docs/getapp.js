@@ -254,7 +254,7 @@
           if (perm.receive !== "granted") perm = await FM.requestPermissions();
           if (perm.receive !== "granted") {
             store(PKEY, "off"); await sync();
-            api.error = perm.receive === "denied" ? "Notifications are off for Big Head GM. Turn them on in iPhone Settings → Notifications → Big Head GM." : "Permission: " + perm.receive;
+            api.error = perm.receive === "denied" ? "denied" : "Permission: " + perm.receive;
             return false;
           }
           await FM.getToken();                       // registers this phone with Firebase
@@ -274,7 +274,8 @@
       try { await FM.subscribeToTopic({ topic: "all" }); out.subscribeAll = "ok"; } catch (e) { out.subscribeAll = "error: " + (e.message || e); }
       return out;
     }
-    const api = { on: () => store(PKEY) === "on", set, sync, check, error: "" };
+    const granted = () => FM.checkPermissions().then((p) => p.receive === "granted", () => false);
+    const api = { on: () => store(PKEY) === "on", set, sync, check, granted, error: "" };
     window.BHGPush = api;
     if (/[?&]pushcheck=1/.test(location.search)) {
       const box = document.createElement("div");
