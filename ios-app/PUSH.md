@@ -24,7 +24,9 @@ send version 1.1 to Apple.
 
 1. Go to **developer.apple.com/account** → **Certificates, Identifiers & Profiles** → **Keys** → the blue **+**.
 2. Key name: `Big Head GM push`. Tick **Apple Push Notifications service (APNs)**.
-   If it asks for an environment, pick **Sandbox & Production**.
+   Click **Configure/Edit** next to it and set the environment to **Sandbox & Production**.
+   **Not "Sandbox"**: a sandbox-only key works from Xcode but silently fails for TestFlight and App Store users,
+   and it can't be changed later (you'd have to make a new key). This happened on Nov 19–20, 2026.
 3. **Continue** → **Register** → **Download**. You get a file like `AuthKey_ABC123XYZ.p8`.
    **You can only download it once.** Save it somewhere safe and don't share it.
 4. Write down:
