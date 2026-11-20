@@ -1,5 +1,7 @@
-const BEAT = 60 / 140;
-const HOOK = 8, PER = 4, N = 6, END = HOOK + PER * N;
+// Timed to the TikTok sound "Sweet As Honey" (122.4 BPM). Video t=0 = sound start.
+// First beat at 0.25s; a big hit every bar (4 beats = 1.96s) starting at 1.23s. Cards change on those hits.
+const BEAT = 60 / 122.4, OFF = 0.25 / BEAT;
+const HOOK = OFF + 6, PER = 4, N = 6, END = HOOK + PER * N;
 const ease = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
 const back = x => { x = Math.min(1, Math.max(0, x)); const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
 const c01 = x => Math.min(1, Math.max(0, x));
@@ -40,11 +42,11 @@ window.setT = function (t) {
     const slide = b > HOOK - 0.4 ? -ease((b - HOOK + 0.4) / 0.4) * 1100 : 0;
     h += '<div class="hook" style="top:640px;transform:translateX(' + slide + 'px)">';
     words.forEach((w, i) => {
-      const k = b - 0.5 - i * 0.7;
+      const k = b - OFF - i;                      // one word per beat
       const inner = i >= 2 ? '<em>' + w + '</em>' : w;
       h += '<b style="font-size:' + (i === 1 ? 210 : 150) + 'px;opacity:' + (k > 0 ? 1 : 0) + ';transform:scale(' + (k > 0 ? 1.6 - 0.6 * ease(k / 0.3) : 1) + ')">' + inner + '</b>';
     });
-    h += '<span style="opacity:' + c01((b - 3.6) * 3) + '">released friday morning 📉</span></div>';
+    h += '<span style="opacity:' + c01((b - OFF - 4) * 3) + '">released friday morning 📉</span></div>';
   } else if (b < END) {
     const i = Math.floor((b - HOOK) / PER), cb = b - HOOK - i * PER, C = CARDS[i];
     const inT = back(cb / 0.55), out = cb > PER - 0.3 ? ease((cb - (PER - 0.3)) / 0.3) : 0;
@@ -72,5 +74,5 @@ window.setT = function (t) {
   }
   document.getElementById("layer").innerHTML = h;
 };
-window.TOTAL = (END + 9) * BEAT + 0.6;
+window.TOTAL = (END + 9) * BEAT + 0.6;   // ends before the sound does (~21s)
 setT(0);
