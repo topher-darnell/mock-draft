@@ -2433,6 +2433,8 @@ def fantasle_page():
     rows = []
     for r in lead:
         s_ = stats[r["n"]]
+        if r["t"] not in DIVISION:            # released (free agent): keep his last team so the puzzle doesn't change
+            r = dict(r, t=s_["team"])
         team = full.get(FF_TEAM.get(r["t"], ""), r["t"])
         rows.append([r["n"], r["t"], team, DIVISION[r["t"]].replace("North", "N").replace("South", "S").replace("East", "E").replace("West", "W"),
                      r["p"], round(r["s"]["ppr"] / r["g"], 1),
