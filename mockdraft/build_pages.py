@@ -2687,7 +2687,7 @@ def vote_section():
       <ol class="vt-list"></ol>
       <a class="vt-more" href="fantasy-start-sit.html">Compare any players →</a>
       <script type="application/json" id="vote-data">{blob}</script>
-      <script src="vote.js?v=1" defer></script>
+      <script src="vote.js?v=2" defer></script>
     </section>
     <!-- home-vote:end -->"""
 

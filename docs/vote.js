@@ -15,9 +15,11 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const counts = {};
 
+  let broken = false;                                  // Firebase said no (bad key or rules): hide the card
   async function load(id) {
     try {
       const r = await fetch(`${BASE}/votes/${id}?key=${CFG.apiKey}`);
+      if (r.status === 400 || r.status === 401 || r.status === 403) { broken = true; box.hidden = true; }
       if (!r.ok) return { a: 0, b: 0 };
       const f = (await r.json()).fields || {};
       return { a: +(f.a && f.a.integerValue || 0), b: +(f.b && f.b.integerValue || 0) };
@@ -63,7 +65,10 @@
     counts[id] = await load(id);
     render();
   });
-  box.hidden = false;
-  render();
-  Promise.all(D.matchups.map(async (m) => { counts[m.id] = await load(m.id); })).then(render);
+  // check Firebase first, then show the card
+  Promise.all(D.matchups.map(async (m) => { counts[m.id] = await load(m.id); })).then(() => {
+    if (broken) return;
+    box.hidden = false;
+    render();
+  });
 })();
