@@ -80,6 +80,10 @@ List what you changed in the commit message.
    knows about injuries in the steps above, so do those first (a backup's "More work" comes from them).
    Skim it: if a name is obviously rostered everywhere, or a big pickup is missing, say so in the chat.
    Put the top 3 adds in the newsletter and a Tuesday video, linked to the page.
+9c. **Who ya got?** (home page voting, `votes.csv`): add 4 rows for the new week (week, id like `w12-name-name`,
+   pos, a, b, pick = a/b, why in one plain sentence with both projections). Pick well-known players at the same
+   position whose projections are close, or a spicy one (a star projected below a lesser name). Sunday games only. Keep
+   last week's rows (the page shows the newest week). Results live in Firestore (`votes/<id>`); they make good posts.
 10. **Quick hits** (`news.csv`, shown on the home page, `news.html` and player profiles): add one row for
    each fantasy-relevant item from this week's injury, trade and QB updates (date, kind = injury / return /
    trade / qb / news, player, team, one plain sentence that names the player, source, url). Two sources for
