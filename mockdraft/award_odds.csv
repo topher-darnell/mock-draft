@@ -1,14 +1,14 @@
 award,book,reported_by,url,as_of,name,odds
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Joe Burrow,+105
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Josh Allen,+310
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Brock Purdy,+400
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Trevor Lawrence,+500
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Patrick Mahomes,+1600
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Jordan Love,+2500
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Caleb Williams,+3000
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Jared Goff,+5000
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Jahmyr Gibbs,+5000
-mvp,DraftKings,Sports Illustrated,https://www.si.com/betting/nfl-mvp-odds-joe-burrow-skyrockets-to-clear-cut-favorite-patrick-mahomes-trevor-lawrence-rise-after-week-10-2026,2026-11-16,Jaxon Smith-Njigba,+8000
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Joe Burrow,-115
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Josh Allen,+350
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Brock Purdy,+425
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Trevor Lawrence,+500
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Patrick Mahomes,+1800
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jordan Love,+2500
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Caleb Williams,+3000
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jahmyr Gibbs,+5000
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jared Goff,+5500
+mvp,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jaxon Smith-Njigba,+8000
 mvp,FanDuel,FanDuel Research,https://www.fanduel.com/research/nfl-mvp-odds-update-joe-burrow-brock-purdy-josh-allen-week-11,2026-11-16,Joe Burrow,+100
 mvp,FanDuel,FanDuel Research,https://www.fanduel.com/research/nfl-mvp-odds-update-joe-burrow-brock-purdy-josh-allen-week-11,2026-11-16,Josh Allen,+350
 mvp,FanDuel,FanDuel Research,https://www.fanduel.com/research/nfl-mvp-odds-update-joe-burrow-brock-purdy-josh-allen-week-11,2026-11-16,Brock Purdy,+400
@@ -19,33 +19,43 @@ mvp,FanDuel,FanDuel Research,https://www.fanduel.com/research/nfl-mvp-odds-updat
 mvp,FanDuel,FanDuel Research,https://www.fanduel.com/research/nfl-mvp-odds-update-joe-burrow-brock-purdy-josh-allen-week-11,2026-11-16,Jared Goff,+7500
 mvp,FanDuel,FanDuel Research,https://www.fanduel.com/research/nfl-mvp-odds-update-joe-burrow-brock-purdy-josh-allen-week-11,2026-11-16,Caleb Williams,+7500
 mvp,FanDuel,FanDuel Research,https://www.fanduel.com/research/nfl-mvp-odds-update-joe-burrow-brock-purdy-josh-allen-week-11,2026-11-16,Jaxon Smith-Njigba,+15000
-opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Jahmyr Gibbs,+165
-opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Jaxon Smith-Njigba,+220
-opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Kenneth Walker III,+450
-opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Ja'Marr Chase,+1500
-opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Bijan Robinson,+1500
-opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Josh Allen,+2200
-dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Will Anderson Jr.,+150
-dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Fred Warner,+600
-dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Jeffery Simmons,+800
-dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Dallas Turner,+900
-dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Greg Rousseau,+1000
-dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,T.J. Watt,+1100
-oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Fernando Mendoza,+350
-oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Denzel Boston,+370
-oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Carnell Tate,+425
-oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,KC Concepcion,+600
-oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Jonah Coleman,+600
-oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Caleb Douglas,+1000
-droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Arvell Reese,+100
-droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,David Bailey,+250
-droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Jacob Rodriguez,+800
-droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Sonny Styles,+800
-droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Gabe Jacas,+1500
-droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Mansoor Delane,+2500
-coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,John Harbaugh,+145
-coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Ben Johnson,+300
-coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Kyle Shanahan,+550
-coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Todd Monken,+1000
-coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Liam Coen,+1400
-coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-10,Kevin O'Connell,+1800
+opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jahmyr Gibbs,+100
+opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jaxon Smith-Njigba,+125
+opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Kenneth Walker III,+1400
+opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Ja'Marr Chase,+2000
+opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Bijan Robinson,+2500
+opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Josh Allen,+3000
+opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Christian McCaffrey,+3000
+opoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,CeeDee Lamb,+4000
+dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Will Anderson Jr.,+120
+dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Dallas Turner,+350
+dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jeffery Simmons,+750
+dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Fred Warner,+750
+dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,T.J. Watt,+1500
+dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Greg Rousseau,+1500
+dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Chase Young,+2500
+dpoy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Andrew Van Ginkel,+2500
+oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Fernando Mendoza,+230
+oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,KC Concepcion,+550
+oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jonah Coleman,+550
+oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Carnell Tate,+750
+oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Denzel Boston,+850
+oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Emmett Johnson,+1100
+oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jordyn Tyson,+1800
+oroy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Carson Beck,+2500
+droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Arvell Reese,-145
+droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,David Bailey,+320
+droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Sonny Styles,+950
+droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Gabe Jacas,+1200
+droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Jacob Rodriguez,+1800
+droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Caleb Downs,+3000
+droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Josiah Trotter,+3500
+droy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Rueben Bain Jr.,+3500
+coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Kyle Shanahan,+300
+coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,John Harbaugh,+370
+coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Todd Monken,+370
+coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Ben Johnson,+400
+coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Liam Coen,+650
+coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Kevin O'Connell,+2000
+coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Joe Brady,+2000
+coy,DraftKings,ESPN,https://www.espn.com/espn/betting/story/_/id/48476156/2026-nfl-awards-betting-odds-mvp-rookie-year-offensive-defensive-player-coach,2026-11-17,Dan Campbell,+3000
