@@ -1,275 +1,275 @@
 rank,name,position,college,drafted_pct,avg_pick,earliest,latest,top_team,top_team_pct
 1,Jeremiah Smith,WR,Ohio State,100.0,1.0,1,1,Tennessee Titans,100.0
-2,Leonard Moore,CB,Notre Dame,100.0,4.5,2,11,New York Jets,36.4
-3,Colin Simmons,EDGE,Texas,100.0,4.0,2,10,Los Angeles Chargers,46.4
-4,Dylan Stewart,EDGE,South Carolina,100.0,5.7,2,10,Arizona Cardinals,25.4
-5,Jordan Seaton,OT,LSU,100.0,6.3,3,9,Philadelphia Eagles,47.0
-6,Charlie Becker,WR,Indiana,100.0,6.4,2,12,Los Angeles Chargers,31.1
-7,Will Echoles,IDL,Ole Miss,100.0,7.3,4,16,New York Jets,66.1
-8,Drew Mestemaker,QB,Oklahoma State,100.0,3.5,3,13,Miami Dolphins,58.3
-9,Cam Coleman,WR,Texas,100.0,14.9,7,25,Las Vegas Raiders,60.7
-10,Ellis Robinson IV,CB,Georgia,100.0,11.4,5,21,Washington Commanders,46.8
-11,Jadan Baugh,RB,Florida,100.0,20.2,9,34,Cincinnati Bengals,17.6
-12,Xavier Gilliam,IDL,Tennessee,100.0,9.7,4,19,Houston Texans,30.7
-13,Ashton Hampton,CB,Clemson,100.0,12.4,6,21,Washington Commanders,41.7
-14,Chris Cole,LB,Georgia,100.0,14.0,6,31,New York Jets,41.5
-15,Jamari Johnson,TE,Oregon,100.0,25.0,16,41,Kansas City Chiefs,38.8
-16,Greg Johnson,IOL,Minnesota,100.0,17.6,8,31,New England Patriots,39.1
-17,Trinidad Chambliss,QB,Ole Miss,100.0,29.3,13,42,Minnesota Vikings,29.8
-18,Arch Manning,QB,Texas,100.0,25.0,6,40,Cleveland Browns,23.0
-19,Kelley Jones,CB,Mississippi State,100.0,20.9,12,33,Baltimore Ravens,15.2
-20,Trevor Goosby,OT,Texas,100.0,14.0,5,32,Houston Texans,40.3
-21,David Stone,IDL,Oklahoma,100.0,18.0,9,37,New Orleans Saints,24.6
-22,CJ Carr,QB,Notre Dame,100.0,15.2,4,39,New York Jets,37.7
-23,Yhonzae Pierre,EDGE,Alabama,100.0,21.1,14,42,Seattle Seahawks,36.8
-24,KJ Bolden,S,Georgia,100.0,25.5,14,41,Cincinnati Bengals,40.3
-25,Dante Moore,QB,Oregon,100.0,26.5,13,49,Cleveland Browns,34.8
-26,Nick Marsh,WR,Indiana,100.0,21.2,12,40,Las Vegas Raiders,18.1
-27,A'Mauri Washington,IDL,Oregon,100.0,28.1,15,44,New York Giants,33.0
-28,Jackson Harris,WR,LSU,100.0,27.1,14,45,Dallas Cowboys,21.1
-29,Darian Mensah,QB,Miami (FL),100.0,25.2,6,50,Minnesota Vikings,22.4
-30,Tae Johnson,S,Notre Dame,100.0,33.8,21,52,Buffalo Bills,21.6
-31,Kade Pieper,IOL,Iowa,100.0,31.3,19,47,Philadelphia Eagles,20.4
-32,Kyngstonn Viliamu-Asa,LB,Notre Dame,100.0,35.3,20,51,Denver Broncos,18.0
-33,Lance Heard,OT,Kentucky,100.0,27.9,19,48,Tennessee Titans,30.5
-34,Carter Smith,IOL,Indiana,100.0,34.5,22,52,San Francisco 49ers,15.6
-35,Austin Simmons,QB,Missouri,100.0,47.4,23,73,Atlanta Falcons,25.8
-36,Ahmad Moten Sr.,IDL,Miami (FL),100.0,40.4,27,55,Tennessee Titans,21.8
-37,Trevor Lauck,OT,Iowa,100.0,26.5,17,47,Philadelphia Eagles,17.2
-38,Kewan Lacy,RB,Ole Miss,100.0,43.5,27,61,New Orleans Saints,19.7
-39,Kingston Lopa,S,California,100.0,44.9,32,60,New England Patriots,13.4
-40,Cayden Green,IOL,Missouri,100.0,40.4,30,58,Philadelphia Eagles,11.6
-41,Justin Scott,IDL,Miami (FL),100.0,44.7,32,62,Baltimore Ravens,11.6
-42,Trey'Dez Green,TE,LSU,100.0,37.1,24,56,Philadelphia Eagles,12.5
-43,Ryan Coleman-Williams,WR,Alabama,100.0,39.1,26,56,Arizona Cardinals,12.4
-44,KJ Duff,WR,Rutgers,100.0,45.5,33,65,Washington Commanders,13.0
-45,Zereoue Williams,OT,Utah,100.0,31.9,22,52,Tennessee Titans,21.0
-46,Matayo Uiagalelei,EDGE,Oregon,100.0,48.4,35,71,Tampa Bay Buccaneers,8.1
-47,Reed Harris,WR,Arizona State,100.0,43.4,31,60,Arizona Cardinals,16.2
-48,Zabien Brown,CB,Alabama,100.0,50.0,37,66,Carolina Panthers,10.0
-49,Kenyatta Jackson Jr.,EDGE,Ohio State,100.0,51.6,38,73,Carolina Panthers,9.7
-50,Devan Thompkins,IDL,Alabama,100.0,46.9,34,70,Las Vegas Raiders,10.9
-51,Sammy Brown,LB,Clemson,100.0,55.8,41,75,Pittsburgh Steelers,11.2
-52,Anthonie Knapp,IOL,Notre Dame,100.0,47.1,36,67,New England Patriots,9.1
-53,Ryan Williams,WR,Alabama,100.0,55.5,40,80,New York Giants,9.7
-54,Ahmad Hardy,RB,Missouri,100.0,58.5,42,77,Tennessee Titans,12.8
-55,Clev Lubin,EDGE,Louisville,100.0,56.8,42,84,Cleveland Browns,9.0
-56,Tavion Gadson,IDL,Kentucky,100.0,59.5,44,82,Pittsburgh Steelers,8.6
-57,Quincy Rhodes Jr.,EDGE,Arkansas,100.0,58.9,45,85,Cleveland Browns,8.4
-58,Wyatt Young,WR,Oklahoma State,100.0,61.8,46,82,Kansas City Chiefs,8.3
-59,Jaylen McClain,S,Ohio State,100.0,60.3,47,81,Pittsburgh Steelers,13.9
-60,Boubacar Traore,EDGE,Notre Dame,100.0,40.9,33,63,Miami Dolphins,10.9
-61,Deuce Alexander,WR,Ole Miss,100.0,64.7,48,92,Kansas City Chiefs,9.6
-62,AJ Holmes Jr.,IDL,Texas Tech,100.0,56.9,44,79,New York Giants,8.2
-63,Melvin Siani,OT,Texas,100.0,63.3,49,87,San Francisco 49ers,8.4
-64,Koi Perich,S,Oregon,100.0,64.7,50,95,Minnesota Vikings,16.7
-65,Jelani McDonald,S,Texas,100.0,65.4,52,88,Minnesota Vikings,13.9
-66,Ryan Wingo,WR,Texas,100.0,70.0,53,95,Indianapolis Colts,9.3
-67,Will Heldt,EDGE,Clemson,100.0,68.0,54,92,Tennessee Titans,12.8
-68,Princewill Umanmielen,EDGE,LSU,100.0,69.0,56,98,Tennessee Titans,12.4
-69,Audavion Collins,CB,Penn State,100.0,68.3,56,95,Tennessee Titans,15.9
-70,Damon Wilson II,EDGE,Miami (FL),100.0,71.1,57,99,Tennessee Titans,10.6
-71,Luke Reynolds,TE,Virginia Tech,100.0,71.9,58,100,Minnesota Vikings,11.0
-72,Brice Pollock,CB,Texas Tech,100.0,71.7,59,93,Tennessee Titans,12.7
-73,Samson Okunlola,IOL,Miami (FL),100.0,62.6,51,86,Tennessee Titans,11.4
-74,Tony Rojas,LB,Penn State,100.0,76.1,60,102,Pittsburgh Steelers,8.5
-75,John Henry Daley,EDGE,Michigan,100.0,75.0,61,117,Tennessee Titans,9.3
-76,Vicari Swain,CB,South Carolina,100.0,75.1,62,103,Tennessee Titans,9.5
-77,Bryant Wesco Jr.,WR,Clemson,100.0,80.8,64,111,Indianapolis Colts,9.3
-78,Bray Hubbard,S,Alabama,100.0,78.7,64,105,New England Patriots,7.4
-79,OJ Frederique Jr.,CB,Miami (FL),100.0,78.2,65,102,Pittsburgh Steelers,9.5
-80,Jide Abasiri,IDL,USC,100.0,80.3,66,102,Indianapolis Colts,11.0
-81,Bear Alexander,IDL,Oregon,100.0,82.4,68,104,Las Vegas Raiders,9.2
-82,DJ McKinney,CB,Notre Dame,100.0,82.1,70,110,Pittsburgh Steelers,10.7
-83,Mario Craver,WR,Texas A&M,100.0,85.9,71,118,Indianapolis Colts,8.5
-84,Jackson Bennee,S,Utah,100.0,85.8,72,115,Pittsburgh Steelers,11.7
-85,Jamari Sharpe,CB,Indiana,100.0,84.9,73,119,Pittsburgh Steelers,12.1
-86,Jordan Ross,EDGE,LSU,100.0,87.4,74,132,Kansas City Chiefs,9.7
-87,Zach Lutmer,S,Iowa,100.0,88.6,75,121,Pittsburgh Steelers,10.2
-88,Omarion Miller,WR,Arizona State,100.0,91.0,76,123,Green Bay Packers,8.2
-89,Ty Benefield,S,LSU,100.0,90.6,77,118,Pittsburgh Steelers,9.6
-90,Jayden Maiava,QB,USC,100.0,95.9,69,152,Indianapolis Colts,25.2
-91,LJ Martin,RB,BYU,100.0,91.5,78,120,Green Bay Packers,9.7
-92,Iapani Laloulu,IOL,Oregon,100.0,90.9,79,125,Green Bay Packers,11.5
-93,Jacarrius Peak,OT,South Carolina,100.0,92.0,80,121,Kansas City Chiefs,13.7
-94,Rasheem Biles,LB,Texas,100.0,93.9,81,120,Kansas City Chiefs,12.5
-95,Junior Sherrill,WR,Vanderbilt,100.0,97.9,82,135,Philadelphia Eagles,8.6
-96,Nate Frazier,RB,Georgia,100.0,96.1,83,120,Cincinnati Bengals,13.0
-97,Anthony Smith,EDGE,Minnesota,100.0,98.8,84,131,Philadelphia Eagles,8.4
-98,Jalen Mayo,CB,Houston,100.0,95.8,85,131,Cincinnati Bengals,9.2
-99,Teitum Tuioti,EDGE,Oregon,100.0,101.4,86,132,Cincinnati Bengals,9.6
-100,Ben Roberts,LB,Texas Tech,100.0,99.5,87,134,Cincinnati Bengals,13.9
-101,Amare Thomas,WR,Houston,100.0,105.0,88,145,Philadelphia Eagles,10.5
-102,Evan Tengesdahl,IOL,Cincinnati,100.0,100.6,89,128,Los Angeles Chargers,12.2
-103,Julian Sayin,QB,Ohio State,100.0,124.4,91,182,Tampa Bay Buccaneers,15.6
-104,PJ Williams,OT,SMU,100.0,103.8,91,132,Green Bay Packers,10.9
-105,Emmanuel Oyebadejo,IDL,Florida,100.0,104.7,92,142,Los Angeles Chargers,14.2
-106,LaNorris Sellers,QB,South Carolina,100.0,87.4,68,139,Indianapolis Colts,26.8
-107,Isaac Brown,RB,Louisville,100.0,105.2,93,137,Los Angeles Chargers,12.0
-108,Mark Fletcher Jr.,RB,Miami (FL),100.0,106.9,94,143,Los Angeles Chargers,11.9
-109,Suntarine Perkins,LB,Ole Miss,100.0,108.0,95,134,Los Angeles Chargers,12.1
-110,Taylor Wein,EDGE,Oklahoma,100.0,112.0,96,151,Philadelphia Eagles,7.9
-111,Mateen Ibirogba,IDL,Texas Tech,100.0,110.6,97,144,Los Angeles Chargers,15.7
-112,T.J. Moore,WR,Clemson,100.0,115.2,98,158,Cleveland Browns,9.7
-113,Niki Prongos,OT,Stanford,100.0,111.7,99,145,Arizona Cardinals,11.1
-114,Jyaire Hill,CB,Michigan,100.0,111.6,100,150,Los Angeles Chargers,15.3
-115,Luke Montgomery,IOL,Ohio State,100.0,112.6,101,142,Arizona Cardinals,8.0
-116,Austin Siereveld,IOL,Ohio State,100.0,113.8,102,146,Los Angeles Chargers,10.1
-117,Wayshawn Parker,RB,Utah,100.0,114.6,103,149,Cleveland Browns,10.2
-118,Marquise Lightfoot,EDGE,Miami (FL),100.0,120.4,104,161,Carolina Panthers,7.5
-119,Sammy Omosigho,LB,UCLA,100.0,118.2,105,146,Cleveland Browns,11.8
-120,Sahir West,EDGE,UCLA,100.0,122.3,106,165,Green Bay Packers,7.5
-121,Kayin Lee,CB,Tennessee,100.0,119.1,107,154,Cleveland Browns,12.2
-122,Terrance Carter Jr.,TE,Texas Tech,100.0,120.1,108,148,Cleveland Browns,16.3
-123,Jordan Faison,WR,Notre Dame,100.0,127.8,109,172,Cleveland Browns,13.0
-124,Brandon Baker,IOL,Texas,100.0,121.4,110,160,Cleveland Browns,14.4
-125,Jayden Jackson,IDL,Oklahoma,100.0,124.4,111,152,Cleveland Browns,15.4
-126,Whit Weeks,LB,LSU,100.0,125.6,112,154,Cleveland Browns,14.5
-127,Anto Saka,EDGE,Texas A&M,100.0,129.4,114,173,Buffalo Bills,11.1
-128,Christian Alliegro,LB,Ohio State,100.0,127.0,115,157,Cleveland Browns,15.3
-129,Amare Ferrell,S,Indiana,100.0,128.1,116,162,Cleveland Browns,17.0
-130,Drake Lindsey,QB,Minnesota,100.0,159.6,117,208,New Orleans Saints,11.8
-131,Duce Robinson,WR,Florida State,100.0,135.3,118,172,Buffalo Bills,11.2
-132,Cooper Barkate,WR,Miami (FL),100.0,136.1,119,176,Cleveland Browns,13.8
-133,Peyton Bowen,S,Oklahoma,100.0,131.4,120,168,Cleveland Browns,15.0
-134,Andrew Rappleyea,TE,Penn State,100.0,129.7,121,158,Cleveland Browns,12.8
-135,Xavier Atkins,LB,Auburn,100.0,133.3,122,164,Buffalo Bills,11.2
-136,Brendan Sorsby,QB,Texas Tech,100.0,165.9,132,204,New Orleans Saints,12.3
-137,Justice Haynes,RB,Georgia Tech,100.0,135.1,124,174,Buffalo Bills,10.8
-138,Nyck Harbor,WR,South Carolina,100.0,142.6,125,207,Buffalo Bills,11.5
-139,Hollywood Smothers,RB,Texas,100.0,137.1,126,176,Indianapolis Colts,13.2
-140,DeSean Bishop,RB,Tennessee,100.0,138.1,127,176,Indianapolis Colts,12.9
-141,Chris Peal,CB,Syracuse,100.0,137.4,128,175,Buffalo Bills,18.2
-142,Peter Clarke,TE,Temple,100.0,138.2,129,172,Buffalo Bills,12.1
-143,Sam Leavitt,QB,LSU,100.0,169.9,132,211,Green Bay Packers,11.1
-144,Raleek Brown,RB,Texas,100.0,141.9,131,176,Indianapolis Colts,16.4
-145,Adam Trick,EDGE,Texas Tech,100.0,146.1,132,192,Buffalo Bills,15.3
-146,Isaiah Sategna III,WR,Oklahoma,100.0,150.0,133,205,Buffalo Bills,12.5
-147,Elijah Paige,OT,USC,100.0,121.4,113,154,Green Bay Packers,16.5
-148,Adon Shuler,S,Notre Dame,100.0,145.0,134,178,Buffalo Bills,10.4
-149,Raylen Wilson,LB,Georgia,100.0,145.8,135,180,Buffalo Bills,10.0
-150,Benjamin Brahmer,TE,Penn State,100.0,145.2,136,174,Buffalo Bills,11.2
-151,Luke Talich,S,Notre Dame,100.0,147.6,137,179,Philadelphia Eagles,11.3
-152,Wendell Gregory,EDGE,Kansas State,100.0,153.1,138,195,Philadelphia Eagles,10.9
-153,Maraad Watson,IDL,Texas,100.0,150.1,139,186,Philadelphia Eagles,15.8
-154,DJ Vonnahme,TE,Iowa,100.0,148.3,140,179,Philadelphia Eagles,13.7
-155,Antwan Raymond,RB,Rutgers,100.0,152.1,141,192,Philadelphia Eagles,10.7
-156,Aidan Banfield,IOL,North Carolina,100.0,151.9,142,201,Indianapolis Colts,10.7
-157,Earnest Greene III,OT,Georgia,100.0,153.6,143,186,Indianapolis Colts,10.7
-158,Christian Gray,CB,Notre Dame,100.0,157.4,144,208,Philadelphia Eagles,12.6
-159,CJ Bailey,QB,NC State,100.0,183.1,147,223,New England Patriots,13.4
-160,Jermaine Mathews Jr.,CB,Ohio State,100.0,160.0,146,201,Minnesota Vikings,10.9
-161,Lawson Luckie,TE,Georgia,100.0,156.1,147,182,Cleveland Browns,14.2
-162,Austin Romaine,LB,Texas Tech,100.0,158.5,148,188,Philadelphia Eagles,14.7
-163,Zeke Berry,CB,Michigan,100.0,163.4,149,217,Minnesota Vikings,10.8
-164,Mario Landino,IDL,Indiana,100.0,160.1,150,200,Philadelphia Eagles,15.3
-165,Corey Myrick,S,Clemson,100.0,161.7,151,198,Philadelphia Eagles,16.8
-166,Jayden Bellamy,CB,UCF,100.0,164.9,152,218,Minnesota Vikings,12.5
-167,Jamal Roberts,RB,Missouri,100.0,163.3,153,193,Minnesota Vikings,21.3
-168,Elijah Green,CB,Tulsa,100.0,168.3,154,210,Seattle Seahawks,11.6
-169,Francis Brewu,IDL,Notre Dame,100.0,165.0,155,205,Minnesota Vikings,15.3
-170,J'Mond Tapp,EDGE,Memphis,100.0,173.0,156,211,Minnesota Vikings,11.6
-171,Andrew Marshall,CB,Nebraska,100.0,170.7,157,218,Minnesota Vikings,13.0
-172,Dom Nichols,EDGE,Michigan,100.0,173.9,158,226,Minnesota Vikings,13.9
-173,Drew Azzopardi,OT,Washington,100.0,167.3,159,204,Green Bay Packers,15.3
-174,Justin Evans,IOL,Nebraska,100.0,169.4,160,212,Minnesota Vikings,16.1
-175,Nico Iamaleava,QB,UCLA,100.0,194.5,166,235,New England Patriots,16.8
-176,Elliot Washington II,CB,Clemson,100.0,175.9,162,229,New England Patriots,10.2
-177,Desmeal Leigh,OT,Youngstown State,100.0,171.3,163,203,Indianapolis Colts,16.7
-178,Cade Uluave,LB,BYU,100.0,173.5,164,213,Green Bay Packers,12.9
-179,Drayk Bowen,LB,Notre Dame,100.0,174.4,165,210,Indianapolis Colts,14.5
-180,Xavier Scott,CB,Illinois,100.0,180.0,166,244,Indianapolis Colts,10.2
-181,Alani Noa,IOL,USC,100.0,176.9,167,210,Indianapolis Colts,15.7
-182,Coleton Price,IOL,Kentucky,100.0,177.3,168,216,Indianapolis Colts,19.3
-183,Braelin Moore,IOL,LSU,100.0,179.4,169,225,Seattle Seahawks,12.7
-184,AJ Green,EDGE,Louisville,100.0,186.1,170,246,Baltimore Ravens,13.6
-185,Conner Weigman,QB,Houston,100.0,197.9,172,242,New England Patriots,20.4
-186,Eric Singleton Jr.,WR,Florida,99.9,187.8,172,244,Green Bay Packers,18.0
-187,Anthony Boswell,IOL,Houston,100.0,182.7,173,225,Seattle Seahawks,16.4
-188,Evan Johnson,CB,BYU,100.0,189.6,174,245,Seattle Seahawks,11.2
-189,Tyrique Tucker,IDL,Indiana,100.0,185.2,175,236,Seattle Seahawks,21.8
-190,Chris Marshall,WR,Arkansas,100.0,193.5,176,255,Baltimore Ravens,12.0
-191,Tobi Osunsanmi,EDGE,Indiana,99.9,193.6,177,253,New England Patriots,13.3
-192,Melkart Abou-Jaoude,EDGE,North Carolina,99.9,195.2,178,253,New England Patriots,11.9
-193,Ezra Christensen,IDL,Colorado,100.0,190.6,179,226,New England Patriots,11.8
-194,Keon Sabb,S,Alabama,100.0,190.2,180,235,New England Patriots,12.1
-195,Joe Cotton,OT,Cincinnati,100.0,190.0,181,230,New England Patriots,17.5
-196,Cole Sullivan,LB,Oklahoma,100.0,193.7,182,237,Minnesota Vikings,10.9
-197,Arion Carter,LB,Tennessee,100.0,194.5,183,228,New England Patriots,10.4
-198,Bryce Thornton,S,Florida,100.0,195.1,184,246,New England Patriots,14.9
-199,Griffin Wilde,WR,Northwestern,99.6,206.3,185,257,New England Patriots,12.7
-200,Horace Lockett,IDL,UCF,100.0,197.8,186,243,New England Patriots,17.6
-201,Mike Matthews,WR,Tennessee,99.6,207.8,187,255,New England Patriots,11.0
-202,Anthony Donkoh,IOL,Penn State,100.0,199.1,188,241,Pittsburgh Steelers,13.2
-203,Frederick Williams,OT,California,100.0,197.6,189,239,New England Patriots,18.5
-204,Eli Bowen,CB,Oklahoma,99.7,207.4,190,257,New England Patriots,8.5
-205,Ore Adeyi,CB,Northwestern,99.3,209.3,191,257,Atlanta Falcons,8.0
-206,Will Henderson III,RB,UTSA,100.0,201.0,192,239,New England Patriots,16.6
-207,Earl Little Jr.,CB,Ohio State,99.8,210.7,193,257,New England Patriots,7.8
-208,Khalil Barnes,S,Clemson,99.9,206.0,194,248,Indianapolis Colts,11.5
-209,Kemari Copeland,IDL,Virginia Tech,100.0,207.1,195,249,New England Patriots,12.0
-210,Leon Bell,OT,Colorado,100.0,205.6,196,244,New York Giants,11.0
-211,Faletau Satuala,S,BYU,99.9,209.9,197,249,Green Bay Packers,12.3
-212,Tre Richardson,WR,Louisville,97.7,218.4,198,257,Atlanta Falcons,8.2
-213,Myles Graham,LB,Florida,100.0,210.9,199,249,New York Giants,10.6
-214,Braydon Nelson,IOL,Oklahoma State,99.9,210.5,200,254,New York Giants,16.7
-215,Marcus Neal,S,Penn State,99.7,214.6,201,255,New York Giants,9.3
-216,Devin McCuin,WR,Ohio State,95.0,221.8,202,257,Atlanta Falcons,9.6
-217,Tyler Thompson,EDGE,Louisville,96.1,222.2,203,257,Detroit Lions,8.7
-218,Carlos Hernandez,WR,Wake Forest,95.1,224.5,204,257,Detroit Lions,10.2
-219,Owen Chambliss,LB,Nebraska,99.9,216.3,205,255,Detroit Lions,12.2
-220,Robert Fitzgerald,S,Northwestern,99.3,217.9,206,257,Jacksonville Jaguars,10.7
-221,Williams Nwaneri,EDGE,Nebraska,91.9,227.0,207,257,Detroit Lions,10.7
-222,Miles Capers,EDGE,Vanderbilt,93.3,228.4,208,257,Detroit Lions,10.1
-223,Stanton Ramil,OT,Auburn,99.9,218.4,209,254,Buffalo Bills,12.3
-224,Brett Norfleet,TE,Missouri,100.0,217.0,210,244,Seattle Seahawks,11.4
-225,Keyjuan Brown,RB,Louisville,100.0,220.0,211,256,Atlanta Falcons,11.3
-226,Aidan Chiles,QB,Northwestern,95.0,229.8,214,257,Detroit Lions,17.5
-227,Drew Bobo,IOL,Georgia,97.9,226.8,213,256,Detroit Lions,11.0
-228,Cael Winter,IOL,Iowa,98.0,227.5,214,257,Jacksonville Jaguars,10.1
-229,Joshua Sales Jr.,OT,Austin Peay,99.3,225.4,215,256,Detroit Lions,15.0
-230,Blake Frazier,OT,Michigan,99.4,226.2,216,257,Detroit Lions,14.7
-231,Tellek Lockette,IOL,Maryland,97.3,230.3,217,257,Atlanta Falcons,11.7
-232,Sheridan Wilson,IOL,Texas Tech,97.5,230.7,218,257,Cleveland Browns,9.1
-233,Chris Corbo,TE,Georgia Tech,99.9,224.7,219,257,Indianapolis Colts,14.0
-234,Waymond Jordan,RB,USC,99.4,228.9,220,257,Atlanta Falcons,15.5
-235,Nathan Hayes,QB,North Dakota State,88.3,235.3,221,257,Detroit Lions,14.9
-236,Abu Kamara,S,Yale,94.5,233.9,222,257,Arizona Cardinals,10.3
-237,Ricky Fletcher,CB,California,81.8,237.6,223,257,Arizona Cardinals,10.0
-238,Shadre Hurst,IOL,Houston,92.4,235.6,224,257,Kansas City Chiefs,9.8
-239,Jordan Hall,IDL,Georgia,96.7,236.1,225,257,Carolina Panthers,10.9
-240,DJ Lagway,QB,Baylor,82.2,239.3,226,257,Philadelphia Eagles,10.9
-241,Moshood Giwa,OT,Rutgers,96.3,237.1,227,257,Seattle Seahawks,8.1
-242,James Smith,IDL,Ohio State,96.2,238.6,228,257,Atlanta Falcons,11.4
-243,Dashawn Spears,CB,LSU,71.4,242.3,229,257,Atlanta Falcons,10.8
-244,Alex Honig,TE,Northwestern,98.7,237.4,230,257,Cleveland Browns,16.0
-245,Tao Johnson,S,UCLA,85.2,240.9,231,257,Baltimore Ravens,8.8
-246,Luke Hasz,TE,Ole Miss,97.9,239.3,232,257,Seattle Seahawks,11.6
-247,Santana Hopper,IDL,Colorado,91.3,243.4,233,257,Detroit Lions,8.4
-248,Rolijah Hardy,LB,Indiana,91.5,242.5,234,257,Baltimore Ravens,9.7
-249,Jayce Brown,WR,LSU,50.2,246.7,235,257,Miami Dolphins,14.3
-250,Wayne Knight,RB,UCLA,91.9,243.7,236,257,Houston Texans,9.7
-251,Cam Cook,RB,West Virginia,88.4,244.8,237,257,Seattle Seahawks,8.9
-252,Nic Anderson,WR,Kentucky,42.8,248.2,238,257,Miami Dolphins,15.4
-253,Patrick Overmyer,TE,Houston,93.2,245.4,239,257,Green Bay Packers,14.7
-254,Alex McLaughlin,S,Washington,63.1,247.7,240,257,Miami Dolphins,13.2
-255,Hunter Zambrano,IOL,Texas Tech,62.4,248.4,241,257,Miami Dolphins,14.1
-256,McKale Boley,IOL,Virginia,60.5,249.1,242,257,Miami Dolphins,15.4
-257,Jeremiah Hasley,TE,Duke,88.4,248.6,243,257,Pittsburgh Steelers,15.6
-258,CJ Campbell Jr.,RB,Duke,74.1,250.2,244,257,Detroit Lions,16.6
-259,Kam Shanks,WR,Wake Forest,29.0,251.1,245,257,Miami Dolphins,13.1
-260,DJ Hicks,IDL,Texas A&M,67.2,250.6,246,257,Detroit Lions,20.5
-261,Ian Strong,WR,California,25.0,252.1,247,257,Detroit Lions,16.0
-262,Isaac Smith,S,Mississippi State,40.2,252.5,248,257,Arizona Cardinals,16.4
-263,Tayon Holloway,CB,Louisville,25.3,253.3,249,257,Arizona Cardinals,17.4
-264,Xavier Chaplin,OT,Florida State,51.9,253.4,250,257,Miami Dolphins,16.8
-265,Brady Small,IOL,Army,31.4,253.5,251,257,Minnesota Vikings,29.0
-266,Kanye Udoh,RB,Liberty,45.5,254.6,252,257,New England Patriots,21.5
-267,Ja'son Prevard,CB,Kansas State,14.7,255.3,253,257,New England Patriots,26.5
-268,Eli Holstein,QB,Virginia,18.1,255.1,254,257,Detroit Lions,53.0
-269,Terry Moore,S,Ohio State,11.7,255.7,255,257,Miami Dolphins,49.6
-270,Byrum Brown,QB,Auburn,8.7,256.4,256,257,Kansas City Chiefs,60.9
-271,Carson Hinzman,IOL,Ohio State,2.9,257.0,257,257,New England Patriots,100.0
+2,Leonard Moore,CB,Notre Dame,100.0,4.7,2,11,New York Jets,55.5
+3,Colin Simmons,EDGE,Texas,100.0,3.5,2,10,Miami Dolphins,57.3
+4,Dylan Stewart,EDGE,South Carolina,100.0,6.1,2,10,Arizona Cardinals,35.1
+5,Jordan Seaton,OT,LSU,100.0,6.6,5,13,Philadelphia Eagles,42.4
+6,Charlie Becker,WR,Indiana,100.0,4.4,2,10,Los Angeles Chargers,60.5
+7,Will Echoles,IDL,Ole Miss,100.0,8.4,4,14,New York Jets,46.2
+8,Drew Mestemaker,QB,Oklahoma State,100.0,3.8,3,13,New York Jets,61.4
+9,Cam Coleman,WR,Texas,100.0,14.8,7,26,Las Vegas Raiders,58.0
+10,Ellis Robinson IV,CB,Georgia,100.0,12.3,6,20,Washington Commanders,31.1
+11,Jadan Baugh,RB,Florida,100.0,15.5,9,31,Baltimore Ravens,23.2
+12,Xavier Gilliam,IDL,Tennessee,100.0,10.3,4,21,Tampa Bay Buccaneers,24.4
+13,Ashton Hampton,CB,Clemson,100.0,12.5,8,22,Washington Commanders,55.1
+14,Chris Cole,LB,Georgia,100.0,12.7,6,28,New York Jets,45.0
+15,Jamari Johnson,TE,Oregon,100.0,25.8,16,41,Kansas City Chiefs,31.5
+16,Greg Johnson,IOL,Minnesota,100.0,18.5,10,33,New England Patriots,34.9
+17,Trinidad Chambliss,QB,Ole Miss,100.0,29.2,13,43,Minnesota Vikings,28.3
+18,Arch Manning,QB,Texas,100.0,26.4,7,40,Pittsburgh Steelers,22.3
+19,Kelley Jones,CB,Mississippi State,100.0,24.0,12,43,Detroit Lions,25.3
+20,Trevor Goosby,OT,Texas,100.0,12.3,5,31,Houston Texans,39.5
+21,David Stone,IDL,Oklahoma,100.0,21.0,11,38,Dallas Cowboys,20.3
+22,CJ Carr,QB,Notre Dame,100.0,19.3,4,40,Cleveland Browns,26.1
+23,Yhonzae Pierre,EDGE,Alabama,100.0,20.5,10,39,Seattle Seahawks,37.2
+24,KJ Bolden,S,Georgia,100.0,26.6,16,45,Cincinnati Bengals,41.5
+25,Dante Moore,QB,Oregon,100.0,26.8,13,46,Cleveland Browns,36.0
+26,Nick Marsh,WR,Indiana,100.0,20.8,12,41,Las Vegas Raiders,17.8
+27,A'Mauri Washington,IDL,Oregon,100.0,28.8,15,47,New York Giants,31.0
+28,Jackson Harris,WR,LSU,100.0,28.2,15,47,Dallas Cowboys,19.0
+29,Darian Mensah,QB,Miami (FL),100.0,24.7,6,46,Minnesota Vikings,21.2
+30,Tae Johnson,S,Notre Dame,100.0,33.5,20,51,Buffalo Bills,20.3
+31,Kade Pieper,IOL,Iowa,100.0,26.1,16,46,Philadelphia Eagles,19.7
+32,Kyngstonn Viliamu-Asa,LB,Notre Dame,100.0,33.4,20,50,Denver Broncos,16.9
+33,Lance Heard,OT,Kentucky,100.0,28.6,19,50,Tennessee Titans,31.3
+34,Carter Smith,IOL,Indiana,100.0,36.0,22,53,Philadelphia Eagles,14.0
+35,Austin Simmons,QB,Missouri,100.0,49.1,29,73,Atlanta Falcons,26.7
+36,Ahmad Moten Sr.,IDL,Miami (FL),100.0,41.2,27,60,Tennessee Titans,16.6
+37,Trevor Lauck,OT,Iowa,100.0,26.1,19,49,Carolina Panthers,21.9
+38,Kewan Lacy,RB,Ole Miss,100.0,45.0,30,62,New Orleans Saints,18.0
+39,Kingston Lopa,S,California,100.0,45.9,30,60,New England Patriots,13.9
+40,Cayden Green,IOL,Missouri,100.0,40.0,27,59,San Francisco 49ers,11.1
+41,Justin Scott,IDL,Miami (FL),100.0,46.2,32,64,Baltimore Ravens,13.0
+42,Trey'Dez Green,TE,LSU,100.0,31.9,21,52,Detroit Lions,15.8
+43,Ryan Coleman-Williams,WR,Alabama,100.0,38.5,24,56,Arizona Cardinals,14.8
+44,KJ Duff,WR,Rutgers,100.0,42.1,28,56,Arizona Cardinals,14.9
+45,Zereoue Williams,OT,Utah,100.0,33.1,24,54,Tennessee Titans,19.5
+46,Matayo Uiagalelei,EDGE,Oregon,100.0,49.8,35,70,Cleveland Browns,8.0
+47,Reed Harris,WR,Arizona State,100.0,44.8,31,67,Arizona Cardinals,13.7
+48,Zabien Brown,CB,Alabama,100.0,51.0,37,70,Carolina Panthers,12.4
+49,Kenyatta Jackson Jr.,EDGE,Ohio State,100.0,52.3,38,71,Cleveland Browns,10.2
+50,Devan Thompkins,IDL,Alabama,100.0,44.7,33,71,Baltimore Ravens,11.2
+51,Sammy Brown,LB,Clemson,100.0,56.6,42,76,Pittsburgh Steelers,10.1
+52,Anthonie Knapp,IOL,Notre Dame,100.0,48.8,36,68,Green Bay Packers,12.0
+53,Ryan Williams,WR,Alabama,100.0,57.1,42,83,New York Giants,9.4
+54,Ahmad Hardy,RB,Missouri,100.0,59.8,43,76,Tennessee Titans,15.8
+55,Clev Lubin,EDGE,Louisville,100.0,50.9,39,71,Carolina Panthers,9.3
+56,Tavion Gadson,IDL,Kentucky,100.0,60.9,44,89,Pittsburgh Steelers,8.4
+57,Quincy Rhodes Jr.,EDGE,Arkansas,100.0,60.2,45,79,Tennessee Titans,12.4
+58,Wyatt Young,WR,Oklahoma State,100.0,62.4,46,92,Minnesota Vikings,9.0
+59,Jaylen McClain,S,Ohio State,100.0,61.7,47,84,Minnesota Vikings,13.3
+60,Boubacar Traore,EDGE,Notre Dame,100.0,42.0,34,60,Tampa Bay Buccaneers,13.7
+61,Deuce Alexander,WR,Ole Miss,100.0,65.7,48,93,Minnesota Vikings,10.2
+62,AJ Holmes Jr.,IDL,Texas Tech,100.0,50.3,40,71,Las Vegas Raiders,10.0
+63,Melvin Siani,OT,Texas,100.0,64.8,51,91,Tennessee Titans,9.5
+64,Koi Perich,S,Oregon,100.0,66.0,52,91,Minnesota Vikings,15.0
+65,Jelani McDonald,S,Texas,100.0,66.3,54,95,Minnesota Vikings,15.8
+66,Ryan Wingo,WR,Texas,100.0,71.6,55,100,Indianapolis Colts,8.7
+67,Will Heldt,EDGE,Clemson,100.0,62.2,49,86,Tennessee Titans,12.0
+68,Princewill Umanmielen,EDGE,LSU,100.0,69.9,56,101,Tennessee Titans,13.8
+69,Audavion Collins,CB,Penn State,100.0,69.2,57,92,Tennessee Titans,14.5
+70,Damon Wilson II,EDGE,Miami (FL),100.0,71.5,58,94,Tennessee Titans,11.8
+71,Luke Reynolds,TE,Virginia Tech,100.0,62.8,51,83,Minnesota Vikings,15.6
+72,Brice Pollock,CB,Texas Tech,100.0,71.9,59,97,Tennessee Titans,11.8
+73,Samson Okunlola,IOL,Miami (FL),100.0,64.6,53,87,Tennessee Titans,12.0
+74,Tony Rojas,LB,Penn State,100.0,75.9,60,97,Houston Texans,10.1
+75,John Henry Daley,EDGE,Michigan,100.0,75.6,61,100,Indianapolis Colts,7.8
+76,Vicari Swain,CB,South Carolina,100.0,75.5,62,100,Las Vegas Raiders,9.9
+77,Bryant Wesco Jr.,WR,Clemson,100.0,80.3,64,106,Indianapolis Colts,9.9
+78,Bray Hubbard,S,Alabama,100.0,79.2,64,105,Pittsburgh Steelers,9.4
+79,OJ Frederique Jr.,CB,Miami (FL),100.0,78.3,65,102,Las Vegas Raiders,8.1
+80,Jide Abasiri,IDL,USC,100.0,80.7,66,109,Pittsburgh Steelers,11.2
+81,Bear Alexander,IDL,Oregon,100.0,82.7,68,114,Pittsburgh Steelers,10.1
+82,DJ McKinney,CB,Notre Dame,100.0,82.6,70,104,Pittsburgh Steelers,10.0
+83,Mario Craver,WR,Texas A&M,100.0,85.6,71,118,New York Giants,7.6
+84,Jackson Bennee,S,Utah,100.0,85.6,72,112,Pittsburgh Steelers,10.2
+85,Jamari Sharpe,CB,Indiana,100.0,85.4,73,113,Pittsburgh Steelers,11.2
+86,Jordan Ross,EDGE,LSU,100.0,86.5,74,115,Kansas City Chiefs,10.1
+87,Zach Lutmer,S,Iowa,100.0,88.7,75,116,Pittsburgh Steelers,8.9
+88,Omarion Miller,WR,Arizona State,100.0,91.2,76,125,Green Bay Packers,8.2
+89,Ty Benefield,S,LSU,100.0,90.2,77,125,Pittsburgh Steelers,10.3
+90,Jayden Maiava,QB,USC,100.0,96.8,70,157,Indianapolis Colts,23.7
+91,LJ Martin,RB,BYU,100.0,91.9,78,122,Cincinnati Bengals,10.2
+92,Iapani Laloulu,IOL,Oregon,100.0,91.3,79,122,Green Bay Packers,11.4
+93,Jacarrius Peak,OT,South Carolina,100.0,91.4,80,123,Kansas City Chiefs,17.0
+94,Rasheem Biles,LB,Texas,100.0,94.1,81,126,Kansas City Chiefs,12.8
+95,Junior Sherrill,WR,Vanderbilt,100.0,98.4,82,136,Seattle Seahawks,9.0
+96,Nate Frazier,RB,Georgia,100.0,96.3,83,128,Cincinnati Bengals,13.9
+97,Anthony Smith,EDGE,Minnesota,100.0,98.6,84,135,Cincinnati Bengals,7.4
+98,Jalen Mayo,CB,Houston,100.0,96.2,85,128,Cincinnati Bengals,10.3
+99,Teitum Tuioti,EDGE,Oregon,100.0,101.1,86,137,Cincinnati Bengals,7.6
+100,Ben Roberts,LB,Texas Tech,100.0,99.4,87,132,Cincinnati Bengals,10.1
+101,Amare Thomas,WR,Houston,100.0,105.6,88,140,Seattle Seahawks,9.2
+102,Evan Tengesdahl,IOL,Cincinnati,100.0,100.8,89,128,Los Angeles Chargers,12.0
+103,Julian Sayin,QB,Ohio State,100.0,124.9,91,186,Tampa Bay Buccaneers,17.0
+104,PJ Williams,OT,SMU,100.0,104.2,91,133,Cincinnati Bengals,10.7
+105,Emmanuel Oyebadejo,IDL,Florida,100.0,105.4,92,135,Los Angeles Chargers,12.5
+106,LaNorris Sellers,QB,South Carolina,100.0,88.7,69,148,Indianapolis Colts,28.4
+107,Isaac Brown,RB,Louisville,100.0,105.0,93,135,Los Angeles Chargers,11.3
+108,Mark Fletcher Jr.,RB,Miami (FL),100.0,107.0,94,137,Los Angeles Chargers,10.9
+109,Suntarine Perkins,LB,Ole Miss,100.0,108.9,96,144,Los Angeles Chargers,10.0
+110,Taylor Wein,EDGE,Oklahoma,100.0,113.5,97,148,Indianapolis Colts,7.9
+111,Mateen Ibirogba,IDL,Texas Tech,100.0,111.9,98,148,Los Angeles Chargers,15.4
+112,T.J. Moore,WR,Clemson,100.0,117.1,99,154,Cleveland Browns,9.1
+113,Niki Prongos,OT,Stanford,100.0,112.6,100,143,Arizona Cardinals,11.8
+114,Jyaire Hill,CB,Michigan,100.0,112.9,101,140,Seattle Seahawks,10.5
+115,Luke Montgomery,IOL,Ohio State,100.0,113.3,102,151,Arizona Cardinals,8.4
+116,Austin Siereveld,IOL,Ohio State,100.0,114.3,103,141,Green Bay Packers,9.6
+117,Wayshawn Parker,RB,Utah,100.0,116.2,104,143,Arizona Cardinals,11.1
+118,Marquise Lightfoot,EDGE,Miami (FL),100.0,121.2,105,160,Indianapolis Colts,8.1
+119,Sammy Omosigho,LB,UCLA,100.0,119.0,106,150,Cleveland Browns,11.0
+120,Sahir West,EDGE,UCLA,100.0,123.5,107,163,Carolina Panthers,8.6
+121,Kayin Lee,CB,Tennessee,100.0,120.8,108,159,Cleveland Browns,16.1
+122,Terrance Carter Jr.,TE,Texas Tech,100.0,120.0,109,146,Cleveland Browns,16.1
+123,Jordan Faison,WR,Notre Dame,100.0,127.6,110,172,Cleveland Browns,12.3
+124,Brandon Baker,IOL,Texas,100.0,122.4,111,151,Cleveland Browns,16.1
+125,Jayden Jackson,IDL,Oklahoma,100.0,125.1,112,154,Cleveland Browns,18.3
+126,Whit Weeks,LB,LSU,100.0,125.1,113,161,Cleveland Browns,15.3
+127,Anto Saka,EDGE,Texas A&M,100.0,129.8,114,171,Buffalo Bills,11.0
+128,Christian Alliegro,LB,Ohio State,100.0,126.7,115,160,Cleveland Browns,15.5
+129,Amare Ferrell,S,Indiana,100.0,127.9,116,155,Cleveland Browns,14.1
+130,Drake Lindsey,QB,Minnesota,100.0,159.1,117,200,New Orleans Saints,12.6
+131,Duce Robinson,WR,Florida State,100.0,135.5,118,175,Cleveland Browns,11.2
+132,Cooper Barkate,WR,Miami (FL),100.0,135.4,119,180,Cleveland Browns,13.2
+133,Peyton Bowen,S,Oklahoma,100.0,131.4,120,168,Cleveland Browns,17.4
+134,Andrew Rappleyea,TE,Penn State,100.0,130.2,121,167,Cleveland Browns,15.9
+135,Xavier Atkins,LB,Auburn,100.0,133.2,122,163,Indianapolis Colts,10.9
+136,Brendan Sorsby,QB,Texas Tech,100.0,165.3,129,206,New Orleans Saints,11.7
+137,Justice Haynes,RB,Georgia Tech,100.0,134.6,124,166,Indianapolis Colts,11.2
+138,Nyck Harbor,WR,South Carolina,100.0,143.3,125,184,Buffalo Bills,11.8
+139,Hollywood Smothers,RB,Texas,100.0,136.9,126,170,Indianapolis Colts,11.2
+140,DeSean Bishop,RB,Tennessee,100.0,137.8,127,178,Indianapolis Colts,12.2
+141,Chris Peal,CB,Syracuse,100.0,137.8,128,185,Buffalo Bills,18.1
+142,Peter Clarke,TE,Temple,100.0,138.0,129,171,Indianapolis Colts,15.4
+143,Sam Leavitt,QB,LSU,100.0,170.4,132,209,Tennessee Titans,10.6
+144,Raleek Brown,RB,Texas,100.0,141.9,131,179,Indianapolis Colts,13.5
+145,Adam Trick,EDGE,Texas Tech,100.0,146.3,132,196,Buffalo Bills,15.9
+146,Isaiah Sategna III,WR,Oklahoma,100.0,149.8,133,202,Buffalo Bills,11.3
+147,Elijah Paige,OT,USC,100.0,102.1,95,126,Green Bay Packers,16.1
+148,Adon Shuler,S,Notre Dame,100.0,144.5,134,181,Philadelphia Eagles,11.4
+149,Raylen Wilson,LB,Georgia,100.0,146.1,135,179,Buffalo Bills,11.7
+150,Benjamin Brahmer,TE,Penn State,100.0,144.7,136,172,Buffalo Bills,12.1
+151,Luke Talich,S,Notre Dame,100.0,148.0,137,185,Philadelphia Eagles,11.4
+152,Wendell Gregory,EDGE,Kansas State,100.0,153.5,138,201,Philadelphia Eagles,9.6
+153,Maraad Watson,IDL,Texas,100.0,150.2,139,190,Philadelphia Eagles,16.9
+154,DJ Vonnahme,TE,Iowa,100.0,148.5,140,181,Philadelphia Eagles,15.0
+155,Antwan Raymond,RB,Rutgers,100.0,151.9,141,191,Cleveland Browns,11.0
+156,Aidan Banfield,IOL,North Carolina,100.0,152.1,142,187,Indianapolis Colts,11.1
+157,Earnest Greene III,OT,Georgia,100.0,153.2,143,185,Cleveland Browns,12.2
+158,Christian Gray,CB,Notre Dame,100.0,157.0,144,201,Philadelphia Eagles,12.3
+159,CJ Bailey,QB,NC State,100.0,182.9,147,227,New England Patriots,14.8
+160,Jermaine Mathews Jr.,CB,Ohio State,100.0,159.3,146,215,Minnesota Vikings,11.3
+161,Lawson Luckie,TE,Georgia,100.0,156.1,147,182,Cleveland Browns,14.8
+162,Austin Romaine,LB,Texas Tech,100.0,158.4,148,189,Philadelphia Eagles,13.6
+163,Zeke Berry,CB,Michigan,100.0,162.7,149,210,Minnesota Vikings,13.1
+164,Mario Landino,IDL,Indiana,100.0,160.8,150,211,Philadelphia Eagles,12.2
+165,Corey Myrick,S,Clemson,100.0,161.2,151,198,Philadelphia Eagles,17.3
+166,Jayden Bellamy,CB,UCF,100.0,165.8,152,216,Minnesota Vikings,11.4
+167,Jamal Roberts,RB,Missouri,100.0,163.3,153,193,Minnesota Vikings,18.2
+168,Elijah Green,CB,Tulsa,100.0,168.0,154,218,Minnesota Vikings,11.5
+169,Francis Brewu,IDL,Notre Dame,100.0,164.9,155,208,Minnesota Vikings,13.1
+170,J'Mond Tapp,EDGE,Memphis,100.0,172.7,156,224,Minnesota Vikings,13.9
+171,Andrew Marshall,CB,Nebraska,100.0,171.1,157,216,Minnesota Vikings,13.1
+172,Dom Nichols,EDGE,Michigan,100.0,174.3,158,232,Minnesota Vikings,15.7
+173,Drew Azzopardi,OT,Washington,100.0,166.6,159,195,Green Bay Packers,16.0
+174,Justin Evans,IOL,Nebraska,100.0,169.2,160,205,Minnesota Vikings,15.9
+175,Nico Iamaleava,QB,UCLA,100.0,194.2,161,234,New England Patriots,21.0
+176,Elliot Washington II,CB,Clemson,100.0,177.0,162,228,Miami Dolphins,9.7
+177,Desmeal Leigh,OT,Youngstown State,100.0,171.0,163,198,Indianapolis Colts,14.7
+178,Cade Uluave,LB,BYU,100.0,173.5,164,215,Indianapolis Colts,12.2
+179,Drayk Bowen,LB,Notre Dame,100.0,174.5,165,223,Green Bay Packers,13.1
+180,Xavier Scott,CB,Illinois,100.0,181.0,166,235,Buffalo Bills,11.5
+181,Alani Noa,IOL,USC,100.0,177.1,167,211,Indianapolis Colts,14.4
+182,Coleton Price,IOL,Kentucky,100.0,177.9,168,211,Indianapolis Colts,17.3
+183,Braelin Moore,IOL,LSU,100.0,178.4,169,215,Seattle Seahawks,13.6
+184,AJ Green,EDGE,Louisville,100.0,186.5,170,251,Baltimore Ravens,11.7
+185,Conner Weigman,QB,Houston,100.0,198.4,171,246,New England Patriots,19.1
+186,Eric Singleton Jr.,WR,Florida,100.0,187.6,172,250,Green Bay Packers,18.4
+187,Anthony Boswell,IOL,Houston,100.0,182.3,173,231,Seattle Seahawks,15.0
+188,Evan Johnson,CB,BYU,100.0,189.4,174,253,Seattle Seahawks,9.9
+189,Tyrique Tucker,IDL,Indiana,100.0,185.1,175,232,Seattle Seahawks,21.0
+190,Chris Marshall,WR,Arkansas,100.0,194.1,176,257,Baltimore Ravens,13.8
+191,Tobi Osunsanmi,EDGE,Indiana,100.0,193.5,177,253,Baltimore Ravens,13.4
+192,Melkart Abou-Jaoude,EDGE,North Carolina,99.9,195.2,178,255,New England Patriots,13.4
+193,Ezra Christensen,IDL,Colorado,100.0,191.6,179,232,New England Patriots,12.1
+194,Keon Sabb,S,Alabama,100.0,190.3,180,247,Miami Dolphins,10.3
+195,Joe Cotton,OT,Cincinnati,100.0,189.9,181,230,New England Patriots,15.8
+196,Cole Sullivan,LB,Oklahoma,100.0,193.3,182,227,New England Patriots,11.9
+197,Arion Carter,LB,Tennessee,100.0,194.1,183,237,New England Patriots,10.3
+198,Bryce Thornton,S,Florida,100.0,194.9,184,230,New England Patriots,15.3
+199,Griffin Wilde,WR,Northwestern,99.6,206.8,185,257,New England Patriots,10.7
+200,Horace Lockett,IDL,UCF,100.0,198.2,186,247,New England Patriots,17.1
+201,Mike Matthews,WR,Tennessee,99.6,207.4,187,257,New England Patriots,12.8
+202,Anthony Donkoh,IOL,Penn State,100.0,199.7,188,252,Pittsburgh Steelers,13.1
+203,Frederick Williams,OT,California,100.0,197.1,189,239,New England Patriots,20.2
+204,Eli Bowen,CB,Oklahoma,99.8,207.7,190,253,Atlanta Falcons,7.9
+205,Ore Adeyi,CB,Northwestern,99.8,209.2,191,255,New York Giants,8.6
+206,Will Henderson III,RB,UTSA,100.0,200.6,192,235,New England Patriots,16.6
+207,Earl Little Jr.,CB,Ohio State,99.5,210.3,193,256,New England Patriots,8.8
+208,Khalil Barnes,S,Clemson,100.0,205.7,194,250,Indianapolis Colts,12.5
+209,Kemari Copeland,IDL,Virginia Tech,99.9,207.1,195,252,New England Patriots,11.3
+210,Leon Bell,OT,Colorado,100.0,205.5,196,239,New York Giants,12.7
+211,Faletau Satuala,S,BYU,100.0,209.7,197,254,Green Bay Packers,14.0
+212,Tre Richardson,WR,Louisville,98.3,217.9,198,257,Detroit Lions,10.3
+213,Myles Graham,LB,Florida,100.0,210.9,199,252,New York Giants,9.1
+214,Braydon Nelson,IOL,Oklahoma State,99.8,210.6,200,251,New York Giants,15.2
+215,Marcus Neal,S,Penn State,99.9,214.3,201,253,Seattle Seahawks,8.7
+216,Devin McCuin,WR,Ohio State,95.9,223.3,202,257,Atlanta Falcons,10.4
+217,Tyler Thompson,EDGE,Louisville,96.4,221.5,203,257,Detroit Lions,9.1
+218,Carlos Hernandez,WR,Wake Forest,94.5,223.5,204,257,Atlanta Falcons,12.0
+219,Owen Chambliss,LB,Nebraska,99.9,216.2,205,256,Detroit Lions,10.9
+220,Robert Fitzgerald,S,Northwestern,99.8,218.3,206,257,Jacksonville Jaguars,11.5
+221,Williams Nwaneri,EDGE,Nebraska,93.2,227.2,207,257,Detroit Lions,8.8
+222,Miles Capers,EDGE,Vanderbilt,92.2,228.5,208,257,Jacksonville Jaguars,10.8
+223,Stanton Ramil,OT,Auburn,99.8,218.5,209,257,Buffalo Bills,11.3
+224,Brett Norfleet,TE,Missouri,100.0,216.5,210,242,Green Bay Packers,15.9
+225,Keyjuan Brown,RB,Louisville,99.9,219.8,211,257,Atlanta Falcons,12.3
+226,Aidan Chiles,QB,Northwestern,93.8,230.1,213,257,Detroit Lions,18.2
+227,Drew Bobo,IOL,Georgia,97.7,227.1,213,257,Atlanta Falcons,9.8
+228,Cael Winter,IOL,Iowa,98.2,227.7,214,257,Detroit Lions,11.0
+229,Joshua Sales Jr.,OT,Austin Peay,99.5,225.4,215,257,Detroit Lions,16.4
+230,Blake Frazier,OT,Michigan,99.4,226.8,216,257,Detroit Lions,16.3
+231,Tellek Lockette,IOL,Maryland,97.3,230.4,217,257,Atlanta Falcons,11.2
+232,Sheridan Wilson,IOL,Texas Tech,95.9,230.7,218,257,Atlanta Falcons,11.6
+233,Chris Corbo,TE,Georgia Tech,100.0,225.1,219,253,Indianapolis Colts,14.8
+234,Waymond Jordan,RB,USC,99.3,228.4,220,257,Atlanta Falcons,14.7
+235,Nathan Hayes,QB,North Dakota State,87.1,235.8,221,257,Detroit Lions,15.0
+236,Abu Kamara,S,Yale,94.6,233.6,222,257,Cleveland Browns,10.0
+237,Ricky Fletcher,CB,California,83.5,238.7,223,257,Arizona Cardinals,9.7
+238,Shadre Hurst,IOL,Houston,92.6,235.7,224,257,Kansas City Chiefs,10.0
+239,Jordan Hall,IDL,Georgia,96.5,235.6,225,257,Carolina Panthers,9.9
+240,DJ Lagway,QB,Baylor,80.6,239.0,226,257,Philadelphia Eagles,13.0
+241,Moshood Giwa,OT,Rutgers,95.6,237.0,227,257,Cleveland Browns,11.0
+242,James Smith,IDL,Ohio State,95.6,238.2,228,257,Atlanta Falcons,12.4
+243,Dashawn Spears,CB,LSU,73.1,241.7,229,257,Atlanta Falcons,11.4
+244,Alex Honig,TE,Northwestern,97.7,237.7,230,257,Cleveland Browns,12.6
+245,Tao Johnson,S,UCLA,86.6,240.5,231,257,Baltimore Ravens,10.2
+246,Luke Hasz,TE,Ole Miss,98.0,239.5,232,257,Seattle Seahawks,11.5
+247,Santana Hopper,IDL,Colorado,91.7,243.1,233,257,Detroit Lions,8.8
+248,Rolijah Hardy,LB,Indiana,90.7,242.5,234,257,Baltimore Ravens,10.4
+249,Jayce Brown,WR,LSU,52.8,246.5,235,257,Miami Dolphins,12.3
+250,Wayne Knight,RB,UCLA,89.2,244.1,236,257,Detroit Lions,8.3
+251,Cam Cook,RB,West Virginia,89.0,245.0,237,257,Seattle Seahawks,10.8
+252,Nic Anderson,WR,Kentucky,44.8,247.8,238,257,Miami Dolphins,13.8
+253,Patrick Overmyer,TE,Houston,93.7,245.2,239,257,Green Bay Packers,13.6
+254,Alex McLaughlin,S,Washington,64.6,247.2,240,257,Miami Dolphins,13.8
+255,Hunter Zambrano,IOL,Texas Tech,61.9,248.4,241,257,Miami Dolphins,14.5
+256,McKale Boley,IOL,Virginia,59.5,249.2,242,257,Miami Dolphins,15.3
+257,Jeremiah Hasley,TE,Duke,85.4,248.5,243,257,Pittsburgh Steelers,16.4
+258,CJ Campbell Jr.,RB,Duke,73.6,250.3,244,257,Detroit Lions,17.9
+259,Kam Shanks,WR,Wake Forest,29.5,250.9,245,257,Detroit Lions,12.9
+260,DJ Hicks,IDL,Texas A&M,69.0,250.7,246,257,Detroit Lions,25.2
+261,Ian Strong,WR,California,22.2,251.9,247,257,Minnesota Vikings,17.1
+262,Isaac Smith,S,Mississippi State,40.3,252.5,248,257,Indianapolis Colts,16.4
+263,Tayon Holloway,CB,Louisville,25.7,253.2,249,257,Arizona Cardinals,23.0
+264,Xavier Chaplin,OT,Florida State,51.7,253.3,250,257,Minnesota Vikings,16.6
+265,Brady Small,IOL,Army,29.5,253.6,251,257,Minnesota Vikings,28.1
+266,Kanye Udoh,RB,Liberty,47.0,254.6,252,257,New England Patriots,22.6
+267,Ja'son Prevard,CB,Kansas State,15.4,255.2,253,257,Kansas City Chiefs,38.3
+268,Eli Holstein,QB,Virginia,19.6,255.1,254,257,Detroit Lions,54.1
+269,Terry Moore,S,Ohio State,11.2,255.7,255,257,Miami Dolphins,51.8
+270,Byrum Brown,QB,Auburn,9.4,256.4,256,257,Kansas City Chiefs,64.9
+271,Carson Hinzman,IOL,Ohio State,2.3,257.0,257,257,New England Patriots,100.0
 272,Jojo Johnson,IDL,Texas Tech,0.0,,,,,
 273,JK Johnson,CB,Florida Atlantic,0.0,,,,,
 274,Josiah Freeman,WR,Fresno State,0.0,,,,,
