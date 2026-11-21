@@ -147,134 +147,150 @@ function fitText(ctx, text, maxWidth) {
   return t + "…";
 }
 
+// a roast headline for each grade: the part people screenshot
+const GRADE_HEADLINES = {
+  A: ["GM OF THE YEAR 🏆", "HALL OF FAME GM 🐐", "THIS DRAFT COOKED 🔥"],
+  B: ["NOT MAD AT IT 😤", "SOLID WORK, GM 👏", "RESPECTABLE 🫡"],
+  C: ["MID. VERY MID. 😐", "IT'S GIVING AVERAGE", "PLAYOFFS? DON'T TALK ABOUT PLAYOFFS"],
+  D: ["WHO LET HIM COOK? 😬", "THE FANS ARE CONCERNED", "SEND HELP 🚨"],
+  F: ["FIRE THE GM 💀", "GENUINELY HOW? 😭", "CERTIFIED FRAUD GM 💀"],
+};
+const pickOne = (list) => list[Math.floor(Math.random() * list.length)];
+
+// the share picture: 1080x1920, sized for Instagram/TikTok stories (and fine for X)
 async function drawShareCard() {
   const { me, mine, of } = lastResult;
-  const W = 1080, H = 1350, ORANGE = "#F2A93B";
+  const W = 1080, H = 1920, ORANGE = "#F2A93B", X = 72;
   const canvas = document.createElement("canvas");
   canvas.width = W;
   canvas.height = H;
   const ctx = canvas.getContext("2d");
-
   try {
     await Promise.all([
       document.fonts.load('italic 900 60px Inter'), document.fonts.load('700 40px "Space Grotesk"'),
-      document.fonts.load('600 30px Inter'), document.fonts.load('700 30px Inter'),
+      document.fonts.load('600 30px Inter'), document.fonts.load('700 30px Inter'), document.fonts.load('900 30px Inter'),
     ]);
   } catch (e) { /* fall back to system fonts */ }
   const [head, gm] = await Promise.all([
     loadImage("icons/mascot-head.png"),
     HAS_GM ? GM.picture(myTeam, moodForGrade(me.grade)) : Promise.resolve(null),
   ]);
+  const gradeColor = GRADE_COLORS[me.grade] || ORANGE;
 
-  // background with a stadium-light glow
-  ctx.fillStyle = "#10151C";
+  // background: dark with a glow in the grade's color
+  ctx.fillStyle = "#0D1117";
   ctx.fillRect(0, 0, W, H);
-  const glow = ctx.createRadialGradient(W - 160, 120, 0, W - 160, 120, 700);
-  glow.addColorStop(0, "rgba(242,169,59,0.22)");
-  glow.addColorStop(1, "rgba(242,169,59,0)");
+  const glow = ctx.createRadialGradient(W / 2, 520, 0, W / 2, 520, 900);
+  glow.addColorStop(0, gradeColor + "40");
+  glow.addColorStop(1, gradeColor + "00");
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, W, H);
 
-  // header: logo tile + BIG HEAD GM
-  const X = 72;
-  if (head) {
-    ctx.save();
-    ctx.beginPath(); ctx.roundRect(X, 64, 88, 88, 20); ctx.clip();
-    ctx.drawImage(head, X, 64, 88, 88);
-    ctx.restore();
-  }
+  // header
   ctx.textBaseline = "alphabetic";
-  ctx.font = 'italic 900 56px Inter, sans-serif';
+  if (head) {
+    ctx.save(); ctx.beginPath(); ctx.roundRect(X, 90, 84, 84, 20); ctx.clip();
+    ctx.drawImage(head, X, 90, 84, 84); ctx.restore();
+  }
+  ctx.font = 'italic 900 52px Inter, sans-serif';
   ctx.fillStyle = "#FFFFFF";
-  ctx.fillText("BIG HEAD", X + 112, 126);
+  ctx.fillText("BIG HEAD", X + 104, 148);
   ctx.fillStyle = ORANGE;
-  ctx.fillText(" GM", X + 112 + ctx.measureText("BIG HEAD").width, 126);
+  ctx.fillText(" GM", X + 104 + ctx.measureText("BIG HEAD").width, 148);
   ctx.font = '700 22px Inter, sans-serif';
   ctx.fillStyle = "#9AA6B4";
-  ctx.fillText(`2027 MOCK DRAFT · ${rounds} ${rounds === 1 ? "ROUND" : "ROUNDS"}`, X + 114, 156);
+  ctx.fillText(`MY 2027 MOCK DRAFT · ${rounds} ${rounds === 1 ? "ROUND" : "ROUNDS"}`, X + 106, 180);
 
-  // grade card: GM, grade letter, team, standing
-  const cy = 200, ch = 300;
-  roundRect(ctx, X - 8, cy, W - 2 * (X - 8), ch, 36, "#1A212B");
+  // best steal and biggest reach: the debate starters (worked out first so the layout can center itself)
+  const order = ["STEAL", "Value", "Fair", "Reach"];
+  const sorted = [...mine].sort((a, b) => order.indexOf(a.label) - order.indexOf(b.label) || a.pick.pick - b.pick.pick);
+  const best = sorted[0], worst = mine.length > 1 && sorted[sorted.length - 1].label === "Reach" ? sorted[sorted.length - 1] : null;
+  const rest = mine.filter((r) => r !== best && r !== worst);
+  const blockH = 460 + 236 + 50 + ((best ? 1 : 0) + (worst ? 1 : 0)) * 132 + Math.min(rest.length, 12) * 58;
+  const top = 250 + Math.max(0, (H - 170 - 60 - 250 - blockH) / 2);
+
+  // the GM, big, with the grade stamped on him
+  const tw = 420, th = 460, tx = (W - tw) / 2, ty = top;
+  roundRect(ctx, tx, ty, tw, th, 48, HAS_GM ? GM.tint(myTeam) : "#222A35");
   if (gm) {
-    const tx0 = X + 16, ty0 = cy + 24, tw0 = 216, th0 = ch - 24;
-    roundRect(ctx, tx0, ty0, tw0, th0, 26, HAS_GM ? GM.tint(myTeam) : "#222A35");
-    ctx.save();
-    ctx.beginPath(); ctx.roundRect(tx0, ty0, tw0, th0, 26); ctx.clip();
-    // fill the tile, trimming the sides evenly
-    const k = Math.max(tw0 / gm.sw, th0 / gm.sh);
-    const dw = gm.sw * k, dh = gm.sh * k;
+    ctx.save(); ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 48); ctx.clip();
+    const k = Math.max(tw / gm.sw, th / gm.sh), dw = gm.sw * k, dh = gm.sh * k;
     ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(gm.image, gm.sx, gm.sy, gm.sw, gm.sh, tx0 + (tw0 - dw) / 2, ty0 + th0 - dh, dw, dh);
+    ctx.drawImage(gm.image, gm.sx, gm.sy, gm.sw, gm.sh, tx + (tw - dw) / 2, ty + th - dh, dw, dh);
     ctx.restore();
   }
-  const gx = gm ? X + 264 : X + 24;
-  roundRect(ctx, gx, cy + 40, 140, 140, 32, GRADE_COLORS[me.grade] || ORANGE);
-  ctx.font = '700 100px "Space Grotesk", sans-serif';
-  ctx.fillStyle = "#10151C";
+  const gs = 200, gx = tx + tw - gs + 60, gy = ty + th - gs + 40;
+  ctx.save(); ctx.translate(gx + gs / 2, gy + gs / 2); ctx.rotate(-0.12);
+  ctx.shadowColor = "rgba(0,0,0,.5)"; ctx.shadowBlur = 40;
+  roundRect(ctx, -gs / 2, -gs / 2, gs, gs, 44, gradeColor);
+  ctx.shadowBlur = 0;
+  ctx.font = '700 150px "Space Grotesk", sans-serif';
+  ctx.fillStyle = "#0D1117"; ctx.textAlign = "center";
+  ctx.fillText(me.grade, 0, 54);
+  ctx.restore(); ctx.textAlign = "left";
+
+  // roast headline + team
+  let y = ty + th + 130;
   ctx.textAlign = "center";
-  ctx.fillText(me.grade, gx + 70, cy + 145);
-  ctx.textAlign = "left";
-  const tx = gx + 168, tw = W - X - tx - 8;
-  let size = 44;   // shrink long team names before cutting them off
-  do { ctx.font = `700 ${size}px "Space Grotesk", sans-serif`; size -= 2; } while (size >= 32 && ctx.measureText(myTeam).width > tw);
+  let size = 78;
+  const headline = pickOne(GRADE_HEADLINES[me.grade] || GRADE_HEADLINES.C);
+  do { ctx.font = `italic 900 ${size}px Inter, sans-serif`; size -= 4; } while (size > 40 && ctx.measureText(headline).width > W - 2 * X);
+  ctx.fillStyle = gradeColor;
+  ctx.fillText(headline, W / 2, y);
+  y += 62;
+  size = 40;
+  do { ctx.font = `700 ${size}px "Space Grotesk", sans-serif`; size -= 2; } while (size > 28 && ctx.measureText(myTeam).width > W - 2 * X);
   ctx.fillStyle = "#FFFFFF";
-  ctx.fillText(fitText(ctx, myTeam, tw), tx, cy + 92);
+  ctx.fillText(myTeam, W / 2, y);
+  y += 44;
   ctx.font = '600 28px Inter, sans-serif';
   ctx.fillStyle = "#9AA6B4";
-  ctx.fillText(`${me.place} of ${of} teams`, tx, cy + 136);
-  ctx.fillText(`${me.avg.toFixed(2)} points per pick`, tx, cy + 174);
-  if (HAS_GM) {
-    ctx.font = 'italic 600 28px Inter, sans-serif';
-    ctx.fillStyle = ORANGE;
-    const kind = moodForGrade(me.grade) === "happy" ? "gradeHigh" : moodForGrade(me.grade) === "neutral" ? "gradeMid" : "gradeLow";
-    ctx.fillText(fitText(ctx, `“${quip(kind)}”`, W - X - gx - 8), gx, cy + 248);
-  }
+  ctx.fillText(`#${me.place} of ${of} GMs · ${me.avg.toFixed(2)} points per pick`, W / 2, y);
+  ctx.textAlign = "left";
 
-  // your class
-  let y = cy + ch + 70;
-  ctx.font = '700 24px Inter, sans-serif';
-  ctx.fillStyle = "#9AA6B4";
-  ctx.fillText("MY CLASS", X, y);
-  y += 22;
-  const maxRows = 9;
-  const rowH = 74;
-  for (const r of mine.slice(0, maxRows)) {
-    ctx.fillStyle = "#1F2732";
-    ctx.fillRect(X, y, W - 2 * X, 2);
-    const base = y + 48;
-    ctx.font = '700 30px "Space Grotesk", sans-serif';
-    ctx.fillStyle = "#9AA6B4";
+  y += 50;
+  const callout = (title, r, fg, bg) => {
+    roundRect(ctx, X, y, W - 2 * X, 112, 28, bg);
+    ctx.font = '800 22px Inter, sans-serif'; ctx.fillStyle = fg;
+    ctx.fillText(title, X + 32, y + 42);
+    ctx.font = '800 36px Inter, sans-serif'; ctx.fillStyle = "#FFFFFF";
+    const nm = fitText(ctx, r.player.name, W - 2 * X - 260);
+    ctx.fillText(nm, X + 32, y + 88);
+    ctx.font = '600 26px Inter, sans-serif'; ctx.fillStyle = "#9AA6B4";
+    ctx.textAlign = "right";
+    ctx.fillText(`#${r.pick.pick} · ${r.player.position}`, W - X - 32, y + 88);
+    ctx.textAlign = "left";
+    y += 132;
+  };
+  if (best) callout(best.label === "STEAL" ? "🔥 BEST STEAL" : "⭐ BEST PICK", best, "#6CD39A", "rgba(108,211,154,0.13)");
+  if (worst) callout("😬 BIGGEST REACH", worst, "#F2876B", "rgba(242,135,107,0.13)");
+
+  // the rest of the class, compact
+  const maxRows = Math.max(0, Math.floor((H - 200 - y) / 58));
+  for (const r of rest.slice(0, maxRows)) {
+    ctx.fillStyle = "#1F2732"; ctx.fillRect(X, y, W - 2 * X, 2);
+    const base = y + 40;
+    ctx.font = '700 26px "Space Grotesk", sans-serif'; ctx.fillStyle = "#9AA6B4";
     ctx.fillText(`#${r.pick.pick}`, X, base);
-    const [bg, fg] = LABEL_COLORS[r.label] || LABEL_COLORS.Fair;
-    ctx.font = '700 24px Inter, sans-serif';
-    const lw = ctx.measureText(r.label).width + 28;
-    roundRect(ctx, W - X - lw, y + 18, lw, 40, 10, bg);
-    ctx.fillStyle = fg;
-    ctx.fillText(r.label, W - X - lw + 14, y + 47);
-    const nx = X + 104, nw = W - X - lw - 24 - nx;
-    ctx.font = '700 30px Inter, sans-serif';
-    ctx.fillStyle = "#FFFFFF";
-    const name = fitText(ctx, r.player.name, nw * 0.62);
-    ctx.fillText(name, nx, base);
-    const after = nx + ctx.measureText(name).width + 14;
-    ctx.font = '600 24px Inter, sans-serif';
-    ctx.fillStyle = "#9AA6B4";
-    ctx.fillText(fitText(ctx, `${r.player.position} · ${r.player.college}`, nx + nw - after), after, base);
-    y += rowH;
+    ctx.font = '700 28px Inter, sans-serif'; ctx.fillStyle = "#FFFFFF";
+    const nm = fitText(ctx, r.player.name, 520);
+    ctx.fillText(nm, X + 96, base);
+    ctx.font = '600 24px Inter, sans-serif'; ctx.fillStyle = (LABEL_COLORS[r.label] || LABEL_COLORS.Fair)[1];
+    ctx.textAlign = "right"; ctx.fillText(`${r.player.position} · ${r.label}`, W - X, base); ctx.textAlign = "left";
+    y += 58;
   }
-  if (mine.length > maxRows) {
-    ctx.font = '600 24px Inter, sans-serif';
-    ctx.fillStyle = "#9AA6B4";
-    ctx.fillText(`+ ${mine.length - maxRows} more picks`, X, y + 40);
+  if (rest.length > maxRows && maxRows >= 0) {
+    ctx.font = '600 24px Inter, sans-serif'; ctx.fillStyle = "#9AA6B4";
+    ctx.fillText(`+ ${rest.length - maxRows} more picks`, X, y + 36);
   }
 
-  // footer
-  roundRect(ctx, 0, H - 110, W, 110, 0, ORANGE);
-  ctx.font = 'italic 900 40px Inter, sans-serif';
-  ctx.fillStyle = "#1B1206";
-  ctx.textAlign = "center";
-  ctx.fillText("MAKE YOUR DRAFT AT BIGHEADGM.COM", W / 2, H - 42);
+  // footer: the challenge
+  roundRect(ctx, 0, H - 170, W, 170, 0, ORANGE);
+  ctx.textAlign = "center"; ctx.fillStyle = "#1B1206";
+  ctx.font = 'italic 900 50px Inter, sans-serif';
+  ctx.fillText(/[DF]/.test(me.grade) ? "CAN YOU DO BETTER? 😭" : `THINK YOU CAN BEAT ${me.grade === "A" ? "AN" : "A"} ${me.grade}?`, W / 2, H - 96);
+  ctx.font = '800 30px Inter, sans-serif';
+  ctx.fillText("bigheadgm.com · free on the App Store", W / 2, H - 46);
   ctx.textAlign = "left";
 
   return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
@@ -310,7 +326,7 @@ async function shareNative() {
   if (!shareBlob) return;
   const file = new File([shareBlob], shareFileName(), { type: "image/png" });
   try {
-    await navigator.share({ files: [file], text: "My Big Head GM mock draft. Make yours at https://bigheadgm.com" });
+    await navigator.share({ files: [file], text: `I got ${/^[AF]/.test(lastResult.me.grade) ? "an" : "a"} ${lastResult.me.grade} on my Big Head GM mock draft 👀 Think you can beat it? https://bigheadgm.com` });
     countEvent("shared-draft", "Shared a draft picture");
   } catch (e) { /* cancelled */ }
 }
