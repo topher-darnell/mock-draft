@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "83", "5", "2"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "85", "5", "2"       # bump with the files in index.html
 ICON_V = "4"
 TODAY = datetime.date.today()
 
@@ -2663,6 +2663,35 @@ def support_page():
                 body, crumbs=[("Support", "support.html")])
 
 
+def vote_section():
+    """"Who ya got?": this week's start/sit matchups fans vote on (votes.csv; live counts in Firestore via vote.js).
+    Hidden until firebase_web.json (the public web config of the Big Head GM Firebase project) exists."""
+    cfg_path = os.path.join(HERE, "firebase_web.json")
+    rows = []
+    if os.path.exists(os.path.join(HERE, "votes.csv")):
+        with open(os.path.join(HERE, "votes.csv"), newline="", encoding="utf-8") as fh:
+            rows = list(csv.DictReader(fh))
+    if not rows or not os.path.exists(cfg_path):
+        return "<!-- home-vote:start (written by build_pages.py) --><!-- home-vote:end -->"
+    with open(cfg_path, encoding="utf-8") as fh:
+        cfg = json.load(fh)
+    wk = max(int(r["week"]) for r in rows)
+    data = {"week": wk, "firebase": {"projectId": cfg["projectId"], "apiKey": cfg["apiKey"]},
+            "matchups": [{k: r[k] for k in ("id", "pos", "a", "b", "pick", "why")} for r in rows if int(r["week"]) == wk]}
+    blob = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
+    return f"""<!-- home-vote:start (written by build_pages.py) -->
+    <section class="vt wrap" id="vote" aria-labelledby="vt-h" hidden>
+      <div class="vt-head"><div><p class="eyebrow">WEEK {wk} · FANTASY</p><h2 class="vt-title" id="vt-h">Who ya <span>got?</span> 🤔</h2></div>
+        <span class="vt-count"></span></div>
+      <p class="vt-sub">Tap A or B. See what everyone else picked, and our call.</p>
+      <ol class="vt-list"></ol>
+      <a class="vt-more" href="fantasy-start-sit.html">Compare any players →</a>
+      <script type="application/json" id="vote-data">{blob}</script>
+      <script src="vote.js?v=1" defer></script>
+    </section>
+    <!-- home-vote:end -->"""
+
+
 def home_feature():
     """the best things on the site, first thing you see: the two daily games, fantasy, the trade analyzer and start/sit"""
     rows = gameday_data()
@@ -2913,6 +2942,11 @@ def home_blocks():
         text = re.sub(r"<!-- home-feature:start.*?<!-- home-feature:end -->", lambda m: feat, text, flags=re.S)
     else:
         text = text.replace('    <section class="hero">', "    " + feat + '\n\n    <section class="hero">', 1)
+    vote = vote_section()
+    if "<!-- home-vote:start" in text:
+        text = re.sub(r"<!-- home-vote:start.*?<!-- home-vote:end -->", lambda m: vote, text, flags=re.S)
+    else:
+        text = text.replace("<!-- home-feature:end -->", "<!-- home-feature:end -->\n\n    " + vote, 1)
     tabs = f"<!-- tabs:start -->{gd_tabs()}<!-- tabs:end -->"
     if "<!-- tabs:start -->" in text:
         text = re.sub(r"<!-- tabs:start -->.*?<!-- tabs:end -->", lambda m: tabs, text, flags=re.S)
