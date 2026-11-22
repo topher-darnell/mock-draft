@@ -763,6 +763,7 @@ def week_points(week):
     if not rows and os.path.exists(os.path.join(HERE, "fantasy_live.csv")):
         rows = [r for r in read("fantasy_live.csv") if int(r["week"]) == week]
     pts = {r["name"]: [round(points(r, k), 1) for k in ("std", "half", "ppr")] + [_stat_line(r)] for r in rows}
+    final &= {r["team"] for r in rows}                     # final score is in but the stats aren't yet: don't call anyone "did not play"
     return pts, final
 
 

@@ -1373,8 +1373,10 @@ def game_log(name, pos, team):
         rows = fantasy.read("fantasy_weekly.csv")
         if os.path.exists(os.path.join(fantasy.HERE, "fantasy_live.csv")):
             rows += fantasy.read("fantasy_live.csv")
+        have = set()                                   # (team, week) with stats loaded
         for r in rows:
             _GL.setdefault(fantasy._key(r["name"]), []).append(r)
+            have.add((r["team"], int(r["week"])))
         games = {}
         for g in fantasy.read("fantasy_schedule.csv"):
             w = int(g["week"])
@@ -1382,7 +1384,7 @@ def game_log(name, pos, team):
             for me, op, home in ((g["away"], g["home"], False), (g["home"], g["away"], True)):
                 sc = (int(g["away_score"]), int(g["home_score"])) if done else None
                 mine, theirs = (sc[1], sc[0]) if (sc and home) else (sc if sc else (None, None))
-                games[(me, w)] = {"opp": op, "home": home, "done": done, "us": mine, "them": theirs}
+                games[(me, w)] = {"opp": op, "home": home, "done": done and (me, w) in have, "us": mine, "them": theirs}   # final but no stats yet: wait
         _GL["__games__"] = games
     games = _GL["__games__"]
     mine = sorted(_GL.get(fantasy._key(name), []), key=lambda r: int(r["week"]))
