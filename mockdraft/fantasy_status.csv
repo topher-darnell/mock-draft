@@ -5,7 +5,7 @@ week,name,team,roster,report,injury,final
 10,Matthew Stafford,LAR,ACT,,,
 10,Andy Dalton,ATL,INA,,,
 10,Tyrod Taylor,GB,ACT,,,
-11,Case Keenum,CHI,ACT,,,1
+11,Case Keenum,CHI,INA,,,1
 11,Kirk Cousins,MIN,ACT,,,1
 11,Kyle Juszczyk,SF,ACT,,,1
 11,Adam Thielen,MIN,RET,,,1
@@ -24,11 +24,11 @@ week,name,team,roster,report,injury,final
 11,Ameer Abdullah,JAX,ACT,,,1
 11,Marcus Mariota,WAS,ACT,,,1
 10,Austin Hooper,ATL,ACT,,,
-11,Nick Vannett,BAL,DEV,,,1
+11,Nick Vannett,BAL,ACT,,,1
 11,Chris Moore,BAL,DEV,,,1
 11,Kalif Raymond,CHI,ACT,,,1
 11,Derrick Henry,BAL,ACT,,,1
-11,Demarcus Robinson,SF,ACT,,,1
+11,Demarcus Robinson,SF,INA,,,1
 11,C.J. Ham,MIN,RET,,,1
 11,Carson Wentz,MIN,ACT,,,1
 11,Laquon Treadwell,IND,ACT,,,1
@@ -97,18 +97,18 @@ week,name,team,roster,report,injury,final
 11,D.J. Montgomery,IND,RES,,,1
 11,Alec Ingold,LAC,RES,,,1
 10,Olamide Zaccheaus,ATL,ACT,,,
-11,Kyler Murray,MIN,ACT,Out,Hamstring,1
+11,Kyler Murray,MIN,INA,Out,Hamstring,1
 11,T.J. Hockenson,MIN,ACT,,Wrist,1
 11,Josh Oliver,MIN,RES,,,1
 11,Devin Singletary,NYG,ACT,,,
 11,Will Grier,CAR,RET,,,1
 11,Tony Pollard,TEN,ACT,,Not injury related - resting player,1
 11,Jarrett Stidham,DEN,ACT,,,1
-11,Easton Stick,TB,ACT,,,1
+11,Easton Stick,TB,INA,,,1
 11,Gardner Minshew,ARI,RES,,,1
 11,Scott Miller,CHI,DEV,,,1
 11,David Sills,TB,DEV,,,1
-11,Lil'Jordan Humphrey,DEN,ACT,,,1
+11,Lil'Jordan Humphrey,DEN,INA,,,1
 11,Greg Dortch,BUF,ACT,,,1
 11,Ty Johnson,BUF,ACT,,Knee,1
 11,Tom Kennedy,DET,RES,,,1
@@ -131,7 +131,7 @@ week,name,team,roster,report,injury,final
 11,Deebo Samuel Sr.,SF,ACT,,,1
 11,Cody White,LV,ACT,,,1
 11,Tyler Huntley,BAL,RES,,,1
-11,Salvon Ahmed,CHI,DEV,,,1
+11,Salvon Ahmed,CHI,ACT,,,1
 11,Juwan Johnson,NO,ACT,,,1
 11,Rico Dowdle,PIT,ACT,,,1
 11,J.K. Dobbins,DEN,ACT,,,1
@@ -143,7 +143,7 @@ week,name,team,roster,report,injury,final
 11,Michael Pittman,PIT,RES,Questionable,Foot,1
 11,Jauan Jennings,MIN,ACT,,Calf,1
 10,Jordan Love,GB,ACT,,,
-11,AJ Dillon,CAR,ACT,,,1
+11,AJ Dillon,CAR,INA,,,1
 11,D'Andre Swift,CHI,ACT,,,1
 11,Cole Kmet,CHI,RES,,,1
 11,Darnell Mooney,NYG,ACT,,,
@@ -185,14 +185,14 @@ week,name,team,roster,report,injury,final
 11,Ben Skowronek,PIT,ACT,,,1
 10,Rhamondre Stevenson,NE,ACT,,,
 11,Kylen Granson,TEN,ACT,,Ankle,1
-11,Sam Ehlinger,DEN,ACT,,,1
+11,Sam Ehlinger,DEN,INA,,,1
 11,Luke Farrell,SF,ACT,,,1
 11,Pat Freiermuth,PIT,ACT,,,1
 11,Davis Mills,HOU,ACT,,,1
 11,Ja'Marr Chase,CIN,ACT,,,1
 11,DeVonta Smith,PHI,ACT,,Hamstring,1
 11,Kenny Gainwell,TB,ACT,,,1
-11,Michael Carter,TEN,DEV,,,1
+11,Michael Carter,TEN,ACT,,,1
 11,Justin Fields,KC,ACT,,Neck,1
 11,Michael Bandy,DEN,DEV,,,1
 11,Amon-Ra St. Brown,DET,ACT,,,1
@@ -207,7 +207,7 @@ week,name,team,roster,report,injury,final
 11,Hunter Long,ARI,ACT,,,1
 11,Tommy Tremble,CAR,ACT,Questionable,Knee,1
 11,Trey Lance,LAC,RES,,,1
-11,Zach Wilson,NO,ACT,,,1
+11,Zach Wilson,NO,INA,,,1
 11,Nikola Kalinic,CHI,RES,,,1
 11,Sam Howell,DAL,ACT,,,1
 11,Cole Turner,MIA,RES,,,1
@@ -246,7 +246,7 @@ week,name,team,roster,report,injury,final
 10,Zaire Mitchell-Paden,CLE,ACT,,,
 11,Kaden Davis,CHI,DEV,,,1
 11,Brandon Johnson,PIT,DEV,,,1
-11,Jashaun Corbin,DAL,DEV,,,1
+11,Jashaun Corbin,DAL,ACT,,,1
 11,Stone Smartt,NO,DEV,,,1
 11,Deven Thompkins,LV,DEV,,,1
 11,Sincere McCormick,SF,DEV,,,1
@@ -267,7 +267,7 @@ week,name,team,roster,report,injury,final
 11,Trey McBride,ARI,ACT,,,1
 10,Velus Jones Jr.,SEA,DEV,,,
 10,Brian Robinson,ATL,RES,,,
-11,Jelani Woods,NYJ,ACT,,,1
+11,Jelani Woods,NYJ,INA,,,1
 11,KaVontae Turpin,DAL,ACT,,,1
 11,Jeremy Ruckert,NYJ,ACT,,,1
 11,Chig Okonkwo,WAS,ACT,,Back,1
@@ -277,7 +277,7 @@ week,name,team,roster,report,injury,final
 11,Isaiah Likely,NYG,ACT,,Groin,
 10,Kyren Williams,LAR,ACT,,,
 11,Zamir White,NO,DEV,,,1
-11,Jake Ferguson,DAL,ACT,Out,Knee,1
+11,Jake Ferguson,DAL,INA,Out,Knee,1
 11,Charlie Kolar,LAC,ACT,Questionable,Concussion,1
 10,Skyy Moore,GB,ACT,,,
 11,Erik Ezukanma,PHI,DEV,,,1
@@ -290,13 +290,13 @@ week,name,team,roster,report,injury,final
 10,Christian Watson,GB,ACT,,,
 11,Malik Willis,MIA,RES,,,1
 11,Cade Otton,TB,ACT,,Thumb,1
-11,Kenneth Walker III,KC,ACT,Out,Groin,1
+11,Kenneth Walker III,KC,INA,Out,Groin,1
 11,Thomas Odukoya,KC,DEV,,,1
 11,Lucky Jackson,DET,DEV,,,1
 10,Xavier Smith,LAR,ACT,,,
 11,Israel Abanikanda,DAL,DEV,,,1
 11,Sean Clifford,CIN,DEV,,,1
-11,Dontayvion Wicks,PHI,ACT,Out,Ankle,1
+11,Dontayvion Wicks,PHI,RES,Out,Ankle,1
 11,Will Mallory,IND,INA,Out,Hamstring,1
 11,Evan Hull,ARI,ACT,,,1
 11,Tanner McKee,PHI,ACT,,Rib,1
@@ -344,7 +344,7 @@ week,name,team,roster,report,injury,final
 11,Emari Demercado,HOU,ACT,,,1
 10,Blake Whiteheart,CLE,ACT,,,
 10,Julian Hill,NE,RES,,,
-11,Jared Wayne,MIA,ACT,Out,Quadricep,1
+11,Jared Wayne,MIA,INA,Out,Quadricep,1
 11,Princeton Fant,DAL,RES,,,1
 11,Hunter Luepke,DAL,ACT,,,1
 10,Jake Bobo,SEA,RES,,,
@@ -358,7 +358,7 @@ week,name,team,roster,report,injury,final
 11,Shedrick Jackson,ARI,DEV,,,1
 11,Jacob Saylors,DET,ACT,,,1
 11,Carlos Washington,MIA,DEV,,,1
-11,Dalton Kincaid,BUF,ACT,Doubtful,Thumb,1
+11,Dalton Kincaid,BUF,INA,Doubtful,Thumb,1
 11,Brenton Strange,JAX,ACT,,,1
 11,Jalin Hyatt,NYG,ACT,,,
 10,Tyler Scott,LAR,DEV,,,
@@ -367,17 +367,17 @@ week,name,team,roster,report,injury,final
 11,Marvin Mims Jr.,DEN,ACT,,,1
 11,Tank Dell,HOU,ACT,,Hand,1
 11,Cedric Tillman,NO,DEV,,,1
-11,Jordan Addison,MIN,ACT,Out,Thumb,1
+11,Jordan Addison,MIN,INA,Out,Thumb,1
 10,Tucker Kraft,GB,ACT,,,
 11,Josh Downs,KC,ACT,,,1
 11,Jake Haener,NYG,DEV,,,
 11,Roschon Johnson,CHI,ACT,,,1
 11,Joel Wilson,TEN,DEV,,,1
-11,Tyjae Spears,TEN,ACT,Questionable,Knee,1
+11,Tyjae Spears,TEN,RES,Questionable,Knee,1
 11,De'Von Achane,MIA,RES,,,1
 11,Elijah Higgins,ARI,ACT,,,1
 11,Payne Durham,TB,ACT,,,1
-11,Jonathan Mingo,DAL,ACT,Out,Ankle,1
+11,Jonathan Mingo,DAL,INA,Out,Ankle,1
 11,Zay Flowers,BAL,ACT,,,1
 11,Sam LaPorta,DET,ACT,,,1
 11,Michael Mayer,LV,ACT,,,1
@@ -398,11 +398,11 @@ week,name,team,roster,report,injury,final
 10,George Holani,SEA,ACT,,,
 11,Jack Westover,WAS,DEV,,,1
 11,Malik Nabers,NYG,ACT,,,
-11,Brock Bowers,LV,ACT,Questionable,Ankle,1
+11,Brock Bowers,LV,INA,Questionable,Ankle,1
 11,Xavier Legette,CAR,ACT,,,1
 11,Jonathon Brooks,CAR,RES,Questionable,Groin,1
 11,Luke McCaffrey,WAS,ACT,,,1
-11,Ja'Tavion Sanders,CAR,ACT,,,1
+11,Ja'Tavion Sanders,CAR,INA,,,1
 11,Cade Stover,HOU,ACT,,,1
 11,Bucky Irving,TB,ACT,,Not injury related - resting player,1
 11,Isaac Guerendo,SF,RES,,,1
@@ -421,7 +421,7 @@ week,name,team,roster,report,injury,final
 11,Dylan Laube,LV,ACT,,,1
 11,Ryan Flournoy,DAL,ACT,,,1
 11,Devaughn Vele,NO,ACT,,,1
-11,Isaiah Williams,NYJ,ACT,Out,Ribs,1
+11,Isaiah Williams,NYJ,INA,Out,Ribs,1
 9,Austin Reed,BAL,ACT,,,
 11,Frank Gore Jr.,BUF,DEV,,,1
 11,Hayden Rucci,PHI,DEV,,,1
@@ -429,7 +429,7 @@ week,name,team,roster,report,injury,final
 11,Treyton Welch,NO,DEV,,,1
 11,Brevyn Spann-Ford,DAL,ACT,,,1
 11,Shawn Bowman,ARI,DEV,,,1
-11,Kedon Slovis,BAL,ACT,,,1
+11,Kedon Slovis,BAL,INA,,,1
 11,Kameron Johnson,TB,ACT,,,1
 11,British Brooks,HOU,RES,,,1
 11,Mason Tipton,NO,RES,,,1
@@ -440,13 +440,13 @@ week,name,team,roster,report,injury,final
 11,Jabari Small,DET,DEV,,,1
 11,Sam Hartman,WAS,DEV,,,1
 11,Colson Yankoff,WAS,ACT,,Knee,1
-11,Cody Schrader,DEN,DEV,,,1
+11,Cody Schrader,DEN,ACT,,,1
 11,Jeshaun Jones,MIN,ACT,,Shoulder,1
 11,Bo Nix,DEN,ACT,,,1
 11,Tip Reiman,ARI,RES,,,1
 10,Blake Corum,LAR,ACT,,,
-11,Roman Wilson,PIT,RES,Questionable,Hand,1
-11,Will Shipley,PHI,RES,Questionable,Foot,1
+11,Roman Wilson,PIT,ACT,Questionable,Hand,1
+11,Will Shipley,PHI,ACT,Questionable,Foot,1
 10,Jordan Whittington,LAR,RES,,,
 11,Devin Culp,MIN,DEV,,,1
 11,Devontez Walker,BAL,ACT,,,1
@@ -485,7 +485,7 @@ week,name,team,roster,report,injury,final
 10,Thomas Yassmin,GB,RES,,,
 10,Savion Williams,GB,ACT,,,
 11,Kyle McCord,MIA,ACT,,,1
-11,Phil Mafah,NYG,DEV,,,
+11,Phil Mafah,NYG,ACT,,,
 11,Darius Cooper,PHI,ACT,,,1
 11,Amar Johnson,LAC,DEV,,,1
 11,Josh Kelly,HOU,DEV,,,1
@@ -514,13 +514,13 @@ week,name,team,roster,report,injury,final
 11,Jordan Watkins,SF,ACT,,,1
 11,Jordan James,SF,ACT,Questionable,Calf,1
 11,DJ Giddens,IND,ACT,,,1
-11,KeAndre Lambert-Smith,LAC,ACT,,,1
+11,KeAndre Lambert-Smith,LAC,INA,,,1
 11,Mitchell Evans,CAR,ACT,,,1
 11,Oronde Gadsden II,LAC,ACT,,,1
 11,Jackson Hawes,BUF,ACT,Questionable,Shoulder,1
 11,Ollie Gordon II,MIA,ACT,,,1
 11,Devin Neal,WAS,DEV,,,1
-11,Will Howard,PIT,ACT,,,1
+11,Will Howard,PIT,INA,,,1
 11,Kalel Mullings,TEN,DEV,,,1
 11,Riley Leonard,IND,INA,,,1
 11,Tahj Brooks,CIN,ACT,,,1
@@ -528,7 +528,7 @@ week,name,team,roster,report,injury,final
 11,Gavin Bartholomew,MIN,ACT,,,1
 10,Jimmy Horn Jr.,CLE,DEV,,,
 10,Cam Miller,GB,DEV,,,
-11,Thomas Fidone II,NYG,ACT,,,
+11,Thomas Fidone II,NYG,INA,,,
 11,Quinn Ewers,JAX,ACT,,,1
 11,Kyle Monangai,CHI,ACT,,Toe,1
 11,Tez Johnson,TB,ACT,,,1
@@ -563,14 +563,14 @@ week,name,team,roster,report,injury,final
 10,Antwane Wells Jr.,ATL,DEV,,,
 11,DJ Uiagalelei,LAC,ACT,,,1
 10,Raheim Sanders,CLE,RES,,,
-11,Carter Runyon,LV,DEV,,,1
-11,Max Brosmer,MIN,ACT,,,1
+11,Carter Runyon,LV,ACT,,,1
+11,Max Brosmer,MIN,INA,,,1
 11,Dontae Fleming,NYG,DEV,,,
 11,Myles Price,MIN,ACT,,,1
 11,Ben Yurosek,MIN,ACT,,,1
 11,Xavier Restrepo,TEN,ACT,,,1
 11,Ke'Shawn Williams,CIN,DEV,,,1
-11,Nate Carter,KC,DEV,,,1
+11,Nate Carter,KC,ACT,,,1
 11,Joshua Simon,CAR,DEV,,,1
 10,Quincy Skinner Jr.,GB,DEV,,,
 10,Corey Kiner,NE,ACT,,,
@@ -579,17 +579,17 @@ week,name,team,roster,report,injury,final
 11,CJ Dippre,TB,DEV,,,1
 11,Brock Lampe,BUF,DEV,,,1
 10,Lan Larison,NE,ACT,,,
-11,Dont'e Thornton Jr.,LV,ACT,,,1
+11,Dont'e Thornton Jr.,LV,INA,,,1
 11,Arian Smith,NYJ,RES,,,1
 11,Woody Marks,HOU,INA,Out,Concussion,1
 11,Gunnar Helm,TEN,ACT,,,1
 11,Jaydon Blue,PHI,ACT,,,1
-11,Kurtis Rourke,SF,ACT,,,1
+11,Kurtis Rourke,SF,INA,,,1
 10,Konata Mumpfield,LAR,ACT,,,
 10,Brennan Presley,LAR,ACT,,,
 10,Mark Redman,GB,ACT,,,
 10,Jordan Waters,LAR,DEV,,,
-11,Max Hurleman,PIT,DEV,,,1
+11,Max Hurleman,PIT,ACT,,,1
 10,Montorie Foster Jr,SEA,DEV,,,
 10,Drake Dabney,GB,ACT,,,
 11,Lucas Scott,BAL,DEV,,,1
@@ -628,19 +628,19 @@ week,name,team,roster,report,injury,final
 11,Carson Towt,IND,RES,,,1
 11,Makai Lemon,PHI,ACT,,,1
 11,Ja'Kobi Lane,BAL,ACT,,,1
-11,Elijah Sarratt,BAL,ACT,,,1
+11,Elijah Sarratt,BAL,INA,,,1
 11,Mike Washington Jr.,LV,ACT,,,1
 11,Matthew Hibner,BAL,ACT,,Hand,1
-11,Nicholas Singleton,TEN,ACT,,,1
+11,Nicholas Singleton,TEN,INA,,,1
 11,Josh Cuevas,BAL,ACT,,,1
-11,Adam Randall,BAL,ACT,,Neck,1
+11,Adam Randall,BAL,INA,,Neck,1
 11,Cyrus Allen,KC,ACT,,,1
-11,Cole Payton,PHI,ACT,,,1
-11,Malik Benson,LV,ACT,,,1
+11,Cole Payton,PHI,INA,,,1
+11,Malik Benson,LV,INA,,,1
 10,Emmanuel Henderson Jr.,SEA,DEV,,,
 11,Anthony Smith,DAL,DEV,,,1
 11,Jaren Kanak,TEN,RES,,,1
-11,Garrett Nussmeier,KC,ACT,,,1
+11,Garrett Nussmeier,KC,INA,,,1
 11,Tyren Montgomery,TEN,DEV,,,1
 11,Camden Brown,DAL,ACT,,,1
 11,Jordan Hudson,DAL,DEV,,,1
@@ -675,7 +675,7 @@ week,name,team,roster,report,injury,final
 11,Bryce Lance,NO,ACT,,,1
 11,Colbie Young,CIN,ACT,,,1
 11,Reggie Virgil,ARI,ACT,,,1
-11,Justin Joly,MIA,ACT,,,1
+11,Justin Joly,MIA,INA,,,1
 11,Max Bredeson,MIN,ACT,,,1
 11,Tanner Koziol,JAX,ACT,,,1
 10,Joe Royer,CLE,RES,,,
@@ -685,7 +685,7 @@ week,name,team,roster,report,injury,final
 11,Barion Brown,NO,ACT,,,1
 11,Josh Cameron,JAX,ACT,,,1
 11,Demond Claiborne,MIN,RES,,,1
-11,C.J. Williams,JAX,ACT,,,1
+11,C.J. Williams,JAX,INA,,,1
 11,Jack Endries,CIN,ACT,,,1
 11,Athan Kaliakmanis,WAS,ACT,,,1
 10,Behren Morton,NE,INA,,,
@@ -693,9 +693,9 @@ week,name,team,roster,report,injury,final
 10,Jam Miller,ATL,DEV,,,
 10,Carsen Ryan,CLE,ACT,,,
 11,Deion Burks,IND,ACT,,,1
-11,Dallen Bentley,DEN,ACT,,,1
+11,Dallen Bentley,DEN,INA,,,1
 11,Damon Bankston,MIN,DEV,,,1
-11,Haynes King,CAR,ACT,,,1
+11,Haynes King,CAR,INA,,,1
 11,Le'Veon Moss,MIA,RET,,,1
 11,Hayden Large,CHI,RES,,,1
 11,Miller Moss,CHI,DEV,,,1
@@ -736,9 +736,9 @@ week,name,team,roster,report,injury,final
 11,Wesley Grimes,SF,DEV,,,1
 11,Will Pauling,SF,DEV,,,1
 11,Harrison Wallace III,ARI,ACT,,,1
-11,Gregory Desrosiers,NYG,ACT,,,
+11,Gregory Desrosiers,NYG,INA,,,
 10,Eli Raridon,NE,ACT,,,
-11,Kaden Wetjen,PIT,ACT,,,1
+11,Kaden Wetjen,PIT,INA,,,1
 11,Riley Nowakowski,PIT,ACT,,,1
 10,CJ Daniels,LAR,ACT,,,
 10,Matthew Caldwell,LAR,RES,,,
@@ -747,42 +747,41 @@ week,name,team,roster,report,injury,final
 11,Dean Patterson IV,TB,DEV,,,1
 11,DJ Herman,MIA,ACT,,,1
 11,Carnell Tate,TEN,ACT,Questionable,Shoulder,1
-11,Skyler Bell,BUF,ACT,,,1
+11,Skyler Bell,BUF,INA,,,1
 11,Kendrick Law,DET,RES,,,1
 11,Luke Altmyer,DET,DEV,,,1
 11,Lewis Bond,HOU,DEV,,,1
 11,Marlin Klein,HOU,ACT,,,1
 11,Eli Stowers,PHI,ACT,,,1
 11,Germie Bernard,PIT,ACT,,,1
-11,Eli Heidenreich,PIT,ACT,,,1
+11,Eli Heidenreich,PIT,INA,,,1
 11,Jonah Coleman,DEN,ACT,,,1
 11,Nate Boerkircher,JAX,ACT,,,1
 10,Max Klare,LAR,ACT,,,
-11,Omar Cooper Jr.,NYJ,ACT,Out,Ankle,1
+11,Omar Cooper Jr.,NYJ,INA,Out,Ankle,1
 10,Jadarian Price,SEA,ACT,,,
 11,Caleb Douglas,MIA,ACT,,Shoulder,1
 11,Will Kacmarek,MIA,ACT,,,1
 11,Chris Bell,MIA,ACT,,Knee,1
 11,Kevin Coleman Jr.,MIA,ACT,,,1
 10,KC Concepcion,CLE,ACT,,,
-11,Brenen Thompson,LAC,ACT,Doubtful,Hamstring,1
+11,Brenen Thompson,LAC,INA,Doubtful,Hamstring,1
 11,Sam Roush,CHI,ACT,,,1
-11,Carson Beck,ARI,ACT,Questionable,Back,1
+11,Carson Beck,ARI,INA,Questionable,Back,1
 11,Fernando Mendoza,LV,ACT,,,1
-11,Drew Allar,PIT,ACT,,,1
+11,Drew Allar,PIT,INA,,,1
 10,Ty Simpson,LAR,INA,,,
 11,Seydou Traore,MIA,ACT,,,1
 11,Grant Finley,NYG,DEV,,,
 9,Barika Kpeenu,TB,DEV,,,
 11,Al-Jay Henderson,NYJ,DEV,,,1
-11,Sterling Shepard,NYJ,DEV,,,1
+11,Sterling Shepard,NYJ,ACT,,,1
 11,Marquez Valdes-Scantling,PIT,DEV,,,1
 11,Josiah Deguara,LAC,DEV,,,1
 11,Jack Stoll,SF,DEV,,,1
 10,Khalil Herbert,ATL,ACT,,,
 11,Jerome Ford,ARI,DEV,,,1
 11,Zach Ertz,PHI,ACT,,,1
-11,Brandin Cooks,SF,ACT,,,1
 11,Jaret Patterson,DEN,DEV,,,1
 10,Tanner Conner,NE,DEV,,,
 11,Brenden Bates,JAX,DEV,,,1
@@ -801,11 +800,11 @@ week,name,team,roster,report,injury,final
 11,Mecole Hardman,IND,DEV,,,1
 11,Elijah Mitchell,PHI,DEV,,,1
 11,Kyle Trask,DAL,DEV,,,1
-11,Zay Jones,ARI,DEV,,,1
+11,Zay Jones,ARI,ACT,,,1
 10,Terrell Jennings,NE,DEV,,,
 11,Joshua Pitsenberger,HOU,DEV,,,1
 11,Brandon Aiyuk,SF,EXE,,,1
-11,Audric Estime,NO,ACT,,,1
+11,Audric Estime,NO,INA,,,1
 11,Harrison Bryant,IND,DEV,,,1
 11,Dee Eskridge,MIN,DEV,,,1
 11,Malik Heath,WAS,DEV,,,1
