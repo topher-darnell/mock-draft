@@ -23,7 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FORMATS = [("std", "Standard"), ("half", "Half PPR"), ("ppr", "PPR"), ("tep", "TE Premium")]
 PER_CATCH = {"std": 0, "half": 0.5, "ppr": 1, "tep": 1}
 TE_BONUS = {"tep": 0.5}                       # TE Premium: an extra half point per tight end catch
-STATS_AS_OF = "through Week 10 of the 2026 season"
+STATS_AS_OF = "through Week 11 of the 2026 season"
 
 
 def read(name):

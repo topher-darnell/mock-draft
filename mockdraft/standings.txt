@@ -1,16 +1,16 @@
-# 2027 draft order after Week 10 (Nov 16, 2026), per profootballmania.com (updated Nov 16). One line per group of teams with the same record.
+# 2027 draft order after Week 11 (Nov 23, 2026, incl. MNF WAS 22-20 CIN), per profootballmania.com (updated Nov 23, "through Week 11"). Records and SOS match nflverse final scores. One line per group of teams with the same record.
 TEN LAC MIA
-NYJ
-PHI
-IND ARI ATL
-HOU TB NO
+IND NYJ ARI
+TB NO PHI ATL
+BAL LV
+HOU
 WAS
-DAL BAL LV
+DAL
 NE
-SEA LAR
+LAR SEA
 CAR
-CLE GB
+CLE PIT GB
 NYG
-PIT
-CIN JAX KC DET DEN MIN CHI
+CIN JAX MIN
+KC DET DEN CHI
 SF BUF
