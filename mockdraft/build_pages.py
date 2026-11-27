@@ -34,7 +34,7 @@ DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
 CSS_V, GM_V, SITE_JS_V = "85", "5", "2"       # bump with the files in index.html
-ICON_V = "4"
+ICON_V = "5"
 TODAY = datetime.date.today()
 
 POS_NAME = {"QB": "quarterback", "RB": "running back", "WR": "wide receiver", "TE": "tight end",
@@ -163,7 +163,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="manifest" href="{root}manifest.json?v=4">
+  <link rel="manifest" href="{root}manifest.json?v=5">
   <link rel="apple-touch-icon" href="{root}icons/apple-touch-icon.png?v={ICON_V}">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" sizes="32x32" href="{root}icons/favicon-32.png?v={ICON_V}">
@@ -205,7 +205,7 @@ def page(path, title, description, body, crumbs=None, nav="", scripts=(), body_c
   <script src="{root}gm.js?v={GM_V}"></script>
   <script src="{root}site.js?v={SITE_JS_V}"></script>
   <script src="{root}newsletter.js?v=1"></script>
-  <script src="{root}getapp.js?v=11"></script>
+  <script src="{root}getapp.js?v=12"></script>
   <script src="{root}appfeel.js?v=1"></script>{tags}
   <!-- Visit counter: GoatCounter (no cookies, no personal data). Stats: https://topherdarnell.goatcounter.com -->
   <script data-goatcounter="https://topherdarnell.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -1258,7 +1258,7 @@ def games_pages():
     </div>"""
     write("games/juke.html", page("games/juke.html", "Juke: Dodge 32 Big-Headed GMs · Big Head GM",
           "Juke is a free endless-runner football game. Swipe to dodge 32 big-headed GMs, grab footballs and see how many yards you can run.",
-          juke, nav="games/", scripts=("games/juke.js?v=1",), body_class="info-page game-page"))
+          juke, nav="games/", scripts=("games/juke.js?v=2",), body_class="info-page game-page"))
 
 
 # ---------- Prospectle (the daily guess-the-prospect game) ----------

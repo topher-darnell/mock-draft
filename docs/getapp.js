@@ -62,7 +62,7 @@
     const b = document.createElement("div");
     b.id = "app-banner";
     b.className = "app-banner";
-    b.innerHTML = `<img src="${ROOT}icons/icon-192.png?v=4" alt="" width="40" height="40">
+    b.innerHTML = `<img src="${ROOT}icons/icon-192.png?v=5" alt="" width="40" height="40">
       <span>${isIOS ? "<b>Big Head GM is on the App Store</b><small>Free · fantasy football + mock draft</small>" : "<b>Get the Big Head GM app</b><small>Free · add it to your home screen</small>"}</span>
       <button type="button" class="app-banner-go">${isIOS ? "Get" : "Add"}</button>
       <button type="button" class="app-banner-x" aria-label="Not now">✕</button>`;

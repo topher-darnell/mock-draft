@@ -41,7 +41,7 @@
   }
 
   async function loadArt() {
-    hero = await loadImage(root + "icons/mascot-head.png?v=4");
+    hero = await loadImage(root + "icons/mascot-head.png?v=5");
     if (!HAS_GM) return;
     const all = await Promise.all(GM.TEAM_NAMES.map(async (team) => ({
       team, tint: GM.tint(team, 0.85, "#20262E"), pic: await GM.picture(team, "trade"),
