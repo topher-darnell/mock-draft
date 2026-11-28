@@ -139,3 +139,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+    try:                                   # Franchise game: every active player re-rated with the new week
+        import franchise
+        franchise.main()
+    except Exception as e:                 # never block the weekly update on it
+        print("Franchise ratings not updated:", e)

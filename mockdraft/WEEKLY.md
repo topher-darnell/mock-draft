@@ -39,7 +39,8 @@ List what you changed in the commit message.
    traded players their new team.
 3. Change `STATS_AS_OF` in `fantasy.py` to the new week: the last week whose Monday game is done
    (on Tuesday Nov 17 that's Week 10). `fetch_weekly.py` prints the last week played; they must agree.
-   Then refresh the game-by-game stats and schedule: `python3 fetch_weekly.py` (downloads from
+   Then refresh the game-by-game stats and schedule: `python3 fetch_weekly.py` (this also re-rates every
+   active NFL player for the Franchise game: `docs/games/franchise-data.json`; bump FRANCHISE_V in build_pages.py) (downloads from
    nflverse on GitHub; used by Trending and the rest-of-season rankings; nflverse can lag a day).
    Also save a backup copy of the season totals: `cp fantasy_stats.csv fantasy_history/2026-wNN.csv`, where NN is
    the last week the stats count (two digits, e.g. `2026-w11.csv`). Never edit or delete old copies:

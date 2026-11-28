@@ -3293,3 +3293,67 @@ a, button, .filter, label { touch-action: manipulation; }
 .vt-more { display: inline-block; margin-top: 12px; font-weight: 800; color: var(--accent); }
 .vt-row > .pos { display: inline-block; padding: 3px 8px; border-radius: 7px; font-size: 12px; font-weight: 900; letter-spacing: .04em; color: #0B0B0C; background: var(--accent); }
 .vt-row > .pos.QB { background: #FF8A7A; } .vt-row > .pos.RB { background: #5FD49A; } .vt-row > .pos.WR { background: #6CB8FF; } .vt-row > .pos.TE { background: #F6C45C; }
+
+/* ---------- Franchise ---------- */
+.fr-shell { max-width: 560px; }
+.fr-h2 { margin: 26px 0 10px; font: 800 13px/1 Inter, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.fr-teams { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.fr-team { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 4px 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--text); font: 700 12px/1.1 Inter, sans-serif; cursor: pointer; min-height: 44px; }
+.fr-team:hover, .fr-team:focus-visible { border-color: var(--accent); }
+.fr-av { width: 48px; height: 54px; border-radius: 10px; }
+.fr-feed .fr-av, .fr-games .fr-av { width: 30px; height: 34px; border-radius: 8px; }
+.fr-champ .fr-av { width: 52px; height: 60px; }
+.fr-clock { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; padding: 16px 0 0 16px; border-radius: 16px; background: var(--accent); color: #12151C; overflow: hidden; }
+.fr-clock-text { display: flex; flex-direction: column; gap: 4px; padding-bottom: 16px; min-width: 0; }
+.fr-eyebrow { font: 800 12px/1 Inter, sans-serif; letter-spacing: 0.08em; }
+.fr-clock-text b { font: italic 900 26px/1.05 Inter, sans-serif; }
+.fr-quote { margin-top: 6px; align-self: flex-start; padding: 7px 11px; border-radius: 12px; background: #fff; font: 600 14px/1.3 Inter, sans-serif; }
+.fr-clock-gm { flex: 0 0 auto; line-height: 0; }
+.fr-chips { display: flex; gap: 6px; overflow-x: auto; margin: 14px 0 8px; padding-bottom: 4px; }
+.fr-chip { flex: 0 0 auto; min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--text); font: 700 14px Inter, sans-serif; cursor: pointer; }
+.fr-chip i { font-style: normal; color: var(--muted); font-weight: 600; margin-left: 2px; }
+.fr-chip.on { background: var(--text); color: #12151C; border-color: var(--text); }
+.fr-chip.on i { color: #12151C; }
+.fr-board, .fr-lineup, .fr-feed, .fr-games, .fr-seeds { list-style: none; margin: 0; padding: 0; }
+.fr-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.fr-ovr { flex: 0 0 auto; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; background: #2A3340; font: 900 17px Inter, sans-serif; }
+.fr-ovr.good { background: #23405F; color: #9CCBFF; }
+.fr-ovr.elite { background: var(--accent); color: #12151C; }
+.fr-ovr.small { width: 32px; height: 28px; font-size: 14px; border-radius: 8px; margin-left: auto; }
+.fr-who { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.fr-who b { font-size: 15px; }
+.fr-who span { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fr-draft { flex: 0 0 auto; min-height: 40px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--card); color: var(--text); font: 800 14px Inter, sans-serif; border: 1px solid #364150; cursor: pointer; }
+.fr-draft:hover { background: var(--accent); color: #12151C; border-color: var(--accent); }
+.fr-auto { margin-top: 14px; }
+.fr-lineup { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.fr-lineup li { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 8px; border-radius: 10px; background: var(--card); font-size: 13px; }
+.fr-lineup li.empty { opacity: 0.5; }
+.fr-slot { flex: 0 0 auto; width: 38px; font: 800 11px Inter, sans-serif; color: var(--accent); }
+.fr-lname { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.fr-feed li, .fr-games li { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.fr-feed li span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fr-record { display: flex; align-items: baseline; justify-content: space-between; margin: 16px 0 6px; }
+.fr-record b { font: italic 900 44px/1 Inter, sans-serif; }
+.fr-record span { font-size: 13px; color: var(--muted); }
+.fr-wk { flex: 0 0 auto; min-width: 34px; font: 800 12px Inter, sans-serif; color: var(--muted); }
+.fr-opp { flex: 1; font-weight: 600; }
+.fr-games b { font: 800 14px Inter, sans-serif; }
+.fr-games .win b { color: #6CD39A; }
+.fr-games .loss b { color: #F2876B; }
+.fr-games + .secondary { margin-top: 14px; }
+.fr-result { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 20px 16px 6px; border-radius: 18px; background: var(--card); }
+.fr-result-gm { line-height: 0; margin-bottom: 10px; }
+.fr-big { margin: 6px 0 0; font: italic 900 72px/1 Inter, sans-serif; }
+.fr-headline { margin: 8px 0 4px; font: 800 22px/1.2 Inter, sans-serif; color: var(--accent); }
+.fr-champ { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; background: var(--card); }
+.fr-champ > span { display: flex; flex-direction: column; gap: 3px; }
+.fr-champ > span span { font-size: 13px; color: var(--muted); }
+.fr-confs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.fr-confs h3 { margin: 0 0 6px; font: 800 12px Inter, sans-serif; color: var(--muted); letter-spacing: 0.06em; }
+.fr-seeds li { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.fr-seeds li b { margin-left: auto; }
+.fr-seeds li.me { color: var(--accent); font-weight: 800; }
+.fr-seed { width: 14px; color: var(--muted); }
+@media (max-width: 400px) { .fr-teams { grid-template-columns: repeat(3, 1fr); } .fr-big { font-size: 60px; } }
+#fr-app { scroll-margin-top: 84px; }

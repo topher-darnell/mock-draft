@@ -33,7 +33,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "85", "6", "2"       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "86", "6", "2"
+FRANCHISE_V = "1"   # bump when franchise-data.json or franchise.js changes       # bump with the files in index.html
 ICON_V = "5"
 TODAY = datetime.date.today()
 
@@ -1145,6 +1146,12 @@ def games_pages():
     </div>
     <h2 class="home-h2 gh-h2">More games</h2>
     <div class="gh-grid">
+      <a class="gh-card" href="franchise.html">
+        <span class="gh-art gh-juke" aria-hidden="true">{gm_tag("Kansas City Chiefs", "happy", 60, "gh-gm")}{gm_tag("Philadelphia Eagles", "angry", 60, "gh-gm")}{gm_tag("Detroit Lions", "shocked", 60, "gh-gm")}</span>
+        <span class="gh-text"><b>Franchise</b>
+          <span>Draft 22 starters from every active NFL player against 31 GMs, then play the season, the playoffs and the Super Bowl.</span>
+          <span class="pg-go">Play →</span></span>
+      </a>
       <a class="gh-card" href="blitz.html">
         <span class="gh-art gh-blitz" aria-hidden="true"><span>DRAFT</span><span>PASS</span></span>
         <span class="gh-text"><b>Draft Day Blitz</b>
@@ -1159,7 +1166,7 @@ def games_pages():
       </a>
     </div>
     {signup("games")}"""
-    write("games/index.html", page("games/index.html", "Free Football Games: Prospectle, Fantasle, 17-0, Draft Day Blitz and Juke · Big Head GM",
+    write("games/index.html", page("games/index.html", "Free Football Games: Prospectle, Fantasle, 17-0, Franchise, Draft Day Blitz and Juke · Big Head GM",
           "Free football games from Big Head GM: Prospectle, a daily guess-the-prospect game, Draft Day Blitz, a daily swipe-to-draft challenge, and Juke, an endless runner through 32 big-headed GMs.",
           hub, crumbs=[("Games", "games/")], nav="games/"))
 
@@ -1259,6 +1266,18 @@ def games_pages():
     write("games/juke.html", page("games/juke.html", "Juke: Dodge 32 Big-Headed GMs · Big Head GM",
           "Juke is a free endless-runner football game. Swipe to dodge 32 big-headed GMs, grab footballs and see how many yards you can run.",
           juke, nav="games/", scripts=("games/juke.js?v=2",), body_class="info-page game-page"))
+
+    franchise = f"""
+    <div class="gm-shell fr-shell">
+      <div class="gm-top">
+        <div><p class="eyebrow">BIG HEAD GM GAMES</p><h1 class="gm-title">Franchise</h1></div>
+        <a class="gm-exit" href="./">All games</a>
+      </div>
+      <div id="fr-app" data-v="{FRANCHISE_V}"><p class="in-note">Loading every NFL player…</p></div>
+    </div>"""
+    write("games/franchise.html", page("games/franchise.html", "Franchise: Draft Any NFL Player and Play the Season · Big Head GM",
+          "Franchise is a free NFL game: draft a 22-man starting lineup from every active NFL player in a snake draft against 31 GMs, then play the 2026 season, the playoffs and the Super Bowl.",
+          franchise, nav="games/", scripts=(f"games/franchise.js?v={FRANCHISE_V}",), body_class="info-page game-page"))
 
 
 # ---------- Prospectle (the daily guess-the-prospect game) ----------
@@ -2852,6 +2871,11 @@ def home_blocks():
             <span>A daily swipe-to-draft challenge against the clock.</span>
             <span class="pg-go">Play →</span>
           </a>
+          <a class="hd-card" href="games/franchise.html">
+            <b>Franchise</b>
+            <span>Draft any NFL player, then play the season.</span>
+            <span class="pg-go">Play →</span>
+          </a>
           <a class="hd-card" href="games/juke.html">
             <b>Juke</b>
             <span>An endless runner through 32 big-headed GMs.</span>
@@ -3065,7 +3089,7 @@ def sitemap(paths):
 
 
 def main():
-    paths = ["", "players/", "teams/", "odds.html", "awards.html", "experts.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "my-team.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "app.html", "privacy.html", "support.html"]
+    paths = ["", "players/", "teams/", "odds.html", "awards.html", "experts.html", "insights.html", "fantasy.html", "fantasy-draft.html", "fantasy-trade.html", "fantasy-ros.html", "fantasy-start-sit.html", "fantasy-start-em-sit-em.html", "fantasy-waiver-wire.html", "my-team.html", "scores.html", "news.html", "games/", "games/prospectle.html", "games/fantasle.html", "games/17-0.html", "games/blitz.html", "games/juke.html", "games/franchise.html", "app.html", "privacy.html", "support.html"]
     write("players/index.html", players_index())
     for p in players:
         write(f"players/{p['slug']}.html", player_page(p))
