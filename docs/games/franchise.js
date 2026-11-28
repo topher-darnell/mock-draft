@@ -48,6 +48,9 @@
   let allPicks = [];         // every pick so far: {n, round, t, p}
   let sortBy = "rating";     // rating | pot
   let view = "players";      // draft screen: players | board | teams
+  let year = 0;              // the season being played (starts at D.season)
+  let history = [];          // [{year, record, result, champ}]
+  let lastRec = null;        // last season's records, for the offseason order
   let viewTeam = null;
 
   const pickOne = (a) => a[Math.floor(Math.random() * a.length)];
@@ -106,6 +109,7 @@
     rosters = {}; open = {};
     for (const t of order) { rosters[t] = []; open[t] = Object.assign({}, D.slots); }
     pickNo = 0; filter = "All"; lastPicks = []; allPicks = []; view = "players"; viewTeam = null;
+    year = D.season; history = []; lastRec = null;
     updateReplacement();
     if (HAS_GM) GM.preload(NAME[me]);
     runToMyPick();
@@ -164,7 +168,7 @@
     setTimeout(() => { if (pickNo === n) runToMyPick(); }, 650);
   }
 
-  if (/[?&]frdebug/.test(location.search)) window.__fr = { rosters: () => rosters, order: () => order };
+  if (/[?&]frdebug/.test(location.search)) window.__fr = { rosters: () => rosters, order: () => order, pool: () => pool, open: () => open };
 
   function autoRest() {
     while (pickNo < 32 * ROUNDS) take(teamAt(pickNo), cpuChoose(teamAt(pickNo)));
@@ -325,7 +329,7 @@
     app.innerHTML = `
       <div class="fr-clock">
         <div class="fr-clock-text">
-          <span class="fr-eyebrow">${D.season} SEASON</span>
+          <span class="fr-eyebrow">${year} SEASON${history.length ? ` · YEAR ${history.length + 1}` : ""}</span>
           <b>${esc(NAME[me])}</b>
           <span class="fr-quote" id="fr-sline">Team rating ${STR[me].ovr} · #${rank} of 32. Let's play.</span>
         </div>
@@ -411,6 +415,9 @@
     }
     const record = `${r.w}-${r.l}`;
     const text = `${record}, ${short_}`;
+    lastRec = rec;
+    history.push({ year, record, result: short_, champ: po.champ === me });
+    const rings = history.filter((h) => h.champ).length;
     saveBest(text, r.w, po.champ === me, myGames.length);
 
     const gameRow = (g) => {
@@ -422,16 +429,18 @@
     app.innerHTML = `
       <div class="fr-result">
         ${HAS_GM ? `<div class="fr-result-gm">${GM.img(NAME[me], mood, 150)}</div>` : ""}
-        <span class="fr-eyebrow">${D.season} ${esc(NAME[me]).toUpperCase()}</span>
+        <span class="fr-eyebrow">${year} ${esc(NAME[me]).toUpperCase()}${history.length > 1 ? ` · YEAR ${history.length}` : ""}</span>
         <h2 class="fr-big">${record}</h2>
         <p class="fr-headline">${result}${po.champ === me ? " 🏆" : ""}</p>
         <p class="in-note">${div.indexOf(me) + 1}${["st", "nd", "rd", "th"][Math.min(3, div.indexOf(me))]} in the ${DIV_OF[me]}${seed ? ` · ${conf} #${seed} seed` : ""} · ${r.pf} points for, ${r.pa} against</p>
       </div>
+      <button class="start gm-wide" id="fr-next">Next season: ${year + 1} →</button>
       <div class="bz-buttons">
         <button class="secondary" id="fr-share">Share</button>
-        <button class="start" id="fr-again">Draft again</button>
+        <button class="secondary" id="fr-again">New franchise</button>
       </div>
       <p class="in-note" id="fr-share-note" role="status"></p>
+      ${history.length > 1 ? `<h2 class="fr-h2">Franchise history${rings ? ` · ${rings} ring${rings > 1 ? "s" : ""} 🏆` : ""}</h2><ol class="fr-hist">${history.slice().reverse().map((h) => `<li class="${h.champ ? "champ" : ""}"><span>${h.year}</span><b>${h.record}</b><span>${esc(h.result)}${h.champ ? " 🏆" : ""}</span></li>`).join("")}</ol>` : ""}
       ${myGames.length ? `<h2 class="fr-h2">Your playoff run</h2><ol class="fr-games">${myGames.map(gameRow).join("")}</ol>` : ""}
       <h2 class="fr-h2">Champion</h2>
       <div class="fr-champ">${gm(po.champ, "happy", 44)}<span><b>${esc(NAME[po.champ])}</b><span>${rec[po.champ].w}-${rec[po.champ].l} · team rating ${STR[po.champ].ovr}</span></span></div>
@@ -446,8 +455,139 @@
       }).join("")}</ol>
       <h2 class="fr-h2">Your lineup · team rating ${STR[me].ovr}</h2>
       ${lineupHTML(me)}`;
-    $("fr-again").addEventListener("click", showPickTeam);
+    $("fr-again").addEventListener("click", () => { if (history.length < 2 || confirmNew()) showPickTeam(); });
+    $("fr-next").addEventListener("click", offseason);
     $("fr-share").addEventListener("click", () => share(text, record, result, mood));
+    app.scrollIntoView({ block: "start" });
+  }
+
+  // no browser pop-ups: a second tap on the button confirms
+  let newArmed = 0;
+  function confirmNew() {
+    const b = $("fr-again");
+    if (Date.now() - newArmed < 4000) return true;
+    newArmed = Date.now();
+    b.textContent = "Tap again to start over";
+    setTimeout(() => { if (b.isConnected) b.textContent = "New franchise"; }, 4000);
+    return false;
+  }
+
+  // ---------- 5. the offseason: everyone gets a year older ----------
+
+  const PEAK = { QB: 30, RB: 25, WR: 27, TE: 28, OT: 28, IOL: 28, EDGE: 27, IDL: 27, LB: 26, CB: 26, S: 27 };
+  const CAP = { QB: 99, WR: 99, EDGE: 99, RB: 97, TE: 97, OT: 97, CB: 97, IDL: 97, IOL: 95, LB: 95, S: 95 };
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  function agePlayer(p) {
+    const before = p.rating;
+    p.age = (p.age || 26) + 1;
+    const peak = PEAK[p.slot], past = p.age - peak;
+    if (past <= 0) {
+      // growing: close part of the gap to potential, with some luck either way
+      p.pot = Math.min(CAP[p.slot], Math.max(p.rating, p.pot + Math.round(rnd(-3, 3))));
+      p.rating = Math.min(p.pot, Math.round(p.rating + (p.pot - p.rating) * rnd(0.25, 0.6) + rnd(-1, 2)));
+    } else {
+      // past the peak: slow at first, then faster (running backs fall off first)
+      const drop = (past <= 2 ? rnd(0, 2) : past <= 4 ? rnd(1, 4) : rnd(3, 7)) * (p.slot === "RB" ? 1.5 : p.slot === "QB" ? 0.7 : 1);
+      p.rating = Math.max(40, Math.round(p.rating - drop));
+      p.pot = p.rating;
+    }
+    p.change = p.rating - before;
+  }
+
+  function retires(p) {
+    const a = p.age;
+    let chance = a >= 39 ? 0.9 : a >= 37 ? 0.55 : a >= 35 ? 0.3 : a >= 33 ? 0.12 : a >= 31 ? 0.04 : 0;
+    if (p.slot === "RB" && a >= 30) chance += 0.15;
+    if (p.slot === "QB") chance *= 0.6;
+    if (p.rating < 65 && a >= 29) chance += 0.2;
+    return Math.random() < chance;
+  }
+
+  let offseasonInfo = null;
+
+  function offseason() {
+    year++;
+    const retired = [];
+    for (const t in rosters) {
+      rosters[t] = rosters[t].filter((p) => {
+        agePlayer(p);
+        if (retires(p)) { retired.push({ t, p }); open[t][p.slot]++; return false; }
+        return true;
+      });
+    }
+    pool = pool.filter((p) => { agePlayer(p); return !retires(p); });
+    pool.sort((a, b) => b.rating - a.rating);
+    // worst record fills its holes first; the teams that finished below you go before you
+    const worstFirst = Object.keys(rosters).sort((a, b) => (lastRec[a].w - lastRec[b].w) || (lastRec[a].pf - lastRec[a].pa) - (lastRec[b].pf - lastRec[b].pa));
+    const myIdx = worstFirst.indexOf(me);
+    updateReplacement();
+    for (const t of worstFirst.slice(0, myIdx)) fillTeam(t);
+    offseasonInfo = { retired, after: worstFirst.slice(myIdx + 1) };
+    renderOffseason();
+  }
+
+  function fillTeam(t) {
+    let p;
+    while (Object.values(open[t]).some((n) => n > 0) && (p = cpuChoose(t))) {
+      pool.splice(pool.indexOf(p), 1); rosters[t].push(p); open[t][p.slot]--;
+    }
+  }
+
+  function renderOffseason() {
+    const mine = rosters[me];
+    const gone = offseasonInfo.retired.filter((x) => x.t === me).map((x) => x.p);
+    const holes = ORDER.filter((s) => open[me][s] > 0);
+    const up = mine.filter((p) => p.change > 0).sort((a, b) => b.change - a.change);
+    const down = mine.filter((p) => p.change < 0).sort((a, b) => a.change - b.change);
+    const bigRet = offseasonInfo.retired.filter((x) => x.t !== me).sort((a, b) => b.p.rating - a.p.rating).slice(0, 5);
+    const avgChange = mine.reduce((n, p) => n + p.change, 0) / Math.max(1, mine.length);
+    const mood = gone.length >= 3 ? "shocked" : avgChange >= 1 ? "happy" : avgChange <= -1 ? "disappointed" : "neutral";
+    const line = holes.length ? `${holes.reduce((n, s) => n + open[me][s], 0)} open spot${holes.reduce((n, s) => n + open[me][s], 0) > 1 ? "s" : ""}. Go find somebody.` : avgChange >= 1 ? "The young guys got better. Love to see it." : "Same group. Run it back.";
+    const row = (p, extra) => `<li class="fr-row"><span class="fr-ovr${p.rating >= 90 ? " elite" : p.rating >= 80 ? " good" : ""}">${p.rating}</span><span class="fr-who"><b>${esc(p.name)}</b><span>${p.slot} · Age ${p.age} · ${potTag(p)}</span></span>${extra}</li>`;
+    const chg = (p) => `<span class="fr-chg ${p.change > 0 ? "up" : "down"}">${p.change > 0 ? "+" : ""}${p.change}</span>`;
+
+    let signHTML = "";
+    if (holes.length) {
+      signHTML = `<h2 class="fr-h2">Sign free agents</h2><p class="in-note">Players nobody drafted, a year older too. Pick one for each open spot.</p>` +
+        holes.map((s) => `<h3 class="fr-round">${s} · ${open[me][s]} open</h3><ol class="fr-board">${pool.filter((p) => p.slot === s).slice(0, 6).map((p) => row(p, `<button class="fr-draft fr-sign" data-id="${p.id}">Sign</button>`)).join("")}</ol>`).join("") +
+        `<button class="secondary gm-wide" id="fr-autosign">Sign the best ones for me</button>`;
+    }
+
+    app.innerHTML = `
+      <div class="fr-clock">
+        <div class="fr-clock-text">
+          <span class="fr-eyebrow">${year} OFFSEASON · YEAR ${history.length + 1}</span>
+          <b>${esc(NAME[me])}</b>
+          <span class="fr-quote">${esc(line)}</span>
+        </div>
+        ${HAS_GM ? `<div class="fr-clock-gm">${GM.img(NAME[me], mood, 84)}</div>` : ""}
+      </div>
+      ${holes.length ? "" : `<button class="start gm-wide" id="fr-play">Play the ${year} season →</button>`}
+      ${gone.length ? `<h2 class="fr-h2">Retired</h2><ol class="fr-board">${gone.map((p) => row(p, `<span class="fr-chg down">Retired</span>`)).join("")}</ol>` : ""}
+      ${signHTML}
+      ${up.length ? `<h2 class="fr-h2">Got better</h2><ol class="fr-board">${up.map((p) => row(p, chg(p))).join("")}</ol>` : ""}
+      ${down.length ? `<h2 class="fr-h2">Slowed down</h2><ol class="fr-board">${down.map((p) => row(p, chg(p))).join("")}</ol>` : ""}
+      ${bigRet.length ? `<h2 class="fr-h2">Around the league</h2><ol class="fr-feed">${bigRet.map((x) => `<li>${gm(x.t, "disappointed", 26)}<span><b>${esc(x.p.name)}</b> retired · ${x.p.slot} · ${esc(short(x.t))} · age ${x.p.age}</span></li>`).join("")}</ol>` : ""}
+      <h2 class="fr-h2">Your lineup · ${mine.length}/22</h2>
+      ${lineupHTML(me)}`;
+    app.querySelectorAll(".fr-sign").forEach((b) => b.addEventListener("click", () => {
+      const p = pool.find((x) => x.id === Number(b.dataset.id));
+      if (!p || !open[me][p.slot]) return;
+      pool.splice(pool.indexOf(p), 1); p.change = 0; rosters[me].push(p); open[me][p.slot]--;
+      renderOffseason();
+    }));
+    const auto = $("fr-autosign");
+    if (auto) auto.addEventListener("click", () => {
+      for (const s of ORDER) while (open[me][s] > 0) { const p = pool.find((x) => x.slot === s); if (!p) break; pool.splice(pool.indexOf(p), 1); p.change = 0; rosters[me].push(p); open[me][s]--; }
+      renderOffseason();
+    });
+    const play = $("fr-play");
+    if (play) play.addEventListener("click", () => {
+      updateReplacement();
+      for (const t of offseasonInfo.after) fillTeam(t);
+      showSeason();
+    });
     app.scrollIntoView({ block: "start" });
   }
 
@@ -472,7 +612,7 @@
       if (pic) { const h = 560, w = pic.sw * h / pic.sh; x.drawImage(pic.image, pic.sx, pic.sy, pic.sw, pic.sh, (W - w) / 2, 620 - h, w, h); }
     }
     x.textAlign = "center"; x.fillStyle = "#F2A93B"; x.font = "italic 900 44px Inter, sans-serif";
-    x.fillText(`FRANCHISE · ${D.season} ${(NAME[me] || me).toUpperCase()}`, W / 2, 720);
+    x.fillText(`FRANCHISE · ${year} ${(NAME[me] || me).toUpperCase()}`, W / 2, 720);
     x.fillStyle = "#fff"; x.font = "italic 900 220px Inter, sans-serif"; x.fillText(record, W / 2, 940);
     x.font = "800 64px Inter, sans-serif"; x.fillText(result, W / 2, 1040);
     x.fillStyle = "#F2A93B"; x.fillRect(0, H - 170, W, 170);
@@ -483,7 +623,7 @@
 
   async function share(text, record, result, mood) {
     const note = $("fr-share-note");
-    const msg = `I drafted the ${short(me)} on Big Head GM Franchise and went ${text}. Can you win it all? https://bigheadgm.com/games/franchise.html`;
+    const msg = `I drafted the ${short(me)} on Big Head GM Franchise and went ${text}${history.length > 1 ? ` in ${year}` : ""}. Can you win it all? https://bigheadgm.com/games/franchise.html`;
     try {
       const blob = await card(record, result, mood);
       const file = new File([blob], "big-head-gm-franchise.png", { type: "image/png" });

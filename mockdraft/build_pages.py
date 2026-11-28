@@ -33,8 +33,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "89", "6", "2"
-FRANCHISE_V = "9"   # bump when franchise-data.json or franchise.js changes       # bump with the files in index.html
+CSS_V, GM_V, SITE_JS_V = "90", "6", "2"
+FRANCHISE_V = "10"   # bump when franchise-data.json or franchise.js changes       # bump with the files in index.html
 ICON_V = "5"
 TODAY = datetime.date.today()
 
