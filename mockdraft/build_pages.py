@@ -34,7 +34,7 @@ DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
 CSS_V, GM_V, SITE_JS_V = "88", "6", "2"
-FRANCHISE_V = "7"   # bump when franchise-data.json or franchise.js changes       # bump with the files in index.html
+FRANCHISE_V = "8"   # bump when franchise-data.json or franchise.js changes       # bump with the files in index.html
 ICON_V = "5"
 TODAY = datetime.date.today()
 

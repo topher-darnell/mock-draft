@@ -132,7 +132,8 @@
     const left = open[t];
     for (const p of pool) {
       if (!left[p.slot]) continue;
-      const v = POS_W[p.slot] * (p.rating - repl[p.slot]) + (Math.random() * 4 - 2);
+      // half positional value, half best player available, so stars at any spot still go early
+      const v = (1 + POS_W[p.slot]) / 2 * (p.rating - repl[p.slot]) + (Math.random() * 6 - 3);
       if (v > bestV) { bestV = v; best = p; }
     }
     return best;
