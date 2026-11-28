@@ -141,3 +141,31 @@ Keep the two from version 1.0 (email, product interaction). Then **Publish**.
 ```
 Version 1.1 adds optional push notifications. They are off by default. To see them: open the My Team tab, add any players (tap "Add your players" and search, e.g. "Mahomes"), then turn on "Breaking news on your players" and allow notifications. Alerts are sent only when there is news about a player on the user's team, through Firebase Cloud Messaging. No account or sign-in is needed.
 ```
+
+## Version 1.2 (new look: big-head GMs)
+
+**Build it:** in Terminal, in the `ios-app` folder: `bash update-1.2.sh`. It pulls the new icon and splash,
+sets version 1.2 (build 11) and opens Xcode. Then **Product → Archive → Distribute App → App Store Connect → Upload**.
+
+**App Store Connect:** + next to iOS App → **1.2**, pick build **1.2 (11)** once it finishes processing.
+
+**Screenshots:** delete the old ones and drag in the new ones, in order:
+- 6.9" display: `ios-app/screenshots/` (1320 x 2868)
+- 6.3" display: `ios-app/screenshots-6.3/` (1206 x 2622)
+
+**What's New in This Version [4000]**
+
+```
+• Meet the GMs: every team now has its own big-head GM, and he reacts to every pick. Steals, reaches, and when another team takes your guy.
+• Your draft grade comes with a face. Get an A and he's thrilled. Get an F and he's furious. Share the card and let your friends see it.
+• New app icon and a fresh look across the app.
+• Faster pages and bug fixes.
+```
+
+**Promotional text [170]**
+
+```
+Be any NFL GM. 32 big-head GMs react to every pick, trade and grade. Plus start/sit, trade analyzer and daily games. Free.
+```
+
+**Review notes:** none needed (no new permissions or data).
