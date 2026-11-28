@@ -1,7 +1,9 @@
 /*
   Big-head GMs: one original general manager per team.
 
-  The GMs are photos (made with ChatGPT, cut out and framed for the site) in docs/gm:
+  The GMs are cartoons in docs/gms: <abbr>-<face>.webp, 400x480, transparent, one per team and face
+  (neutral, happy, angry, shocked, disappointed). Same size and spot in every face.
+  The older photos in docs/gm are the backup:
     gm/small-<mood>.webp  every team for one mood: 8 across, 4 down, 180x216 each, 4px gaps
     gm/<team-slug>.webp   one team, all 5 moods in a row: 320x384 each, 6px gaps
   The drawn cartoon GMs below are the backup if a photo can't load.
@@ -22,6 +24,7 @@
   "use strict";
 
   const MOODS = ["neutral", "focused", "happy", "sad", "trade"];
+  const EXTRA_MOODS = ["angry", "shocked", "disappointed"];
   const W = 200;
   const H = 240;
 
@@ -1026,7 +1029,7 @@
   const state = {};                         // photo url -> "loading" | "ok" | "error"
   const pictures = {};                      // photo url -> loaded Image, for the share card
 
-  function moodOf(mood) { return MOODS.indexOf(mood) === -1 ? "neutral" : mood; }
+  function moodOf(mood) { return MOODS.indexOf(mood) === -1 && EXTRA_MOODS.indexOf(mood) === -1 ? "neutral" : mood; }
   // the folder this file is in, so pages inside players/ or teams/ still find the photos
   const BASE = (typeof document !== "undefined" && document.currentScript && document.currentScript.getAttribute("src") || "")
     .replace(/gm\.js.*$/, "");
@@ -1044,9 +1047,43 @@
     im.src = src;
   }
 
-  // where this GM's picture is: which file, and how to show one cell of it
+  // ---------- cartoon GMs (docs/gms/<team>-<mood>.webp, 400x480, see header) ----------
+  const ABBR = {
+    "Arizona Cardinals": "ari", "Atlanta Falcons": "atl", "Baltimore Ravens": "bal", "Buffalo Bills": "buf",
+    "Carolina Panthers": "car", "Chicago Bears": "chi", "Cincinnati Bengals": "cin", "Cleveland Browns": "cle",
+    "Dallas Cowboys": "dal", "Denver Broncos": "den", "Detroit Lions": "det", "Green Bay Packers": "gb",
+    "Houston Texans": "hou", "Indianapolis Colts": "ind", "Jacksonville Jaguars": "jax", "Kansas City Chiefs": "kc",
+    "Las Vegas Raiders": "lv", "Los Angeles Chargers": "lac", "Los Angeles Rams": "lar", "Miami Dolphins": "mia",
+    "Minnesota Vikings": "min", "New England Patriots": "ne", "New Orleans Saints": "no", "New York Giants": "nyg",
+    "New York Jets": "nyj", "Philadelphia Eagles": "phi", "Pittsburgh Steelers": "pit", "San Francisco 49ers": "sf",
+    "Seattle Seahawks": "sea", "Tampa Bay Buccaneers": "tb", "Tennessee Titans": "ten", "Washington Commanders": "was"
+  };
+  // the site's moods -> the five drawn faces
+  const FACE = { neutral: "neutral", focused: "neutral", happy: "happy", sad: "disappointed", trade: "shocked",
+                 angry: "angry", shocked: "shocked", disappointed: "disappointed" };
+  const CARTOON_V = "1";
+  const CW = 400, CH = 480;
+  function cartoonUrl(teamName, mood) {
+    return BASE + "gms/" + ABBR[teamName] + "-" + (FACE[mood] || "neutral") + ".webp?v=" + CARTOON_V;
+  }
+
+  // where this GM's picture is: which file, and how to show it.
+  // Small GMs (avatars) zoom in on the head and shoulders; big ones show the whole GM.
   function source(teamName, mood, big) {
-    mood = moodOf(mood);
+    if (ABBR[teamName]) {
+      const src = cartoonUrl(teamName, mood);
+      if (state[src] !== "error") {
+        return big
+          ? { src, size: "100% 100%", pos: "50% 0%", sx: 0, sy: 0, sw: CW, sh: CH }
+          : { src, size: "136% auto", pos: "50% 4%", sx: 53, sy: 8, sw: 294, sh: 353 };
+      }
+    }
+    return oldSource(teamName, mood, big);
+  }
+
+  // the earlier photo GMs, kept as a backup
+  function oldSource(teamName, mood, big) {
+    mood = { angry: "trade", shocked: "sad", disappointed: "sad" }[mood] || moodOf(mood);
     if (hasPhoto(teamName)) {
       if (big && state[bigUrl(teamName)] !== "error") {
         const span = BIG.w * 5 + BIG.gap * 4;
@@ -1105,13 +1142,12 @@
 
   // load a team's photos ahead of time, so mood changes don't flash
   function preload(teamName) {
-    if (hasPhoto(teamName)) ensure(bigUrl(teamName));
-    for (const m of MOODS) ensure(smallUrl(m));
+    if (ABBR[teamName]) for (const m of ["neutral", "happy", "angry", "shocked", "disappointed"]) ensure(cartoonUrl(teamName, m));
   }
 
   // for <canvas>: { image, sx, sy, sw, sh } (best photo that loads, or the drawn GM)
   function picture(teamName, mood) {
-    const tries = [source(teamName, mood, true), source(teamName, mood, false)];
+    const tries = [source(teamName, mood, true), oldSource(teamName, mood, true), oldSource(teamName, mood, false)];
     const load = (src) => new Promise((resolve) => {
       if (pictures[src]) return resolve(pictures[src]);
       const im = new Image();
@@ -1135,7 +1171,7 @@
   }
 
   const api = {
-    MOODS, TEAMS, TEAM_NAMES, W, H, PHOTO_V,
+    MOODS, EXTRA_MOODS, ABBR, TEAMS, TEAM_NAMES, W, H, PHOTO_V,
     svg, svgFor, drawInner, url, img, setMood, preload, picture, tint, quip, QUIPS, slug,
     short: (name) => lookFor(name).short || name,
     catchphrase: (name) => lookFor(name).catchphrase || "",

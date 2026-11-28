@@ -83,7 +83,7 @@ function quip(kind) {
 }
 
 function moodForLabel(label) {
-  if (label === "Reach") return "sad";
+  if (label === "Reach") return "shocked";
   if (label === "Fair") return "neutral";
   return "happy";   // STEAL and Value
 }
@@ -91,7 +91,8 @@ function moodForLabel(label) {
 function moodForGrade(grade) {
   if (grade === "A" || grade === "B") return "happy";
   if (grade === "C") return "neutral";
-  return "sad";
+  if (grade === "D") return "sad";
+  return "angry";
 }
 
 // Your GM in the top corner of the draft screen
@@ -910,9 +911,34 @@ function runDraft() {
 
   if (maybeMoveUpCall(pick)) return;   // a team ahead of you offers its pick; wait for your answer
   statusWithGM(pick.team, "focused", `<b>Pick ${pick.pick} · ${pick.team}</b><span class="status-quote">On the clock…</span>`);
+  const target = myTarget(pick);
   const wanted = pick.wants && available.includes(pick.wants) ? pick.wants : null;
-  makePick(pick, wanted || cpuPick(pick.team, pick));
+  const player = wanted || cpuPick(pick.team, pick);
+  makePick(pick, player);
+  if (target && player === target) {
+    // they took the guy you were eyeing: your GM is not happy
+    setMyGM("angry");
+    const short = HAS_GM ? GM.short(pick.team) : pick.team;
+    statusWithGM(myTeam, "angry",
+      `<b>The ${short} took ${player.name}.</b><span class="status-quote">${pickOne(STOLEN_LINES)}</span>`, "stolen");
+    clearTimeout(gmCalmTimer);
+    gmCalmTimer = setTimeout(() => { if (!onClock) setMyGM("neutral"); }, 2600);
+    scheduleNext(Math.max(pickDelay(), 1500));
+    return;
+  }
   scheduleNext(pickDelay());
+}
+
+// The player you're probably hoping falls to you: best available at your top need,
+// while your next pick is close.
+const STOLEN_LINES = ["That was OUR guy.", "Unbelievable. Get me the phone.", "They knew. Somebody leaked our board.",
+  "Fine. We didn't want him anyway.", "Who told them?!", "I'm throwing this chair."];
+let gmCalmTimer = null;
+function myTarget(pick) {
+  const myNext = draftOrder.slice(nextPick).find((p) => p.team === myTeam && p.round <= rounds);
+  if (!myNext || myNext.pick - pick.pick > 8) return null;
+  const top = (needs[myTeam] || [])[0];
+  return top ? available.find((p) => p.position === top) || null : null;
 }
 
 // ---------- Your pick ----------

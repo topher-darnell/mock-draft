@@ -2,7 +2,7 @@
 // Online: always gets the newest files (and saves a copy).
 // Offline: uses the saved copy, so the home-screen app still runs a full mock.
 // Bump VERSION if you ever need every phone to throw away its saved copy.
-const VERSION = "bhg-v50";
+const VERSION = "bhg-v51";
 
 // the GM photos: same number as PHOTO_V in gm.js
 const PHOTO_V = "1";
@@ -107,7 +107,7 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.hostname === "fonts.googleapis.com" || url.hostname === "fonts.gstatic.com") {
     event.respondWith(cacheFirst(request));
-  } else if (url.origin === self.location.origin && url.pathname.includes("/gm/")) {
+  } else if (url.origin === self.location.origin && (url.pathname.includes("/gm/") || url.pathname.includes("/gms/"))) {
     event.respondWith(cacheFirst(request));
   } else if (url.origin === self.location.origin) {
     event.respondWith(networkFirst(request));
