@@ -31,7 +31,8 @@
   const OFF_W = { QB: 0.30, RB: 0.07, WR: 0.07, TE: 0.06, OT: 0.08, IOL: 0.0667 };   // per player (WR x3, OT x2, IOL x3)
   const DEF_W = { EDGE: 0.12, IDL: 0.08, LB: 0.07, CB: 0.09, S: 0.095 };
   // how the computer GMs value each spot when drafting
-  const POS_V = { QB: 7, EDGE: 3, OT: 2, WR: 2, CB: 2, IDL: 1, TE: 0, S: 0, RB: -1, LB: -1, IOL: -2 };
+  // how much each spot matters to a real front office: QB first, then the pass rush, the tackles and the middle of the defense
+  const POS_W = { QB: 2.2, EDGE: 1.6, OT: 1.45, LB: 1.3, IDL: 1.3, CB: 1.2, WR: 1.1, S: 0.95, IOL: 0.9, TE: 0.85, RB: 0.75 };
   const ROUNDS = 22;
   const BEST_KEY = "bhg-franchise-best";
 
@@ -98,6 +99,7 @@
     rosters = {}; open = {};
     for (const t of order) { rosters[t] = []; open[t] = Object.assign({}, D.slots); }
     pickNo = 0; filter = "All"; lastPicks = [];
+    updateReplacement();
     if (HAS_GM) GM.preload(NAME[me]);
     runToMyPick();
   }
@@ -105,13 +107,26 @@
   const teamAt = (n) => { const r = Math.floor(n / 32), i = n % 32; return order[r % 2 ? 31 - i : i]; };
   const roundOf = (n) => Math.floor(n / 32) + 1;
 
+  // Computer GMs draft on value over the player they could get later at that spot, weighted by how much the spot matters.
+  // "Later" = the best player left at that spot once every team that still needs one has taken one.
+  let repl = {};
+  function updateReplacement() {
+    repl = {};
+    for (const slot of ORDER) {
+      let need = 0;
+      for (const t in open) need += open[t][slot];
+      const left = pool.filter((p) => p.slot === slot);       // pool is best first
+      repl[slot] = left.length ? left[Math.min(left.length - 1, Math.max(0, need - 1))].rating : 50;
+    }
+  }
+
   function cpuChoose(t) {
+    if (pickNo % 8 === 0) updateReplacement();
     let best = null, bestV = -1e9;
     const left = open[t];
     for (const p of pool) {
       if (!left[p.slot]) continue;
-      // later rounds: don't spend a pick on a spot you can fill with anyone; a little noise so drafts differ
-      const v = p.rating + POS_V[p.slot] + (Math.random() * 6 - 3) + (left[p.slot] > 1 ? 0.5 : 0);
+      const v = POS_W[p.slot] * (p.rating - repl[p.slot]) + (Math.random() * 4 - 2);
       if (v > bestV) { bestV = v; best = p; }
     }
     return best;
@@ -139,6 +154,8 @@
     renderDraft(p);
     setTimeout(() => { if (pickNo === n) runToMyPick(); }, 650);
   }
+
+  if (/[?&]frdebug/.test(location.search)) window.__fr = { rosters: () => rosters, order: () => order };
 
   function autoRest() {
     while (pickNo < 32 * ROUNDS) take(teamAt(pickNo), cpuChoose(teamAt(pickNo)));
