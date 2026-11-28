@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.normpath(os.path.join(HERE, "..", "docs"))
 SITE = "https://bigheadgm.com/"
 DRAFT_DATE = "April 29, 2027"
-CSS_V, GM_V, SITE_JS_V = "86", "6", "2"
+CSS_V, GM_V, SITE_JS_V = "87", "6", "2"
 FRANCHISE_V = "5"   # bump when franchise-data.json or franchise.js changes       # bump with the files in index.html
 ICON_V = "5"
 TODAY = datetime.date.today()
@@ -2743,9 +2743,18 @@ def home_feature():
       <div class="wrap">
         <div class="fx-head">
           <h2 class="fx-title" id="fx-h">Start <span>here.</span></h2>
-          <p class="fx-sub">Three games and the fantasy tools that win leagues. Free, no sign-up.</p>
+          <p class="fx-sub">Free games and the fantasy tools that win leagues. No sign-up.</p>
         </div>
         <div class="fx-grid">
+          <a class="fx-card fx-fr" href="games/franchise.html">
+            <span class="fx-fr-text">
+              <span class="fx-eye">New game <b class="fx-new">NEW</b></span>
+              <span class="fx-name">Franchise</span>
+              <span class="fx-line">Draft any NFL player in 22 rounds against 31 GMs. Then play the season, the playoffs and the Super Bowl.</span>
+              <span class="fx-go">Build your team →</span>
+            </span>
+            <span class="fx-fr-gms" aria-hidden="true"><img class="fx-fr-gm" src="gms/kc-happy.webp" alt="" width="100" height="120" loading="lazy"><img class="fx-fr-gm big" src="gms/chi-neutral.webp" alt="" width="125" height="150" loading="lazy"><img class="fx-fr-gm" src="gms/phi-angry.webp" alt="" width="100" height="120" loading="lazy"></span>
+          </a>
           <div class="fx-card fx-gm">
             <span class="fx-eye">Daily games <b class="fx-num"></b></span>
             <span class="fx-name">Fantasle, Prospectle &amp; 17-0</span>
