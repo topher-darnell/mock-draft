@@ -261,6 +261,16 @@ def main():
             if x["score"] is None:                     # never really played: backup level, a bit higher with pedigree
                 x["rating"] = int(46 + 12 * x["pedv"] + min(4, num(x["p"]["years_exp"])))
 
+    # your own calls win: franchise_overrides.csv (player, team, rating)
+    ov_path = os.path.join(HERE, "franchise_overrides.csv")
+    if os.path.exists(ov_path):
+        with open(ov_path, newline="", encoding="utf-8") as f:
+            ov = {(r["player"].strip(), r["team"].strip()): int(r["rating"]) for r in csv.DictReader(f) if r["rating"].strip().isdigit()}
+        for x in players:
+            k = (x["p"]["full_name"], TEAM.get(x["p"]["team"], x["p"]["team"]))
+            if k in ov:
+                x["rating"] = max(40, min(99, ov[k]))
+
     out = []
     for x in sorted(players, key=lambda x: -x["rating"]):
         p = x["p"]
