@@ -291,7 +291,9 @@ def main():
     ov_path = os.path.join(HERE, "franchise_overrides.csv")
     if os.path.exists(ov_path):
         with open(ov_path, newline="", encoding="utf-8") as f:
-            ov = {(r["player"].strip(), r["team"].strip()): r["rating"].strip().lower() for r in csv.DictReader(f)}
+            rows_ = list(csv.DictReader(f))
+        ov = {(r["player"].strip(), r["team"].strip()): r["rating"].strip().lower() for r in rows_}
+        ov_pot = {(r["player"].strip(), r["team"].strip()): (r.get("potential") or "").strip() for r in rows_}
         keep = []
         for x in players:
             k = (x["p"]["full_name"], TEAM.get(x["p"]["team"], x["p"]["team"]))
@@ -300,6 +302,8 @@ def main():
                 continue
             if v.isdigit():
                 x["rating"] = max(40, min(99, int(v)))
+            if ov_pot.get(k, "").isdigit():
+                x["pot_ov"] = max(40, min(99, int(ov_pot[k])))
             keep.append(x)
         players = keep
 
@@ -309,7 +313,7 @@ def main():
         age = ""
         if p["birth_date"][:4].isdigit():
             age = SEASON - int(p["birth_date"][:4])
-        pot = potential(x, age)
+        pot = x.get("pot_ov") or potential(x, age)
         line = short_line(x["slot"], x["s"], x["g"])
         if x["hurt"]:
             line = "Injured · " + line

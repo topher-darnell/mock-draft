@@ -482,9 +482,9 @@
     const before = p.rating;
     p.age = (p.age || 26) + 1;
     const peak = PEAK[p.slot], past = p.age - peak;
-    if (past <= 0) {
+    if (past <= 0 || p.pot > p.rating) {               // still has room to grow (or you said he does)
       // growing: close part of the gap to potential, with some luck either way
-      p.pot = Math.min(CAP[p.slot], Math.max(p.rating, p.pot + Math.round(rnd(-3, 3))));
+      if (past <= 0) p.pot = Math.min(CAP[p.slot], Math.max(p.rating, p.pot + Math.round(rnd(-3, 3))));
       p.rating = Math.min(p.pot, Math.round(p.rating + (p.pot - p.rating) * rnd(0.25, 0.6) + rnd(-1, 2)));
     } else {
       // past the peak: slow at first, then faster (running backs fall off first)

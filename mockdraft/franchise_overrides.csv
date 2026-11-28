@@ -1,32 +1,77 @@
-player,team,rating
-Jared Goff,DET,92
-Bijan Robinson,ATL,98
-Kamari Lassiter,HOU,88
-Josh Allen,BUF,99
-Amon-Ra St. Brown,DET,97
-Jaxon Smith-Njigba,SEA,99
-CeeDee Lamb,DAL,95
-Trey McBride,ARI,98
-Brock Bowers,LV,98
-Malik Nabers,NYG,89
-Davante Adams,LAR,87
-Puka Nacua,LAR,98
-Jahmyr Gibbs,DET,99
-Christian McCaffrey,SF,95
-Garett Bolles,DEN,95
-Joe Burrow,CIN,98
-Kyren Williams,LAR,87
-Tyler Warren,IND,87
-DK Metcalf,PIT,86
-Micah Parsons,GB,94
-A.J. Brown,NE,86
-James Cook,BUF,92
-Brock Purdy,SF,92
-Christian Gonzalez,NE,94
-Brian Thomas Jr.,JAX,83
-Stefon Diggs,WAS,84
-Terry McLaurin,WAS,90
-Pat Surtain II,DEN,97
-De'Von Achane,MIA,93
-Drake Maye,NE,92
-Lane Johnson,PHI,retired
+player,team,rating,potential
+Jared Goff,DET,87,87
+Bijan Robinson,ATL,98,
+Kamari Lassiter,HOU,88,
+Josh Allen,BUF,99,
+Amon-Ra St. Brown,DET,97,
+Jaxon Smith-Njigba,SEA,99,
+CeeDee Lamb,DAL,95,
+Trey McBride,ARI,98,
+Brock Bowers,LV,98,
+Malik Nabers,NYG,89,
+Davante Adams,LAR,87,
+Puka Nacua,LAR,98,
+Jahmyr Gibbs,DET,99,
+Christian McCaffrey,SF,95,
+Garett Bolles,DEN,95,
+Joe Burrow,CIN,98,
+Kyren Williams,LAR,87,
+Tyler Warren,IND,87,
+DK Metcalf,PIT,86,
+Micah Parsons,GB,94,
+A.J. Brown,NE,86,
+James Cook,BUF,92,
+Brock Purdy,SF,93,93
+Christian Gonzalez,NE,94,
+Brian Thomas Jr.,JAX,83,
+Stefon Diggs,WAS,84,
+Terry McLaurin,WAS,90,
+Pat Surtain II,DEN,97,
+De'Von Achane,MIA,93,
+Drake Maye,NE,89,95
+Lane Johnson,PHI,retired,
+Matthew Stafford,LAR,95,98
+Patrick Mahomes,KC,95,99
+Caleb Williams,CHI,92,98
+Lamar Jackson,BAL,90,98
+Jordan Love,GB,90,90
+Trevor Lawrence,JAX,91,93
+C.J. Stroud,HOU,86,91
+Bryce Young,CAR,83,89
+Jayden Daniels,WAS,84,95
+Bo Nix,DEN,80,85
+Tyler Shough,NO,80,81
+Jalen Hurts,PHI,81,83
+Jaxson Dart,NYG,79,85
+Kirk Cousins,MIN,81,81
+Baker Mayfield,TB,78,80
+Deshaun Watson,CLE,75,75
+Justin Herbert,LAC,77,76
+Geno Smith,NYJ,73,73
+Kyler Murray,MIN,71,71
+Mac Jones,SF,69,71
+Cam Ward,TEN,77,93
+Jacoby Brissett,BAL,74,74
+Michael Penix Jr.,ATL,72,73
+Fernando Mendoza,LV,75,95
+J.J. McCarthy,NYG,71,75
+Marcus Mariota,WAS,73,73
+Malik Willis,MIA,69,70
+Jameis Winston,NYG,70,70
+Joe Flacco,CIN,69,69
+Ty Simpson,LAR,70,82
+Andy Dalton,ATL,67,67
+Drew Lock,SEA,70,72
+Joe Milton III,PHI,73,81
+Justin Fields,KC,69,69
+Tua Tagovailoa,ATL,72,72
+Drew Allar,PIT,68,75
+Shedeur Sanders,CLE,68,70
+Spencer Rattler,NO,66,66
+Tyler Huntley,BAL,70,70
+Tyrod Taylor,GB,67,67
+Anthony Richardson,IND,66,81
+Carson Wentz,MIN,69,69
+Carson Beck,ARI,67,73
+Joshua Dobbs,DET,65,65
+Jalen Milroe,SEA,66,76
