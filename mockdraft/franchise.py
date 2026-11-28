@@ -125,9 +125,12 @@ def production(slot, s, g):
 
 
 SEASONS = [SEASON - 2, SEASON - 1, SEASON]
-SEASON_W = {SEASON: 0.5, SEASON - 1: 0.32, SEASON - 2: 0.18}   # this season counts most
-W_PED, W_PED_OL = 0.45, 0.55                                   # how much the track record counts
+SEASON_W = {SEASON: 0.34, SEASON - 1: 0.36, SEASON - 2: 0.30}  # three seasons, about evenly
+W_PED, W_PED_OL = 0.30, 0.55                                   # how much the track record counts
 RATE_LO, CURVE = 54, 0.62
+# per position: (lowest rating for a player who plays, how fast ratings climb toward 99)
+SHAPE = {"QB": (61, 0.5), "RB": (67, 0.4), "WR": (67, 0.4), "TE": (61, 0.4), "OT": (64, 0.5), "IOL": (64, 0.4),
+         "EDGE": (67, 0.4), "IDL": (64, 0.4), "LB": (64, 0.4), "CB": (67, 0.4), "S": (67, 0.4)}
 
 STAT_KEYS = ["passing_yards", "passing_tds", "passing_interceptions", "passing_epa", "rushing_yards", "rushing_tds",
              "receptions", "receiving_yards", "receiving_tds", "def_sacks", "def_qb_hits", "def_tackles_for_loss",
@@ -249,7 +252,8 @@ def main():
         rated = sorted([x for x in group if x["score"] is not None], key=lambda x: x["score"])
         n = max(1, len(rated) - 1)
         for i, x in enumerate(rated):
-            x["rating"] = round(99 - (99 - RATE_LO) * (1 - i / n) ** CURVE)   # only the very best reach the 90s
+            lo, cv = SHAPE.get(slot, (RATE_LO, CURVE))
+            x["rating"] = round(99 - (99 - lo) * (1 - i / n) ** cv)   # only the very best reach the 90s
         for x in group:
             if x["score"] is None:                     # never really played: backup level, a bit higher with pedigree
                 x["rating"] = int(46 + 12 * x["pedv"] + min(4, num(x["p"]["years_exp"])))
