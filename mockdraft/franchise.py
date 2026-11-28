@@ -126,8 +126,10 @@ def production(slot, s, g):
 
 SEASONS = [SEASON - 2, SEASON - 1, SEASON]
 SEASON_W = {SEASON: 0.34, SEASON - 1: 0.36, SEASON - 2: 0.30}  # three seasons, about evenly
-W_PED, W_PED_OL = 0.30, 0.55                                   # how much the track record counts
+W_PED, W_PED_OL = 0.30, 0.80                                   # how much the track record counts
 RATE_LO, CURVE = 54, 0.62
+# the best player at each spot: a 99 is for the game-changing positions only
+TOP = {"QB": 99, "WR": 99, "EDGE": 99, "RB": 97, "TE": 97, "OT": 97, "CB": 97, "IDL": 97, "IOL": 95, "LB": 95, "S": 95}
 # per position: (lowest rating for a player who plays, how fast ratings climb toward 99)
 SHAPE = {"QB": (61, 0.5), "RB": (67, 0.4), "WR": (67, 0.4), "TE": (61, 0.4), "OT": (64, 0.5), "IOL": (64, 0.4),
          "EDGE": (67, 0.4), "IDL": (64, 0.4), "LB": (64, 0.4), "CB": (67, 0.4), "S": (67, 0.4)}
@@ -253,7 +255,8 @@ def main():
         n = max(1, len(rated) - 1)
         for i, x in enumerate(rated):
             lo, cv = SHAPE.get(slot, (RATE_LO, CURVE))
-            x["rating"] = round(99 - (99 - lo) * (1 - i / n) ** cv)   # only the very best reach the 90s
+            top = TOP.get(slot, 99)
+            x["rating"] = round(top - (top - lo) * (1 - i / n) ** cv)   # only the very best reach the 90s
         for x in group:
             if x["score"] is None:                     # never really played: backup level, a bit higher with pedigree
                 x["rating"] = int(46 + 12 * x["pedv"] + min(4, num(x["p"]["years_exp"])))
