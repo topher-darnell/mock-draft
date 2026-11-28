@@ -85,6 +85,31 @@ def slot_for(p, sacks_per_game):
     return None                           # K, P, LS
 
 
+# how good a player can still get: young players grow until their position's peak age,
+# faster with high draft capital or a big jump this season
+PEAK = {"QB": 30, "RB": 25, "WR": 27, "TE": 28, "OT": 28, "IOL": 28,
+        "EDGE": 27, "IDL": 27, "LB": 26, "CB": 26, "S": 27}
+GROW = {21: 5.4, 22: 4.8, 23: 4.2, 24: 3.6, 25: 2.6, 26: 1.9, 27: 1.3, 28: 0.8, 29: 0.5}
+
+
+def potential(x, age):
+    r = x["rating"]
+    if not isinstance(age, int):
+        return r
+    f = x.get("form", {})
+    trend = 0.0
+    if SEASON in f:
+        prior = [f[y]["score"] for y in f if y != SEASON]
+        if prior:
+            trend = max(0.0, f[SEASON]["score"] - sum(prior) / len(prior))
+    talent = 0.6 + 0.5 * x.get("cap", 0) + 0.8 * trend
+    if x.get("score") is None:                      # barely played: draft capital is all we know
+        talent = 0.5 + 0.7 * x.get("cap", 0)
+    grow = sum(GROW.get(a, 5.4 if a < 21 else 0) for a in range(age, PEAK[x["slot"]]))
+    room = min(1, max(0.3, 1 - (r - 50) / 70))       # harder to climb once you're already great
+    return max(r, int(min(TOP.get(x["slot"], 99), round(r + grow * talent * room))))
+
+
 def short_line(slot, s, g):
     if not g:
         return "No 2026 snaps"
@@ -215,6 +240,7 @@ def main():
         x["ped"] = {"honors": num(d.get("probowls")) + 2 * num(d.get("allpro")),
                     "av": num(d.get("w_av")) / yrs,
                     "draft": (300 - (num(d.get("pick")) or 300)) / 300 if yrs <= 3 else 0.0}
+        x["cap"] = (300 - (num(d.get("pick")) or 300)) / 300 if d else 0.0   # draft capital, 0 = undrafted
         players.append(x)
 
     def ranker(vals):
@@ -283,10 +309,11 @@ def main():
         age = ""
         if p["birth_date"][:4].isdigit():
             age = SEASON - int(p["birth_date"][:4])
+        pot = potential(x, age)
         line = short_line(x["slot"], x["s"], x["g"])
         if x["hurt"]:
             line = "Injured · " + line
-        out.append([p["full_name"], TEAM.get(p["team"], p["team"]), x["slot"], x["rating"], age, line])
+        out.append([p["full_name"], TEAM.get(p["team"], p["team"]), x["slot"], x["rating"], age, line, pot])
 
     sched = []
     with open(os.path.join(HERE, "fantasy_schedule.csv"), newline="") as f:

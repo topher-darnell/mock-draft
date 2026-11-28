@@ -3,7 +3,7 @@
   against 31 computer GMs), then play the real 2026 schedule, the playoffs and the Super Bowl.
 
   Data: franchise-data.json (built by mockdraft/franchise.py from nflverse)
-    players: [name, team, slot, rating 50-99, age, stat line]
+    players: [name, team, slot, rating 50-99, age, stat line, potential]
     schedule: [week, away, home, (away score, home score if played)]
 */
 (function () {
@@ -46,6 +46,7 @@
   let filter = "All";
   let lastPicks = [];
   let allPicks = [];         // every pick so far: {n, round, t, p}
+  let sortBy = "rating";     // rating | pot
   let view = "players";      // draft screen: players | board | teams
   let viewTeam = null;
 
@@ -101,7 +102,7 @@
     // a new random order every draft
     order = Object.keys(DIV_OF);
     for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
-    pool = D.players.map(([name, team, slot, rating, age, line], i) => ({ id: i, name, team, slot, rating, age, line }));
+    pool = D.players.map(([name, team, slot, rating, age, line, pot], i) => ({ id: i, name, team, slot, rating, age, line, pot: pot || rating }));
     rosters = {}; open = {};
     for (const t of order) { rosters[t] = []; open[t] = Object.assign({}, D.slots); }
     pickNo = 0; filter = "All"; lastPicks = []; allPicks = []; view = "players"; viewTeam = null;
@@ -176,7 +177,9 @@
     const left = open[me];
     const slots = ORDER.filter((s) => left[s] > 0);
     if (filter !== "All" && !left[filter]) filter = "All";
-    const list = pool.filter((p) => left[p.slot] > 0 && (filter === "All" || p.slot === filter)).slice(0, 40);
+    let list = pool.filter((p) => left[p.slot] > 0 && (filter === "All" || p.slot === filter));
+    if (sortBy === "pot") list = list.slice().sort((a, b) => b.pot - a.pot || b.rating - a.rating);
+    list = list.slice(0, 40);
     const mood = justTook ? (justTook.rating >= 92 ? "happy" : justTook.rating < 70 ? "shocked" : "neutral") : "neutral";
     const line = justTook
       ? (justTook.rating >= 92 ? pickOne(["Franchise guy. Done.", "That's a cornerstone.", "Somebody check on the other 31 GMs."])
@@ -200,11 +203,12 @@
       <div class="fr-chips" role="group" aria-label="Filter by position">
         ${["All", ...slots].map((s) => `<button class="fr-chip${s === filter ? " on" : ""}" data-f="${s}">${s}${s === "All" ? "" : ` <i>${left[s]}</i>`}</button>`).join("")}
       </div>
+      <div class="fr-sort" role="group" aria-label="Sort by">Sort: ${[["rating", "Rating"], ["pot", "Potential"]].map(([k, l]) => `<button class="fr-sortb${sortBy === k ? " on" : ""}" data-s="${k}">${l}</button>`).join("")}</div>
       <ol class="fr-board">
         ${list.map((p) => `
           <li class="fr-row">
             <span class="fr-ovr${p.rating >= 90 ? " elite" : p.rating >= 80 ? " good" : ""}">${p.rating}</span>
-            <span class="fr-who"><b>${esc(p.name)}</b><span>${p.slot} · ${p.team}${p.age ? ` · ${p.age}` : ""} · ${esc(p.line)}</span></span>
+            <span class="fr-who"><b>${esc(p.name)}</b><span>${p.slot} · ${p.team}${p.age ? ` · Age ${p.age}` : ""} · ${potTag(p)}</span><span>${esc(p.line)}</span></span>
             <button class="fr-draft" data-id="${p.id}">Draft</button>
           </li>`).join("")}
       </ol>
@@ -215,6 +219,7 @@
     app.querySelectorAll(".fr-tab").forEach((b) => b.addEventListener("click", () => { view = b.dataset.v; renderDraft(); }));
     const sel = $("fr-team-pick");
     if (sel) sel.addEventListener("change", () => { viewTeam = sel.value; renderDraft(); });
+    app.querySelectorAll(".fr-sortb").forEach((b) => b.addEventListener("click", () => { sortBy = b.dataset.s; renderDraft(); }));
     app.querySelectorAll(".fr-chip").forEach((b) => b.addEventListener("click", () => { filter = b.dataset.f; renderDraft(); }));
     app.querySelectorAll(".fr-draft").forEach((b) => b.addEventListener("click", () => {
       const p = pool.find((x) => x.id === Number(b.dataset.id));
@@ -246,6 +251,12 @@
       ${lineupHTML(viewTeam)}`;
   }
 
+  // potential, with a little arrow when there's room to grow
+  function potTag(p) {
+    const up = p.pot - p.rating;
+    return `<span class="fr-pot${up >= 8 ? " big" : ""}">Pot ${p.pot}${up >= 3 ? " ▲" : ""}</span>`;
+  }
+
   function lineupHTML(t) {
     const r = rosters[t];
     const rows = [];
@@ -253,7 +264,7 @@
       const mine = r.filter((p) => p.slot === s).sort((a, b) => b.rating - a.rating);
       for (let i = 0; i < D.slots[s]; i++) {
         const p = mine[i];
-        rows.push(`<li class="${p ? "" : "empty"}"><span class="fr-slot">${s}</span>${p ? `<span class="fr-lname">${esc(p.name)}</span><span class="fr-ovr small${p.rating >= 90 ? " elite" : p.rating >= 80 ? " good" : ""}">${p.rating}</span>` : `<span class="fr-lname">-</span>`}</li>`);
+        rows.push(`<li class="${p ? "" : "empty"}"><span class="fr-slot">${s}</span>${p ? `<span class="fr-lname">${esc(p.name)}<i>${p.age ? `Age ${p.age} · ` : ""}Pot ${p.pot}</i></span><span class="fr-ovr small${p.rating >= 90 ? " elite" : p.rating >= 80 ? " good" : ""}">${p.rating}</span>` : `<span class="fr-lname">-</span>`}</li>`);
       }
     }
     return `<ol class="fr-lineup">${rows.join("")}</ol>`;

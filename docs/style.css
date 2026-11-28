@@ -3322,7 +3322,7 @@ a, button, .filter, label { touch-action: manipulation; }
 .fr-ovr.small { width: 32px; height: 28px; font-size: 14px; border-radius: 8px; margin-left: auto; }
 .fr-who { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 .fr-who b { font-size: 15px; }
-.fr-who span { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fr-who > span { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fr-draft { flex: 0 0 auto; min-height: 40px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--card); color: var(--text); font: 800 14px Inter, sans-serif; border: 1px solid #364150; cursor: pointer; }
 .fr-draft:hover { background: var(--accent); color: #12151C; border-color: var(--accent); }
 .fr-auto { margin-top: 14px; }
@@ -3331,6 +3331,12 @@ a, button, .filter, label { touch-action: manipulation; }
 .fr-lineup li.empty { opacity: 0.5; }
 .fr-slot { flex: 0 0 auto; width: 38px; font: 800 11px Inter, sans-serif; color: var(--accent); }
 .fr-lname { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.fr-lname i { display: block; font-style: normal; font-weight: 500; font-size: 11px; color: var(--muted); }
+.fr-pot { color: var(--text); font-weight: 700; }
+.fr-pot.big { color: #F2A93B; }
+.fr-sort { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; font-size: 13px; color: var(--muted); }
+.fr-sortb { min-height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--text); font: 600 13px Inter, sans-serif; cursor: pointer; }
+.fr-sortb.on { background: #F2A93B; border-color: #F2A93B; color: #1a1a1a; }
 .fr-feed li, .fr-games li { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
 .fr-feed li span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .fr-record { display: flex; align-items: baseline; justify-content: space-between; margin: 16px 0 6px; }
