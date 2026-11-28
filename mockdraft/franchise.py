@@ -4,7 +4,7 @@
     python3 franchise.py --cached     # reuse the files already downloaded (in /tmp/bhg-franchise)
 
 Source: nflverse (free, public): the 2026 roster, weekly player stats and snap counts.
-Ratings are rank-based within each position group:
+Ratings are rank-based within each position group, blending three seasons and a track record:
   - how much he plays (share of his team's snaps, over the games so far)
   - what he does when he plays (yards and TDs for offense; sacks, pressures, tackles,
     passes defended and picks for defense). Offensive linemen are rated on snaps alone.
@@ -28,6 +28,11 @@ FILES = {
     "roster.csv": f"rosters/roster_{SEASON}.csv",
     "stats.csv": f"stats_player/stats_player_week_{SEASON}.csv",
     "snaps.csv": f"snap_counts/snap_counts_{SEASON}.csv",
+    f"snaps_{SEASON - 2}.csv": f"snap_counts/snap_counts_{SEASON - 2}.csv",
+    f"snaps_{SEASON - 1}.csv": f"snap_counts/snap_counts_{SEASON - 1}.csv",
+    f"stats_{SEASON - 2}.csv": f"stats_player/stats_player_week_{SEASON - 2}.csv",
+    f"stats_{SEASON - 1}.csv": f"stats_player/stats_player_week_{SEASON - 1}.csv",
+    "draft_picks.csv": "draft_picks/draft_picks.csv",
 }
 TEAM = {"LA": "LAR"}            # nflverse code -> the site's code
 
@@ -119,80 +124,135 @@ def production(slot, s, g):
     return v / g
 
 
-def main():
-    cached = "--cached" in sys.argv
-    fetch(cached)
-    roster = [p for p in rows("roster.csv") if p["status"] == "ACT"]
+SEASONS = [SEASON - 2, SEASON - 1, SEASON]
+SEASON_W = {SEASON: 0.5, SEASON - 1: 0.32, SEASON - 2: 0.18}   # this season counts most
+W_PED, W_PED_OL = 0.45, 0.55                                   # how much the track record counts
+RATE_LO, CURVE = 54, 0.62
 
-    # season totals by gsis id
-    stat_keys = ["passing_yards", "passing_tds", "passing_interceptions", "passing_epa", "rushing_yards", "rushing_tds",
-                 "receptions", "receiving_yards", "receiving_tds", "def_sacks", "def_qb_hits", "def_tackles_for_loss",
-                 "def_tackles_solo", "def_tackle_assists", "def_fumbles_forced", "def_pass_defended", "def_interceptions", "def_tds"]
+STAT_KEYS = ["passing_yards", "passing_tds", "passing_interceptions", "passing_epa", "rushing_yards", "rushing_tds",
+             "receptions", "receiving_yards", "receiving_tds", "def_sacks", "def_qb_hits", "def_tackles_for_loss",
+             "def_tackles_solo", "def_tackle_assists", "def_fumbles_forced", "def_pass_defended", "def_interceptions", "def_tds"]
+
+
+def season_data(stats_f, snaps_f):
     tot = defaultdict(lambda: defaultdict(float))
-    for r in rows("stats.csv"):
+    for r in rows(stats_f):
         if r.get("season_type", "REG") not in ("REG", ""):
             continue
         t = tot[r["player_id"]]
-        for k in stat_keys:
+        for k in STAT_KEYS:
             t[k] += num(r.get(k))
     for t in tot.values():
         t["tackles"] = t["def_tackles_solo"] + t["def_tackle_assists"]
-
-    # snaps by pfr id: games played, average share of the team's snaps
     snap = defaultdict(lambda: {"g": 0, "pct": 0.0, "snaps": 0.0})
-    by_name = {}                                       # many rosters rows have no pfr id: match on name + team
-    for r in rows("snaps.csv"):
+    by_name = {}
+    weeks = 1
+    for r in rows(snaps_f):
+        if r.get("game_type", "REG") != "REG":
+            continue
+        weeks = max(weeks, int(r["week"]))
+        by_name[norm(r["player"])] = r["pfr_player_id"]          # the player's name alone: he may have changed teams
         by_name[(norm(r["player"]), TEAM.get(r["team"], r["team"]))] = r["pfr_player_id"]
-        s = snap[r["pfr_player_id"]]
         o, d = num(r["offense_pct"]), num(r["defense_pct"])
         if o == 0 and d == 0:
             continue
+        s = snap[r["pfr_player_id"]]
         s["g"] += 1
         s["pct"] += max(o, d)
         s["snaps"] += max(num(r["offense_snaps"]), num(r["defense_snaps"]))
-    weeks = max([int(r["week"]) for r in rows("snaps.csv")] or [1])
+    return {"tot": tot, "snap": snap, "by_name": by_name, "weeks": weeks}
+
+
+def player_season(fd, p):
+    s = dict(fd["tot"].get(p["gsis_id"], {}))
+    for k in STAT_KEYS + ["tackles"]:
+        s.setdefault(k, 0.0)
+    team = TEAM.get(p["team"], p["team"])
+    pid = p["pfr_id"] or fd["by_name"].get((norm(p["full_name"]), team)) or fd["by_name"].get(norm(p["full_name"]), "")
+    sn = fd["snap"].get(pid, {"g": 0, "pct": 0.0, "snaps": 0.0})
+    g = sn["g"]
+    s["snaps"] = sn["snaps"]
+    share = sn["pct"] / g if g else 0.0
+    use = share * (0.7 + 0.3 * g / fd["weeks"])
+    return s, g, use
+
+
+def main():
+    cached = "--cached" in sys.argv
+    fetch(cached)
+    roster = [p for p in rows("roster.csv") if p["status"] in ("ACT", "RES", "INA")]
+    hurt = {p["gsis_id"] for p in roster if p["status"] != "ACT"}
+    season_weeks = {}
+    forms = {}                                         # season -> {"tot": stats by gsis, "snap": by pfr, "by_name": ...}
+    for yr in SEASONS:
+        stats_f, snaps_f = ("stats.csv", "snaps.csv") if yr == SEASON else (f"stats_{yr}.csv", f"snaps_{yr}.csv")
+        if not os.path.exists(os.path.join(CACHE, stats_f)):
+            continue
+        forms[yr] = season_data(stats_f, snaps_f)
+        season_weeks[yr] = forms[yr]["weeks"]
+    weeks = season_weeks[SEASON]
+    picks = {r["gsis_id"]: r for r in rows("draft_picks.csv") if r["gsis_id"]}
 
     players = []
     for p in roster:
-        s = dict(tot.get(p["gsis_id"], {}))
-        for k in stat_keys + ["tackles"]:
-            s.setdefault(k, 0.0)
-        pid = p["pfr_id"] or by_name.get((norm(p["full_name"]), TEAM.get(p["team"], p["team"])), "")
-        sn = snap.get(pid, {"g": 0, "pct": 0.0, "snaps": 0.0})
-        g = sn["g"]
-        s["snaps"] = sn["snaps"]
+        cur = forms[SEASON]
+        s, g, use = player_season(cur, p)
         slot = slot_for(p, s["def_sacks"] / g if g else 0)
         if not slot:
             continue
-        share = sn["pct"] / g if g else 0.0            # how much of the game he plays
-        avail = g / weeks                              # how many games he's played
-        players.append({"p": p, "slot": slot, "g": g, "s": s,
-                        "use": share * (0.7 + 0.3 * avail),
-                        "prod": production(slot, s, g)})
+        x = {"p": p, "slot": slot, "g": g, "s": s, "hurt": p["gsis_id"] in hurt, "form": {}}
+        for yr, fd in forms.items():
+            ss, gg, uu = player_season(fd, p)
+            if gg >= (1 if yr == SEASON else 4) and uu > 0.05:
+                x["form"][yr] = {"use": uu, "prod": production(slot, ss, gg)}
+        d = picks.get(p["gsis_id"], {})
+        yrs = max(1, SEASON - int(num(d.get("season")) or SEASON) + 1) if d else max(1, int(num(p["years_exp"])) + 1)
+        x["ped"] = {"honors": num(d.get("probowls")) + 2 * num(d.get("allpro")),
+                    "av": num(d.get("w_av")) / yrs,
+                    "draft": (300 - (num(d.get("pick")) or 300)) / 300 if yrs <= 3 else 0.0}
+        players.append(x)
 
-    # rate within each slot: rank on playing time and production, then map to 50-99
+    def ranker(vals):
+        vals = sorted(vals)
+        n = max(1, len(vals) - 1)
+        import bisect
+        return lambda v: bisect.bisect_left(vals, v) / n
+
     for slot in SLOTS:
         group = [x for x in players if x["slot"] == slot]
-        played = [x for x in group if x["g"] > 0 and x["use"] > 0.05]
-
-        def pct_rank(key):
-            vals = sorted(x[key] for x in played)
-            n = max(1, len(vals) - 1)
-            return lambda v: sum(1 for w in vals if w < v) / n
-
-        use_r, prod_r = pct_rank("use"), pct_rank("prod")
         w_use = 1.0 if slot in ("OT", "IOL") else 0.45
-        for x in played:
-            x["score"] = w_use * use_r(x["use"]) + (1 - w_use) * prod_r(x["prod"])
-        ordered = sorted(played, key=lambda x: x["score"])
-        n = max(1, len(ordered) - 1)
-        for i, x in enumerate(ordered):
-            q = i / n                                  # 0 worst .. 1 best among players who played
-            x["rating"] = round(55 + 44 * q ** 1.6)
+        # this season and the two before, each ranked within the position
+        for yr in forms:
+            played = [x for x in group if yr in x["form"]]
+            use_r = ranker([x["form"][yr]["use"] for x in played])
+            prod_r = ranker([x["form"][yr]["prod"] for x in played])
+            for x in played:
+                f = x["form"][yr]
+                f["score"] = w_use * use_r(f["use"]) + (1 - w_use) * prod_r(f["prod"])
+        # track record: Pro Bowls / All-Pros, career value per year, draft slot for young players
+        hon_r = ranker([x["ped"]["honors"] for x in group])
+        av_r = ranker([x["ped"]["av"] for x in group])
+        dr_r = ranker([x["ped"]["draft"] for x in group])
+        w_ped = W_PED_OL if slot in ("OT", "IOL") else W_PED
         for x in group:
-            if "rating" not in x:                      # hasn't played: backup level, a bit higher with experience
-                yrs = num(x["p"]["years_exp"])
-                x["rating"] = int(46 + min(10, yrs * 1.5) + (hash(x["p"]["full_name"]) % 4))
+            pd = x["ped"]
+            ped = 0.45 * (hon_r(pd["honors"]) if pd["honors"] else 0) + 0.35 * av_r(pd["av"]) + 0.20 * dr_r(pd["draft"])
+            fw = {yr: SEASON_W[yr] for yr in x["form"]}
+            if fw:
+                form = sum(x["form"][yr]["score"] * w for yr, w in fw.items()) / sum(fw.values())
+                # a little less sure about players with only part of a track record
+                form *= 0.85 + 0.15 * min(1, sum(fw.values()) / sum(SEASON_W.values()))
+                x["score"] = (1 - w_ped) * form + w_ped * ped
+            else:
+                x["score"] = None
+                x["pedv"] = ped
+        rated = sorted([x for x in group if x["score"] is not None], key=lambda x: x["score"])
+        n = max(1, len(rated) - 1)
+        for i, x in enumerate(rated):
+            x["rating"] = round(99 - (99 - RATE_LO) * (1 - i / n) ** CURVE)   # only the very best reach the 90s
+        for x in group:
+            if x["score"] is None:                     # never really played: backup level, a bit higher with pedigree
+                x["rating"] = int(46 + 12 * x["pedv"] + min(4, num(x["p"]["years_exp"])))
 
     out = []
     for x in sorted(players, key=lambda x: -x["rating"]):
@@ -200,8 +260,10 @@ def main():
         age = ""
         if p["birth_date"][:4].isdigit():
             age = SEASON - int(p["birth_date"][:4])
-        out.append([p["full_name"], TEAM.get(p["team"], p["team"]), x["slot"], x["rating"], age,
-                    short_line(x["slot"], x["s"], x["g"])])
+        line = short_line(x["slot"], x["s"], x["g"])
+        if x["hurt"]:
+            line = "Injured · " + line
+        out.append([p["full_name"], TEAM.get(p["team"], p["team"]), x["slot"], x["rating"], age, line])
 
     sched = []
     with open(os.path.join(HERE, "fantasy_schedule.csv"), newline="") as f:
