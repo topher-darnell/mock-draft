@@ -45,6 +45,9 @@
   let pickNo = 0;            // 0..703
   let filter = "All";
   let lastPicks = [];
+  let allPicks = [];         // every pick so far: {n, round, t, p}
+  let view = "players";      // draft screen: players | board | teams
+  let viewTeam = null;
 
   const pickOne = (a) => a[Math.floor(Math.random() * a.length)];
   const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
@@ -79,6 +82,7 @@
 
   // ---------- 2. the draft ----------
 
+  // standings2026 is no longer used for the order; kept for reference
   function standings2026() {
     const rec = {};
     for (const t in DIV_OF) rec[t] = { w: 0, l: 0, pd: 0 };
@@ -94,11 +98,13 @@
   function startDraft(team) {
     me = team;
     const rec = standings2026();
-    order = Object.keys(DIV_OF).sort((a, b) => (rec[a].w - rec[a].l) - (rec[b].w - rec[b].l) || rec[a].pd - rec[b].pd || Math.random() - 0.5);
+    // a new random order every draft
+    order = Object.keys(DIV_OF);
+    for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
     pool = D.players.map(([name, team, slot, rating, age, line], i) => ({ id: i, name, team, slot, rating, age, line }));
     rosters = {}; open = {};
     for (const t of order) { rosters[t] = []; open[t] = Object.assign({}, D.slots); }
-    pickNo = 0; filter = "All"; lastPicks = [];
+    pickNo = 0; filter = "All"; lastPicks = []; allPicks = []; view = "players"; viewTeam = null;
     updateReplacement();
     if (HAS_GM) GM.preload(NAME[me]);
     runToMyPick();
@@ -137,6 +143,7 @@
     rosters[t].push(p);
     open[t][p.slot]--;
     lastPicks.unshift({ n: pickNo + 1, t, p });
+    allPicks.push({ n: pickNo + 1, round: roundOf(pickNo), t, p });
     if (lastPicks.length > 8) lastPicks.pop();
     pickNo++;
   }
@@ -174,7 +181,7 @@
       ? (justTook.rating >= 92 ? pickOne(["Franchise guy. Done.", "That's a cornerstone.", "Somebody check on the other 31 GMs."])
         : justTook.rating < 70 ? pickOne(["Bold.", "I'm sure he's great in the locker room.", "We'll call that a project."])
         : pickOne(["Solid. Keep stacking.", "Good value right there.", "He fits what we do."]))
-      : `Round ${round} · pick ${pickNo + 1} of ${32 * ROUNDS}`;
+      : `Round ${round} · pick ${pickNo + 1} of ${32 * ROUNDS} · you pick #${order.indexOf(me) + 1} in round 1`;
     app.innerHTML = `
       <div class="fr-clock">
         <div class="fr-clock-text">
@@ -185,6 +192,10 @@
         ${HAS_GM ? `<div class="fr-clock-gm">${GM.img(NAME[me], mood, 84)}</div>` : ""}
       </div>
       ${done || justTook ? "" : `
+      <div class="fr-tabs" role="tablist">
+        ${[["players", "Available"], ["board", `Picks (${allPicks.length})`], ["teams", "Teams"]].map(([k, l]) => `<button class="fr-tab${view === k ? " on" : ""}" role="tab" aria-selected="${view === k}" data-v="${k}">${l}</button>`).join("")}
+      </div>
+      ${view === "players" ? `
       <div class="fr-chips" role="group" aria-label="Filter by position">
         ${["All", ...slots].map((s) => `<button class="fr-chip${s === filter ? " on" : ""}" data-f="${s}">${s}${s === "All" ? "" : ` <i>${left[s]}</i>`}</button>`).join("")}
       </div>
@@ -196,10 +207,13 @@
             <button class="fr-draft" data-id="${p.id}">Draft</button>
           </li>`).join("")}
       </ol>
-      <button class="secondary gm-wide fr-auto" id="fr-auto">Auto-draft the rest for me</button>`}
+      <button class="secondary gm-wide fr-auto" id="fr-auto">Auto-draft the rest for me</button>` : view === "board" ? boardHTML() : teamsHTML()}`}
       <h2 class="fr-h2">Your lineup · ${rosters[me].length}/22</h2>
       ${lineupHTML(me)}
-      ${lastPicks.length ? `<h2 class="fr-h2">Latest picks</h2><ol class="fr-feed">${lastPicks.map((x) => `<li>${gm(x.t, x.p.rating >= 90 ? "happy" : "neutral", 26)}<span><b>${x.n}. ${esc(short(x.t))}</b> ${esc(x.p.name)} · ${x.p.slot} ${x.p.rating}</span></li>`).join("")}</ol>` : ""}`;
+      ${lastPicks.length && view === "players" ? `<h2 class="fr-h2">Latest picks</h2><ol class="fr-feed">${lastPicks.map((x) => `<li>${gm(x.t, x.p.rating >= 90 ? "happy" : "neutral", 26)}<span><b>${x.n}. ${esc(short(x.t))}</b> ${esc(x.p.name)} · ${x.p.slot} ${x.p.rating}</span></li>`).join("")}</ol>` : ""}`;
+    app.querySelectorAll(".fr-tab").forEach((b) => b.addEventListener("click", () => { view = b.dataset.v; renderDraft(); }));
+    const sel = $("fr-team-pick");
+    if (sel) sel.addEventListener("change", () => { viewTeam = sel.value; renderDraft(); });
     app.querySelectorAll(".fr-chip").forEach((b) => b.addEventListener("click", () => { filter = b.dataset.f; renderDraft(); }));
     app.querySelectorAll(".fr-draft").forEach((b) => b.addEventListener("click", () => {
       const p = pool.find((x) => x.id === Number(b.dataset.id));
@@ -207,7 +221,28 @@
     }));
     const auto = $("fr-auto");
     if (auto) auto.addEventListener("click", autoRest);
-    if (!justTook) app.scrollIntoView({ block: "start" });
+    if (!justTook && view === "players") app.scrollIntoView({ block: "start" });
+  }
+
+  // every pick so far, newest first, grouped by round
+  function boardHTML() {
+    if (!allPicks.length) return `<p class="in-note">No picks yet.</p>`;
+    let html = "", round = 0;
+    for (const x of allPicks.slice().reverse()) {
+      if (x.round !== round) { if (round) html += "</ol>"; round = x.round; html += `<h3 class="fr-round">Round ${round}</h3><ol class="fr-feed fr-allpicks">`; }
+      html += `<li class="${x.t === me ? "mine" : ""}">${gm(x.t, "neutral", 26)}<span><b>${x.n}. ${esc(short(x.t))}</b> ${esc(x.p.name)} · ${x.p.slot} · <span class="fr-r">${x.p.rating}</span></span></li>`;
+    }
+    return html + "</ol>";
+  }
+
+  // any team's lineup so far
+  function teamsHTML() {
+    const teams = order.slice().sort((a, b) => (NAME[a] || a).localeCompare(NAME[b] || b));
+    if (!viewTeam || viewTeam === me) viewTeam = teams.find((t) => t !== me);
+    return `<label class="fr-pick-label" for="fr-team-pick">Team</label>
+      <select class="fr-select" id="fr-team-pick">${teams.filter((t) => t !== me).map((t) => `<option value="${t}"${t === viewTeam ? " selected" : ""}>${esc(NAME[t] || t)} · picks #${order.indexOf(t) + 1}</option>`).join("")}</select>
+      <h2 class="fr-h2">${esc(NAME[viewTeam] || viewTeam)} · ${rosters[viewTeam].length}/22</h2>
+      ${lineupHTML(viewTeam)}`;
   }
 
   function lineupHTML(t) {
